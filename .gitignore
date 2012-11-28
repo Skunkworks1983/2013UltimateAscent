@@ -49,6 +49,4 @@ PPC32diab
 # ucpp + sublime #
 ##################
 .ucpp
-.wrmakefile
-Makefile
 *sublime*
