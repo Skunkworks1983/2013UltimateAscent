@@ -1,7 +1,7 @@
 #ifndef EXAMPLE_COMMAND_H
 #define EXAMPLE_COMMAND_H
 
-#include "../CommandBase.h"
+#include "CommandBase.h"
 
 /**
  *
