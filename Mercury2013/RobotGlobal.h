@@ -2,18 +2,18 @@
 #define _ROBOT_GLOBAL_H
 
 #include "WPILib.h"
-#include "driveBase.h"
-#include "shifter.h"
-#include "shooter.h"
-#include "climber.h"
-#include "collector.h"
+#include "Subsystems/DriveBase.h"
+#include "Subsystems/Shifter.h"
+#include "Subsystems/Shooter.h"
+#include "Subsystems/Climber.h"
+#include "Subsystems/Collector.h"
 
 class RobotGlobal {
 	public:
 		DriveBase *theDriveBase;
 		Shooter *theShooter;
 		Climber *theClimber;
-		Collecter *theCollector;
+		Collector *theCollector;
 		
 		void emergencyStop();
 		void runAuto(float timeInSeconds);

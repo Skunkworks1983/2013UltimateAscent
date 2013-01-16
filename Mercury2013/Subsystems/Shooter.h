@@ -7,7 +7,7 @@ public:
 	void LoadDisk();
 	void Fire();
 private:
-	MotorController *motorController;
+	SpeedController *motorController;
 	Encoder *speedEncoder;
 	Encoder *pitchEncoder;
 	Victor *shooter;

@@ -3,9 +3,6 @@
 
 class Shifter {
 public:
-	explicit Solenoid(UINT32 SOLENOID_CHANNEL);
-	Solenoid(UINT8 SOLENOID_MODULENUMBER, UINT32 SOLENOID_CHANNEL);
-	~Solenoid();
 	void Set(bool on);
 	bool Get();
 	
@@ -13,8 +10,6 @@ public:
 	void compressorStart();
 	void compressorStop();
 private:
-	void InitSolenoid();
-	
 	UINT32 m_channel;
 	
 };

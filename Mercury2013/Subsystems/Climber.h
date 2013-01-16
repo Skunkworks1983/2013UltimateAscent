@@ -4,8 +4,6 @@
 class Climber {
 public:
 	Encoder *SOME_ENCODER;
-	Victor *
-private:
 	
 	
 };
