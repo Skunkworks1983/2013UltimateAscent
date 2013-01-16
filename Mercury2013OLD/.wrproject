@@ -235,12 +235,12 @@
     <buildtargets>
         <buildtarget buildtool="Linker" name="Mercury2013" passed="false" targetname="Mercury2013">
             <contents>
-                <buildtargetreference name="/Mercury2013/Mercury2013_partialImage"/>
+                <buildtargetreference name="/Mercury2013OLD/Mercury2013_partialImage"/>
             </contents>
         </buildtarget>
         <buildtarget buildtool="Partial Image Linker" name="Mercury2013_partialImage" passed="true" targetname="Mercury2013_partialImage">
             <contents>
-                <folder name="/Mercury2013" recursive="true"/>
+                <folder name="/Mercury2013OLD" recursive="true"/>
             </contents>
         </buildtarget>
     </buildtargets>
