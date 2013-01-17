@@ -27,7 +27,17 @@
 #define DRIVE_MOTOR_LEFT_2			2
 #define DRIVE_MOTOR_RIGHT			3
 #define DRIVE_MOTOR_RIGHT_2			4
-//Class name of the drive motor controller
+// Class name of the drive motor controller
 #define DRIVE_MOTOR_CREATE(channel)	(new Jaguar(channel))
+
+/**
+ * --SHOOTER--
+ *  Shooter motor channels.
+ */
+#define SHOOTER_MOTOR				TODO
+#define SHOOTER_PITCH_MOTOR			TODO
+// Class name of the shooter and shooter pitch motor controllers
+#define SHOOTER_MOTOR_CREATE(channel) (new Jaguar(channel))
+#define SHOOTER_PITCH_MOTOR_CREATE(channel) (new Jaguar(channel))
 
 #endif

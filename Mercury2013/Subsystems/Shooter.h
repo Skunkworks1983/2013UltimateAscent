@@ -1,7 +1,11 @@
 #ifndef _SHOOTER_H
 #define _SHOOTER_H
 
+#include "WPILib.h"
+#include "../Robotmap.h"
+
 class Shooter : public Subsystem {
+private:
 	SpeedController *shooterMotor;
 	SpeedController *pitchMotor;
 	Encoder *shooterEncoder;
