@@ -1,30 +1,35 @@
 #ifndef _DRIVE_BASE_H
 #define _DRIVE_BASE_H
 
-class DriveBase {
+#include "WPILib.h"
+#include "../Robotmap.h"
+
+class DriveBase : public Subsystem {
 private:
-	Victor *leftMotors;
-	Victor *rightMotors;
+	SpeedController *motorLeft;
+#ifdef DRIVE_MOTOR_LEFT_2
+	SpeedController *motorLeft2;
+#endif
+	SpeedController *motorRight;
+#ifdef DRIVE_MOTOR_RIGHT_2
+	SpeedController *motorRight2;
+#endif
+
+	Encoder *leftEncoder;
+	Encoder *rightEncoder;
+	Gyro *gyro;
 	
-	Encoder *leftEncoders;
-	Encoder *rightEncoders;
-	Gyro *gyroscope;
-	
-	Joystick *joystick1;
-	Joystick *joystick2;
 public:
-	DriveBase(int LEFTMOTORCHANNEL, int RIGHTMOTORCHANNEL);
+	DriveBase();
 	~DriveBase();
-	
-	void autoDrive(float distance);
-	void autoTurn(float angle);
-	void autoMove(float distance, float angle);
-	void tankDrive(float leftSpeed, float rightSpeed);
-	
-	Gyro *getGyroscope();
+
+	void setSpeed(float leftSpeed, float rightSpeed);
+
+	Gyro *getGyro();
 	Encoder *getLeftEncoder();
 	Encoder *getRightEncoder();
-	//virtual void AracadeDrive(Joystick); Not going to get used
+	
+	virtual void InitDefaultCommand();
 };
 
 #endif
