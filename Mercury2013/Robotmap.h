@@ -55,6 +55,9 @@
 #define COLLECTOR_PITCH_MOTOR		8 // TODO
 //Class name of the shooter and collector pitch motor controllers
 #define COLLECTOR_MOTOR_CREATE(channel) (new Jaguar(channel))
+#define COLLECTOR_PITCH_MOTOR_CREATE(channel) (new Jaguar(channel))
+//Collector constant speed
+#define COLLECTOR_MOTOR_SPEED				.5 // TODO get value from design team
 
 
 #endif

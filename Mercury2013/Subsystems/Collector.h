@@ -7,8 +7,12 @@ private:
 	Encoder *pitchEncoder;
 	SpeedController *collectorMotor;
 	SpeedController *collectorPitchMotor;
+	float currentAngle;
+	float startAngle;
 public:
-	void changePitch();
+	*Encoder getCollectorEncoder;
+	*Encoder getPitchEncoder;
+	void changePitch(float);
 	void startCollector();
 	void stopCollector();
 };
