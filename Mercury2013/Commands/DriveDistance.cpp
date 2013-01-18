@@ -1,5 +1,4 @@
 #include <math.h>
-#include "../Subsystems/Drivebase.h"
 #include "DriveDistance.h"
 
 DriveDistance::DriveDistance() {
@@ -13,6 +12,7 @@ DriveDistance::DriveDistance() {
 void DriveDistance::Initialize() {
 //	reset leftEncoder();
 //	reset leftEncoder();	
+	m_distanceDriven=0;
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -23,6 +23,7 @@ void DriveDistance::Execute() {
 //Set motors to half power, let them go until you are within a certain distance.
 //if distanceTraveled<targetDistance turn motors on
 //else turn motor off	
+	
 }
 
 // Make this return true when this Command no longer needs to run execute()
