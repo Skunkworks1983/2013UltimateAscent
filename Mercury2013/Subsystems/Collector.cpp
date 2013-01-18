@@ -1,7 +1,7 @@
 #include "Collector.h"
 
-Collector::Collector() :
-	startingAngle = getPitchEncoder();
+Collector::Collector() : Subsystem("Collector") {
+	// startAngle = getPitchEncoder(); TODO
 }
 
 Collector::~Collector() {	
@@ -18,18 +18,17 @@ void Collector::stopCollector() {
 }
 
 void Collector::changePitch(float angle) {
-	
-	collectorMotor->Set()
+	collectorMotor->Set(angle);
 }
 
-Encoder *DriveBase::getCollectorEncoder() {
+Encoder *Collector::getCollectorEncoder() {
 	return collectorEncoder;
 }
 
-Encoder *DriveBase::getPitchEncoder() {
+Encoder *Collector::getPitchEncoder() {
 	return pitchEncoder;
 }
 
-void DriveBase::InitDefaultCommand() {
+void Collector::InitDefaultCommand() {
 	// TODO Something
 }

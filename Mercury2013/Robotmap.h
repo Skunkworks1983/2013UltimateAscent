@@ -59,5 +59,4 @@
 //Collector constant speed
 #define COLLECTOR_MOTOR_SPEED				.5 // TODO get value from design team
 
-
 #endif

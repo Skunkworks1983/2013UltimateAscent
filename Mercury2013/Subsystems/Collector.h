@@ -1,8 +1,10 @@
 #ifndef _COLLECTOR_H
 #define _COLLECTOR_H
 
-class Collector {
-private:
+#include "WPILib.h"
+#include "../Robotmap.h"
+
+class Collector : public Subsystem {
 	Encoder *collectorEncoder;
 	Encoder *pitchEncoder;
 	SpeedController *collectorMotor;
@@ -10,11 +12,15 @@ private:
 	float currentAngle;
 	float startAngle;
 public:
-	*Encoder getCollectorEncoder;
-	*Encoder getPitchEncoder;
+	Collector();
+	~Collector();
+	Encoder *getCollectorEncoder();
+	Encoder *getPitchEncoder();
 	void changePitch(float);
 	void startCollector();
 	void stopCollector();
+	
+	virtual void InitDefaultCommand();
 };
 
 #endif
