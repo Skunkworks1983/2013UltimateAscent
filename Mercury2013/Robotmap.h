@@ -18,8 +18,15 @@
  */
 
 /**
+ * --OPERATOR INTERFACE--
+ * Joystick Channels
+ */
+#define OI_JOYSTICK_LEFT			1
+#define OI_JOYSTICK_RIGHT			2
+
+/**
  * --DRIVE BASE--
- *  Drive base motor channels.
+ * Drive base motor channels.
  * The second channel is for if there are multiple controllers on one side.
  * If there aren't simply do not define those variables.
  */
@@ -28,7 +35,7 @@
 #define DRIVE_MOTOR_RIGHT			3
 #define DRIVE_MOTOR_RIGHT_2			4
 // Class name of the drive motor controller
-#define DRIVE_MOTOR_CREATE(channel)	(new Jaguar(channel))
+#define DRIVE_MOTOR_CREATE(channel)	(new CANJaguar(channel))
 
 /**
  * --SHOOTER--

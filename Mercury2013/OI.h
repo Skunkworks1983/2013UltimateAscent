@@ -5,9 +5,13 @@
 
 class OI {
 private:
-
+	Joystick *driveJoystickLeft;
+	Joystick *driveJoystickRight;
 public:
 	OI();
+	
+	Joystick *getDriveJoystickLeft();
+	Joystick *getDriveJoystickRight();
 };
 
 #endif

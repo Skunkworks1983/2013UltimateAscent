@@ -1,4 +1,5 @@
 #include "DriveBase.h"
+#include "../Commands/TankDrive.h"
 
 DriveBase::DriveBase() :
 	Subsystem("DriveBase") {
@@ -54,5 +55,5 @@ Encoder *DriveBase::getRightEncoder() {
 }
 
 void DriveBase::InitDefaultCommand() {
-	// TODO Something
+	SetDefaultCommand(new TankDrive());
 }
