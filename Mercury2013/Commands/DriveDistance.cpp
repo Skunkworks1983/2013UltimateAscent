@@ -11,7 +11,10 @@ DriveDistance::DriveDistance() {
 // Called just before this Command runs the first time
 void DriveDistance::Initialize() {
 //	reset leftEncoder();
-//	reset leftEncoder();	
+	CommandBase::driveBase->getLeftEncoder()->Reset();
+//	reset rightEncoder();	
+	CommandBase::driveBase->getRightEncoder()->Reset();
+	
 	m_distanceDriven=0;
 }
 
