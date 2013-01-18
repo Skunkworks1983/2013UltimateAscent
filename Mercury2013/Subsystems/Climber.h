@@ -3,11 +3,8 @@
 
 class Climber {
 private:
-	Encoder *arm1Encoder;
-	Encoder *arm2Encoder;
-	
-	SpeedController *arm1Motor;
-	SpeedController *arm2Motor;
+	Encoder *armsEncoder;
+	SpeedController *armsMotor;
 	
 	SpeedController *arm1Hook1;
 	SpeedController *arm1Hook2;
@@ -17,19 +14,19 @@ private:
 	SpeedController *arm2Hook2;
 	SpeedController *arm2Hook3;
 	
-	SpeedController *arm3Hook1;
-	SpeedController *arm3Hook2;
-	SpeedController *arm3Hook3;
-	
 	DigitalInput *arm1Button;
 	DigitalInput *arm2Button;
 	
 public:
-	void moveArm(float distance);
-	void moveHook(float distance);
+	Climber();
+	~Climber();
+	void extendArm(double distance);
+	void retractArm(double distance);
+	void latchHook();
+	void unlatchHook();
 	
 	bool getButton();
-	float getDistance();
+	double getDistance();
 };
 
 #endif
