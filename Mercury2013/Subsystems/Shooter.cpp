@@ -3,8 +3,8 @@
 Shooter::Shooter() : Subsystem("Shooter") {
 	shooterMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR);
 	pitchMotor = SHOOTER_PITCH_MOTOR_CREATE(SHOOTER_PITCH_MOTOR);
-	shooterEncoder = new Encoder(/* TODO */);
-	pitchEncoder = new Encoder(/* TODO */);
+	// shooterEncoder = new Encoder(TODO);
+	// pitchEncoder = new Encoder(TODO);
 }
 
 Shooter::~Shooter() {

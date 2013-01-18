@@ -41,7 +41,7 @@ void DriveBase::setSpeed(float leftSpeed, float rightSpeed) {
 #endif
 }
 
-Gyroscope *DriveBase::getGyro() {
+Gyro *DriveBase::getGyro() {
 	return gyro;
 }
 

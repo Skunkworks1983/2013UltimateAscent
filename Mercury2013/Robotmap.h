@@ -34,8 +34,8 @@
  * --SHOOTER--
  *  Shooter motor channels.
  */
-#define SHOOTER_MOTOR				TODO
-#define SHOOTER_PITCH_MOTOR			TODO
+#define SHOOTER_MOTOR				5 // TODO
+#define SHOOTER_PITCH_MOTOR			6 // TODO
 // Class name of the shooter and shooter pitch motor controllers
 #define SHOOTER_MOTOR_CREATE(channel) (new Jaguar(channel))
 #define SHOOTER_PITCH_MOTOR_CREATE(channel) (new Jaguar(channel))
