@@ -2,15 +2,14 @@
 #define _COLLECTOR_H
 
 #include "WPILib.h"
-#include "../Robotmap.h"
 
 class Collector : public Subsystem {
 	Encoder *collectorEncoder;
 	Encoder *pitchEncoder;
 	SpeedController *collectorMotor;
 	SpeedController *collectorPitchMotor;
-	float currentAngle;
-	float startAngle;
+	double currentAngle;
+	double startAngle;
 public:
 	Collector();
 	~Collector();

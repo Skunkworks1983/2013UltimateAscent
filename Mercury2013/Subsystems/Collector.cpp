@@ -1,7 +1,9 @@
 #include "Collector.h"
+#include "../Robotmap.h"
 
 Collector::Collector() : Subsystem("Collector") {
-	// startAngle = getPitchEncoder(); TODO
+	pitchEncoder = new Encoder(PITCH_ENCODER_CHANNEL_A, PITCH_ENCODER_CHANNEL_B, false, Encoder::k4X);
+	pitchEncoder->Reset();
 }
 
 Collector::~Collector() {	
@@ -18,7 +20,12 @@ void Collector::stopCollector() {
 }
 
 void Collector::changePitch(float angle) {
-	collectorMotor->Set(angle);
+	
+	if (pitchEncoder->GetDistance() <= angle){
+		collectorMotor->Set(.5);
+	} else {
+		collectorMotor->Set(0);
+	}
 }
 
 Encoder *Collector::getCollectorEncoder() {
