@@ -244,12 +244,12 @@
         </mapAttribute>
     </attributes>
     <buildtargets>
-        <buildtarget buildtool="Linker" name="CommandBasedRobotTemplate" passed="false" targetname="CommandBasedRobotTemplate">
+        <buildtarget buildtool="Linker" name="Mercury2013" passed="false" targetname="Mercury2013">
             <contents>
-                <buildtargetreference name="/Mercury2013/CommandBasedRobotTemplate_partialImage"/>
+                <buildtargetreference name="/Mercury2013/Mercury2013_partialImage"/>
             </contents>
         </buildtarget>
-        <buildtarget buildtool="Partial Image Linker" name="CommandBasedRobotTemplate_partialImage" passed="true" targetname="CommandBasedRobotTemplate_partialImage">
+        <buildtarget buildtool="Partial Image Linker" name="Mercury2013_partialImage" passed="true" targetname="Mercury2013_partialImage">
             <contents>
                 <folder name="/Mercury2013" recursive="true"/>
             </contents>
