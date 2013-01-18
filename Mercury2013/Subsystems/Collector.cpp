@@ -19,13 +19,14 @@ void Collector::stopCollector() {
 	collectorMotor->Set(0);
 }
 
-void Collector::changePitch(float angle) {
-	
-	if (pitchEncoder->GetDistance() <= angle){
-		collectorMotor->Set(.5);
-	} else {
-		collectorMotor->Set(0);
+void Collector::changePosition(bool position) {
+	if (position != getPosition()){
+		collectorPitchMotor->Set()
 	}
+}
+
+bool Collector::getPosition() {
+	return currentPosition;
 }
 
 Encoder *Collector::getCollectorEncoder() {

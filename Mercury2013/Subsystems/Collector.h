@@ -8,16 +8,16 @@ class Collector : public Subsystem {
 	Encoder *pitchEncoder;
 	SpeedController *collectorMotor;
 	SpeedController *collectorPitchMotor;
-	double currentAngle;
-	double startAngle;
+	bool currentPosition;
 public:
 	Collector();
 	~Collector();
 	Encoder *getCollectorEncoder();
 	Encoder *getPitchEncoder();
-	void changePitch(float);
+	void changePosition(bool);
 	void startCollector();
 	void stopCollector();
+	bool getPosition();
 	
 	virtual void InitDefaultCommand();
 };
