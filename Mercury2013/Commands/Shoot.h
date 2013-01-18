@@ -1,5 +1,5 @@
-#ifndef EXAMPLE_COMMAND_H
-#define EXAMPLE_COMMAND_H
+#ifndef SHOOT_COMMAND_H
+#define SHOOT_COMMAND_H
 
 #include "CommandBase.h"
 

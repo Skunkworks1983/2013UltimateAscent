@@ -1,28 +1,28 @@
 #include "UFOBot.h"
 #include "Commands/CommandBase.h"
-#include "Commands/ExampleCommand.h"
 
 void UFOBot::RobotInit() {
 	CommandBase::init();
-	autonomousCommand = new ExampleCommand();
 	lw = LiveWindow::GetInstance();
+	GetWatchdog().SetEnabled(true);
 }
 
 void UFOBot::AutonomousInit() {
-	autonomousCommand->Start();
 }
 void UFOBot::AutonomousPeriodic() {
+	GetWatchdog().Feed();
 	Scheduler::GetInstance()->Run();
 }
 
 void UFOBot::TeleopInit() {
-	autonomousCommand->Cancel();
 }
 
 void UFOBot::TeleopPeriodic() {
+	GetWatchdog().Feed();
 	Scheduler::GetInstance()->Run();
 }
 
 void UFOBot::TestPeriodic() {
+	GetWatchdog().Feed();
 	lw->Run();
 }

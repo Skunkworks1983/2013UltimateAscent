@@ -1,5 +1,5 @@
-#ifndef EXAMPLE_COMMAND_H
-#define EXAMPLE_COMMAND_H
+#ifndef TANKDRIVE_COMMAND_H
+#define TANKDRIVE_COMMAND_H
 
 #include "CommandBase.h"
 

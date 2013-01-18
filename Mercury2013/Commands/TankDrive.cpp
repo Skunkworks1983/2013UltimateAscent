@@ -1,6 +1,7 @@
 #include "TankDrive.h"
 
-TankDrive::TankDrive() {
+TankDrive::TankDrive() :
+	CommandBase("TankDrive") {
 	Requires(driveBase);
 }
 
@@ -13,7 +14,7 @@ void TankDrive::Execute() {
 }
 
 bool TankDrive::IsFinished() {
-	return true;
+	return false;
 }
 
 void TankDrive::End() {

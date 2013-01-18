@@ -37,6 +37,8 @@
 // Class name of the drive motor controller
 #define DRIVE_MOTOR_CREATE(channel)	(new CANJaguar(channel))
 
+#define DRIVE_SHIFT_RELAY			2
+
 /**
  * --SHOOTER--
  *  Shooter motor channels.
@@ -61,4 +63,9 @@
 #define PITCH_ENCODER_CHANNEL_A				4  // TODO
 #define PITCH_ENCODER_CHANNEL_B				5  // TODO
 
+/**
+ * --COMPRESSOR--
+ */
+#define COMPRESSOR_RELAY			1
+#define COMPRESSOR_SWITCH			1
 #endif

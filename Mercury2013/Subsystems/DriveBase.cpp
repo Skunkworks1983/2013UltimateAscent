@@ -25,9 +25,9 @@ DriveBase::~DriveBase() {
 	delete motorRight2;
 #endif
 	
-	delete leftEncoder;
-	delete rightEncoder;
-	delete gyro;
+	//TODO delete leftEncoder;
+	//TODO delete rightEncoder;
+	//TODO delete gyro;
 }
 
 void DriveBase::setSpeed(float leftSpeed, float rightSpeed) {
@@ -36,9 +36,9 @@ void DriveBase::setSpeed(float leftSpeed, float rightSpeed) {
 	motorLeft2->Set(leftSpeed);
 #endif
 
-	motorRight->Set(rightSpeed);
+	motorRight->Set(-rightSpeed);
 #ifdef DRIVE_MOTOR_RIGHT_2
-	motorRight2->Set(rightSpeed);
+	motorRight2->Set(-rightSpeed);
 #endif
 }
 

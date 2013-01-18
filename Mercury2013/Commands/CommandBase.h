@@ -4,6 +4,7 @@
 #include "Commands/Command.h"
 #include "../Subsystems/Shooter.h"
 #include "../Subsystems/DriveBase.h"
+#include "../Subsystems/Pneumatics.h"
 #include "../OI.h"
 
 
@@ -21,6 +22,7 @@ public:
 	static Shooter *shooter;
 	static DriveBase *driveBase;
 	static OI *oi;
+	static Pneumatics *pneumatics;
 };
 
 #endif

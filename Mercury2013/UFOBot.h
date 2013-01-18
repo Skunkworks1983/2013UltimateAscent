@@ -5,7 +5,6 @@
 
 class UFOBot : public IterativeRobot {
 private:
-	Command *autonomousCommand;
 	LiveWindow *lw;
 
 public:
