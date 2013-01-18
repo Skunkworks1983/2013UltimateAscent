@@ -1,11 +1,12 @@
 #include <math.h>
-
+#include "../Subsystems/Drivebase.h"
 #include "DriveDistance.h"
 
 DriveDistance::DriveDistance() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
 	// DriveDistance 
+	Requires(driveBase);
 }
 
 // Called just before this Command runs the first time
