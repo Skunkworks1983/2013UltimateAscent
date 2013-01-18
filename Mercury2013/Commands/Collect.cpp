@@ -1,16 +1,13 @@
 #include "Collect.h"
 
 Collect::Collect() {
-	Requires(driveBase);
+	Requires(collector);
 }
 
 void Collect::Initialize() {
 }
 
 void Collect::Execute() {
-	if (position != getPosition()){
-			collectorPitchMotor->Set();
-		}
 }
 
 bool Collect::IsFinished() {

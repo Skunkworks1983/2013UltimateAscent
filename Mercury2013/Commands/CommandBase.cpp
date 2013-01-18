@@ -12,6 +12,7 @@ CommandBase::CommandBase() :
 // Initialize a single static instance of all of your subsystems to NULL
 Shooter *CommandBase::shooter = NULL;
 DriveBase *CommandBase::driveBase = NULL;
+Collector *CommandBase::collector = NULL;
 OI *CommandBase::oi = NULL;
 Pneumatics *CommandBase::pneumatics = NULL;
 
@@ -21,5 +22,6 @@ void CommandBase::init() {
 	pneumatics = new Pneumatics();
 	shooter = new Shooter();
 	driveBase = new DriveBase();
+	collector = new Collector();
 	oi = new OI();
 }

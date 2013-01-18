@@ -20,9 +20,6 @@ void Collector::stopCollector() {
 }
 
 void Collector::changePosition(bool position) {
-	if (position != getPosition()){
-		collectorPitchMotor->Set()
-	}
 }
 
 bool Collector::getPosition() {

@@ -4,7 +4,7 @@ Climber::Climber() {
 
 }
 
-~Climber::Climber() {
+Climber::~Climber() {
 	delete armsEncoder;
 	delete armsMotor;
 
@@ -37,11 +37,11 @@ void Climber::unlatchHook() {
 }
 
 bool Climber::getButton() {
-
+	return false;
 }
 
 double Climber::getDistance() {
-
+	return false;
 }
 
 //TODO: Need pokey stick thingies

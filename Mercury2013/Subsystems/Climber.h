@@ -1,6 +1,8 @@
 #ifndef _CLIMBER_H
 #define _CLIMBER_H
 
+#include "WPILib.h"
+
 class Climber {
 private:
 	Encoder *armsEncoder;
