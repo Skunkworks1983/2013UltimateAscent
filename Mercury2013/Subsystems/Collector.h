@@ -2,14 +2,15 @@
 #define _COLLECTOR_H
 
 class Collector {
-public:
-	Encoder *encoder;
-	Victor *collector;
-	
-	void go();
-	void stop();
 private:
-	
+	Encoder *collectorEncoder;
+	Encoder *pitchEncoder;
+	SpeedController *collectorMotor;
+	SpeedController *collectorPitchMotor;
+public:
+	void changePitch();
+	void startCollector();
+	void stopCollector();
 };
 
 #endif
