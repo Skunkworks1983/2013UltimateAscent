@@ -40,4 +40,14 @@
 #define SHOOTER_MOTOR_CREATE(channel) (new Jaguar(channel))
 #define SHOOTER_PITCH_MOTOR_CREATE(channel) (new Jaguar(channel))
 
+/**
+ * --COLLECTOR--
+ * 	Collector motor channels
+ */
+#define COLLECTOR_MOTOR				7 // TODO
+#define COLLECTOR_PITCH_MOTOR		8 // TODO
+//Class name of the shooter and collector pitch motor controllers
+#define COLLECTOR_MOTOR_CREATE(channel) (new Jaguar(channel))
+
+
 #endif
