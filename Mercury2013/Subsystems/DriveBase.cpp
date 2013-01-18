@@ -30,14 +30,14 @@ DriveBase::~DriveBase() {
 }
 
 void DriveBase::setSpeed(float leftSpeed, float rightSpeed) {
-	motorLeft->SetSpeed(leftSpeed);
+	motorLeft->Set(leftSpeed);
 #ifdef DRIVE_MOTOR_LEFT_2
-	motorLeft2->SetSpeed(leftSpeed);
+	motorLeft2->Set(leftSpeed);
 #endif
 
-	motorRight->SetSpeed(rightSpeed);
+	motorRight->Set(rightSpeed);
 #ifdef DRIVE_MOTOR_RIGHT_2
-	motorRight2->SetSpeed(rightSpeed);
+	motorRight2->Set(rightSpeed);
 #endif
 }
 

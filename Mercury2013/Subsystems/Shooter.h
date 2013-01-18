@@ -11,12 +11,18 @@ private:
 	Encoder *shooterEncoder;
 	Encoder *pitchEncoder;
 public:
-	Shooter;
-	~Shooter;
+	Shooter();
+	~Shooter();
+	
 	void setSpeed(float rpm);
+	void setPitch(float degree);
 	void loadDisk();
 	void fire();
-	void InitDefaultCommand();
+	
+	Encoder *getShooterEncoder();
+	Encoder *getPitchEncoder();
+	
+	virtual void InitDefaultCommand();
 };
 
 #endif

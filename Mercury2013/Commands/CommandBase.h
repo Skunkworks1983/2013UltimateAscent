@@ -2,7 +2,7 @@
 #define COMMAND_BASE_H
 
 #include "Commands/Command.h"
-#include "../Subsystems/ExampleSubsystem.h"
+#include "../Subsystems/Shooter.h"
 #include "../Subsystems/DriveBase.h"
 #include "../OI.h"
 
@@ -18,7 +18,7 @@ public:
 	CommandBase();
 	static void init();
 	// Create a single static instance of all of your subsystems
-	static ExampleSubsystem *examplesubsystem;
+	static Shooter *shooter;
 	static DriveBase *driveBase;
 	static OI *oi;
 };
