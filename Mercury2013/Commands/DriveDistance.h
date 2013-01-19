@@ -9,7 +9,7 @@
  */
 class DriveDistance: public CommandBase {
 public:
-	DriveDistance();
+	DriveDistance(float targetDistance);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
@@ -20,5 +20,7 @@ private:
 	float m_distanceDriven;
 	float m_targetDistance;
 	int m_counter;
+	int m_count;
+	DriveBase m_driveBase;
 };
 #endif
