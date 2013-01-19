@@ -1,4 +1,4 @@
-#ifndef DRIVE_DISTANCE_H
+#ifndef TURN_DEGREE_H
 #define TURN_DEGREE_H
 #include "../Subsystems/DriveBase.h" 
 #include "CommandBase.h"
@@ -18,8 +18,6 @@ public:
 private:
 	float m_angleTurned;
 	float m_targetAngle;
-	int m_counter;
-	int m_count;
 	DriveBase m_driveBase;
 };
 #endif
