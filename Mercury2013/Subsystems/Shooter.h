@@ -10,6 +10,13 @@ private:
 	SpeedController *pitchMotor;
 	Encoder *shooterEncoder;
 	Encoder *pitchEncoder;
+	
+	Notifier *bangLoop;
+	static void callUpdateMotors(void* shooter);
+	void updateMotors();
+	
+	float targetRPM;
+	int stableCount;
 public:
 	Shooter();
 	~Shooter();
@@ -21,8 +28,10 @@ public:
 	
 	Encoder *getShooterEncoder();
 	Encoder *getPitchEncoder();
-	
+
 	virtual void InitDefaultCommand();
+	
+	bool isStableReady();
 };
 
 #endif

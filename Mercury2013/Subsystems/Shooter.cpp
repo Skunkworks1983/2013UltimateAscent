@@ -1,6 +1,7 @@
 #include "Shooter.h"
 
-Shooter::Shooter() : Subsystem("Shooter") {
+Shooter::Shooter() :
+	Subsystem("Shooter") {
 	shooterMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR);
 	pitchMotor = SHOOTER_PITCH_MOTOR_CREATE(SHOOTER_PITCH_MOTOR);
 	// shooterEncoder = new Encoder(TODO);
@@ -13,7 +14,15 @@ Shooter::~Shooter() {
 	delete shooterEncoder;
 	delete pitchEncoder;
 }
-    
+
 void Shooter::InitDefaultCommand() {
 	// SetDefaultCommand(new TODO);
+}
+
+void Shooter::callUpdateMotors(void* shooter) {
+	((Shooter*) shooter)->updateMotors();
+}
+
+void Shooter::updateMotors() {
+	
 }
