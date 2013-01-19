@@ -44,7 +44,8 @@ void DriveDistance::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveDistance::IsFinished() {
-	return false;
+	return this->m_distanceDriven >= this-> m_targetDistance;
+
 	//Return true when the distance you've traveled reaches the distance you've been requested to travel.
 	//Snap out of the loop and hop into the DriveDistance void
 }
@@ -52,10 +53,12 @@ bool DriveDistance::IsFinished() {
 // Called once after isFinished returns true.
 void DriveDistance::End() {
 	//Sets both motors to Zero, ends the program.
+	CommandBase::driveBase->setSpeed(0.0, 0.0);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run.
 void DriveDistance::Interrupted() {
-	//Stops loop, in case of emergency, it will pop it out no matter the distance.	
+	//Stops loop, in case of emergency, it will pop it out no matter the distance.
+	CommandBase::driveBase->setSpeed(0.0, 0.0);
 }
