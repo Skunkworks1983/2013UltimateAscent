@@ -8,6 +8,7 @@ void Collect::Initialize() {
 }
 
 void Collect::Execute() {
+	
 }
 
 bool Collect::IsFinished() {
