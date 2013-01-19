@@ -1,12 +1,12 @@
 #include "Collector.h"
 #include "../Robotmap.h"
 
-Collector::Collector() : Subsystem("Collector") {
-	pitchEncoder = new Encoder(PITCH_ENCODER_CHANNEL_A, PITCH_ENCODER_CHANNEL_B, false, Encoder::k4X);
-	pitchEncoder->Reset();
+Collector::Collector() :
+	Subsystem("Collector") {
+	pitchEncoder = new AnalogChannel(COLLECTOR_PITCH_POT);
 }
 
-Collector::~Collector() {	
+Collector::~Collector() {
 	delete pitchEncoder;
 	delete collectorEncoder;
 }
@@ -30,8 +30,8 @@ Encoder *Collector::getCollectorEncoder() {
 	return collectorEncoder;
 }
 
-Encoder *Collector::getPitchEncoder() {
-	return pitchEncoder;
+float getRealPosition(){
+	
 }
 
 void Collector::InitDefaultCommand() {

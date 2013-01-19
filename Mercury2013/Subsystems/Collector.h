@@ -4,8 +4,9 @@
 #include "WPILib.h"
 
 class Collector : public Subsystem {
+private:
 	Encoder *collectorEncoder;
-	Encoder *pitchEncoder;
+	AnalogModule *pitchPot;
 	SpeedController *collectorMotor;
 	SpeedController *collectorPitchMotor;
 	bool currentPosition;
@@ -13,12 +14,11 @@ public:
 	Collector();
 	~Collector();
 	Encoder *getCollectorEncoder();
-	Encoder *getPitchEncoder();
-	void changePosition(bool);
 	void startCollector();
 	void stopCollector();
 	bool getPosition();
-	
+	float getRealPosition();
+
 	virtual void InitDefaultCommand();
 };
 

@@ -60,9 +60,8 @@
 #define COLLECTOR_PITCH_MOTOR_CREATE(channel) (new Jaguar(channel))
 //Collector constant speed
 #define COLLECTOR_MOTOR_SPEED				.5 // TODO get value from design team
-#define PITCH_ENCODER_CHANNEL_A				4  // TODO
-#define PITCH_ENCODER_CHANNEL_B				5  // TODO
-
+#define COLLECTOR_PITCH_POT			4  // TODO
+#define COLLECTOR_ENCODER_TICKS_END			400 //TODO
 /**
  * --COMPRESSOR--
  */
