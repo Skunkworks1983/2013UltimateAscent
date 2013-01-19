@@ -1,7 +1,6 @@
 #ifndef TURN_DEGREE_H
-#define TURN_DEGREE_H
-#include "../Subsystems/DriveBase.h" 
-#include "CommandBase.h"
+#define TURN_DEGREE_H 
+#include "../CommandBase.h"
 /**
  *
  *
@@ -18,7 +17,6 @@ public:
 private:
 	float m_angleTurned;
 	float m_targetAngle;
-	DriveBase m_driveBase;
 };
 #endif
 //Gyro,angle turned, target angle, count, 
