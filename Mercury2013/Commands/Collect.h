@@ -4,8 +4,11 @@
 #include "CommandBase.h"
 
 class Collect: public CommandBase {
+private:
+	enum State {on, off, toggle};
 public:
-	Collect();
+	Collect(State state);
+	~Collect();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

@@ -7,10 +7,10 @@ class CollectorChangePosition: public CommandBase {
 private:
 	float speed;
 public:
-	CollectorChangePosition();
+	CollectorChangePosition(bool position);
 	~CollectorChangePosition();
 	virtual void Initialize();
-	virtual void Execute(bool);
+	virtual void Execute();
 	virtual bool IsFinished();
 	virtual void End();
 	virtual void Interrupted();

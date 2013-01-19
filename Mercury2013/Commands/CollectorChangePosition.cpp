@@ -1,23 +1,23 @@
 #include "CollectorChangePosition.h"
 
-CollectorChangePosition::CollectorChangePosition() {
+CollectorChangePosition::CollectorChangePosition(bool position) {
 	Requires(collector);
 }
 
 CollectorChangePosition::~CollectorChangePosition() {
-	
+
 }
 
 void CollectorChangePosition::Initialize() {
 	speed = 0;
 }
 
-void CollectorChangePosition::Execute(bool position) {
+void CollectorChangePosition::Execute() {
 	if (collector->getRealPosition() <= COLLECTOR_DOWN_AMOUNT) {
-		if (position == collector->getPosition()) {
-			collector->setCollectorPitchMotor(speed);
-		}
-	if (collector->getRealPosition() >= COLLECTOR_UP_AMOUNT) {
+		/*	if (position == collector->getPosition()) {
+		 collector->setCollectorPitchMotor(speed);
+		 }*/
+		if (collector->getRealPosition() >= COLLECTOR_UP_AMOUNT) {
 			collector->setCollectorPitchMotor(-speed);
 		}
 	}
@@ -29,6 +29,7 @@ bool CollectorChangePosition::IsFinished() {
 
 void CollectorChangePosition::End() {
 	this->speed = 0;
+	collector->setCollectorPitchMotor(0);
 }
 
 void CollectorChangePosition::Interrupted() {
