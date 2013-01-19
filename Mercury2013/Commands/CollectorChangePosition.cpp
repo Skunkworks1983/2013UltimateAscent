@@ -4,18 +4,23 @@ CollectorChangePosition::CollectorChangePosition() {
 	Requires(collector);
 }
 
+CollectorChangePosition::~CollectorChangePosition() {
+	
+}
+
 void CollectorChangePosition::Initialize() {
 	speed = 0;
 }
 
 void CollectorChangePosition::Execute(bool position) {
-	/*if (collector->getPosition()) {
+	if (collector->getRealPosition() <= COLLECTOR_DOWN_AMOUNT) {
 		if (position == collector->getPosition()) {
-			collector->collectorPitchMotor->Set(speed);
-		} else {
-			collector->collectorPitchMotor->Set(-speed);
+			collector->setCollectorPitchMotor(speed);
 		}
-	}*/
+	if (collector->getRealPosition() >= COLLECTOR_UP_AMOUNT) {
+			collector->setCollectorPitchMotor(-speed);
+		}
+	}
 }
 
 bool CollectorChangePosition::IsFinished() {
@@ -23,7 +28,7 @@ bool CollectorChangePosition::IsFinished() {
 }
 
 void CollectorChangePosition::End() {
-	speed = 0;
+	this->speed = 0;
 }
 
 void CollectorChangePosition::Interrupted() {

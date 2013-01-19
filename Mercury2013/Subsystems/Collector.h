@@ -18,6 +18,8 @@ public:
 	void stopCollector();
 	bool getPosition();
 	float getRealPosition();
+	void setCollectorPitchMotor(float);
+	void setCollectorSpeed(float);
 
 	virtual void InitDefaultCommand();
 };

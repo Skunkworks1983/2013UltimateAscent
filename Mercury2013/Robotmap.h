@@ -61,7 +61,8 @@
 //Collector constant speed
 #define COLLECTOR_MOTOR_SPEED				.5 // TODO get value from design team
 #define COLLECTOR_PITCH_POT					4  // TODO
-
+#define COLLECTOR_DOWN_AMOUNT				400 //TODO
+#define COLLECTOR_UP_AMOUNT					0	//TODO
 /**
  * --COMPRESSOR--
  */

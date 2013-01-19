@@ -4,6 +4,7 @@
 Collector::Collector() :
 	Subsystem("Collector") {
 	pitchPot = new AnalogChannel(COLLECTOR_PITCH_POT);
+	collectorPitchMotor = COLLECTOR_PITCH_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);
 }
 
 Collector::~Collector() {
@@ -23,12 +24,20 @@ bool Collector::getPosition() {
 	return currentPosition;
 }
 
-Encoder *Collector::getCollectorEncoder() {
+Encoder* Collector::getCollectorEncoder() {
 	return collectorEncoder;
 }
 
-float getRealPosition(){
-	return 0; 					//TODO
+float Collector::getRealPosition(){
+	return pitchPot->GetVoltage();				//TODO
+}
+
+void Collector::setCollectorPitchMotor(float speed){
+	collectorPitchMotor->Set(speed);
+}
+
+void Collector::setCollectorSpeed(float speed){
+	collectorMotor->Set(speed);
 }
 
 void Collector::InitDefaultCommand() {

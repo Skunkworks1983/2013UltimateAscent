@@ -8,6 +8,7 @@ private:
 	float speed;
 public:
 	CollectorChangePosition();
+	~CollectorChangePosition();
 	virtual void Initialize();
 	virtual void Execute(bool);
 	virtual bool IsFinished();
