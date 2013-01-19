@@ -29,7 +29,7 @@ void DriveDistance::Execute() {
 	CommandBase::driveBase->SetSpeed(fmin(1, (distance - leftDist)/24), fmin(1,
 					(distance - rightDist)/24));
 //Set motors to half power, let them go until you are within a certain distance.
-	if (fabs(leftDist - distance))
+	if (fabs(leftDist - distance) < AUTO_DIST_THRESHOLD ||fabs(rightDist - distance) < AUTO_DIST
 		//TODO MAKE THIS UNBROKEN: REFER TO DRIVEDISTANCE.CPP in FRC UTILITIES
 //if distanceTraveled<targetDistance turn motors on
 //else turn motor off	

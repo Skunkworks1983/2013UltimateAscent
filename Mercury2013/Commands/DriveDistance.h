@@ -18,6 +18,7 @@ public:
 	float targetDistance;
 private:
 	float m_distanceDriven;
-	DriveBase m_driveBase;
+	float m_targetDistance;
+	int m_counter;
 };
 #endif
