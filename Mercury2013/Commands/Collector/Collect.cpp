@@ -2,35 +2,35 @@
 
 Collect::Collect(State state) {
 	Requires(collector);
+	this->mode = state;
 }
 
-Collect::~Collect(){
-	
+Collect::~Collect() {
+
 }
 
 void Collect::Initialize() {
-	
+
 }
 
 void Collect::Execute() {
-	/*
-	switch(state){
-		case 1:
-			collector->startCollector();
-			break;
-		case 2:
-			collector->stopCollector();
-			break;
-		case 3;
-			if (collector->getPostion() == true){
-				collector->stopCollector();
-			}
-			else{
-				collector->startCollector();
-			}
+	switch (mode) {
+	case on:
+		collector->setCollectorState(true);
 		break;
+	case off:
+		collector->setCollectorState(false);
+		break;
+	case toggle:
+		if (collector->isUp() == true) {
+			collector->setCollectorSpeed(false);
+		} else {
+			collector->setCollectorState(true);
+		}
+		break;
+	default:
+		collector->setCollectorState(true);
 	}
-	*/ // TODO
 }
 
 bool Collect::IsFinished() {

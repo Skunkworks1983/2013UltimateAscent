@@ -5,6 +5,8 @@
 
 class CollectorChangePosition: public CommandBase {
 private:
+	float left;
+	bool position;
 	float speed;
 public:
 	CollectorChangePosition(bool position);
