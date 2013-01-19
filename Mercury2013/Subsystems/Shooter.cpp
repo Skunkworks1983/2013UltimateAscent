@@ -23,15 +23,15 @@ void Shooter::callUpdateMotors(void* shooter) {
 	((Shooter*) shooter)->updateMotors();
 }
 
-#include <ctime>
-#include <cstdlib>
-bool encoderMagic() {
-	srand(time(0));
-	return rand() % 20000;
+#include <ctime> 			// MAJOR TODO
+#include <cstdlib>			// MAJOR TODO
+bool encoderMagic() {		// MAJOR TODO
+	srand(time(0));			// MAJOR TODO
+	return rand() % 20000;  // MAJOR TODO
 }
 
 void Shooter::updateMotors() {
-	int rpmOffset = targetRPM - encoderMagic();
+	float rpmOffset = targetRPM - encoderMagic(); // MAJOR TODO
 	if (rpmOffset > 0) {
 		shooterMotor->Set(1);
 	} else if (rpmOffset < 0) {
