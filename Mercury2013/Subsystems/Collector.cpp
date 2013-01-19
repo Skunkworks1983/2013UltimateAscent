@@ -3,11 +3,11 @@
 
 Collector::Collector() :
 	Subsystem("Collector") {
-	pitchEncoder = new AnalogChannel(COLLECTOR_PITCH_POT);
+	pitchPot = new AnalogChannel(COLLECTOR_PITCH_POT);
 }
 
 Collector::~Collector() {
-	delete pitchEncoder;
+	delete pitchPot;
 	delete collectorEncoder;
 }
 
@@ -19,9 +19,6 @@ void Collector::stopCollector() {
 	collectorMotor->Set(0);
 }
 
-void Collector::changePosition(bool position) {
-}
-
 bool Collector::getPosition() {
 	return currentPosition;
 }
@@ -31,7 +28,7 @@ Encoder *Collector::getCollectorEncoder() {
 }
 
 float getRealPosition(){
-	
+	return 0; 					//TODO
 }
 
 void Collector::InitDefaultCommand() {

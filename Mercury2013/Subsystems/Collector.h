@@ -6,7 +6,7 @@
 class Collector : public Subsystem {
 private:
 	Encoder *collectorEncoder;
-	AnalogModule *pitchPot;
+	AnalogChannel *pitchPot;
 	SpeedController *collectorMotor;
 	SpeedController *collectorPitchMotor;
 	bool currentPosition;
