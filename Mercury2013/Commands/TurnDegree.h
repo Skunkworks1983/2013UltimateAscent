@@ -1,25 +1,32 @@
 #ifndef DRIVE_DISTANCE_H
-#define DRIVE_DISTANCE_H
-#include "../../Subsystems/DriveBase.h" 
-#include "../CommandBase.h"
+#define TURN_DEGREE_H
+#include "../Subsystems/DriveBase.h" 
+#include "CommandBase.h"
 /**
  *
  *
  * @author ExampleAuthor
  */
-class DriveDistance: public CommandBase {
+class TurnDegree: public CommandBase {
 public:
-	DriveDistance(float targetDistance);
+	TurnDegree(float targetDistance);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
 	virtual void End();
 	virtual void Interrupted();	
 private:
-	float m_distanceDriven;
-	float m_targetDistance;
+	float m_angleTurned;
+	float m_targetAngle;
 	int m_counter;
 	int m_count;
 	DriveBase m_driveBase;
 };
 #endif
+//Gyro,angle turned, target angle, count, 
+
+
+
+
+
+
