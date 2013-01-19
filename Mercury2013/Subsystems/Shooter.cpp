@@ -19,6 +19,10 @@ void Shooter::InitDefaultCommand() {
 	// SetDefaultCommand(new TODO);
 }
 
+void Shooter::setTargetSpeed(float rpm) {
+	targetSpeed = rpm;
+}
+
 void Shooter::callUpdateMotors(void* shooter) {
 	((Shooter*) shooter)->updateMotors();
 }
@@ -31,7 +35,7 @@ bool encoderMagic() {		// MAJOR TODO
 }
 
 void Shooter::updateMotors() {
-	float rpmOffset = targetRPM - encoderMagic(); // MAJOR TODO
+	float rpmOffset = targetSpeed - encoderMagic(); // MAJOR TODO
 	if (rpmOffset > 0) {
 		shooterMotor->Set(1);
 	} else if (rpmOffset < 0) {

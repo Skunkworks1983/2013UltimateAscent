@@ -15,13 +15,13 @@ private:
 	static void callUpdateMotors(void* shooter);
 	void updateMotors();
 	
-	float targetRPM;
+	float targetSpeed;
 	int stableCount;
 public:
 	Shooter();
 	~Shooter();
 	
-	void setSpeed(float rpm);
+	void setTargetSpeed(float rpm);
 	void setPitch(float degree);
 	void loadDisk();
 	void fire();
