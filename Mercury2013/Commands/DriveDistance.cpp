@@ -35,16 +35,17 @@ void DriveDistance::Execute() {
 	float rightDist = CommandBase::driveBase->getRightEncoder()->GetDistance();
 	this->m_distanceDriven = (leftDist + rightDist) / 2;
 	//if distance traveled is greater than or equal to the target distance, motors are set to null
-	if (this->m_distanceDriven >= this->m_targetDistance)
+	if (this->m_distanceDriven >= this->m_targetDistance) {
 		this->CommandBase::driveBase->setSpeed(0, 0);
-	else
+	} else {
 		this->CommandBase::driveBase->setSpeed(0.5, 0.5);
+	}
 	//if dist traveled is less than target distance, the motors will trundle along with half power
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveDistance::IsFinished() {
-	return this->m_distanceDriven >= this-> m_targetDistance;
+	return this->m_distanceDriven >= this->m_targetDistance;
 
 	//Return true when the distance you've traveled reaches the distance you've been requested to travel.
 	//Snap out of the loop and hop into the DriveDistance void
