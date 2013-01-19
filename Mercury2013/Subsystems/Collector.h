@@ -14,9 +14,8 @@ public:
 	Collector();
 	~Collector();
 	Encoder *getCollectorEncoder();
-	void startCollector();
-	void stopCollector();
-	bool getPosition();
+	void setCollectorState(bool state);
+	bool isUp();
 	float getRealPosition();
 	void setCollectorPitchMotor(float);
 	void setCollectorSpeed(float);

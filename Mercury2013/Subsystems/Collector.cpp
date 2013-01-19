@@ -12,15 +12,16 @@ Collector::~Collector() {
 	delete collectorEncoder;
 }
 
-void Collector::startCollector() {
-	collectorMotor->Set(COLLECTOR_MOTOR_SPEED);
+void Collector::setCollectorState(bool state) {
+	if (state == true){
+		collectorMotor->Set(COLLECTOR_MOTOR_SPEED);
+	}else
+	{
+		collectorMotor->Set(0);
+	}
 }
 
-void Collector::stopCollector() {
-	collectorMotor->Set(0);
-}
-
-bool Collector::getPosition() {
+bool Collector::isUp() {
 	return currentPosition;
 }
 
