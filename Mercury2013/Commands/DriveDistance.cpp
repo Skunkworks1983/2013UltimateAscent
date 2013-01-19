@@ -17,7 +17,9 @@ void DriveDistance::Initialize() {
 	CommandBase::driveBase->getRightEncoder()->Reset();
 	//putting all encoders to 0
 	this->m_counter = 0;
+	//not really using this counter.
 	this->m_distanceDriven = 0;
+	//resetting distance driven to 0  
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -32,14 +34,12 @@ void DriveDistance::Execute() {
 	//While driving the robot reads encoders in order to know how far it has traveled
 	float rightDist = CommandBase::driveBase->getRightEncoder()->GetDistance();
 	this->m_distanceDriven = (leftDist + rightDist) / 2;
-
+	//if distance traveled is greater than or equal to the target distance, motors are set to null
 	if (this->m_distanceDriven >= this->m_targetDistance)
 		this->CommandBase::driveBase->setSpeed(0, 0);
 	else
 		this->CommandBase::driveBase->setSpeed(0.5, 0.5);
-
-	//Upon execution, the motors will continue to run until encoders realize DriveDistance=Finished
-
+	//if dist traveled is less than target distance, the motors will trundle along with half power
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -61,4 +61,5 @@ void DriveDistance::End() {
 void DriveDistance::Interrupted() {
 	//Stops loop, in case of emergency, it will pop it out no matter the distance.
 	CommandBase::driveBase->setSpeed(0.0, 0.0);
+	//no matter what happens, Interrupt will kill the speed
 }
