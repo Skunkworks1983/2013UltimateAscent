@@ -68,3 +68,14 @@
 #define COMPRESSOR_RELAY			1
 #define COMPRESSOR_SWITCH			1
 #endif
+
+/**
+ * --CLIMBER--
+ */
+//TODO: Make the ports not pi
+#define ARM_MOTOR					3
+#define ARM_ENCODER_1				1
+#define ARM_ENCODER_2				4
+
+#define ARM_SWTICH_1				1
+#define ARM_SWITCH_2				5

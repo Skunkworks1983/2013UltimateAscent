@@ -1,5 +1,5 @@
-#ifndef CLIMB_H
-#define CLIMB_H
+#ifndef __CLIMB_H
+#define __CLIMB_H
 
 #include "CommandBase.h"
 

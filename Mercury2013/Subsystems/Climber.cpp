@@ -1,47 +1,40 @@
 #include "Climber.h"
 
 Climber::Climber() {
-
+	armsEncoder = new Encoder(ARM_ENCODER_1, ARM_ENCODER_2, false, Encoder::k4X);
+	armsMotor = new SpeedController();
+	
+	arm1Switch = new DigitalInput(ARM_SWITCH_1);
+	arm2Switch = new DigitalInput(ARM_SWITCH_2);
 }
 
 Climber::~Climber() {
 	delete armsEncoder;
 	delete armsMotor;
 
-	delete arm1Hook1;
-	delete arm1Hook2;
-	delete arm1Hook3;
-
-	delete arm2Hook1;
-	delete arm2Hook2;
-	delete arm2Hook3;
-
-	delete arm1Button;
-	delete arm2Button;
+	delete arm1Switch;
+	delete arm2Switch;
 }
 
-void Climber::extendArm(double distance) {
+void Climber::moveMotor(double dist) {
 	
 }
 
-void Climber::retractArm(double distance) {
+void Climber::movePokey(bool pos) {
 	
 }
 
-void Climber::latchHook() {
-	
-}
-
-void Climber::unlatchHook() {
-	
-}
-
-bool Climber::getButton() {
+double Climber::getPosition() {
 	return false;
 }
 
-double Climber::getDistance() {
+bool getPokey() {
 	return false;
 }
+
+bool Climber::getSwitch() {
+	return false;
+}
+
 
 //TODO: Need pokey stick thingies
