@@ -68,7 +68,6 @@
  */
 #define COMPRESSOR_RELAY			1
 #define COMPRESSOR_SWITCH			1
-#endif
 
 /**
  * --CLIMBER--
@@ -78,5 +77,9 @@
 #define ARM_ENCODER_1				1
 #define ARM_ENCODER_2				4
 
-#define ARM_SWTICH_1				1
+#define ARM_SWITCH_1				1
 #define ARM_SWITCH_2				5
+
+#define ARM_MOTOR_CREATE(channel)	(new Jaguar(channel))
+
+#endif

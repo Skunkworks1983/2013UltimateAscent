@@ -15,6 +15,7 @@ DriveBase *CommandBase::driveBase = NULL;
 Collector *CommandBase::collector = NULL;
 OI *CommandBase::oi = NULL;
 Pneumatics *CommandBase::pneumatics = NULL;
+Climber *CommandBase::climber = NULL;
 
 void CommandBase::init() {
 	// Create a single static instance of all of your subsystems. The following
@@ -24,4 +25,5 @@ void CommandBase::init() {
 	driveBase = new DriveBase();
 	collector = new Collector();
 	oi = new OI();
+	climber = new Climber();
 }

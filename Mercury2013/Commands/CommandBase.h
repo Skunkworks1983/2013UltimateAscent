@@ -7,6 +7,7 @@
 #include "../Subsystems/DriveBase.h"
 #include "../Subsystems/Collector.h"
 #include "../Subsystems/Pneumatics.h"
+#include "../Subsystems/Climber.h"
 #include "../OI.h"
 
 
@@ -26,6 +27,7 @@ public:
 	static Collector *collector;
 	static OI *oi;
 	static Pneumatics *pneumatics;
+	static Climber *climber;
 };
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef __CLIMBER_H
 #define __CLIMBER_H
-
 #include "WPILib.h"
+#include "../RobotMap.h"
 
 class Climber {
 private:
@@ -14,12 +14,13 @@ private:
 public:
 	Climber();
 	~Climber();
-	void moveMotor(double dist);
+	void moveMotor(float dist);
 	void movePokey(bool pos);
+	void setArmsMotor(float speed);
 	
-	double getPosition();
+	float getPosition();
 	bool getPokey();
-	bool getSwitch();
+	bool getSwitch(int num);
 };
 
 #endif
