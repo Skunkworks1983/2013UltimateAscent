@@ -1,11 +1,11 @@
 #include "Climber.h"
 
 Climber::Climber() {
-	armsEncoder = new Encoder(ARM_ENCODER_1, ARM_ENCODER_2, false, Encoder::k4X);
+	/*armsEncoder = new Encoder(ARM_ENCODER_1, ARM_ENCODER_2, false, Encoder::k4X);
 	armsMotor = new SpeedController();
 	
 	arm1Switch = new DigitalInput(ARM_SWITCH_1);
-	arm2Switch = new DigitalInput(ARM_SWITCH_2);
+	arm2Switch = new DigitalInput(ARM_SWITCH_2);*/
 }
 
 Climber::~Climber() {
