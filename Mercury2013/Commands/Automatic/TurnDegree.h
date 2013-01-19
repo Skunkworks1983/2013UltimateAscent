@@ -17,6 +17,7 @@ public:
 private:
 	float m_angleTurned;
 	float m_targetAngle;
+	float m_count;
 };
 #endif
 //Gyro,angle turned, target angle, count, 
