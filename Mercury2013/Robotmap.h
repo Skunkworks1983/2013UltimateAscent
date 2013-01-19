@@ -49,6 +49,8 @@
 #define SHOOTER_MOTOR_CREATE(channel) (new Jaguar(channel))
 #define SHOOTER_PITCH_MOTOR_CREATE(channel) (new Jaguar(channel))
 
+#define SHOOTER_TARGET_RPM	 		2500 // TODO
+
 /**
  * --COLLECTOR--
  * 	Collector motor channels
