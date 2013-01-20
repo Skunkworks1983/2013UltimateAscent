@@ -19,6 +19,8 @@ private:
 	Encoder *rightEncoder;
 	Gyro *gyro;
 	
+	Relay *shifter;
+	bool cachedLowState;
 public:
 	DriveBase();
 	~DriveBase();
@@ -28,6 +30,9 @@ public:
 	Gyro *getGyro();
 	Encoder *getLeftEncoder();
 	Encoder *getRightEncoder();
+	
+	void shift(bool lowGear);
+	bool isLowGear();
 	
 	virtual void InitDefaultCommand();
 };

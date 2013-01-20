@@ -12,6 +12,8 @@ DriveBase::DriveBase() :
 #ifdef DRIVE_MOTOR_RIGHT_2		// Same thing ad infinitum
 	motorRight2 = DRIVE_MOTOR_CREATE(DRIVE_MOTOR_RIGHT_2);
 #endif
+
+	shifter = new Relay(DRIVE_SHIFT_RELAY);
 }
 
 DriveBase::~DriveBase() {
@@ -24,10 +26,12 @@ DriveBase::~DriveBase() {
 #ifdef DRIVE_MOTOR_RIGHT_2		// Same thing ad infinitum
 	delete motorRight2;
 #endif
-	
+
 	//TODO delete leftEncoder;
 	//TODO delete rightEncoder;
 	//TODO delete gyro;
+
+	delete shifter;
 }
 
 void DriveBase::setSpeed(float leftSpeed, float rightSpeed) {
@@ -56,4 +60,13 @@ Encoder *DriveBase::getRightEncoder() {
 
 void DriveBase::InitDefaultCommand() {
 	SetDefaultCommand(new TankDrive());
+}
+
+void DriveBase::shift(bool lowGear) {
+	cachedLowState = lowGear;
+	shifter->Set(lowGear ? Relay::kForward : Relay::kReverse);
+}
+
+bool DriveBase::isLowGear() {
+	return cachedLowState;
 }

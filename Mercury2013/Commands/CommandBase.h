@@ -2,6 +2,7 @@
 #define COMMAND_BASE_H
 
 #include "Commands/Command.h"
+
 #include "../Subsystems/Shooter.h"
 #include "../Subsystems/DriveBase.h"
 #include "../Subsystems/Collector.h"

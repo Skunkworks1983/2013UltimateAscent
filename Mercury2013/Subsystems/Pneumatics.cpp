@@ -15,7 +15,7 @@ Pneumatics::~Pneumatics() {
 }
 
 bool Pneumatics::isBelowPressure() {
-	return compressorSwitch->Get() & 1;
+	return (~compressorSwitch->Get()) & 1;
 }
 void Pneumatics::setCompressorState(bool active) {
 	compressorRelay->Set(active ? Relay::kForward : Relay::kOff);
