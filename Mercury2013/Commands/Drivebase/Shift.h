@@ -1,7 +1,7 @@
 #ifndef SHIFT_H
 #define SHIFT_H
 
-#include "CommandBase.h"
+#include "../CommandBase.h"
 
 class Shift : public CommandBase {
 public:

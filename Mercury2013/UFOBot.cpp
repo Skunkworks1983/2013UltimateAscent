@@ -3,7 +3,7 @@
 #include "Buttons/ReleasedButtonScheduler.h"
 #include "Buttons/ButtonScheduler.h"
 
-#include "Commands/Shift.h"
+#include "Commands/Drivebase/Shift.h"
 
 void UFOBot::RobotInit() {
 	CommandBase::init();

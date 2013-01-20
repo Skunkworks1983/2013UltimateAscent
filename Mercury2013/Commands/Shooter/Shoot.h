@@ -1,7 +1,7 @@
 #ifndef SHOOT_COMMAND_H
 #define SHOOT_COMMAND_H
 
-#include "CommandBase.h"
+#include "../CommandBase.h"
 
 class Shoot: public CommandBase {
 public:

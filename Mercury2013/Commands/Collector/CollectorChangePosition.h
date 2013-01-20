@@ -1,7 +1,7 @@
 #ifndef COLLECTOR_CHANGE_POSITION_H
 #define COLLECTOR_CHANGE_POSITION_H
 
-#include "CommandBase.h"
+#include "../CommandBase.h"
 
 class CollectorChangePosition: public CommandBase {
 private:

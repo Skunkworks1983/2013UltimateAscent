@@ -1,16 +1,14 @@
-#ifndef TANKDRIVE_COMMAND_H
-#define TANKDRIVE_COMMAND_H
+#ifndef COLLECT_H
+#define COLLECT_H
 
-#include "CommandBase.h"
+#include "../CommandBase.h"
 
-/**
- *
- *
- * @author ExampleAuthor
- */
-class TankDrive: public CommandBase {
+class Collect: public CommandBase {
+private:
+	enum State {on, off, toggle};
 public:
-	TankDrive();
+	Collect(State state);
+	~Collect();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
