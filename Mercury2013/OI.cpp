@@ -1,5 +1,6 @@
 #include "OI.h"
 #include "Robotmap.h"
+
 #include "Buttons/ReleasedButtonScheduler.h"
 #include "Commands/Drivebase/Shift.h"
 
@@ -7,9 +8,10 @@ OI::OI() {
 	driveJoystickLeft = new Joystick(OI_JOYSTICK_LEFT);
 	driveJoystickRight = new Joystick(OI_JOYSTICK_RIGHT);
 
-	shiftScheduler = new ReleasedButtonScheduler(false,
-			new JoystickButton(CommandBase::oi->getDriveJoystickLeft(), 1),
-			new Shift(Shift::kToggle));
+	shiftScheduler
+			= new ReleasedButtonScheduler(false,
+					new JoystickButton(driveJoystickLeft, 1),
+					new Shift(Shift::kToggle));
 }
 
 Joystick *OI::getDriveJoystickLeft() {
