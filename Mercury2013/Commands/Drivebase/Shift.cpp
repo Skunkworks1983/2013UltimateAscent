@@ -21,11 +21,10 @@ void Shift::Initialize() {
 		toLowGear = true;
 		break;
 	}
-	printf("%d\n", toLowGear & 1);
 }
 
 void Shift::Execute() {
-	driveBase->shift(toLowGear);
+	driveBase->shift(toLowGear & 1);
 }
 
 bool Shift::IsFinished() {

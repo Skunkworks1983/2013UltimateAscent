@@ -14,6 +14,8 @@ DriveBase::DriveBase() :
 #endif
 
 	shifter = new Relay(DRIVE_SHIFT_RELAY);
+	
+	cachedLowState = false;
 }
 
 DriveBase::~DriveBase() {
