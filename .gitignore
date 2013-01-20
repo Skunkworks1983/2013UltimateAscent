@@ -50,3 +50,7 @@ PPC32diab
 ##################
 .ucpp
 *sublime*
+
+# Remote Systems Files #
+########################
+RemoteSystemsTempFiles/*
