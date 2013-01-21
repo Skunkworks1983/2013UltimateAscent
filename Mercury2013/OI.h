@@ -8,7 +8,10 @@ private:
 	Joystick *driveJoystickLeft;
 	Joystick *driveJoystickRight;
 	
+	DriverStationEnhancedIO *eIEIO;
+	
 	ButtonScheduler *shiftScheduler;
+	
 public:
 	OI();
 	
@@ -16,6 +19,7 @@ public:
 	Joystick *getDriveJoystickRight();
 	
 	void registerButtonSchedulers();
+	void setLightStates(DigitalInput input);
 };
 
 #endif

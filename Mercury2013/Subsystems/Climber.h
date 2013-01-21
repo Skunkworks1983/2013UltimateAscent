@@ -8,8 +8,8 @@ private:
 	Encoder *armsEncoder;
 	SpeedController *armsMotor;
 	
-	DigitalInput *arm1Switch;
-	DigitalInput *arm2Switch;
+	DigitalInput *arm1Button;
+	DigitalInput *arm2Button;
 	
 public:
 	Climber();
@@ -20,7 +20,7 @@ public:
 	
 	float getPosition();
 	bool getPokey();
-	bool getSwitch(int num);
+	bool getButton(int button);
 };
 
 #endif

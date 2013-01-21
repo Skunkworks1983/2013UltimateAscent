@@ -1,13 +1,13 @@
-#ifndef __ARM_MOVE_H
-#define __ARM_MOVE_H
+#ifndef __POKEY_MAGIKU_H
+#define __POKEY_MAGIKU_H
 #include "WPILib.h"
 #include "../CommandBase.h"
 #include "../../Subsystems/Climber.h"
 
-class ArmMove : public CommandBase {
+class Pokey : public CommandBase {
 public:
-	ArmMove();
-	~ArmMove();
+	Pokey();
+	~Pokey();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

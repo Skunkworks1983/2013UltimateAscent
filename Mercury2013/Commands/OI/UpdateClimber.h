@@ -1,13 +1,17 @@
-#ifndef __ARM_MOVE_H
-#define __ARM_MOVE_H
-#include "WPILib.h"
-#include "../CommandBase.h"
-#include "../../Subsystems/Climber.h"
+#ifndef __UPDATE_CLIMBER_H
+#define __UPDATE_CLIMBER_H
 
-class ArmMove : public CommandBase {
+#include "../CommandBase.h"
+
+/**
+ *
+ *
+ * @author ExampleAuthor
+ */
+class UpdateClimber: public CommandBase {
 public:
-	ArmMove();
-	~ArmMove();
+	UpdateClimber();
+	~UpdateClimber();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

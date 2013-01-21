@@ -25,3 +25,7 @@ Joystick *OI::getDriveJoystickRight() {
 void OI::registerButtonSchedulers() {
 	shiftScheduler->Start();
 }
+
+void setLightStates(DigitalInput input) {
+	eIEIO->SetDigitalOutput(input.GetChannel(), input.Get()); 
+}
