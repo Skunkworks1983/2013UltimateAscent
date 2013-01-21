@@ -80,8 +80,8 @@
 #define ARM_ENCODER_1				1
 #define ARM_ENCODER_2				4
 
-#define ARM_SWITCH_1				1
-#define ARM_SWITCH_2				5
+#define ARM_BUTTON_1				1
+#define ARM_BUTTON_2				5
 
 #define ARM_MOTOR_CREATE(channel)	(new Jaguar(channel))
 

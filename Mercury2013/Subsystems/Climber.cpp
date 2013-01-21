@@ -4,8 +4,8 @@ Climber::Climber() {
 	armsEncoder = new Encoder(ARM_ENCODER_1, ARM_ENCODER_2, false, Encoder::k4X);
 	armsMotor = ARM_MOTOR_CREATE(ARM_MOTOR);
 	
-	arm1Switch = new DigitalInput(ARM_SWITCH_1);
-	arm2Switch = new DigitalInput(ARM_SWITCH_2);
+	arm1Button = new DigitalInput(ARM_BUTTON_1);
+	arm2Button = new DigitalInput(ARM_BUTTON_2);
 	
 	armsEncoder->Reset();
 }
@@ -14,8 +14,8 @@ Climber::~Climber() {
 	delete armsEncoder;
 	delete armsMotor;
 
-	delete arm1Switch;
-	delete arm2Switch;
+	delete arm1Button;
+	delete arm2Button;
 }
 
 void Climber::moveMotor(float dist) {
@@ -38,7 +38,7 @@ bool getPokey() {
 	return false;
 }
 
-bool Climber::getSwitch(int num) {
+bool Climber::getButton(int num) {
 	return false;
 }
 
