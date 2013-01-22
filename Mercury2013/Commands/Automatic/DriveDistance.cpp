@@ -32,8 +32,8 @@ void DriveDistance::Execute() {
 	case linear:
 		ExecuteLinear();
 		break;
-//	case quadratic:
-//		ExecuteQuadratic();
+	case quadratic:
+		ExecuteQuadratic();
 		break;
 	default:
 		ExecuteFlat();
@@ -63,6 +63,9 @@ void DriveDistance::ExecuteLinear() {
 	 * If distance remaining is greater than ___ inches, continue with motor on/maintaining speed. 
 	 * If distance remaining is lesser than ___ inches, turn the motor off.  
 	 * When less than the inches desired, motor off until practically no power at full stop on target destination.
+	 *If distanceDriven = 0 setSpeed (0.25, 0.25)
+	 *add .002 every rotation
+	 *Maximum speed = 50
 	 */
 	//Executes the distance command in order to go to the given distance.
 	float leftDist = CommandBase::driveBase->getLeftEncoder()->GetDistance();
