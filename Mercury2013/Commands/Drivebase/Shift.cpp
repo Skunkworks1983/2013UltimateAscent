@@ -4,6 +4,7 @@ Shift::Shift(ShiftType toGear) {
 	//It requires the drive base, but we don't need a lock on it.
 	this->toGear = toGear;
 	toLowGear = false;
+	SetInterruptible(true);
 }
 
 void Shift::Initialize() {
@@ -35,8 +36,4 @@ void Shift::End() {
 }
 
 void Shift::Interrupted() {
-}
-
-bool Shift::IsInterruptible() {
-	return true;
 }

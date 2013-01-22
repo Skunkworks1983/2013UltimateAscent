@@ -3,6 +3,7 @@
 TankDrive::TankDrive() :
 	CommandBase("TankDrive") {
 	Requires(driveBase);
+	SetInterruptible(true);
 }
 
 void TankDrive::Initialize() {
@@ -21,8 +22,4 @@ void TankDrive::End() {
 }
 
 void TankDrive::Interrupted() {
-}
-
-bool TankDrive::IsInterruptible() {
-	return false;
 }

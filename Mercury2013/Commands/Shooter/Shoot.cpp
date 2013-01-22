@@ -25,7 +25,3 @@ void Shoot::End() {
 void Shoot::Interrupted() {
 
 }
-
-bool Shoot::IsInterruptible() {
-	return false;
-}

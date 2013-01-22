@@ -1,17 +1,12 @@
-#ifndef __UPDATE_CLIMBER_H
-#define __UPDATE_CLIMBER_H
+#ifndef __UPDATE_LIGHTS_H
+#define __UPDATE_LIGHTS_H
 
 #include "../CommandBase.h"
 
-/**
- *
- *
- * @author ExampleAuthor
- */
-class UpdateClimber: public CommandBase {
+class UpdateLights: public CommandBase {
 public:
-	UpdateClimber();
-	~UpdateClimber();
+	UpdateLights();
+	~UpdateLights();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

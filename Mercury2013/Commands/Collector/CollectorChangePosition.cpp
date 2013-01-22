@@ -41,7 +41,3 @@ void CollectorChangePosition::End() {
 
 void CollectorChangePosition::Interrupted() {
 }
-
-bool CollectorChangePosition::IsInterruptible() {
-	return false;
-}
