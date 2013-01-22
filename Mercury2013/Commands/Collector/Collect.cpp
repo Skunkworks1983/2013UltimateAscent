@@ -42,7 +42,3 @@ void Collect::End() {
 
 void Collect::Interrupted() {
 }
-
-bool Collect::IsInterruptible() {
-	return false;
-}
