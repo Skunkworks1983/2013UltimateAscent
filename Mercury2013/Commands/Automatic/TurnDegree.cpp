@@ -40,10 +40,10 @@ void TurnDegree::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool TurnDegree::IsFinished() {
-	this->m_angleTurned >= this->m_targetAngle;
-	return false;
+	return this->m_angleTurned >= this->m_targetAngle;
+	/*return false;
 	this->m_angleTurned < this->m_targetAngle;
-
+*/
 	//Return true when the angle you've traveled reaches the angle you've been requested to travel.
 	//Snap out of the loop and into the TurnDegree end
 }

@@ -1,7 +1,7 @@
 #include <math.h>
 #include "DriveDistance.h"
 
-DriveDistance::DriveDistance(float targetDistance) {
+DriveDistance::DriveDistance(float targetDistance, SlopeType MySlope) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
 	// DriveDistance 
@@ -24,6 +24,22 @@ void DriveDistance::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveDistance::Execute() {
+	ExecuteFlat();
+	mySlope = quadratic;
+
+	switch (mySlope) {
+		case flat:
+			executeFlat();
+		case linear:
+			executeLinear();
+			break;
+		case quadratic:
+			executeQuadratic();
+			break;
+		default:
+			executeFlat();
+}
+void DriveDistance::ExecuteFlat() {
 	/** Compute remaining distance.
 	 * If distance remaining is greater than ___ inches, continue with motor on/maintaining speed. 
 	 * If distance remaining is lesser than ___ inches, turn the motor off.  
@@ -42,7 +58,44 @@ void DriveDistance::Execute() {
 	}
 	//if dist traveled is less than target distance, the motors will trundle along with half power
 }
-
+void DriveDistance::ExecuteLinear() {
+	/** Compute remaining distance.
+	 * If distance remaining is greater than ___ inches, continue with motor on/maintaining speed. 
+	 * If distance remaining is lesser than ___ inches, turn the motor off.  
+	 * When less than the inches desired, motor off until practically no power at full stop on target destination.
+	 */
+	//Executes the distance command in order to go to the given distance.
+	float leftDist = CommandBase::driveBase->getLeftEncoder()->GetDistance();
+	//While driving the robot reads encoders in order to know how far it has traveled
+	float rightDist = CommandBase::driveBase->getRightEncoder()->GetDistance();
+	this->m_distanceDriven = (leftDist + rightDist) / 2;
+	//if distance traveled is greater than or equal to the target distance, motors are set to null
+	if (this->m_distanceDriven >= this->m_targetDistance) {
+		this->CommandBase::driveBase->setSpeed(0, 0);
+	} else {
+		this->CommandBase::driveBase->setSpeed(0.5, 0.5);
+	}
+	//if dist traveled is less than target distance, the motors will trundle along with half power
+}
+void DriveDistance::ExecuteQuadratic() {
+	/** Compute remaining distance.
+	 * If distance remaining is greater than ___ inches, continue with motor on/maintaining speed. 
+	 * If distance remaining is lesser than ___ inches, turn the motor off.  
+	 * When less than the inches desired, motor off until practically no power at full stop on target destination.
+	 */
+	//Executes the distance command in order to go to the given distance.
+	float leftDist = CommandBase::driveBase->getLeftEncoder()->GetDistance();
+	//While driving the robot reads encoders in order to know how far it has traveled
+	float rightDist = CommandBase::driveBase->getRightEncoder()->GetDistance();
+	this->m_distanceDriven = (leftDist + rightDist) / 2;
+	//if distance traveled is greater than or equal to the target distance, motors are set to null
+	if (this->m_distanceDriven >= this->m_targetDistance) {
+		this->CommandBase::driveBase->setSpeed(0, 0);
+	} else {
+		this->CommandBase::driveBase->setSpeed(0.5, 0.5);
+	}
+	//if dist traveled is less than target distance, the motors will trundle along with half power
+}
 // Make this return true when this Command no longer needs to run execute()
 bool DriveDistance::IsFinished() {
 	return this->m_distanceDriven >= this->m_targetDistance;
