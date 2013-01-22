@@ -7,11 +7,11 @@ Shoot::Shoot() :
 }
 
 void Shoot::Initialize() {
-	
+
 }
 
 void Shoot::Execute() {
-	shooter->setTargetSpeed(SHOOTER_TARGET_RPM); // TODO
+	// shooter->setTargetSpeed(SHOOTER_TARGET_RPM);  TODO
 }
 
 bool Shoot::IsFinished() {

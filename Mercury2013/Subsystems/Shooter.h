@@ -8,23 +8,33 @@ class Shooter : public Subsystem {
 private:
 	SpeedController *shooterMotor;
 	SpeedController *pitchMotor;
-	Encoder *shooterEncoder;
-	Encoder *pitchEncoder;
+	Encoder *speedEncoder;
+	AnalogChannel *pitchPot;
 	
-	Notifier *bangLoop;
+	Notifier *motorUpdateLoop;
+	
 	static void callUpdateMotors(void* shooter);
 	void updateMotors();
 	
 	float targetSpeed;
-	int stableCount;
+	float targetPitch;
+	
+	int speedStability;
+	int pitchStability;
 public:
 	Shooter();
 	~Shooter();
 	
+	void startUpdateLoop();
+	void endUpdateLoop();
+	
 	void setTargetSpeed(float rpm);
-	void setPitch(float degree);
-	void loadDisk();
-	void fire();
+	float getCurrentSpeed();
+	bool isSpeedStable();
+	
+	void setTargetPitch(float degree);
+	float getCurrentPitch();
+	bool isPitchStable();
 	
 	Encoder *getShooterEncoder();
 	Encoder *getPitchEncoder();
