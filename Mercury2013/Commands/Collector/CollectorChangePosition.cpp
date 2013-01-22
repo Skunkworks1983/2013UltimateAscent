@@ -6,7 +6,7 @@ CollectorChangePosition::CollectorChangePosition(bool position) {
 }
 
 CollectorChangePosition::~CollectorChangePosition() {
-
+	
 }
 
 void CollectorChangePosition::Initialize() {
@@ -14,20 +14,16 @@ void CollectorChangePosition::Initialize() {
 }
 
 void CollectorChangePosition::Execute() {
-	if (this->position == true) { //true == up, false == down
-		if (left < (COLLECTOR_UP_AMOUNT - COLLECTOR_PITCH_THRESHOLD)) {
-			if (collector->getRealPosition() < COLLECTOR_UP_AMOUNT) {
-				collector->setCollectorPitchMotor(speed);
-			}
+	if (position == false){
+		if (collector->getRealPosition() < COLLECTOR_DOWN_AMOUNT){
+			//increases ther speed ever so slightly
+			speed = speed*COLLECTOR_PITCH_SPEED_SCALAR;
 		}
-	} else {
-		if (left < (COLLECTOR_DOWN_AMOUNT - COLLECTOR_PITCH_THRESHOLD)) {
-			if (collector->getRealPosition() >= COLLECTOR_DOWN_AMOUNT) {
-				collector->setCollectorPitchMotor(-speed);
-			}
+		else{
+			speed = speed*(1-(COLLECTOR_PITCH_SPEED_SCALAR-1));
+			/*the COLLECTOR_PITCH_SPEED_SCALAR is a scalar larger than 1 (.995 in this case)*/
 		}
 	}
-	left--;
 }
 
 bool CollectorChangePosition::IsFinished() {
