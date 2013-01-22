@@ -20,6 +20,7 @@ private:
 	DriveBase m_driveBase;
 	void ExecuteLinear();
 	void ExecuteFlat();
+	void ExecuteQuadratic();
 	
 
 public:

@@ -24,20 +24,20 @@ void DriveDistance::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveDistance::Execute() {
-	ExecuteFlat();
-	mySlope = quadratic;
+	//ExecuteFlat();
 
-	switch (mySlope) {
-		case flat:
-			executeFlat();
-		case linear:
-			executeLinear();
-			break;
-		case quadratic:
-			executeQuadratic();
-			break;
-		default:
-			executeFlat();
+	switch (this->m_SlopeType) {
+	case flat:
+		ExecuteFlat();
+	case linear:
+		ExecuteLinear();
+		break;
+//	case quadratic:
+//		ExecuteQuadratic();
+		break;
+	default:
+		ExecuteFlat();
+	}
 }
 void DriveDistance::ExecuteFlat() {
 	/** Compute remaining distance.
