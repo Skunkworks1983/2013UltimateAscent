@@ -3,6 +3,10 @@
 
 #include "WPILib.h"
 
+#define LOW (low->get() == 0)
+#define MID (mid->get() == 0)
+#define HIGH (high->get() == 0)
+
 class Collector : public Subsystem {
 private:
 	Encoder *collectorEncoder;
@@ -10,6 +14,9 @@ private:
 	SpeedController *collectorMotor;
 	SpeedController *collectorPitchMotor;
 	bool currentPosition;
+	DigitalInput * low;
+	DigitalInput * mid;
+	DigitalInput * high;
 public:
 	Collector();
 	~Collector();
@@ -19,8 +26,8 @@ public:
 	float getRealPosition();
 	void setCollectorPitchMotor(float);
 	void setCollectorSpeed(float);
-
 	virtual void InitDefaultCommand();
+	bool getSense(int height);
 };
 
 #endif

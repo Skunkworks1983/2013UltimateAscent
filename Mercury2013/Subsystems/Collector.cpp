@@ -5,6 +5,7 @@ Collector::Collector() :
 	Subsystem("Collector") {
 	pitchPot = new AnalogChannel(COLLECTOR_PITCH_POT);
 	collectorPitchMotor = COLLECTOR_PITCH_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);
+	
 }
 
 Collector::~Collector() {
@@ -39,6 +40,19 @@ void Collector::setCollectorPitchMotor(float speed){
 
 void Collector::setCollectorSpeed(float speed){
 	collectorMotor->Set(speed);
+}
+
+int getSense(int myHeight){
+	switch(myHeight){
+	case 0:
+		return LOW;
+	case 1:
+		return MID;
+	case 2:
+		return HIGH;
+	default:
+		return false;
+	}
 }
 
 void Collector::InitDefaultCommand() {

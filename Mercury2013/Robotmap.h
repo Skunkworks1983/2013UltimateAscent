@@ -66,6 +66,8 @@
 #define COLLECTOR_DOWN_AMOUNT				400 //TODO get value from design team
 #define COLLECTOR_PITCH_THRESHOLD			100
 #define COLLECTOR_UP_AMOUNT					0	//TODO
+#define COLLECTOR_PITCH_PEAK				.5  //TODO
+#define COLLECTOR_PITCH_SPEED_SCALAR		1.0005	//TODO
 /**
  * --COMPRESSOR--
  */

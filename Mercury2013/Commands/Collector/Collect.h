@@ -6,8 +6,8 @@
 class Collect: public CommandBase {
 private:
 	enum State {on, off, toggle};
-public:
 	State mode;
+public:
 	Collect(State state);
 	~Collect();
 	virtual void Initialize();
