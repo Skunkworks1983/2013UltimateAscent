@@ -27,5 +27,5 @@ void OI::registerButtonSchedulers() {
 }
 
 void setLightStates(DigitalInput input) {
-	eIEIO->SetDigitalOutput(input.GetChannel(), input.Get()); 
+	//eIEIO->SetDigitalOutput(input.GetChannel(), input.Get()); 
 }

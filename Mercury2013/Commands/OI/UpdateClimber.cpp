@@ -16,8 +16,8 @@ void UpdateClimber::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void UpdateClimber::Execute() {
-	oi->setLightStates(climber->getButton(1));
-	oi->setLightStates(climber->getButton(2));
+	//oi->setLightStates(climber->getButton(1));
+	//oi->setLightStates(climber->getButton(2));
 }
 
 // Make this return true when this Command no longer needs to run execute()
