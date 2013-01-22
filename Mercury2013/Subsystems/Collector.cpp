@@ -5,12 +5,17 @@ Collector::Collector() :
 	Subsystem("Collector") {
 	pitchPot = new AnalogChannel(COLLECTOR_PITCH_POT);
 	collectorPitchMotor = COLLECTOR_PITCH_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);
-	
+	low = new DigitalInput(COLLECTOR_IR_LOW_CHANNEL);
+	mid = new DigitalInput(COLLECTOR_IR_MID_CHANNEL);
+	high = new DigitalInput(COLLECTOR_IR_HIGH_CHANNEL);
 }
 
 Collector::~Collector() {
 	delete pitchPot;
 	delete collectorEncoder;
+	delete low;
+	delete mid;
+	delete high;
 }
 
 void Collector::setCollectorState(bool state) {
@@ -42,14 +47,17 @@ void Collector::setCollectorSpeed(float speed){
 	collectorMotor->Set(speed);
 }
 
-int getSense(int myHeight){
-	switch(myHeight){
+int Collector::getSense(int height){
+	switch(height){
 	case 0:
-		return LOW;
+		return low->Get() &1;
+		break;
 	case 1:
-		return MID;
+		return mid->Get() &1;
+		break;
 	case 2:
-		return HIGH;
+		return high->Get() &1;
+		break;
 	default:
 		return false;
 	}
