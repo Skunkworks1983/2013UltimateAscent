@@ -8,18 +8,26 @@
  * @author ExampleAuthor
  */
 class DriveDistance: public CommandBase {
-public:
-	DriveDistance(float targetDistance);
-	virtual void Initialize();
-	virtual void Execute();
-	virtual bool IsFinished();
-	virtual void End();
-	virtual void Interrupted();	
+
 private:
+	//todo add more modes
+	enum SlopeType {flat, linear, quadratic};
+	SlopeType m_SlopeType;
 	float m_distanceDriven;
 	float m_targetDistance;
 	int m_counter;
 	int m_count;
 	DriveBase m_driveBase;
+	void ExecuteLinear();
+	void ExecuteFlat();
+	
+
+public:
+	DriveDistance(float targetDistance, SlopeType MySlope);
+	virtual void Initialize();
+	virtual void Execute();
+	virtual bool IsFinished();
+	virtual void End();
+	virtual void Interrupted();
 };
 #endif
