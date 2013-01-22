@@ -41,15 +41,24 @@
 
 /**
  * --SHOOTER--
- *  Shooter motor channels.
  */
+// Shooter motor channels.
 #define SHOOTER_MOTOR				5 // TODO
 #define SHOOTER_PITCH_MOTOR			6 // TODO
 // Class name of the shooter and shooter pitch motor controllers
 #define SHOOTER_MOTOR_CREATE(channel) (new Jaguar(channel))
 #define SHOOTER_PITCH_MOTOR_CREATE(channel) (new Jaguar(channel))
-
-#define SHOOTER_TARGET_RPM	 		2500 // TODO
+// Shooter speed and pitch sensors
+#define SHOOTER_SPEED_ENCODER_PORTS 1,1 //TODO
+#define SHOOTER_PITCH_POT_PORT		1
+// Shooter pitch control info
+#define SHOOTER_PITCH_THRESHOLD		5
+#define SHOOTER_PITCH_STABILITY		25
+// Shooter speed control info
+#define SHOOTER_SPEED_THRESHOLD		100
+#define SHOOTER_SPEED_STABILITY		25
+// Shooter motor update speeds
+#define SHOOTER_MOTOR_UPDATE_SPEED	.01  //Every 10 milliseconds
 
 /**
  * --COLLECTOR--
