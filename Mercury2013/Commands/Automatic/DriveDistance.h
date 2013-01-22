@@ -17,6 +17,7 @@ private:
 	float m_targetDistance;
 	int m_counter;
 	int m_count;
+	int m_speed;
 	DriveBase m_driveBase;
 	void ExecuteLinear();
 	void ExecuteFlat();
