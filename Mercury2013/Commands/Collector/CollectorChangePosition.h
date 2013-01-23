@@ -8,6 +8,7 @@ private:
 	float left;
 	bool position;
 	float speed;
+	bool isFinished;
 public:
 	CollectorChangePosition(bool position);
 	~CollectorChangePosition();
