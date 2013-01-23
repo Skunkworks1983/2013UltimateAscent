@@ -3,9 +3,16 @@
 
 #include "../CommandBase.h"
 
-class Shoot: public CommandBase {
+class ArmShooter: public CommandBase {
 public:
-	Shoot();
+	enum ArmType {
+		kOn, kOff, kToggle
+	};
+private:
+	bool enabled;
+	ArmType armType;
+public:
+	ArmShooter(ArmType armType);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
