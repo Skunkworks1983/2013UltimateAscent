@@ -12,7 +12,7 @@ private:
 	bool toLowGear;
 	ShiftType toGear;
 public:
-	Shift(ShiftType toGear);
+	Shift(ShiftType shiftingType);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
