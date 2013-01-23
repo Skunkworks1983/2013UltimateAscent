@@ -6,28 +6,35 @@ CollectorChangePosition::CollectorChangePosition(bool position) {
 }
 
 CollectorChangePosition::~CollectorChangePosition() {
-	
+
 }
 
 void CollectorChangePosition::Initialize() {
+	isFinished = false;
 	speed = 0;
 }
 
 void CollectorChangePosition::Execute() {
-	if (position == false){
-		if (collector->getRealPosition() < COLLECTOR_DOWN_AMOUNT){
+	if (position == false) {
+		if (collector->getRealPosition() >= COLLECTOR_DOWN_AMOUNT) {
+			isFinished = true;
+		}
+		if (collector->getRealPosition() < COLLECTOR_DOWN_AMOUNT) {
 			//increases ther speed ever so slightly
 			speed = speed*COLLECTOR_PITCH_SPEED_SCALAR;
 		}
-		else{
-			speed = speed*(1-(COLLECTOR_PITCH_SPEED_SCALAR-1));
-			/*the COLLECTOR_PITCH_SPEED_SCALAR is a scalar larger than 1 (.995 in this case)*/
+	} else {
+		if (collector->getRealPosition() >= COLLECTOR_DOWN_AMOUNT) {
+			isFinished = true;
 		}
+		if (collector->getRealPosition() > 0)
+			speed = speed*(1-(COLLECTOR_PITCH_SPEED_SCALAR-1));
+		/*the COLLECTOR_PITCH_SPEED_SCALAR is a scalar larger than 1 (.995 in this case)*/
 	}
 }
 
 bool CollectorChangePosition::IsFinished() {
-	return true;
+	return isFinished;
 }
 
 void CollectorChangePosition::End() {
