@@ -49,7 +49,7 @@
 #define SHOOTER_MOTOR_CREATE(channel) (new Jaguar(channel))
 #define SHOOTER_PITCH_MOTOR_CREATE(channel) (new Jaguar(channel))
 // Shooter speed and pitch sensors
-#define SHOOTER_SPEED_ENCODER_PORTS 1,1 //TODO
+#define SHOOTER_SPEED_ENCODER_PORTS 1,1 // TODO
 #define SHOOTER_PITCH_POT_PORT		1
 // Shooter pitch control info
 #define SHOOTER_PITCH_THRESHOLD		5
@@ -58,9 +58,9 @@
 #define SHOOTER_SPEED_THRESHOLD		100
 #define SHOOTER_SPEED_STABILITY		25
 // Shooter motor update speeds
-#define SHOOTER_MOTOR_UPDATE_SPEED	.01  //Every 10 milliseconds
+#define SHOOTER_MOTOR_UPDATE_SPEED	.01  // Every 10 milliseconds
 // Shooter target RPM
-#define SHOOTER_TARGET_RPM			2500
+#define SHOOTER_TARGET_RPM			2500 // TODO
 
 /**
  * --COLLECTOR--
