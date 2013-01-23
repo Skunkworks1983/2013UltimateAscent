@@ -1,17 +1,16 @@
-#ifndef COLLECTOR_CHANGE_POSITION_H
-#define COLLECTOR_CHANGE_POSITION_H
+#ifndef _CHANGE_POSITION_H
+#define _CHANGE_POSITION_H
 
 #include "../CommandBase.h"
 
-class CollectorChangePosition: public CommandBase {
+class ChangePosition: public CommandBase {
 private:
-	float left;
 	bool position;
 	float speed;
 	bool isFinished;
 public:
-	CollectorChangePosition(bool position);
-	~CollectorChangePosition();
+	ChangePosition(bool position);
+	~ChangePosition();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
