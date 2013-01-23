@@ -1,6 +1,7 @@
 #include "Shift.h"
 
-Shift::Shift(ShiftType toGear) {
+Shift::Shift(ShiftType toGear) :
+	CommandBase("Shift") {
 	//It requires the drive base, but we don't need a lock on it.
 	this->toGear = toGear;
 	toLowGear = false;

@@ -3,7 +3,7 @@
 
 #include "../CommandBase.h"
 
-class Shift : public CommandBase {
+class Shift: public CommandBase {
 public:
 	enum ShiftType {
 		kLow, kHigh, kToggle
@@ -12,7 +12,6 @@ private:
 	bool toLowGear;
 	ShiftType toGear;
 public:
-	
 	Shift(ShiftType toGear);
 	virtual void Initialize();
 	virtual void Execute();
