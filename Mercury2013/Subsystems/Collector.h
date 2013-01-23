@@ -10,9 +10,9 @@ private:
 	SpeedController *collectorMotor;
 	SpeedController *collectorPitchMotor;
 	bool currentPosition;
-	DigitalInput * low;
-	DigitalInput * mid;
-	DigitalInput * high;
+	DigitalInput * IRLow;
+	DigitalInput * IRMid;
+	DigitalInput * IRHigh;
 public:
 	Collector();
 	~Collector();
