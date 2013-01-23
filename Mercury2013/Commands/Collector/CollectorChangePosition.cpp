@@ -17,6 +17,7 @@ void CollectorChangePosition::Initialize() {
 void CollectorChangePosition::Execute() {
 	if (position == false) {
 		if (collector->getRealPosition() >= COLLECTOR_DOWN_AMOUNT) {
+			//finsishes the command
 			isFinished = true;
 		}
 		if (collector->getRealPosition() < COLLECTOR_DOWN_AMOUNT) {
@@ -25,6 +26,7 @@ void CollectorChangePosition::Execute() {
 		}
 	} else {
 		if (collector->getRealPosition() >= COLLECTOR_DOWN_AMOUNT) {
+			//finsishes the command
 			isFinished = true;
 		}
 		if (collector->getRealPosition() > 0)

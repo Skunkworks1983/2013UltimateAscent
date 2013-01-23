@@ -3,14 +3,15 @@
 
 Collector::Collector() :
 	Subsystem("Collector") {
-	pitchPot = new AnalogChannel(COLLECTOR_PITCH_POT);
-	collectorPitchMotor = COLLECTOR_PITCH_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);
-	low = new DigitalInput(COLLECTOR_IR_LOW_CHANNEL);
-	mid = new DigitalInput(COLLECTOR_IR_MID_CHANNEL);
-	high = new DigitalInput(COLLECTOR_IR_HIGH_CHANNEL);
+	pitchPot = new AnalogChannel(COLLECTOR_PITCH_POT);	//potentionmeter for colelctor pitch
+	collectorPitchMotor = COLLECTOR_PITCH_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);	//collector pitch motor
+	low = new DigitalInput(COLLECTOR_IR_LOW_CHANNEL);	//IR sensor near or on floor
+	mid = new DigitalInput(COLLECTOR_IR_MID_CHANNEL);	//IR sensor inside middle of robot
+	high = new DigitalInput(COLLECTOR_IR_HIGH_CHANNEL);	//IR sensor next to shooter?
 }
 
 Collector::~Collector() {
+	/* deleting of the objects created above */
 	delete pitchPot;
 	delete collectorEncoder;
 	delete low;
@@ -19,6 +20,7 @@ Collector::~Collector() {
 }
 
 void Collector::setCollectorState(bool state) {
+	/* Sets motor speed to a DEFINE value, turns motor off if false */
 	if (state == true){
 		collectorMotor->Set(COLLECTOR_MOTOR_SPEED);
 	}else
@@ -28,26 +30,32 @@ void Collector::setCollectorState(bool state) {
 }
 
 bool Collector::isUp() {
+	//if colelctor is in up position (true is up)
 	return currentPosition;
 }
 
 Encoder* Collector::getCollectorEncoder() {
+	//returns pointer to colelctor encoder
 	return collectorEncoder;
 }
 
 float Collector::getRealPosition(){
+	// returns the real potentiometer reading TODO
 	return pitchPot->GetVoltage();				//TODO
 }
 
 void Collector::setCollectorPitchMotor(float speed){
+	//sets collector pitch motor speed
 	collectorPitchMotor->Set(speed);
 }
 
 void Collector::setCollectorSpeed(float speed){
+	//sets the collector speed NOT SURE IF IMPLEMENTED
 	collectorMotor->Set(speed);
 }
 
 int Collector::getSense(int height){
+	// returns the IR sensor's feedback depending on what argument is (0==low, 1==mid, 2==high)
 	switch(height){
 	case 0:
 		return low->Get() &1;
@@ -59,7 +67,7 @@ int Collector::getSense(int height){
 		return high->Get() &1;
 		break;
 	default:
-		return false;
+		return 0;
 	}
 }
 
