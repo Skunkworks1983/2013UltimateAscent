@@ -59,6 +59,8 @@
 #define SHOOTER_SPEED_STABILITY		25
 // Shooter motor update speeds
 #define SHOOTER_MOTOR_UPDATE_SPEED	.01  //Every 10 milliseconds
+// Shooter target RPM
+#define SHOOTER_TARGET_RPM			2500
 
 /**
  * --COLLECTOR--

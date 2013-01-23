@@ -21,6 +21,8 @@ private:
 	
 	int speedStability;
 	int pitchStability;
+	
+	bool armed;
 public:
 	Shooter();
 	~Shooter();
@@ -29,8 +31,11 @@ public:
 	void endUpdateLoop();
 	
 	void setTargetSpeed(float rpm);
+	float getTargetSpeed();
 	float getCurrentSpeed();
 	bool isSpeedStable();
+	bool isArmed();
+	void setArmed(bool armed);
 	
 	void setTargetPitch(float degree);
 	float getCurrentPitch();

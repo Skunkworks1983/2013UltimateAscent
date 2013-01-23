@@ -9,6 +9,8 @@ Shooter::Shooter() :
 	pitchPot = new AnalogChannel(SHOOTER_PITCH_POT_PORT);
 	
 	motorUpdateLoop = new Notifier(Shooter::callUpdateMotors,this);
+	
+	armed = false;
 }
 
 Shooter::~Shooter() {
@@ -53,16 +55,29 @@ void Shooter::setTargetSpeed(float rpm) {
 	targetSpeed = rpm;
 }
 
+float Shooter::getTargetSpeed() {
+	return targetSpeed;
+}
+
 bool Shooter::isSpeedStable() {
 	return speedStability >= SHOOTER_SPEED_STABILITY;
 }
+
+bool Shooter::isArmed() {
+	return armed;
+}
+
+void Shooter::setArmed(bool armed) { 
+	this->armed = armed;
+}
+
 
 void Shooter::callUpdateMotors(void* shooter) {
 	((Shooter*) shooter)->updateMotors();
 }
 
 void Shooter::updateMotors() {
-	if (targetSpeed > SHOOTER_SPEED_THRESHOLD) {
+	if (armed && targetSpeed > SHOOTER_SPEED_THRESHOLD) { // If target speed is close to zero, don't do any processing
 		float speedOffset = targetSpeed - getCurrentSpeed();
 		if (speedOffset > 0) {
 			shooterMotor->Set(1);
