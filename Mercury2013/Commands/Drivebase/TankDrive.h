@@ -4,9 +4,9 @@
 #include "../CommandBase.h"
 
 /**
- *
- *
- * @author ExampleAuthor
+ * Basic tank drive implementation for the DriveBase subsystem.
+ * This requires an exclusive lock on the drive base, and is also the default command for it.
+ * @author Westin Miller
  */
 class TankDrive: public CommandBase {
 public:

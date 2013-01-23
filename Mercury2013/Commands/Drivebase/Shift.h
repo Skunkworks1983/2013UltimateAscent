@@ -3,6 +3,11 @@
 
 #include "../CommandBase.h"
 
+/**
+ * Shifts the drive base using the given shifting style.
+ * This does not require an exclusive lock on the drive base.
+ * @author Westin Miller
+ */
 class Shift: public CommandBase {
 public:
 	enum ShiftType {
