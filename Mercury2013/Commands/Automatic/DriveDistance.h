@@ -15,13 +15,14 @@ private:
 	SlopeType m_SlopeType;
 	float m_distanceDriven;
 	float m_targetDistance;
+	float m_distanceRemaining;
 	int m_counter;
 	int m_count;
 	int m_speed;
 	DriveBase m_driveBase;
 	void ExecuteLinear();
 	void ExecuteFlat();
-	void ExecuteQuadratic();
+	void ExecuteQuadratic(float leftDist, float rightDist);
 	
 
 public:
