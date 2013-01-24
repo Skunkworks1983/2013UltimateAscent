@@ -108,6 +108,9 @@
 #define ARM_BUTTON_1				1
 #define ARM_BUTTON_2				5
 
+#define	POKEY_1						2
+#define	POKEY_2						9
+
 #define ARM_MOTOR_CREATE(channel)	(new Jaguar(channel))
 
 #endif
