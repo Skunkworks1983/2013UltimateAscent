@@ -24,6 +24,15 @@
 #define OI_JOYSTICK_LEFT			1
 #define OI_JOYSTICK_RIGHT			2
 
+// Autonomous Settings
+#define AUTO_DIST_SLOW_DOWN 24			// Inches
+#define AUTO_DIST_THRESHOLD	2			// Inches, stopping tolerance
+#define AUTO_TURN_SLOW_DOWN 10			// Degrees
+#define AUTO_TURN_SPEED_MIN .2		// Scalar Minimum Speed (0-1)
+#define AUTO_TURN_GYRO_THRESHOLD 10		// Degrees, stopping tolerance
+#define AUTO_TURN_SPEED_MAX .5			// Scalar Maximum Speed (0-1)
+#define AUTO_TURN_ITERATION_THRESHOLD 5	//Amount of ticks to pass for threshold to return true
+
 /**
  * --DRIVE BASE--
  * Drive base motor channels.
