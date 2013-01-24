@@ -1,5 +1,7 @@
 #include <math.h>
 #include "TurnDegree.h"
+#include "../../Robotmap.h"
+
 TurnDegree::TurnDegree(float targetAngle) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
@@ -17,7 +19,7 @@ void TurnDegree::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void TurnDegree::Execute() {
-	float signSpeed = 1;
+	float signSpeed = AUTO_TURN_GYRO_SIGN_SPEED;
 	/** Compute remaining angle.
 	 * If angle remaining is greater than ___ degrees, continue with motor on/maintaining speed. 
 	 * If angle remaining is lesser than ___ degrees, turn the motor off.  
@@ -28,13 +30,14 @@ void TurnDegree::Execute() {
 	if ((fabs(this->m_targetAngle) - fabs(this->m_angleTurned)) < 0)
 		signSpeed = -1;
 	else
-		signSpeed = 1;
+		signSpeed = AUTO_TURN_GYRO_SIGN_SPEED
+;
 	//if angle traveled is greater than or equal to the target angle, motors are set to null
 	if (fabs(this->m_angleTurned) >= fabs(this->m_targetAngle)) {
 		this->CommandBase::driveBase->setSpeed(0, 0);
 	} else {
-		this->CommandBase::driveBase->setSpeed(-1 * signSpeed * 0.5,
-				signSpeed * 0.5);
+		this->CommandBase::driveBase->setSpeed(-1 * signSpeed * AUTO_TURN_GYRO_SIGN_HALF,
+				signSpeed * AUTO_TURN_GYRO_SIGN_HALF);
 	}
 }
 

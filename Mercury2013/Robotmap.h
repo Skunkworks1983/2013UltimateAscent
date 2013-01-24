@@ -23,15 +23,21 @@
 #define OI_JOYSTICK_RIGHT			2
 
 // Autonomous Settings
-#define AUTO_DIST_SLOW_DOWN 24			// Inches
-#define AUTO_DIST_THRESHOLD	2			// Inches, stopping tolerance
-#define AUTO_TURN_SLOW_DOWN 10			// Degrees
-#define AUTO_TURN_SPEED_MIN .2		// Scalar Minimum Speed (0-1)
-#define AUTO_TURN_GYRO_THRESHOLD 10		// Degrees, stopping tolerance
-#define AUTO_TURN_SPEED_MAX .5			// Scalar Maximum Speed (0-1)
+#define AUTO_DIST_SLOW_DOWN 24			//Inches
+#define AUTO_DIST_THRESHOLD	2			//Inches, stopping tolerance
+#define AUTO_TURN_SLOW_DOWN 10			//Degrees
+#define AUTO_TURN_SPEED_MIN .2			//Scalar Minimum Speed (0-1)
+#define AUTO_TURN_GYRO_THRESHOLD 10		//Degrees, stopping tolerance
+#define AUTO_TURN_GYRO_SIGN_SPEED 1		//For setting the sign speeds
+#define AUTO_TURN_GYRO_SIGN_HALF .5		//For setting half the sign speeds
+#define AUTO_TURN_GYRO_SIGN_NEGATIVE .5	//For setting negetive speed
+#define AUTO_TURN_SPEED_MAX .5			//                  Scalar Maximum Speed (0-1)
 #define AUTO_TURN_ITERATION_THRESHOLD 5	//Amount of ticks to pass for threshold to return true
 #define AUTO_DRIVE_DIST_MAX_SPEED 0.5   //Maximum speed allowed by DriveDistance
-#define AUTO_DRIVE_DIST_MIN_SPEED .25
+#define AUTO_DRIVE_DIST_MIN_SPEED .25   //Minimum speed of robot
+#define AUTO_DRIVE_DIST_LINEAR_INCREMENT .02 //How much is added each Loop
+
+
 
 /**
  * --DRIVE BASE--

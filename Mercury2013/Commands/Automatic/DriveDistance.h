@@ -19,11 +19,11 @@ private:
 	int m_counter;
 	int m_count;
 	int m_speed;
+	float m_cachedLinearSpeed;
 	DriveBase m_driveBase;
 	void ExecuteLinear();
 	void ExecuteFlat();
 	void ExecuteQuadratic(float leftDist, float rightDist);
-	
 
 public:
 	DriveDistance(float targetDistance, SlopeType MySlope);

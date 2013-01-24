@@ -21,6 +21,8 @@ void DriveDistance::Initialize() {
 	m_distanceDriven = 0;
 	//resetting distance driven to 0 
 	m_count = 0;
+	//set cached linear speed to 0
+	m_cachedLinearSpeed = 0;
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -34,6 +36,7 @@ void DriveDistance::Execute() {
 	switch (m_SlopeType) {
 	case flat:
 		ExecuteFlat();
+		break;
 	case linear:
 		ExecuteLinear();
 		break;
@@ -74,9 +77,12 @@ void DriveDistance::ExecuteLinear() {
 				AUTO_DRIVE_DIST_MIN_SPEED);
 	//if (m_distanceDriven > 0)
 	//	driveBase
-	//^Todo^ make speeds not zero please
-
-
+	
+	if (this->m_cachedLinearSpeed < AUTO_DRIVE_DIST_MAX_SPEED){
+		this->m_cachedLinearSpeed += AUTO_DRIVE_DIST_LINEAR_INCREMENT;
+		driveBase->setSpeed(this->m_cachedLinearSpeed, this->m_cachedLinearSpeed);
+	}
+	
 	//if distance traveled is greater than or equal to the target distance, motors are set to null
 	if (m_distanceDriven >= m_targetDistance) {
 		driveBase->setSpeed(0, 0);
