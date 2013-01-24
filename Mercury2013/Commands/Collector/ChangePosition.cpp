@@ -20,19 +20,27 @@ void ChangePosition::Execute() {
 			//finsishes the command
 			isFinished = true;
 		}
-		
+
 		if (collector->getRealPosition() < COLLECTOR_DOWN_AMOUNT) {
 			//increases ther speed ever so slightly
-			speed = speed*COLLECTOR_PITCH_SPEED_SCALAR;
+			if (collector->getRealPosition() < (COLLECTOR_DOWN_AMOUNT/2)) {
+				speed = speed*COLLECTOR_PITCH_SPEED_SCALAR;
+			} else {
+				speed = speed*(1-(COLLECTOR_PITCH_SPEED_SCALAR-1));
+			}
 		}
 	} else {
 		if (collector->getRealPosition() >= COLLECTOR_DOWN_AMOUNT) {
 			//finsishes the command
 			isFinished = true;
 		}
-		
+
 		if (collector->getRealPosition() > 0)
-			speed = speed*(1-(COLLECTOR_PITCH_SPEED_SCALAR-1));
+			if (collector->getRealPosition() > (COLLECTOR_DOWN_AMOUNT/2)) {
+				speed = speed*COLLECTOR_PITCH_SPEED_SCALAR;
+			} else {
+				speed = speed*(1-(COLLECTOR_PITCH_SPEED_SCALAR-1));
+			}
 		/*This makes the difference between 1 and COLLECTOR_PITCH_SPEED_SCALAR minused from one so it incrementally gets smaller*/
 	}
 }
