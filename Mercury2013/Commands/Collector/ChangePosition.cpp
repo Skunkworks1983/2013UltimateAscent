@@ -11,7 +11,7 @@ ChangePosition::~ChangePosition() {
 
 void ChangePosition::Initialize() {
 	isFinished = false;
-	speed = 0;
+	speed = COLLECTOR_PITCH_LOWEST_SPEED;
 }
 
 void ChangePosition::Execute() {
@@ -19,7 +19,9 @@ void ChangePosition::Execute() {
 		if (collector->getRealPosition() >= COLLECTOR_DOWN_AMOUNT) {
 			//finsishes the command
 			isFinished = true;
+			break;
 		}
+		
 		if (collector->getRealPosition() < COLLECTOR_DOWN_AMOUNT) {
 			//increases ther speed ever so slightly
 			speed = speed*COLLECTOR_PITCH_SPEED_SCALAR;
@@ -28,10 +30,12 @@ void ChangePosition::Execute() {
 		if (collector->getRealPosition() >= COLLECTOR_DOWN_AMOUNT) {
 			//finsishes the command
 			isFinished = true;
+			break;
 		}
+		
 		if (collector->getRealPosition() > 0)
 			speed = speed*(1-(COLLECTOR_PITCH_SPEED_SCALAR-1));
-		/*the COLLECTOR_PITCH_SPEED_SCALAR is a scalar larger than 1 (.995 in this case)*/
+		/*This makes the difference between 1 and COLLECTOR_PITCH_SPEED_SCALAR minused from one so it incrementally gets smaller*/
 	}
 }
 
