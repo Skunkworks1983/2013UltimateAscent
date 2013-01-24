@@ -19,7 +19,6 @@ void ChangePosition::Execute() {
 		if (collector->getRealPosition() >= COLLECTOR_DOWN_AMOUNT) {
 			//finsishes the command
 			isFinished = true;
-			break;
 		}
 		
 		if (collector->getRealPosition() < COLLECTOR_DOWN_AMOUNT) {
@@ -30,7 +29,6 @@ void ChangePosition::Execute() {
 		if (collector->getRealPosition() >= COLLECTOR_DOWN_AMOUNT) {
 			//finsishes the command
 			isFinished = true;
-			break;
 		}
 		
 		if (collector->getRealPosition() > 0)
