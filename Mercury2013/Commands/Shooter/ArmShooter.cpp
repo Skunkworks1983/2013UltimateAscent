@@ -1,7 +1,7 @@
 #include "ArmShooter.h"
 
 ArmShooter::ArmShooter(ArmType armType) :
-	CommandBase("Shoot") {
+	CommandBase("ArmShooter") {
 	Requires(shooter);
 	Requires(collector);
 	this->armType = armType;
