@@ -15,9 +15,7 @@
  * 
  * --NAMING CONVENTIONS--
  * SUBSYSTEM_COMPONENT_PART 
- */
-
-/**
+ * 
  * --OPERATOR INTERFACE--
  * Joystick Channels
  */
@@ -32,6 +30,7 @@
 #define AUTO_TURN_GYRO_THRESHOLD 10		// Degrees, stopping tolerance
 #define AUTO_TURN_SPEED_MAX .5			// Scalar Maximum Speed (0-1)
 #define AUTO_TURN_ITERATION_THRESHOLD 5	//Amount of ticks to pass for threshold to return true
+#define AUTO_DRIVE_DIST_MAX_SPEED 0.5   //Maximum speed allowed by DriveDistance
 
 /**
  * --DRIVE BASE--

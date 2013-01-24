@@ -95,12 +95,13 @@ void DriveDistance::ExecuteQuadratic(float leftDist, float rightDist) {
 	 * either 1, or a 24th of the distanceRemaining will be set as the motor speed.  
 	 */
 
-	CommandBase::driveBase->setSpeed(fmin(1, (this->m_distanceDriven - leftDist) / 24),fmin(1,(this->m_distanceDriven - rightDist) / 24));
-	
-	
+	CommandBase::driveBase->setSpeed(
+			fmin(1, (this->m_distanceDriven - leftDist) / 24),
+			fmin(1, (this->m_distanceDriven - rightDist) / 24));
+
 	if (fabs(leftDist - this->m_distanceDriven) < AUTO_DIST_THRESHOLD || fabs(
 			rightDist - this->m_distanceDriven) < AUTO_DIST_THRESHOLD) {
-		this->m_count;
+		this->m_count++;
 	} else {
 		this->m_count = 0;
 	}
@@ -109,10 +110,12 @@ void DriveDistance::ExecuteQuadratic(float leftDist, float rightDist) {
 	if (m_distanceDriven >= m_targetDistance) {
 		driveBase->setSpeed(0, 0);
 	} else {
-		driveBase->setSpeed(0.5, 0.5);
+		driveBase->setSpeed(AUTO_DRIVE_DIST_MAX_SPEED, AUTO_DRIVE_DIST_MAX_SPEED);
 	}
 	//if dist traveled is less than target distance, the motors will trundle along with half power
 }
+
+
 // Make this return true when this Command no longer needs to run execute()
 bool DriveDistance::IsFinished() {
 	return m_distanceDriven >= m_targetDistance;
