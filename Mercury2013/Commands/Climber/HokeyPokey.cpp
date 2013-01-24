@@ -1,36 +1,37 @@
-#include "Climb.h" 
+#include "HokeyPokey.h" 
 
-Climb::Climb() {
+HokeyPokey::HokeyPokey() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
 }
 
-Climb::~Climb() {
+HokeyPokey::~HokeyPokey() {
 	
 }
 
 // Called just before this Command runs the first time
-void Climb::Initialize() {
+void HokeyPokey::Initialize() {
 	
 }
 
 // Called repeatedly when this Command is scheduled to run
-void Climb::Execute() {
+void HokeyPokey::Execute() {
 	//Here call the collector to do the movey thingy
 	
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool Climb::IsFinished() {
+bool HokeyPokey::IsFinished() {
 	return false;
 }
 
 // Called once after isFinished returns true
-void Climb::End() {
+void HokeyPokey::End() {
 	
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void Climb::Interrupted() {
+void HokeyPokey::Interrupted() {
+	
 }

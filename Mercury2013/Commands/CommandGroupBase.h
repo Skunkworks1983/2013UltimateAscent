@@ -6,6 +6,7 @@
 class CommandGroupBase: public Command {
 public:
 	CommandGroupBase(const char *name);
-	CommandBase();
 	static void init();
 };
+
+#endif

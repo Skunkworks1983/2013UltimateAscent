@@ -9,7 +9,7 @@ ArmMove::~ArmMove() {
 }
 
 void ArmMove::Initialize() {
-
+	
 }
 
 void ArmMove::Execute() {
@@ -37,5 +37,5 @@ void ArmMove::End() {
 }
 
 void ArmMove::Interrupted() {
-
+	climber->setArmsMotor(0);
 }
