@@ -31,6 +31,7 @@
 #define AUTO_TURN_SPEED_MAX .5			// Scalar Maximum Speed (0-1)
 #define AUTO_TURN_ITERATION_THRESHOLD 5	//Amount of ticks to pass for threshold to return true
 #define AUTO_DRIVE_DIST_MAX_SPEED 0.5   //Maximum speed allowed by DriveDistance
+#define AUTO_DRIVE_DIST_MIN_SPEED .25
 
 /**
  * --DRIVE BASE--
