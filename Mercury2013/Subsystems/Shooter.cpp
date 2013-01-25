@@ -7,9 +7,9 @@ Shooter::Shooter() :
 	//TODO pitchMotor = SHOOTER_PITCH_MOTOR_CREATE(SHOOTER_PITCH_MOTOR);
 	//TODO speedEncoder = new Encoder(SHOOTER_SPEED_ENCODER_PORTS, false, Encoder::k4X);
 	//TODO pitchPot = new AnalogChannel(SHOOTER_PITCH_POT_PORT);
-	
-	motorUpdateLoop = new Notifier(Shooter::callUpdateMotors,this);
-	
+
+	motorUpdateLoop = new Notifier(Shooter::callUpdateMotors, this);
+
 	armed = false;
 }
 
@@ -67,10 +67,14 @@ bool Shooter::isArmed() {
 	return armed;
 }
 
-void Shooter::setArmed(bool armed) { 
+void Shooter::setArmed(bool armed) {
+	if (this->armed && !armed) {
+		speedEncoder->Stop();
+	} else if (!this->armed && armed) {
+		speedEncoder->Start();
+	}
 	this->armed = armed;
 }
-
 
 void Shooter::callUpdateMotors(void* shooter) {
 	((Shooter*) shooter)->updateMotors();
