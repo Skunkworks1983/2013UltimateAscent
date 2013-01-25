@@ -3,12 +3,12 @@
 
 Collector::Collector() :
 	Subsystem("Collector") {
-	pitchPot = new AnalogChannel(COLLECTOR_PITCH_POT);	//potentionmeter for colelctor pitch
-	collectorPitchMotor = COLLECTOR_PITCH_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);	//collector pitch motor
-	collectorMotor = COLLECTOR_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);
-	IRLow = new DigitalInput(COLLECTOR_IR_LOW_CHANNEL);	//IR sensor near or on floor
-	IRMid = new DigitalInput(COLLECTOR_IR_MID_CHANNEL);	//IR sensor inside middle of robot
-	IRHigh = new DigitalInput(COLLECTOR_IR_HIGH_CHANNEL);	//IR sensor next to shooter?
+	//TODO pitchPot = new AnalogChannel(COLLECTOR_PITCH_POT);	//potentionmeter for colelctor pitch
+	//TODO collectorPitchMotor = COLLECTOR_PITCH_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);	//collector pitch motor
+	//TODO collectorMotor = COLLECTOR_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);
+	//TODO IRLow = new DigitalInput(COLLECTOR_IR_LOW_CHANNEL);	//IR sensor near or on floor
+	//TODO IRMid = new DigitalInput(COLLECTOR_IR_MID_CHANNEL);	//IR sensor inside middle of robot
+	//TODO IRHigh = new DigitalInput(COLLECTOR_IR_HIGH_CHANNEL);	//IR sensor next to shooter?
 }
 
 Collector::~Collector() {
