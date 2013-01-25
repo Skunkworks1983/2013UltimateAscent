@@ -3,10 +3,10 @@
 
 Shooter::Shooter() :
 	Subsystem("Shooter") {
-	shooterMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR);
-	pitchMotor = SHOOTER_PITCH_MOTOR_CREATE(SHOOTER_PITCH_MOTOR);
-	speedEncoder = new Encoder(SHOOTER_SPEED_ENCODER_PORTS, false, Encoder::k4X);
-	pitchPot = new AnalogChannel(SHOOTER_PITCH_POT_PORT);
+	//TODO shooterMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR);
+	//TODO pitchMotor = SHOOTER_PITCH_MOTOR_CREATE(SHOOTER_PITCH_MOTOR);
+	//TODO speedEncoder = new Encoder(SHOOTER_SPEED_ENCODER_PORTS, false, Encoder::k4X);
+	//TODO pitchPot = new AnalogChannel(SHOOTER_PITCH_POT_PORT);
 	
 	motorUpdateLoop = new Notifier(Shooter::callUpdateMotors,this);
 	

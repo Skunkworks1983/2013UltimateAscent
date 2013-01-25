@@ -1,16 +1,16 @@
 #include "Climber.h"
 
 Climber::Climber() {
-	armsEncoder = new Encoder(ARM_ENCODER_1, ARM_ENCODER_2, false, Encoder::k4X);
-	armsMotor = ARM_MOTOR_CREATE(ARM_MOTOR);
+	//TODO armsEncoder = new Encoder(ARM_ENCODER_1, ARM_ENCODER_2, false, Encoder::k4X);
+	//TODO armsMotor = ARM_MOTOR_CREATE(ARM_MOTOR);
 	
-	arm1Button = new DigitalInput(ARM_BUTTON_1);
-	arm2Button = new DigitalInput(ARM_BUTTON_2);
+	//TODO arm1Button = new DigitalInput(ARM_BUTTON_1);
+	//TODO arm2Button = new DigitalInput(ARM_BUTTON_2);
 	
-	armsEncoder->Reset();
+	//TODO armsEncoder->Reset();
 	
-	pokey1 = new Solenoid(POKEY_1);
-	pokey2 = new Solenoid(POKEY_2);
+	//TODO pokey1 = new Solenoid(POKEY_1);
+	//TODO pokey2 = new Solenoid(POKEY_2);
 }
 
 Climber::~Climber() {
