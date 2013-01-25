@@ -9,7 +9,13 @@
  */
 class Pneumatics: public Subsystem {
 private:
+	/**
+	 * The switch that checks the pressure of the upstream air system.
+	 */
 	DigitalInput *compressorSwitch;
+	/**
+	 * The relay that is driving the compressor.
+	 */
 	Relay *compressorRelay;
 public:
 	/**
@@ -22,12 +28,12 @@ public:
 
 	/**
 	 * Checks if the compressor is below the target pressure.
-	 * @return <code>true</code> if below target, <code>false</code> if not
+	 * @return true if below target, false if not
 	 */
 	bool isBelowPressure();
 	/**
 	 * Sets the compressor relay to the given state.
-	 * @param active  <code>true</code> if the compressor should be on, <code>false</code> if not
+	 * @param active  true if the compressor should be on, false if not
 	 */
 	void setCompressorState(bool state);
 
