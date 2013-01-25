@@ -6,7 +6,7 @@
 Pneumatics::Pneumatics() :
 	Subsystem("Pneumatics") {
 	compressorRelay = new Relay(COMPRESSOR_RELAY);
-	compressorSwitch = new DigitalInput(1, 0);//COMPRESSOR_SWITCH);
+	compressorSwitch = new DigitalInput(COMPRESSOR_SWITCH);
 }
 
 Pneumatics::~Pneumatics() {
