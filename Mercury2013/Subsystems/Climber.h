@@ -32,15 +32,15 @@ public:
 	 */
 	void movePokey(bool pos);
 
-	/**  
+	/**  Set the arms motor to a specified speed
 	 */
 	void setArmsMotor(float speed);
 
-	/**  
+	/**  Gets the position of the arms at a current point
 	 */
 	float getPosition();
 
-	/**  
+	/**  Gets the pokey state with a specific pokey number given
 	 */
 	bool getPokey(int num);
 
