@@ -5,9 +5,9 @@
 #include "ArmMove.h"
 //TODO TODO TODO MAKE THIS A GROUP TODO TODO TODO
 /**
+ * @brief This command group will handle all of the subsystems in the Climber to make them work in sync and in order
  *
- *
- * @author ExampleAuthor
+ * @author Connor Barlow
  */
 class Climb: public CommandBase {
 public:

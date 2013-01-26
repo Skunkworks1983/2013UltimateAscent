@@ -3,6 +3,11 @@
 #include "WPILib.h"
 #include "../Robotmap.h"
 
+/**
+ * @brief All of the necessary methods and accessors for Climb and its child commands
+ * 
+ * @author 
+ */
 class Climber {
 private:
 
