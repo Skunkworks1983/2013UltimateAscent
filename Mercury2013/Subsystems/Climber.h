@@ -6,7 +6,7 @@
 /**
  * @brief All of the necessary methods and accessors for Climb and its child commands
  * 
- * @author 
+ * @author Connor Barlow
  */
 class Climber {
 private:
