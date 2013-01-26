@@ -4,6 +4,8 @@
 #include "../CommandBase.h"
 
 /**
+ * @brief Arms or disarms the Shooter wheel
+ * 
  * Either arms or disarms the main shooter wheel.
  * This does not require an exclusive lock on the shooter.
  * @author Mark Old
