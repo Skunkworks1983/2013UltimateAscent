@@ -3,9 +3,9 @@
 #include "../CommandBase.h"
 
 /**
- * @brief Uses the drive base and it's gyroscope to turn a certain amount.
+ * @brief Uses the DriveBase and it's gyroscope to turn a certain amount.
  * 
- * This command requires an exclusive lock on the drive base, as well as a gyroscope.
+ * This command requires an exclusive lock on the DriveBase, as well as a gyroscope.
  * @author Owen Mattson
  */
 class TurnDegree: public CommandBase {

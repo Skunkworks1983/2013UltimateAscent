@@ -4,9 +4,9 @@
 #include "../CommandBase.h"
 
 /**
- * @brief Uses the drive base and it's encoders to drive a certain distance.
+ * @brief Uses the DriveBase and it's encoders to drive a certain distance.
  * 
- * This command requires an exclusive lock on the drive base, as well as encoders.
+ * This command requires an exclusive lock on the DriveBase, as well as encoders.
  * @author Owen Mattson
  */
 class DriveDistance: public CommandBase {
