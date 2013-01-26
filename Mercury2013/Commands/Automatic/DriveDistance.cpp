@@ -8,6 +8,10 @@ DriveDistance::DriveDistance(float targetDistance, SlopeType MySlope) {
 	// DriveDistance
 	Requires(driveBase);
 	m_targetDistance = targetDistance;
+	if (this->m_targetDistance >= 0)
+		this->m_direction = 1;
+	else
+		this->m_direction = -1;
 }
 // Called just before this Command runs the first time
 void DriveDistance::Initialize() {
@@ -55,11 +59,11 @@ void DriveDistance::ExecuteFlat() {
 	 */
 
 	//if distance traveled is greater than or equal to the target distance, motors are set to null
-	if (m_distanceDriven >= m_targetDistance) {
+	if (fabs (m_distanceDriven) >= fabs (m_targetDistance)) {
 		driveBase->setSpeed(0, 0);
 	} else {
-		driveBase->setSpeed(AUTO_DRIVE_DIST_MAX_SPEED,
-				AUTO_DRIVE_DIST_MAX_SPEED);
+		driveBase->setSpeed(this->m_direction * AUTO_DRIVE_DIST_MAX_SPEED,
+		this->m_direction * AUTO_DRIVE_DIST_MAX_SPEED);
 	}
 	//if dist traveled is less than target distance, the motors will trundle along with half power
 }
@@ -72,23 +76,19 @@ void DriveDistance::ExecuteLinear() {
 	 *add .002 every rotation
 	 *Maximum speed = 50
 	 */
-	if (m_distanceDriven <= 0)
-		driveBase->setSpeed(AUTO_DRIVE_DIST_MIN_SPEED,
-				AUTO_DRIVE_DIST_MIN_SPEED);
-	//if (m_distanceDriven > 0)
-	//	driveBase
-	
-	if (this->m_cachedLinearSpeed < AUTO_DRIVE_DIST_MAX_SPEED){
-		this->m_cachedLinearSpeed += AUTO_DRIVE_DIST_LINEAR_INCREMENT;
-		driveBase->setSpeed(this->m_cachedLinearSpeed, this->m_cachedLinearSpeed);
-	}
-	
-	//if distance traveled is greater than or equal to the target distance, motors are set to null
-	if (m_distanceDriven >= m_targetDistance) {
+	if (m_distanceDriven == 0)
+		driveBase->setSpeed(this->m_direction * AUTO_DRIVE_DIST_MIN_SPEED,
+				this->m_direction * AUTO_DRIVE_DIST_MIN_SPEED);
+	else if (fabs (this->m_cachedLinearSpeed) < fabs (AUTO_DRIVE_DIST_MAX_SPEED)) {
+		this->m_cachedLinearSpeed += this->m_direction * AUTO_DRIVE_DIST_LINEAR_INCREMENT;
+		driveBase->setSpeed(this->m_cachedLinearSpeed,
+				this->m_cachedLinearSpeed);
+	}//if distance traveled is greater than or equal to the target distance, motors are set to null
+	else if (fabs (m_distanceDriven) >= m_targetDistance) {
 		driveBase->setSpeed(0, 0);
 	} else {
-		driveBase->setSpeed(AUTO_DRIVE_DIST_MAX_SPEED,
-				AUTO_DRIVE_DIST_MAX_SPEED);
+		driveBase->setSpeed(this->m_direction * AUTO_DRIVE_DIST_MAX_SPEED,
+		this->m_direction * AUTO_DRIVE_DIST_MAX_SPEED);
 	}
 	//if dist traveled is less than target distance, the motors will trundle along with half power
 }
@@ -104,12 +104,12 @@ void DriveDistance::ExecuteQuadratic(float leftDist, float rightDist) {
 	 * either 1, or a 24th of the distanceRemaining will be set as the motor speed.  
 	 */
 
-	CommandBase::driveBase->setSpeed(
-			fmin(1, (this->m_distanceDriven - leftDist) / AUTO_DIST_SLOW_DOWN),
-			fmin(1, (this->m_distanceDriven - rightDist) / AUTO_DIST_SLOW_DOWN));
+	CommandBase::driveBase->setSpeed(fmin(1,
+			(this->m_distanceDriven - leftDist) / AUTO_DIST_SLOW_DOWN), fmin(1,
+			(this->m_distanceDriven - rightDist) / AUTO_DIST_SLOW_DOWN));
 
-	if (fabs(leftDist - this->m_distanceDriven) < AUTO_DIST_THRESHOLD || fabs(
-			rightDist - this->m_distanceDriven) < AUTO_DIST_THRESHOLD) {
+	if (fabs(leftDist - this->m_distanceDriven) < AUTO_DIST_THRESHOLD
+			|| fabs(rightDist - this->m_distanceDriven) < AUTO_DIST_THRESHOLD) {
 		this->m_count++;
 	} else {
 		this->m_count = 0;
@@ -120,7 +120,7 @@ void DriveDistance::ExecuteQuadratic(float leftDist, float rightDist) {
 		driveBase->setSpeed(0, 0);
 	} else {
 		driveBase->setSpeed(AUTO_DRIVE_DIST_MAX_SPEED,
-				AUTO_DRIVE_DIST_MAX_SPEED);
+		AUTO_DRIVE_DIST_MAX_SPEED);
 	}
 	//if dist traveled is less than target distance, the motors will trundle along with half power
 }

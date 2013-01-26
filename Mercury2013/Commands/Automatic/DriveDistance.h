@@ -9,13 +9,15 @@
  */
 class DriveDistance: public CommandBase {
 
-private:
-	//todo add more modes
+public:
 	enum SlopeType {flat, linear, quadratic};
+
+private:
 	SlopeType m_SlopeType;
 	float m_distanceDriven;
 	float m_targetDistance;
 	float m_distanceRemaining;
+	float m_direction; //forward (+1) or backwards (-1)
 	int m_counter;
 	int m_count;
 	int m_speed;
