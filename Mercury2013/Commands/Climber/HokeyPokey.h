@@ -5,9 +5,9 @@
 #include "../../Subsystems/Climber.h"
 
 /**
+ * @brief Accesses the Climber to raise and lower the pokey sticks
  *
- *
- * @author ExampleAuthor
+ * @author Connor Barlow
  */
 class HokeyPokey: public CommandBase {
 public:
@@ -18,7 +18,7 @@ public:
 	 */
 	virtual void Initialize();
 	
-	/**  
+	/**  Doesn't actually do anything, not necessary
 	 */
 	virtual void Execute();
 	

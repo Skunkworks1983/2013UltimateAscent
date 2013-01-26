@@ -4,6 +4,11 @@
 #include "../CommandBase.h"
 #include "../../Subsystems/Climber.h"
 
+/**
+ * @brief Moves the two arms, using methods in Climber to check and move upward
+ * 
+ * @author Connor Barlow
+ */
 class ArmMove : public CommandBase { 
 public:
 	ArmMove();
