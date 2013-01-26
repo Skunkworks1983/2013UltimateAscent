@@ -15,8 +15,13 @@ public:
 private:
 	SlopeType m_SlopeType;
 	float m_distanceDriven;
+	float m_distanceDrivenRight;
+	float m_distanceDrivenLeft;
 	float m_targetDistance;
 	float m_distanceRemaining;
+	float m_leftDistanceRemaining;
+	float m_rightDistanceRemaining;
+
 	float m_direction; //forward (+1) or backwards (-1)
 	int m_counter;
 	int m_count;

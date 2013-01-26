@@ -33,8 +33,9 @@
 #define AUTO_TURN_GYRO_SIGN_NEGATIVE .5	//For setting negetive speed
 #define AUTO_TURN_SPEED_MAX .5			//                  Scalar Maximum Speed (0-1)
 #define AUTO_TURN_ITERATION_THRESHOLD 5	//Amount of ticks to pass for threshold to return true
-#define AUTO_DRIVE_DIST_MAX_SPEED 0.5   //Maximum speed allowed by DriveDistance
-#define AUTO_DRIVE_DIST_MIN_SPEED .25   //Minimum speed of robot
+#define AUTO_DRIVE_DIST_SPEED_MAX		0.5   //Maximum speed allowed by DriveDistance
+#define AUTO_DRIVE_DIST_SPEED_MIN		.25   //Minimum speed of robot
+#define AUTO_DRIVE_DIST_SPEED_RANGE		AUTO_DRIVE_DIST_SPEED_MAX - AUTO_DRIVE_DIST_SPEED_MIN
 #define AUTO_DRIVE_DIST_LINEAR_INCREMENT .02 //How much is added each Loop
 
 /**

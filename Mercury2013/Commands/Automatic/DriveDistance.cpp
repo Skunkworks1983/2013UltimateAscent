@@ -31,27 +31,44 @@ void DriveDistance::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveDistance::Execute() {
-
-	//Executes the distance command in order to go to the given distance.
+	//	float rightSpeed = fmin(MAX_SPEED, (MAX_SPEED-SPEED_MIN) * ((target-current)/SLOW_DOWN_DISTANCE) + SPEED_MIN)
 	float leftDist = driveBase->getLeftEncoder()->GetDistance();
-	//While driving the robot reads encoders in order to know how far it has traveled
+	float leftSpeedScaleFactor = leftDist / AUTO_DIST_SLOW_DOWN;
+	float
+			leftSpeed =
+					fmin(AUTO_DRIVE_DIST_SPEED_MAX,(AUTO_DRIVE_DIST_SPEED_RANGE * leftSpeedScaleFactor) + AUTO_DRIVE_DIST_SPEED_MIN);
+
 	float rightDist = driveBase->getRightEncoder()->GetDistance();
-	m_distanceDriven = (leftDist + rightDist) / 2;
-	switch (m_SlopeType) {
-	case flat:
-		ExecuteFlat();
-		break;
-	case linear:
-		ExecuteLinear();
-		break;
-	case quadratic:
-		ExecuteQuadratic(leftDist, rightDist);
-		break;
-	default:
-		ExecuteFlat();
-	}
+	float rightSpeedScaleFactor = rightDist / AUTO_DIST_SLOW_DOWN;
+	float
+			rightSpeed =
+					fmin(AUTO_DRIVE_DIST_SPEED_MAX,(AUTO_DRIVE_DIST_SPEED_RANGE * rightSpeedScaleFactor) + AUTO_DRIVE_DIST_SPEED_MIN);
+
+	this->m_leftDistanceRemaining = this->m_targetDistance - leftDist;
+	this->m_rightDistanceRemaining = this->m_targetDistance - rightDist;
+
+	driveBase->setSpeed(leftSpeed, rightSpeed);
+
+	//	Executes the distance command in order to go to the given distance.
+	//	float leftDist = driveBase->getLeftEncoder()->GetDistance();
+	//	While driving the robot reads encoders in order to know how far it has traveled
+	//	float rightDist = driveBase->getRightEncoder()->GetDistance();
+	//	m_distanceDriven = (leftDist + rightDist) / 2;
+	//	switch (m_SlopeType) {
+	//	case flat:
+	//		ExecuteFlat();
+	//		break;
+	//	case linear:
+	//		ExecuteLinear();
+	//		break;
+	//	case quadratic:
+	//		ExecuteQuadratic(leftDist, rightDist);
+	//		break;
+	//	default:
+	//		ExecuteFlat();
 }
-// speed = fmin(MAX_SPEED, (MAX_SPEED-MIN_SPEED) * ((target-current)/SLOW_DOWN_DISTANCE) + MIN_SPEED)
+
+// speed = fmin(MAX_SPEED, (MAX_SPEED-SPEED_MIN) * ((target-current)/SLOW_DOWN_DISTANCE) + SPEED_MIN)
 
 void DriveDistance::ExecuteFlat() {
 	/** Compute remaining distance.
@@ -61,11 +78,11 @@ void DriveDistance::ExecuteFlat() {
 	 */
 
 	//if distance traveled is greater than or equal to the target distance, motors are set to null
-	if (fabs (m_distanceDriven) >= fabs (m_targetDistance)) {
+	if (fabs(m_distanceDriven) >= fabs(m_targetDistance)) {
 		driveBase->setSpeed(0, 0);
 	} else {
-		driveBase->setSpeed(this->m_direction * AUTO_DRIVE_DIST_MAX_SPEED,
-		this->m_direction * AUTO_DRIVE_DIST_MAX_SPEED);
+		driveBase->setSpeed(this->m_direction * AUTO_DRIVE_DIST_SPEED_MAX,
+				this->m_direction * AUTO_DRIVE_DIST_SPEED_MAX);
 	}
 	//if dist traveled is less than target distance, the motors will trundle along with half power
 }
@@ -74,23 +91,24 @@ void DriveDistance::ExecuteLinear() {
 	 * If distance remaining is greater than ___ inches, continue with motor on/maintaining speed. 
 	 * If distance remaining is lesser than ___ inches, turn the motor off.  
 	 * When less than the inches desired, motor off until practically no power at full stop on target destination.
-	 *If distanceDriven = 0 setSpeed (0.25, 0.25) OR (AUTO_DRIVE_DIST_MIN_SPEED)
+	 *If distanceDriven = 0 setSpeed (0.25, 0.25) OR (AUTO_DRIVE_DIST_SPEED_MIN)
 	 *add .002 every rotation
 	 *Maximum speed = 50
 	 */
 	if (m_distanceDriven == 0)
-		driveBase->setSpeed(this->m_direction * AUTO_DRIVE_DIST_MIN_SPEED,
-				this->m_direction * AUTO_DRIVE_DIST_MIN_SPEED);
-	else if (fabs (this->m_cachedLinearSpeed) < fabs (AUTO_DRIVE_DIST_MAX_SPEED)) {
-		this->m_cachedLinearSpeed += this->m_direction * AUTO_DRIVE_DIST_LINEAR_INCREMENT;
+		driveBase->setSpeed(this->m_direction * AUTO_DRIVE_DIST_SPEED_MIN,
+				this->m_direction * AUTO_DRIVE_DIST_SPEED_MIN);
+	else if (fabs(this->m_cachedLinearSpeed) < fabs(AUTO_DRIVE_DIST_SPEED_MAX)) {
+		this->m_cachedLinearSpeed += this->m_direction
+				* AUTO_DRIVE_DIST_LINEAR_INCREMENT;
 		driveBase->setSpeed(this->m_cachedLinearSpeed,
 				this->m_cachedLinearSpeed);
 	}//if distance traveled is greater than or equal to the target distance, motors are set to null
-	else if (fabs (m_distanceDriven) >= m_targetDistance) {
+	else if (fabs(m_distanceDriven) >= m_targetDistance) {
 		driveBase->setSpeed(0, 0);
 	} else {
-		driveBase->setSpeed(this->m_direction * AUTO_DRIVE_DIST_MAX_SPEED,
-		this->m_direction * AUTO_DRIVE_DIST_MAX_SPEED);
+		driveBase->setSpeed(this->m_direction * AUTO_DRIVE_DIST_SPEED_MAX,
+				this->m_direction * AUTO_DRIVE_DIST_SPEED_MAX);
 	}
 	//if dist traveled is less than target distance, the motors will trundle along with half power
 }
@@ -121,23 +139,24 @@ void DriveDistance::ExecuteQuadratic(float leftDist, float rightDist) {
 	if (m_distanceDriven >= m_targetDistance) {
 		driveBase->setSpeed(0, 0);
 	} else {
-		driveBase->setSpeed(AUTO_DRIVE_DIST_MAX_SPEED,
-		AUTO_DRIVE_DIST_MAX_SPEED);
+		driveBase->setSpeed(AUTO_DRIVE_DIST_SPEED_MAX,
+		AUTO_DRIVE_DIST_SPEED_MAX);
 	}
 	//if dist traveled is less than target distance, the motors will trundle along with half power
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool DriveDistance::IsFinished() {
-	return m_distanceDriven >= m_targetDistance;
-	//Return true when the distance you've traveled reaches the distance you've been requested to travel.
-	//Snap out of the loop and hop into the DriveDistance void
+bool DriveDistance::IsFinished(){
+//bool timeToReturn = fabs (this->m_leftDistanceRemaining) <= AUTO_DIST_THRESHOLD && fabs (this->m_rightDistanceRemaining) <= AUTO_DIST_THRESHOLD;
+return (fabs (this->m_leftDistanceRemaining) <= AUTO_DIST_THRESHOLD) && (fabs (this->m_rightDistanceRemaining) <= AUTO_DIST_THRESHOLD);
+//Return true when the distance you've traveled reaches the distance you've been requested to travel.
+//Snap out of the loop and hop into the DriveDistance void
 }
 
 // Called once after isFinished returns true.
 void DriveDistance::End() {
-	//Sets both motors to Zero, ends the program.
-	driveBase->setSpeed(0.0, 0.0);
+//Sets both motors to Zero, ends the program.
+driveBase->setSpeed(0.0, 0.0);
 }
 
 // Called when another command which requires one or more of the same
