@@ -4,6 +4,8 @@
 #include "../CommandBase.h"
 
 /**
+ * @brief Set the target RPM for the Shooter
+ * 
  * Sets the target RPM on the main shooter wheel.
  * This does not require an exclusive lock on the shooter.
  * @author Mark Old

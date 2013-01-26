@@ -4,6 +4,13 @@
 #include "WPILib.h"
 #include "../Robotmap.h"
 
+/**
+ * @brief Shooter subsystem
+ * 
+ * The subsystem that controls the shooter.
+ * Contains the main motor for shooting as well as a pitch motor for pitching up and down.
+ * @author Mark Old
+ */
 class Shooter: public Subsystem {
 private:
 	/**
