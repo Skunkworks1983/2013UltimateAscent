@@ -4,8 +4,10 @@
 #include "../CommandBase.h"
 
 /**
- * Shifts the drive base using the given shifting style.
- * This does not require an exclusive lock on the drive base.
+ * @brief Shifts the DriveBase
+ * 
+ * Shifts the DriveBase using the given shifting style.
+ * This does not require an exclusive lock on the DriveBase.
  * @author Westin Miller
  */
 class Shift: public CommandBase {

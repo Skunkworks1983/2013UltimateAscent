@@ -5,8 +5,11 @@
 #include "../Robotmap.h"
 
 /**
+ * @brief Drive base subsystem for a parallel wheel configuration, with a shifter.
+ * 
  * Drive base subsystem with 2-4 motor controllers, in a normal left-right configuration.
  * Also includes two encoders and a gyroscope if needed.
+ * @author Westin Miller
  */
 class DriveBase: public Subsystem {
 private:
