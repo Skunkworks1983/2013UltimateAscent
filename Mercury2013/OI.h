@@ -3,6 +3,13 @@
 
 #include "WPILib.h"
 
+/**
+ * @brief Driver station interface
+ * 
+ * Interface for the driver station.
+ * Turning LEDs on/off.
+ * Getting button/joystick/etc states.
+ */
 class OI {
 public:
 	enum DriverStationLight {
