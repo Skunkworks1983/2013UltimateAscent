@@ -3,6 +3,11 @@
 
 #include "../CommandBase.h"
 
+/**
+ * @brief Updates lights on the driver station interface.
+ *  
+ * @author Westin Miller
+ */
 class UpdateLights: public CommandBase {
 public:
 	UpdateLights();

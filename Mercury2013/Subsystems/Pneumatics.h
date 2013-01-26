@@ -4,6 +4,8 @@
 #include "WPILib.h"
 
 /**
+ * @brief Compressor control subsystem.
+ * 
  * Simple subsystem implementing a compressor controlled with a digital switch and a relay.
  * @author Westin Miller 
  */
