@@ -2,8 +2,6 @@
 
 ArmShooter::ArmShooter(ArmType armType) :
 	CommandBase("ArmShooter") {
-	Requires(shooter);
-	Requires(collector);
 	this->armType = armType;
 }
 
