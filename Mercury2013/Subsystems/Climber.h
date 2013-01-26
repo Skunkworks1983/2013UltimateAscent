@@ -6,26 +6,21 @@
 class Climber {
 private:
 
-	/**
-	 * The encoder for the arm movement motor
+	/**  The encoder for the arm movement motor
 	 */
 	Encoder *armsEncoder;
 
-	/**
-	 * The motor for the arm movement
+	/**  The motor for the arm movement
 	 */
 	SpeedController *armsMotor;
 
-	/**
-	 * The button on the first hook to check state
+	/**  The buttons on the first and second hook to check state
 	 */
 	DigitalInput *arm1Button;
-
-	/**
-	 * The button on the second hook to check state
-	 */
 	DigitalInput *arm2Button;
 
+	/**  Solenoids to operate the two pokeys ticks
+	 */
 	Solenoid *pokey1;
 	Solenoid *pokey2;
 
@@ -33,7 +28,7 @@ public:
 	Climber();
 	~Climber();
 
-	/**  
+	/**  Mokes the pokey stick to a state specified
 	 */
 	void movePokey(bool pos);
 
