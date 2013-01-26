@@ -2,7 +2,6 @@
 
 SetTargetSpeed::SetTargetSpeed(float targetSpeed) :
 	CommandBase("SetTargetSpeed") {
-	Requires(shooter);
 	this->targetSpeed = targetSpeed;
 }
 

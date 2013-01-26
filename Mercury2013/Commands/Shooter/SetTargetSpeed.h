@@ -3,6 +3,11 @@
 
 #include "../CommandBase.h"
 
+/**
+ * Sets the target RPM on the main shooter wheel.
+ * This does not require an exclusive lock on the shooter.
+ * @author Mark Old
+ */
 class SetTargetSpeed: public CommandBase {
 	float targetSpeed;
 public:
