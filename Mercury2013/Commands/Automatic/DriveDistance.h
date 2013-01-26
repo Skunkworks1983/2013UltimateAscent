@@ -2,38 +2,34 @@
 #define DRIVE_DISTANCE_H
 #include "../../Subsystems/DriveBase.h" 
 #include "../CommandBase.h"
+
 /**
- *
- *
- * @author ExampleAuthor
+ * @brief Uses the drive base and it's encoders to drive a certain distance.
+ * 
+ * This command requires an exclusive lock on the drive base, as well as encoders.
+ * @author Owen Mattson
  */
 class DriveDistance: public CommandBase {
-
-public:
-	enum SlopeType {flat, linear, quadratic};
-
 private:
-	SlopeType m_SlopeType;
-	float m_distanceDriven;
-	float m_distanceDrivenRight;
-	float m_distanceDrivenLeft;
-	float m_targetDistance;
-	float m_distanceRemaining;
-	float m_leftDistanceRemaining;
-	float m_rightDistanceRemaining;
-
-	float m_direction; //forward (+1) or backwards (-1)
-	int m_counter;
-	int m_count;
-	int m_speed;
-	float m_cachedLinearSpeed;
-	DriveBase m_driveBase;
-	void ExecuteLinear();
-	void ExecuteFlat();
-	void ExecuteQuadratic(float leftDist, float rightDist);
-
+	float targetDistance;
+	float leftDistanceRemaining;
+	float rightDistanceRemaining;
+	/**
+	 * @brief Calculates the motor speed for the given remaining distance.
+	 * 
+	 * @param remainingDistance the remaining distance, in inches
+	 * @return the motor speed
+	 */
+	float getSpeedFor(float remainingDistance);
 public:
-	DriveDistance(float targetDistance, SlopeType MySlope);
+	/**
+	 * @brief Creates a command to drive a certain distance.
+	 * 
+	 * Creates a drive distance command that will drive the specified distance,
+	 * then stop, in a direction specified by the sign.
+	 * @param targetDistance the target distance, in inches
+	 */
+	DriveDistance(float targetDistance);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

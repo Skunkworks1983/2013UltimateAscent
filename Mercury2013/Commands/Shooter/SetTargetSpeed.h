@@ -13,6 +13,13 @@
 class SetTargetSpeed: public CommandBase {
 	float targetSpeed;
 public:
+	/**
+	 * @brief Creates a command to set the shooter speeds
+	 * 
+	 * Creates a command that will set the target speed of the shooter to the given speed.
+	 * Note, this will not actually arm the shooter, use the ArmShooter command for that.
+	 * @param targetSpeed the target RPM
+	 */
 	SetTargetSpeed(float targetSpeed);
 	virtual void Initialize();
 	virtual void Execute();

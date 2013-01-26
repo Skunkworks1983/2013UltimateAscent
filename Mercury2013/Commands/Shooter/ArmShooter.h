@@ -12,13 +12,33 @@
  */
 class ArmShooter: public CommandBase {
 public:
+	/**
+	 * Different arming methods.
+	 */
 	enum ArmType {
-		kOn, kOff, kToggle
+		/**
+		 * Disarms the shooter.
+		 */
+		kOff,
+		/**
+		 * Arms the shooter.
+		 */
+		kOn,
+		/**
+		 * Toggle between armed and disarmed.
+		 */
+		kToggle
 	};
 private:
 	bool enabled;
 	ArmType armType;
 public:
+	/**
+	 * @brief Creates a shooter arm command.
+	 * 
+	 * Creates a command that will use the specified arming style to arm the shooter.
+	 * @param armType the arming style
+	 */
 	ArmShooter(ArmType armType);
 	virtual void Initialize();
 	virtual void Execute();
