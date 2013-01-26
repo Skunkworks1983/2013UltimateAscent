@@ -2,179 +2,48 @@
 #include "../../Utils/Math.h"
 #include "DriveDistance.h"
 #include "../../Robotmap.h"
-DriveDistance::DriveDistance(float targetDistance, SlopeType MySlope) {
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(chassis);
-	// DriveDistance
+
+DriveDistance::DriveDistance(float targetDistance) {
 	Requires(driveBase);
-	m_targetDistance = targetDistance;
-	if (this->m_targetDistance >= 0)
-		this->m_direction = 1;
-	else
-		this->m_direction = -1;
-}
-// Called just before this Command runs the first time
-void DriveDistance::Initialize() {
-	//	reset leftEncoder();
-	driveBase->getLeftEncoder()->Reset();
-	//	reset rightEncoder();	
-	driveBase->getRightEncoder()->Reset();
-	//putting all encoders to 0
-	m_counter = 0;
-	//not really using this counter.
-	m_distanceDriven = 0;
-	//resetting distance driven to 0 
-	m_count = 0;
-	//set cached linear speed to 0
-	m_cachedLinearSpeed = 0;
+	this->targetDistance = targetDistance;
 }
 
-// Called repeatedly when this Command is scheduled to run
+void DriveDistance::Initialize() {
+	driveBase->getLeftEncoder()->Reset();
+	driveBase->getRightEncoder()->Reset();
+}
+
 void DriveDistance::Execute() {
-	//	float rightSpeed = fmin(MAX_SPEED, (MAX_SPEED-SPEED_MIN) * ((target-current)/SLOW_DOWN_DISTANCE) + SPEED_MIN)
-	this->m_leftDistanceRemaining = this->m_targetDistance
+	leftDistanceRemaining = targetDistance
 			- driveBase->getLeftEncoder()->GetDistance();
-	this->m_rightDistanceRemaining = this->m_targetDistance
+	rightDistanceRemaining = targetDistance
 			- driveBase->getRightEncoder()->GetDistance();
 
-	float leftSpeedScaleFactor = fabs(m_leftDistanceRemaining)
-			/ AUTO_DIST_SLOW_DOWN;
-	float leftSpeed = fmin(
+	driveBase->setSpeed(getSpeedFor(leftDistanceRemaining),
+			getSpeedFor(rightDistanceRemaining));
+}
+
+float DriveDistance::getSpeedFor(float distanceRemaining) {
+	if (fabs(distanceRemaining) <= AUTO_DIST_THRESHOLD) {
+		return 0.0;
+	}
+	
+	float speedScaleFactor = fabs(distanceRemaining) / AUTO_DIST_SLOW_DOWN;
+	return fmin(
 			AUTO_DRIVE_DIST_SPEED_MAX,
-			(AUTO_DRIVE_DIST_SPEED_RANGE * leftSpeedScaleFactor)
-					+ AUTO_DRIVE_DIST_SPEED_MIN) * fsign(
-			m_leftDistanceRemaining);
-	if (fabs(this->m_leftDistanceRemaining) <= AUTO_DIST_THRESHOLD) {
-		leftSpeed = 0;
-	}
-
-	float rightSpeedScaleFactor = m_rightDistanceRemaining
-			/ AUTO_DIST_SLOW_DOWN;
-	float rightSpeed = fzero(
-			AUTO_DRIVE_DIST_SPEED_MAX * fsign(m_rightDistanceRemaining),
-			(AUTO_DRIVE_DIST_SPEED_RANGE * rightSpeedScaleFactor) + (fsign(
-					m_rightDistanceRemaining) * AUTO_DRIVE_DIST_SPEED_MIN));
-	if (fabs(this->m_rightDistanceRemaining) <= AUTO_DIST_THRESHOLD) {
-		rightSpeed = 0;
-	}
-
-	driveBase->setSpeed(leftSpeed, rightSpeed);
-
-	//	Executes the distance command in order to go to the given distance.
-	//	float leftDist = driveBase->getLeftEncoder()->GetDistance();
-	//	While driving the robot reads encoders in order to know how far it has traveled
-	//	float rightDist = driveBase->getRightEncoder()->GetDistance();
-	//	m_distanceDriven = (leftDist + rightDist) / 2;
-	//	switch (m_SlopeType) {
-	//	case flat:
-	//		ExecuteFlat();
-	//		break;
-	//	case linear:
-	//		ExecuteLinear();
-	//		break;
-	//	case quadratic:
-	//		ExecuteQuadratic(leftDist, rightDist);
-	//		break;
-	//	default:
-	//		ExecuteFlat();
+			(AUTO_DRIVE_DIST_SPEED_RANGE * speedScaleFactor)
+					+ AUTO_DRIVE_DIST_SPEED_MIN) * fsign(distanceRemaining);
 }
 
-// speed = fmin(MAX_SPEED, (MAX_SPEED-SPEED_MIN) * ((target-current)/SLOW_DOWN_DISTANCE) + SPEED_MIN)
-
-void DriveDistance::ExecuteFlat() {
-	/** Compute remaining distance.
-	 * If distance remaining is greater than ___ inches, continue with motor on/maintaining speed. 
-	 * If distance remaining is lesser than ___ inches, turn the motor off.  
-	 * When less than the inches desired, motor off until practically no power at full stop on target destination.
-	 */
-
-	//if distance traveled is greater than or equal to the target distance, motors are set to null
-	if (fabs(m_distanceDriven) >= fabs(m_targetDistance)) {
-		driveBase->setSpeed(0, 0);
-	} else {
-		driveBase->setSpeed(this->m_direction * AUTO_DRIVE_DIST_SPEED_MAX,
-				this->m_direction * AUTO_DRIVE_DIST_SPEED_MAX);
-	}
-	//if dist traveled is less than target distance, the motors will trundle along with half power
-}
-void DriveDistance::ExecuteLinear() {
-	/** Compute remaining distance.
-	 * If distance remaining is greater than ___ inches, continue with motor on/maintaining speed. 
-	 * If distance remaining is lesser than ___ inches, turn the motor off.  
-	 * When less than the inches desired, motor off until practically no power at full stop on target destination.
-	 *If distanceDriven = 0 setSpeed (0.25, 0.25) OR (AUTO_DRIVE_DIST_SPEED_MIN)
-	 *add .002 every rotation
-	 *Maximum speed = 50
-	 */
-	if (m_distanceDriven == 0)
-		driveBase->setSpeed(this->m_direction * AUTO_DRIVE_DIST_SPEED_MIN,
-				this->m_direction * AUTO_DRIVE_DIST_SPEED_MIN);
-	else if (fabs(this->m_cachedLinearSpeed) < fabs(AUTO_DRIVE_DIST_SPEED_MAX)) {
-		this->m_cachedLinearSpeed += this->m_direction
-				* AUTO_DRIVE_DIST_LINEAR_INCREMENT;
-		driveBase->setSpeed(this->m_cachedLinearSpeed,
-				this->m_cachedLinearSpeed);
-	}//if distance traveled is greater than or equal to the target distance, motors are set to null
-	else if (fabs(m_distanceDriven) >= m_targetDistance) {
-		driveBase->setSpeed(0, 0);
-	} else {
-		driveBase->setSpeed(this->m_direction * AUTO_DRIVE_DIST_SPEED_MAX,
-				this->m_direction * AUTO_DRIVE_DIST_SPEED_MAX);
-	}
-	//if dist traveled is less than target distance, the motors will trundle along with half power
-}
-void DriveDistance::ExecuteQuadratic(float leftDist, float rightDist) {
-	/** Compute remaining distance.
-	 * If distance remaining is greater than ___ inches, continue with motor on/maintaining speed. 
-	 * If distance remaining is lesser than ___ inches, turn the motor off.  
-	 * When less than the inches desired, motor off until practically no power at full stop on target destination.
-	 */
-
-	/**  Set both of the motors to a 24th (or AUTO_DIST_SLOW_DOWN) of distanceRemaining
-	 * By using a fmin fucntion, the code sets speed to the lesser of two numbers, 
-	 * either 1, or a 24th of the distanceRemaining will be set as the motor speed.  
-	 */
-
-	CommandBase::driveBase->setSpeed(
-			fmin(1, (this->m_distanceDriven - leftDist) / AUTO_DIST_SLOW_DOWN),
-			fmin(1, (this->m_distanceDriven - rightDist) / AUTO_DIST_SLOW_DOWN));
-
-	if (fabs(leftDist - this->m_distanceDriven) < AUTO_DIST_THRESHOLD || fabs(
-			rightDist - this->m_distanceDriven) < AUTO_DIST_THRESHOLD) {
-		this->m_count++;
-	} else {
-		this->m_count = 0;
-	}
-
-	//if distance traveled is greater than or equal to the target distance, motors are set to null
-	if (m_distanceDriven >= m_targetDistance) {
-		driveBase->setSpeed(0, 0);
-	} else {
-		driveBase->setSpeed(AUTO_DRIVE_DIST_SPEED_MAX,
-				AUTO_DRIVE_DIST_SPEED_MAX);
-	}
-	//if dist traveled is less than target distance, the motors will trundle along with half power
-}
-
-// Make this return true when this Command no longer needs to run execute()
 bool DriveDistance::IsFinished() {
-	//bool timeToReturn = fabs (this->m_leftDistanceRemaining) <= AUTO_DIST_THRESHOLD && fabs (this->m_rightDistanceRemaining) <= AUTO_DIST_THRESHOLD;
-	return (fabs(this->m_leftDistanceRemaining) <= AUTO_DIST_THRESHOLD)
-			&& (fabs(this->m_rightDistanceRemaining) <= AUTO_DIST_THRESHOLD);
-	//Return true when the distance you've traveled reaches the distance you've been requested to travel.
-	//Snap out of the loop and hop into the DriveDistance void
+	return (fabs(leftDistanceRemaining) <= AUTO_DIST_THRESHOLD) && (fabs(
+			rightDistanceRemaining) <= AUTO_DIST_THRESHOLD);
 }
 
-// Called once after isFinished returns true.
 void DriveDistance::End() {
-	//Sets both motors to Zero, ends the program.
 	driveBase->setSpeed(0.0, 0.0);
 }
 
-// Called when another command which requires one or more of the same
-// subsystems is scheduled to run.
 void DriveDistance::Interrupted() {
-	//Stops loop, in case of emergency, it will pop it out no matter the distance.
 	driveBase->setSpeed(0.0, 0.0);
-	//no matter what happens, Interrupt will kill the speed
 }

@@ -19,7 +19,7 @@ OI::OI() {
 					new Shift(Shift::kToggle));
 	distanceScheduler = new ReleasedButtonScheduler(false,
 			new JoystickButton(driveJoystickLeft, 11),
-			new DriveDistance(-120, DriveDistance::linear));
+			new DriveDistance(-120));
 }
 
 Joystick *OI::getDriveJoystickLeft() {
