@@ -29,6 +29,7 @@ public:
 	static OI *oi;
 	static Pneumatics *pneumatics;
 	static Climber *climber;
+	static bool subsystems;
 };
 
 #endif

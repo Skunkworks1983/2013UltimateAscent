@@ -21,8 +21,6 @@ void UFOBot::TeleopInit() {
 }
 
 void UFOBot::TeleopPeriodic() {
-	printf("%f,%f\n", CommandBase::driveBase->getLeftEncoder()->GetDistance(),
-			CommandBase::driveBase->getRightEncoder()->GetDistance());
 	GetWatchdog().Feed();
 	Scheduler::GetInstance()->Run();
 }
