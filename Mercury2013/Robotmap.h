@@ -24,7 +24,7 @@
 
 // Autonomous Settings
 #define AUTO_DIST_SLOW_DOWN 24			//Inches
-#define AUTO_DIST_THRESHOLD	2			//Inches, stopping tolerance
+#define AUTO_DIST_THRESHOLD	1			//Inches, stopping tolerance
 #define AUTO_TURN_SLOW_DOWN 10			//Degrees
 #define AUTO_TURN_SPEED_MIN .2			//Scalar Minimum Speed (0-1)
 #define AUTO_TURN_GYRO_THRESHOLD 10		//Degrees, stopping tolerance
@@ -35,7 +35,7 @@
 #define AUTO_TURN_ITERATION_THRESHOLD 5	//Amount of ticks to pass for threshold to return true
 #define AUTO_DRIVE_DIST_SPEED_MAX		0.5   //Maximum speed allowed by DriveDistance
 #define AUTO_DRIVE_DIST_SPEED_MIN		.25   //Minimum speed of robot
-#define AUTO_DRIVE_DIST_SPEED_RANGE		AUTO_DRIVE_DIST_SPEED_MAX - AUTO_DRIVE_DIST_SPEED_MIN
+#define AUTO_DRIVE_DIST_SPEED_RANGE		(AUTO_DRIVE_DIST_SPEED_MAX - AUTO_DRIVE_DIST_SPEED_MIN)
 #define AUTO_DRIVE_DIST_LINEAR_INCREMENT .02 //How much is added each Loop
 
 /**
@@ -54,10 +54,10 @@
 #define DRIVE_SHIFT_RELAY			2
 
 #define DRIVE_ENCODER_TICKS_PER_REV	(250.0)
-#define DRIVE_WHEEL_DIAMETER		(4.0)
+#define DRIVE_WHEEL_DIAMETER		(6.0)
 #define DRIVE_ENCODER_INCH_PER_TICK	((DRIVE_WHEEL_DIAMETER * 3.14159)/DRIVE_ENCODER_TICKS_PER_REV)
-#define DRIVE_ENCODER_LEFT			2,3
-#define DRIVE_ENCODER_RIGHT			4,5
+#define DRIVE_ENCODER_LEFT			4,5
+#define DRIVE_ENCODER_RIGHT			2,3
 
 /**
  * --SHOOTER--

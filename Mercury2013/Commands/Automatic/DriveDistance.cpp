@@ -32,20 +32,31 @@ void DriveDistance::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void DriveDistance::Execute() {
 	//	float rightSpeed = fmin(MAX_SPEED, (MAX_SPEED-SPEED_MIN) * ((target-current)/SLOW_DOWN_DISTANCE) + SPEED_MIN)
-	float leftDist = driveBase->getLeftEncoder()->GetDistance();
-	float leftSpeedScaleFactor = leftDist / AUTO_DIST_SLOW_DOWN;
-	float
-			leftSpeed =
-					fmin(AUTO_DRIVE_DIST_SPEED_MAX,(AUTO_DRIVE_DIST_SPEED_RANGE * leftSpeedScaleFactor) + AUTO_DRIVE_DIST_SPEED_MIN);
+	this->m_leftDistanceRemaining = this->m_targetDistance
+			- driveBase->getLeftEncoder()->GetDistance();
+	this->m_rightDistanceRemaining = this->m_targetDistance
+			- driveBase->getRightEncoder()->GetDistance();
 
-	float rightDist = driveBase->getRightEncoder()->GetDistance();
-	float rightSpeedScaleFactor = rightDist / AUTO_DIST_SLOW_DOWN;
-	float
-			rightSpeed =
-					fmin(AUTO_DRIVE_DIST_SPEED_MAX,(AUTO_DRIVE_DIST_SPEED_RANGE * rightSpeedScaleFactor) + AUTO_DRIVE_DIST_SPEED_MIN);
+	float leftSpeedScaleFactor = fabs(m_leftDistanceRemaining)
+			/ AUTO_DIST_SLOW_DOWN;
+	float leftSpeed = fmin(
+			AUTO_DRIVE_DIST_SPEED_MAX,
+			(AUTO_DRIVE_DIST_SPEED_RANGE * leftSpeedScaleFactor)
+					+ AUTO_DRIVE_DIST_SPEED_MIN) * fsign(
+			m_leftDistanceRemaining);
+	if (fabs(this->m_leftDistanceRemaining) <= AUTO_DIST_THRESHOLD) {
+		leftSpeed = 0;
+	}
 
-	this->m_leftDistanceRemaining = this->m_targetDistance - leftDist;
-	this->m_rightDistanceRemaining = this->m_targetDistance - rightDist;
+	float rightSpeedScaleFactor = m_rightDistanceRemaining
+			/ AUTO_DIST_SLOW_DOWN;
+	float rightSpeed = fzero(
+			AUTO_DRIVE_DIST_SPEED_MAX * fsign(m_rightDistanceRemaining),
+			(AUTO_DRIVE_DIST_SPEED_RANGE * rightSpeedScaleFactor) + (fsign(
+					m_rightDistanceRemaining) * AUTO_DRIVE_DIST_SPEED_MIN));
+	if (fabs(this->m_rightDistanceRemaining) <= AUTO_DIST_THRESHOLD) {
+		rightSpeed = 0;
+	}
 
 	driveBase->setSpeed(leftSpeed, rightSpeed);
 
@@ -124,12 +135,12 @@ void DriveDistance::ExecuteQuadratic(float leftDist, float rightDist) {
 	 * either 1, or a 24th of the distanceRemaining will be set as the motor speed.  
 	 */
 
-	CommandBase::driveBase->setSpeed(fmin(1,
-			(this->m_distanceDriven - leftDist) / AUTO_DIST_SLOW_DOWN), fmin(1,
-			(this->m_distanceDriven - rightDist) / AUTO_DIST_SLOW_DOWN));
+	CommandBase::driveBase->setSpeed(
+			fmin(1, (this->m_distanceDriven - leftDist) / AUTO_DIST_SLOW_DOWN),
+			fmin(1, (this->m_distanceDriven - rightDist) / AUTO_DIST_SLOW_DOWN));
 
-	if (fabs(leftDist - this->m_distanceDriven) < AUTO_DIST_THRESHOLD
-			|| fabs(rightDist - this->m_distanceDriven) < AUTO_DIST_THRESHOLD) {
+	if (fabs(leftDist - this->m_distanceDriven) < AUTO_DIST_THRESHOLD || fabs(
+			rightDist - this->m_distanceDriven) < AUTO_DIST_THRESHOLD) {
 		this->m_count++;
 	} else {
 		this->m_count = 0;
@@ -140,23 +151,24 @@ void DriveDistance::ExecuteQuadratic(float leftDist, float rightDist) {
 		driveBase->setSpeed(0, 0);
 	} else {
 		driveBase->setSpeed(AUTO_DRIVE_DIST_SPEED_MAX,
-		AUTO_DRIVE_DIST_SPEED_MAX);
+				AUTO_DRIVE_DIST_SPEED_MAX);
 	}
 	//if dist traveled is less than target distance, the motors will trundle along with half power
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool DriveDistance::IsFinished(){
-//bool timeToReturn = fabs (this->m_leftDistanceRemaining) <= AUTO_DIST_THRESHOLD && fabs (this->m_rightDistanceRemaining) <= AUTO_DIST_THRESHOLD;
-return (fabs (this->m_leftDistanceRemaining) <= AUTO_DIST_THRESHOLD) && (fabs (this->m_rightDistanceRemaining) <= AUTO_DIST_THRESHOLD);
-//Return true when the distance you've traveled reaches the distance you've been requested to travel.
-//Snap out of the loop and hop into the DriveDistance void
+bool DriveDistance::IsFinished() {
+	//bool timeToReturn = fabs (this->m_leftDistanceRemaining) <= AUTO_DIST_THRESHOLD && fabs (this->m_rightDistanceRemaining) <= AUTO_DIST_THRESHOLD;
+	return (fabs(this->m_leftDistanceRemaining) <= AUTO_DIST_THRESHOLD)
+			&& (fabs(this->m_rightDistanceRemaining) <= AUTO_DIST_THRESHOLD);
+	//Return true when the distance you've traveled reaches the distance you've been requested to travel.
+	//Snap out of the loop and hop into the DriveDistance void
 }
 
 // Called once after isFinished returns true.
 void DriveDistance::End() {
-//Sets both motors to Zero, ends the program.
-driveBase->setSpeed(0.0, 0.0);
+	//Sets both motors to Zero, ends the program.
+	driveBase->setSpeed(0.0, 0.0);
 }
 
 // Called when another command which requires one or more of the same

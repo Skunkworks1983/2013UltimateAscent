@@ -15,7 +15,6 @@ Pneumatics::~Pneumatics() {
 }
 
 bool Pneumatics::isBelowPressure() {
-	printf("%d\n", compressorSwitch->Get());
 	return (~compressorSwitch->Get()) & 1;
 }
 
