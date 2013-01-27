@@ -2,6 +2,7 @@
 #include "Robotmap.h"
 
 #include "Buttons/ReleasedButtonScheduler.h"
+#include "Commands/Automatic/DriveDistance.h"
 #include "Commands/Drivebase/Shift.h"
 
 OI::OI() {
@@ -16,6 +17,9 @@ OI::OI() {
 			= new ReleasedButtonScheduler(false,
 					new JoystickButton(driveJoystickLeft, 1),
 					new Shift(Shift::kToggle));
+	distanceScheduler = new ReleasedButtonScheduler(false,
+			new JoystickButton(driveJoystickLeft, 11),
+			new DriveDistance(60, DriveDistance::linear));
 }
 
 Joystick *OI::getDriveJoystickLeft() {
@@ -28,6 +32,7 @@ Joystick *OI::getDriveJoystickRight() {
 
 void OI::registerButtonSchedulers() {
 	shiftScheduler->Start();
+	distanceScheduler->Start();
 }
 
 void OI::setLightState(DriverStationLight light, bool state) {
