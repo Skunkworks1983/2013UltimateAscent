@@ -6,6 +6,7 @@
 class Collect: public CommandBase {
 private:
 	enum State {on, off, toggle};
+	State mode;
 public:
 	Collect(State state);
 	~Collect();
@@ -14,7 +15,6 @@ public:
 	virtual bool IsFinished();
 	virtual void End();
 	virtual void Interrupted();
-	virtual bool IsInterruptible();
 };
 
 #endif

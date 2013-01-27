@@ -15,14 +15,28 @@
  * 
  * --NAMING CONVENTIONS--
  * SUBSYSTEM_COMPONENT_PART 
- */
-
-/**
+ * 
  * --OPERATOR INTERFACE--
  * Joystick Channels
  */
 #define OI_JOYSTICK_LEFT			1
 #define OI_JOYSTICK_RIGHT			2
+
+// Autonomous Settings
+#define AUTO_DIST_SLOW_DOWN 24			//Inches
+#define AUTO_DIST_THRESHOLD	1			//Inches, stopping tolerance
+#define AUTO_TURN_SLOW_DOWN 10			//Degrees
+#define AUTO_TURN_SPEED_MIN .2			//Scalar Minimum Speed (0-1)
+#define AUTO_TURN_GYRO_THRESHOLD 10		//Degrees, stopping tolerance
+#define AUTO_TURN_GYRO_SIGN_SPEED 1		//For setting the sign speeds
+#define AUTO_TURN_GYRO_SIGN_HALF .5		//For setting half the sign speeds
+#define AUTO_TURN_GYRO_SIGN_NEGATIVE .5	//For setting negetive speed
+#define AUTO_TURN_SPEED_MAX .5			//                  Scalar Maximum Speed (0-1)
+#define AUTO_TURN_ITERATION_THRESHOLD 5	//Amount of ticks to pass for threshold to return true
+#define AUTO_DRIVE_DIST_SPEED_MAX		0.5   //Maximum speed allowed by DriveDistance
+#define AUTO_DRIVE_DIST_SPEED_MIN		.25   //Minimum speed of robot
+#define AUTO_DRIVE_DIST_SPEED_RANGE		(AUTO_DRIVE_DIST_SPEED_MAX - AUTO_DRIVE_DIST_SPEED_MIN)
+#define AUTO_DRIVE_DIST_LINEAR_INCREMENT .02 //How much is added each Loop
 
 /**
  * --DRIVE BASE--
@@ -39,16 +53,34 @@
 
 #define DRIVE_SHIFT_RELAY			2
 
+#define DRIVE_ENCODER_TICKS_PER_REV	(250.0)
+#define DRIVE_WHEEL_DIAMETER		(6.0)
+#define DRIVE_ENCODER_INCH_PER_TICK	((DRIVE_WHEEL_DIAMETER * 3.14159)/DRIVE_ENCODER_TICKS_PER_REV)
+#define DRIVE_ENCODER_LEFT			4,5
+#define DRIVE_ENCODER_RIGHT			2,3
+
 /**
  * --SHOOTER--
- *  Shooter motor channels.
  */
+// Shooter motor channels.
 #define SHOOTER_MOTOR				5 // TODO
 #define SHOOTER_PITCH_MOTOR			6 // TODO
 // Class name of the shooter and shooter pitch motor controllers
 #define SHOOTER_MOTOR_CREATE(channel) (new Jaguar(channel))
 #define SHOOTER_PITCH_MOTOR_CREATE(channel) (new Jaguar(channel))
-
+// Shooter speed and pitch sensors
+#define SHOOTER_SPEED_ENCODER_PORTS 1,1 // TODO
+#define SHOOTER_PITCH_POT_PORT		1
+// Shooter pitch control info
+#define SHOOTER_PITCH_THRESHOLD		5
+#define SHOOTER_PITCH_STABILITY		25
+// Shooter speed control info
+#define SHOOTER_SPEED_THRESHOLD		100
+#define SHOOTER_SPEED_STABILITY		25
+// Shooter motor update speeds
+#define SHOOTER_MOTOR_UPDATE_SPEED	.01  // Every 10 milliseconds
+// Shooter target RPM
+#define SHOOTER_TARGET_RPM			2500 // TODO
 /**
  * --COLLECTOR--
  * 	Collector motor channels
@@ -61,8 +93,14 @@
 //Collector constant speed
 #define COLLECTOR_MOTOR_SPEED				.5 // TODO get value from design team
 #define COLLECTOR_PITCH_POT					4  // TODO
-#define COLLECTOR_DOWN_AMOUNT				400 //TODO
+#define COLLECTOR_DOWN_AMOUNT				400 //TODO get value from design team
+#define COLLECTOR_PITCH_THRESHOLD			100
 #define COLLECTOR_UP_AMOUNT					0	//TODO
+#define COLLECTOR_PITCH_SPEED_SCALAR		1.0005	//TODO
+#define COLLECTOR_IR_LOW_CHANNEL			5  //TODO
+#define COLLECTOR_IR_MID_CHANNEL			7  //TODO
+#define COLLECTOR_IR_HIGH_CHANNEL			8  //TODO
+#define COLLECTOR_PITCH_LOWEST_SPEED		.25	//TODO
 /**
  * --COMPRESSOR--
  */
@@ -77,8 +115,11 @@
 #define ARM_ENCODER_1				1
 #define ARM_ENCODER_2				4
 
-#define ARM_SWITCH_1				1
-#define ARM_SWITCH_2				5
+#define ARM_BUTTON_1				1
+#define ARM_BUTTON_2				5
+
+#define	POKEY_1						2
+#define	POKEY_2						9
 
 #define ARM_MOTOR_CREATE(channel)	(new Jaguar(channel))
 

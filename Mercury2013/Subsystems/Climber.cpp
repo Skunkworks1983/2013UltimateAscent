@@ -1,29 +1,29 @@
 #include "Climber.h"
 
 Climber::Climber() {
-	armsEncoder = new Encoder(ARM_ENCODER_1, ARM_ENCODER_2, false, Encoder::k4X);
-	armsMotor = ARM_MOTOR_CREATE(ARM_MOTOR);
+	//TODO armsEncoder = new Encoder(ARM_ENCODER_1, ARM_ENCODER_2, false, Encoder::k4X);
+	//TODO armsMotor = ARM_MOTOR_CREATE(ARM_MOTOR);
 	
-	arm1Switch = new DigitalInput(ARM_SWITCH_1);
-	arm2Switch = new DigitalInput(ARM_SWITCH_2);
+	//TODO arm1Button = new DigitalInput(ARM_BUTTON_1);
+	//TODO arm2Button = new DigitalInput(ARM_BUTTON_2);
 	
-	armsEncoder->Reset();
+	//TODO armsEncoder->Reset();
+	
+	//TODO pokey1 = new Solenoid(POKEY_1);
+	//TODO pokey2 = new Solenoid(POKEY_2);
 }
 
 Climber::~Climber() {
 	delete armsEncoder;
 	delete armsMotor;
 
-	delete arm1Switch;
-	delete arm2Switch;
-}
-
-void Climber::moveMotor(float dist) {
-	
+	delete arm1Button;
+	delete arm2Button;
 }
 
 void Climber::movePokey(bool pos) {
-	
+	pokey1->Set(pos);
+	pokey1->Set(pos);
 }
 
 void Climber::setArmsMotor(float speed) {
@@ -34,11 +34,25 @@ float Climber::getPosition() {
 	return false;
 }
 
-bool getPokey() {
+bool Climber::getPokey(int num) {
+	switch(num) {
+	case 1:
+		return pokey1->Get();
+		
+	case 2:
+		return pokey2->Get();
+	}
 	return false;
 }
 
-bool Climber::getSwitch(int num) {
+bool Climber::getButton(int num) {
+	switch(num) {
+	case 1:
+		return arm1Button->Get();
+	
+	case 2:
+		return arm2Button->Get();
+	}
 	return false;
 }
 

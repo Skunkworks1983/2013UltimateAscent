@@ -8,6 +8,7 @@ void UFOBot::RobotInit() {
 }
 
 void UFOBot::AutonomousInit() {
+	Scheduler::GetInstance()->RemoveAll();
 }
 void UFOBot::AutonomousPeriodic() {
 	GetWatchdog().Feed();
@@ -16,6 +17,7 @@ void UFOBot::AutonomousPeriodic() {
 
 void UFOBot::TeleopInit() {
 	CommandBase::oi->registerButtonSchedulers();
+	Scheduler::GetInstance()->RemoveAll();
 }
 
 void UFOBot::TeleopPeriodic() {

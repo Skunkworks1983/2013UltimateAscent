@@ -14,7 +14,20 @@ DriveBase::DriveBase() :
 #endif
 
 	shifter = new Relay(DRIVE_SHIFT_RELAY);
-	
+#ifdef DRIVE_ENCODER_LEFT
+	leftEncoder = new Encoder(DRIVE_ENCODER_LEFT);
+	leftEncoder->SetDistancePerPulse(-DRIVE_ENCODER_INCH_PER_TICK);
+	leftEncoder->Start();
+#else
+	leftEncoder = NULL;
+#endif
+#ifdef DRIVE_ENCODER_RIGHT
+	rightEncoder = new Encoder(DRIVE_ENCODER_RIGHT);
+	rightEncoder->SetDistancePerPulse(DRIVE_ENCODER_INCH_PER_TICK);
+	rightEncoder->Start();
+#else
+	rightEncoder = NULL;
+#endif
 	cachedLowState = false;
 }
 
@@ -29,22 +42,26 @@ DriveBase::~DriveBase() {
 	delete motorRight2;
 #endif
 
-	//TODO delete leftEncoder;
-	//TODO delete rightEncoder;
+#ifdef DRIVE_ENCODER_LEFT
+	delete leftEncoder;
+#endif
+#ifdef DRIVE_ENCODER_RIGHT
+	delete rightEncoder;
+#endif
 	//TODO delete gyro;
 
 	delete shifter;
 }
 
 void DriveBase::setSpeed(float leftSpeed, float rightSpeed) {
-	motorLeft->Set(leftSpeed);
+	motorLeft->Set(-leftSpeed);
 #ifdef DRIVE_MOTOR_LEFT_2
-	motorLeft2->Set(leftSpeed);
+	motorLeft2->Set(-leftSpeed);
 #endif
 
-	motorRight->Set(-rightSpeed);
+	motorRight->Set(rightSpeed);
 #ifdef DRIVE_MOTOR_RIGHT_2
-	motorRight2->Set(-rightSpeed);
+	motorRight2->Set(rightSpeed);
 #endif
 }
 

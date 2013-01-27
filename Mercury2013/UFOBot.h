@@ -3,6 +3,12 @@
 
 #include "WPILib.h"
 
+/**
+ * @brief Main robot class
+ * 
+ * Initialization functions (Init functions).
+ * Looping functions (Periodic functions).
+ */
 class UFOBot : public IterativeRobot {
 private:
 	LiveWindow *lw;

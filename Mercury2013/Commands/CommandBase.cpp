@@ -16,8 +16,13 @@ Collector *CommandBase::collector = NULL;
 OI *CommandBase::oi = NULL;
 Pneumatics *CommandBase::pneumatics = NULL;
 Climber *CommandBase::climber = NULL;
+bool CommandBase::subsystems = false;
 
 void CommandBase::init() {
+	if (subsystems) {
+		return;
+	}
+	subsystems = true;
 	// Create a single static instance of all of your subsystems. The following
 	// line should be repeated for each subsystem in the project.
 	pneumatics = new Pneumatics();

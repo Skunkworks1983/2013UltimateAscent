@@ -10,8 +10,9 @@
 #include "../Subsystems/Climber.h"
 #include "../OI.h"
 
-
 /**
+ * @brief Command subclass that includes all of the subsystems.
+ *  
  * The base for all commands. All atomic commands should subclass CommandBase.
  * CommandBase stores creates and stores each control system. To access a
  * subsystem elsewhere in your code in your code use CommandBase.examplesubsystem
@@ -21,13 +22,14 @@ public:
 	CommandBase(const char *name);
 	CommandBase();
 	static void init();
-	// Create a single static instance of all of your subsystems
+
 	static Shooter *shooter;
 	static DriveBase *driveBase;
 	static Collector *collector;
 	static OI *oi;
 	static Pneumatics *pneumatics;
 	static Climber *climber;
+	static bool subsystems;
 };
 
 #endif

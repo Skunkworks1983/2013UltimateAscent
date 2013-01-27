@@ -54,3 +54,7 @@ PPC32diab
 # Remote Systems Files #
 ########################
 RemoteSystemsTempFiles/*
+
+# Doxygen #
+###########
+docs
