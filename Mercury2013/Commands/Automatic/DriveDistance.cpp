@@ -51,6 +51,8 @@ void DriveDistance::Execute() {
 		ExecuteFlat();
 	}
 }
+// speed = fmin(MAX_SPEED, (MAX_SPEED-MIN_SPEED) * ((target-current)/SLOW_DOWN_DISTANCE) + MIN_SPEED)
+
 void DriveDistance::ExecuteFlat() {
 	/** Compute remaining distance.
 	 * If distance remaining is greater than ___ inches, continue with motor on/maintaining speed. 
