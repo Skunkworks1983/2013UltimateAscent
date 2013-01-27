@@ -20,6 +20,7 @@ private:
 	DriverStationEnhancedIO *driverStationEIO;
 
 	ButtonScheduler *shiftScheduler;
+	ButtonScheduler *distanceScheduler;
 
 public:
 	OI();

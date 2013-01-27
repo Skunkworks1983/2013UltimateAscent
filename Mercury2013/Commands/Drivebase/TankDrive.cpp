@@ -10,8 +10,8 @@ void TankDrive::Initialize() {
 }
 
 void TankDrive::Execute() {
-	driveBase->setSpeed(oi->getDriveJoystickLeft()->GetAxis(Joystick::kYAxis),
-			oi->getDriveJoystickRight()->GetAxis(Joystick::kYAxis));
+	driveBase->setSpeed(-oi->getDriveJoystickLeft()->GetAxis(Joystick::kYAxis),
+			-oi->getDriveJoystickRight()->GetAxis(Joystick::kYAxis));
 }
 
 bool TankDrive::IsFinished() {

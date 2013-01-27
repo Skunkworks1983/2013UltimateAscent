@@ -37,8 +37,6 @@
 #define AUTO_DRIVE_DIST_MIN_SPEED .25   //Minimum speed of robot
 #define AUTO_DRIVE_DIST_LINEAR_INCREMENT .02 //How much is added each Loop
 
-
-
 /**
  * --DRIVE BASE--
  * Drive base motor channels.
@@ -53,6 +51,12 @@
 #define DRIVE_MOTOR_CREATE(channel)	(new CANJaguar(channel))
 
 #define DRIVE_SHIFT_RELAY			2
+
+#define DRIVE_ENCODER_TICKS_PER_REV	(250.0)
+#define DRIVE_WHEEL_DIAMETER		(4.0)
+#define DRIVE_ENCODER_INCH_PER_TICK	((DRIVE_WHEEL_DIAMETER * 3.14159)/DRIVE_ENCODER_TICKS_PER_REV)
+#define DRIVE_ENCODER_LEFT			2,3
+#define DRIVE_ENCODER_RIGHT			4,5
 
 /**
  * --SHOOTER--
@@ -76,7 +80,6 @@
 #define SHOOTER_MOTOR_UPDATE_SPEED	.01  // Every 10 milliseconds
 // Shooter target RPM
 #define SHOOTER_TARGET_RPM			2500 // TODO
-
 /**
  * --COLLECTOR--
  * 	Collector motor channels
