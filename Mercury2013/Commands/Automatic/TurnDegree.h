@@ -20,6 +20,8 @@ private:
 	float m_angleTurned;
 	float m_targetAngle;
 	float m_count;
+	float m_direction;
+	float m_angleRemaining;
 };
 #endif
 //Gyro,angle turned, target angle, count, 
