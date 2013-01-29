@@ -4,14 +4,17 @@ Climber::Climber() :
 	Subsystem("Climber") {
 	//TODO armsEncoder = new Encoder(ARM_ENCODER_1, ARM_ENCODER_2, false, Encoder::k4X);
 	//TODO armsMotor = ARM_MOTOR_CREATE(ARM_MOTOR);
+	
+	sliderMotors = new DualPIDOutput(sliderMotor1, sliderMotor2);
 
 	//TODO arm1Button = new DigitalInput(ARM_BUTTON_1);
-	//TODO arm2Button = new DigitalInput(ARM_BUTTON_2);
 
 	//TODO armsEncoder->Reset();
 
 	//TODO pokey1 = new Solenoid(POKEY_1);
 	//TODO pokey2 = new Solenoid(POKEY_2);
+	
+	//TODO sliderPID = new PIDController(CLIMBER_SLIDER_P, CLIMBER_SLIDER_I, CLIMBER_SLIDER_D, sliderEncoder , sliderMotors);
 }
 
 Climber::~Climber() {
@@ -25,6 +28,8 @@ Climber::~Climber() {
 	delete pokey1;
 	delete pokey2;
 	delete sliderBrake;
+	
+	delete sliderPID;
 }
 
 void Climber::movePokey(bool pos) {
