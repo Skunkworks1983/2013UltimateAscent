@@ -2,6 +2,7 @@
 #define __CLIMBER_H
 #include "WPILib.h"
 #include "../Robotmap.h"
+#include "../Utils/DualPIDOutput.h"
 
 /**
  * @brief All of the necessary methods and accessors for Climb and its child commands
@@ -21,6 +22,11 @@ private:
 	 */
 	SpeedController *sliderMotor1;
 	SpeedController *sliderMotor2;
+	
+	/**
+	 * Both slider motors contained in one fancy object
+	 */
+	DualPIDOutput *sliderMotors;
 
 	/**  
 	 * The buttons on the first and second hook to check state
@@ -40,10 +46,15 @@ private:
 	Solenoid *sliderBrake;
 	
 	/**
+	 * Controller for the slider motor
+	 */
+	PIDController *sliderPID;
+	
+	/**
 	 * The cached state of the brake
 	 */
 	bool cachedBrakeState;
-
+	
 public:
 	Climber();
 	~Climber();
