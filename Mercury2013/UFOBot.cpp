@@ -1,5 +1,6 @@
 #include "UFOBot.h"
 #include "Commands/CommandBase.h"
+#include "Commands/OI/UpdateOI.h"
 
 void UFOBot::RobotInit() {
 	CommandBase::init();
@@ -19,6 +20,7 @@ void UFOBot::TeleopInit() {
 	Scheduler::GetInstance()->RemoveAll();
 	CommandBase::oi->registerButtonSchedulers();
 	CommandBase::driveBase->reset();
+	Scheduler::GetInstance()->AddCommand(new UpdateOI());
 }
 
 void UFOBot::TeleopPeriodic() {
