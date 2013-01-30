@@ -69,6 +69,11 @@ public:
 	 */
 	bool isLowGear();
 
+	/**
+	 * Resets all encoders and the gyropscope.
+	 */
+	void reset();
+	
 	virtual void InitDefaultCommand();
 };
 

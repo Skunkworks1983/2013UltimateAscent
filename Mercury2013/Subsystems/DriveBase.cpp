@@ -29,6 +29,10 @@ DriveBase::DriveBase() :
 #else
 	rightEncoder = NULL;
 #endif
+
+#ifdef DRIVE_GYRO
+	gyro = new Gyro(DRIVE_GYRO);
+#endif
 	cachedLowState = false;
 }
 
@@ -49,8 +53,9 @@ DriveBase::~DriveBase() {
 #ifdef DRIVE_ENCODER_RIGHT
 	delete rightEncoder;
 #endif
-	//TODO delete gyro;
-
+#ifdef DRIVE_GYRO
+	delete gyro;
+#endif
 	delete shifter;
 }
 
@@ -85,6 +90,18 @@ void DriveBase::InitDefaultCommand() {
 void DriveBase::shift(bool lowGear) {
 	cachedLowState = lowGear;
 	shifter->Set(lowGear ? Relay::kForward : Relay::kReverse);
+}
+
+void DriveBase::reset() {
+#ifdef DRIVE_ENCODER_LEFT
+	leftEncoder->Reset();
+#endif
+#ifdef DRIVE_ENCODER_RIGHT
+	rightEncoder->Reset();
+#endif
+#ifdef DRIVE_GYRO
+	gyro->Reset();
+#endif
 }
 
 bool DriveBase::isLowGear() {

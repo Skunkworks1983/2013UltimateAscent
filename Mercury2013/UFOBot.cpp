@@ -16,8 +16,9 @@ void UFOBot::AutonomousPeriodic() {
 }
 
 void UFOBot::TeleopInit() {
-	CommandBase::oi->registerButtonSchedulers();
 	Scheduler::GetInstance()->RemoveAll();
+	CommandBase::oi->registerButtonSchedulers();
+	CommandBase::driveBase->reset();
 }
 
 void UFOBot::TeleopPeriodic() {
