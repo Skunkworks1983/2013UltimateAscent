@@ -17,10 +17,7 @@ public:
 	virtual void End();
 	virtual void Interrupted();
 private:
-	float m_angleTurned;
 	float m_targetAngle;
-	float m_count;
-	float m_direction;
 	float m_angleRemaining;
 };
 #endif

@@ -28,7 +28,7 @@
 #define AUTO_TURN_SLOW_DOWN 10			//Degrees
 #define AUTO_TURN_SPEED_MIN .2			//Scalar Minimum Speed (0-1)
 #define AUTO_TURN_SPEED_MAX .5			//  
-#define AUTO_TURN_GYRO_THRESHOLD 10		//Degrees, stopping tolerance
+#define AUTO_TURN_GYRO_THRESHOLD .25	//Degrees, stopping tolerance
 #define AUTO_TURN_GYRO_SIGN_SPEED 1		//For setting the sign speeds
 #define AUTO_TURN_GYRO_SIGN_HALF .5		//For setting half the sign speeds
 #define AUTO_TURN_GYRO_SIGN_NEGATIVE .5	//For setting negetive speed Scalar Maximum Speed (0-1)
@@ -59,6 +59,8 @@
 #define DRIVE_ENCODER_INCH_PER_TICK	((DRIVE_WHEEL_DIAMETER * 3.14159)/DRIVE_ENCODER_TICKS_PER_REV)
 #define DRIVE_ENCODER_LEFT			4,5
 #define DRIVE_ENCODER_RIGHT			2,3
+
+#define DRIVE_GYRO					1
 
 /**
  * --SHOOTER--
