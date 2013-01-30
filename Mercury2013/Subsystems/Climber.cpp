@@ -2,31 +2,36 @@
 
 Climber::Climber() :
 	Subsystem("Climber") {
-	//TODO armsEncoder = new Encoder(ARM_ENCODER_1, ARM_ENCODER_2, false, Encoder::k4X);
-	//TODO armsMotor = ARM_MOTOR_CREATE(ARM_MOTOR);
-	
+	// TODO sliderEncoder = new Encoder(CLIMBER_SLIDER_ENCODER_1, CLIMBER_SLIDER_ENCODER_2, false, Encoder::k4X);
+	// TODO sliderMotor1 = CLIMBER_SLIDER_MOTOR_CREATE(CLIMBER_SLIDER_MOTOR_1);
+	// TODO sliderMotor2 = CLIMBER_SLIDER_MOTOR_CREATE(CLIMBER_SLIDER_MOTOR_2);
 	sliderMotors = new DualPIDOutput(sliderMotor1, sliderMotor2);
-
-	//TODO arm1Button = new DigitalInput(ARM_BUTTON_1);
-
-	//TODO armsEncoder->Reset();
-
-	//TODO pokey1 = new Solenoid(POKEY_1);
-	//TODO pokey2 = new Solenoid(POKEY_2);
 	
-	//TODO sliderPID = new PIDController(CLIMBER_SLIDER_P, CLIMBER_SLIDER_I, CLIMBER_SLIDER_D, sliderEncoder , sliderMotors);
+	// TODO sliderEncoder->Reset();
+
+	// TODO hookButton1 = new DigitalInput(CLIMBER_HOOK_BUTTON_1);
+	// TODO hookButton2 = new DigitalInput(CLIMBER_HOOK_BUTTON_2);
+
+	// TODO pokey1 = new Solenoid(CLIMBER_POKEY_1);
+	// TODO pokey2 = new Solenoid(CLIMBER_POKEY_2);
+	
+	// TODO sliderBrake = new Solenoid(CLIMBER_BRAKE);
+	
+	sliderPID = new PIDController(CLIMBER_SLIDER_P, CLIMBER_SLIDER_I, CLIMBER_SLIDER_D, sliderEncoder , sliderMotors);
 }
 
 Climber::~Climber() {
 	delete sliderEncoder;
 	delete sliderMotor1;
 	delete sliderMotor2;
+	delete sliderMotors;
 
 	delete hookButton1;
 	delete hookButton2;
 
 	delete pokey1;
 	delete pokey2;
+	
 	delete sliderBrake;
 	
 	delete sliderPID;
