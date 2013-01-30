@@ -73,7 +73,7 @@
 #define SHOOTER_PITCH_MOTOR_CREATE(channel) (new Jaguar(channel))
 // Shooter speed and pitch sensors
 #define SHOOTER_SPEED_ENCODER_PORTS 1,1 // TODO
-#define SHOOTER_PITCH_POT_PORT		1
+#define SHOOTER_PITCH_POT_PORT		1   // TODO
 // Shooter pitch control info
 #define SHOOTER_PITCH_THRESHOLD		5
 #define SHOOTER_PITCH_STABILITY		25
