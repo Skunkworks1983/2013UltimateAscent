@@ -8,10 +8,10 @@
  *  
  * @author Westin Miller
  */
-class UpdateLights: public CommandBase {
+class UpdateOI: public CommandBase {
 public:
-	UpdateLights();
-	~UpdateLights();
+	UpdateOI();
+	~UpdateOI();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
