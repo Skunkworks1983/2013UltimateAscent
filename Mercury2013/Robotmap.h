@@ -114,18 +114,22 @@
  * --CLIMBER--
  */
 //TODO: Make the ports not pi
-#define SLIDER_MOTOR				3
-#define CLIMBER_SLIDER_ENCODER		1
+#define CLIMBER_SLIDER_MOTOR_1		3
+#define CLIMBER_SLIDER_MOTOR_2		1
+#define CLIMBER_SLIDER_ENCODER_1	4
+#define CLIMBER_SLIDER_ENCODER_2	1
 
-#define ARM_BUTTON_1				5
-#define ARM_BUTTON_2				9
+#define CLIMBER_SLIDER_MOTOR_CREATE(channel) (new Jaguar(channel))
 
-#define	POKEY_1						2
-#define	POKEY_2						6
+#define CLIMBER_HOOK_BUTTON_1		5
+#define CLIMBER_HOOK_BUTTON_2		9
 
-#define ARM_MOTOR_CREATE(channel)	(new Jaguar(channel))
+#define	CLIMBER_POKEY_1				2
+#define	CLIMBER_POKEY_2				6
 
-#define CLIMBER_SLIDER_P			5	
-#define CLIMBER_SLIDER_I			3
-#define CLIMBER_SLIDER_D			5
+#define CLIMBER_BRAKE				5
+
+#define CLIMBER_SLIDER_P			3	
+#define CLIMBER_SLIDER_I			5
+#define CLIMBER_SLIDER_D			8
 #endif
