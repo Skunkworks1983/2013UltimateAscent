@@ -4,7 +4,7 @@
 #include "../CommandBase.h"
 
 /**
- * @brief Updates lights on the driver station interface.
+ * @brief Updates lights and dashboard outputs on the driver station interface.
  *  
  * @author Westin Miller
  */
