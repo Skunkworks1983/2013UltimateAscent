@@ -33,6 +33,7 @@
 #define AUTO_DRIVE_DIST_SPEED_MAX 	0.5   	//Maximum speed allowed by DriveDistance
 #define AUTO_DRIVE_DIST_SPEED_MIN	.25   	//Minimum speed of robot
 #define AUTO_DRIVE_DIST_SPEED_RANGE		(AUTO_DRIVE_DIST_SPEED_MAX - AUTO_DRIVE_DIST_SPEED_MIN)
+#define AUTO_DRIVE_DIST_STABILITY	10
 
 /**
  * --DRIVE BASE--
