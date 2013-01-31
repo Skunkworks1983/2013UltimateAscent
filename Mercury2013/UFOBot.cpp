@@ -28,6 +28,10 @@ void UFOBot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
 }
 
+void UFOBot::TestInit() {
+	lw->SetEnabled(true);
+}
+
 void UFOBot::TestPeriodic() {
 	GetWatchdog().Feed();
 	lw->Run();

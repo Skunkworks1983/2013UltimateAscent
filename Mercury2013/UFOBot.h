@@ -24,6 +24,8 @@ public:
 	
 	virtual void TeleopPeriodic();
 	
+	virtual void TestInit();
+	
 	virtual void TestPeriodic();
 };
 
