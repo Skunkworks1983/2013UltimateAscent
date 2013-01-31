@@ -9,9 +9,15 @@
  * 
  * @author Connor Barlow
  */
-class Climber: public Subsystem {
-private:
+class Climber: public Subsystem, public PIDOutput, public PIDSource {
+public:
+	enum SliderState {
+		kDown,
+		kUp,
+		kOther
+	};
 
+private:
 	/**  
 	 * The encoder for the arm movement motor
 	 */
@@ -22,11 +28,6 @@ private:
 	 */
 	SpeedController *sliderMotor1;
 	SpeedController *sliderMotor2;
-	
-	/**
-	 * Both slider motors contained in one fancy object
-	 */
-	DualPIDOutput *sliderMotors;
 
 	/**  
 	 * The buttons on the first and second hook to check state
@@ -39,22 +40,17 @@ private:
 	 */
 	Solenoid *pokey1;
 	Solenoid *pokey2;
-	
+
 	/**
 	 * Solenoid to control slider brake
 	 */
 	Solenoid *sliderBrake;
-	
-	/**
-	 * Controller for the slider motor
-	 */
-	PIDController *sliderPID;
-	
+
 	/**
 	 * The cached state of the brake
 	 */
 	bool cachedBrakeState;
-	
+
 public:
 	Climber();
 	~Climber();
@@ -63,11 +59,6 @@ public:
 	 * Mokes the pokey stick to a state specified
 	 */
 	void movePokey(bool pos);
-
-	/**  
-	 * Set the arms motor to a specified speed
-	 */
-	void setSliderMotors(float speed);
 
 	/**  
 	 * Gets the position of the arms at a current point
@@ -83,16 +74,33 @@ public:
 	 * Gets the state of the button given on the button number given
 	 */
 	bool getButton(int button);
-	
+
 	/**
 	 * Set whether we are braking or not
 	 */
 	void setBrakeState(bool isBraking);
-	
+
 	/**
 	 * Get whether we are broken or not
 	 */
 	bool getBrakeState();
+
+	/**
+	 * Gets the state of the slider.
+	 */
+	SliderState getSliderState();
+
+	/**
+	 * Writes the speed to two motors.
+	 * @param speed the scalar speed
+	 */
+	virtual void PIDWrite(float speed);
+
+	/**
+	 * Gets the position of the climber.
+	 * @return the position, 0-1
+	 */
+	virtual double PIDGet();
 };
 
 #endif

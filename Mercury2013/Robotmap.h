@@ -23,21 +23,16 @@
 #define OI_JOYSTICK_RIGHT			2
 
 // Autonomous Settings
-#define AUTO_DIST_SLOW_DOWN			24		//Inches
-#define AUTO_DIST_THRESHOLD			1		//Inches, stopping tolerance
-#define AUTO_TURN_SLOW_DOWN		  	10		//Degrees
 #define AUTO_TURN_SPEED_MIN       	.2		//Scalar Minimum Speed (0-1)
 #define AUTO_TURN_SPEED_MAX       	.5		//Scalar Maximum Speed
 #define AUTO_TURN_GYRO_THRESHOLD  	.25	    //Degrees, stopping tolerance
-#define AUTO_TURN_GYRO_SIGN_SPEED 	1		//For setting the sign speeds
-#define AUTO_TURN_GYRO_SIGN_HALF  	.5		//For setting half the sign speeds
-#define AUTO_TURN_GYRO_SIGN_NEGATIVE .5		//For setting negetive speed Scalar Maximum Speed (0-1)
-#define AUTO_TURN_ITERATION_THRESHOLD 5		//Amount of ticks to pass for threshold to return true
+#define AUTO_TURN_SLOW_DOWN			5
 #define AUTO_TURN_SPEED_RANGE (AUTO_TURN_SPEED_MAX - AUTO_TURN_SPEED_MIN) //Speed Range
+#define AUTO_DRIVE_DIST_SLOW_DOWN	6
+#define AUTO_DRIVE_DIST_THRESHOLD			1		//Inches, stopping tolerance
 #define AUTO_DRIVE_DIST_SPEED_MAX 	0.5   	//Maximum speed allowed by DriveDistance
 #define AUTO_DRIVE_DIST_SPEED_MIN	.25   	//Minimum speed of robot
 #define AUTO_DRIVE_DIST_SPEED_RANGE		(AUTO_DRIVE_DIST_SPEED_MAX - AUTO_DRIVE_DIST_SPEED_MIN)
-#define AUTO_DRIVE_DIST_LINEAR_INCREMENT .02 //How much is added each Loop
 
 /**
  * --DRIVE BASE--
@@ -129,7 +124,9 @@
 
 #define CLIMBER_BRAKE				5
 
-#define CLIMBER_SLIDER_P			3	
-#define CLIMBER_SLIDER_I			5
-#define CLIMBER_SLIDER_D			8
+#define CLIMBER_SLIDER_P			0	//TODO
+#define CLIMBER_SLIDER_I			0
+#define CLIMBER_SLIDER_D			0
+
+#define CLIMBER_SLIDER_TOLERANCE	0.1  // 1/10 of the total length
 #endif
