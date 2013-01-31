@@ -1,6 +1,7 @@
 #ifndef __CLIMB_H
 #define __CLIMB_H
 
+#include "WPILib.h"
 /**
  * @brief This command group will handle all of the subsystems in the Climber to make them work in sync and in order
  *

@@ -14,6 +14,7 @@ private:
 	float targetDistance;
 	float leftDistanceRemaining;
 	float rightDistanceRemaining;
+	int stability;
 	/**
 	 * @brief Calculates the motor speed for the given remaining distance.
 	 * 
