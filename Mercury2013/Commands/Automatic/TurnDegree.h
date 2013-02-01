@@ -1,5 +1,5 @@
-#ifndef TURN_DEGREE_H
-#define TURN_DEGREE_H 
+#ifndef __CMD_AUTO_TURNDEGREE_H
+#define __CMD_AUTO_TURNDEGREE_H
 #include "../CommandBase.h"
 
 /**

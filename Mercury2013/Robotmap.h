@@ -1,5 +1,5 @@
-#ifndef ROBOTMAP_H
-#define ROBOTMAP_H
+#ifndef __ROBOTMAP_H
+#define __ROBOTMAP_H
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into

@@ -1,5 +1,5 @@
-#ifndef __HOKEY_POKEY_H
-#define __HOKEY_POKEY_H
+#ifndef __CMD_CLIMB_HOKEYPOKEY_H
+#define __CMD_CLIMB_HOKEYPOKEY_H
 #include "WPILib.h"
 #include "../CommandBase.h"
 #include "../../Subsystems/Climber.h"

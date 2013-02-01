@@ -1,5 +1,5 @@
-#ifndef SET_TARGET_SPEED_COMMAND_H
-#define SET_TARGET_SPEED_COMMAND_H
+#ifndef __CMD_SHOOT_SETTARGETSPEED_H
+#define __CMD_SHOOT_SETTARGETSPEED_H
 
 #include "../CommandBase.h"
 

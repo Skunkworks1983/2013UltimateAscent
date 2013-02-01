@@ -1,5 +1,5 @@
-#ifndef __AUTONOMOUS_H
-#define __AUTONOMOUS_H
+#ifndef __CMD_AUTONOMOUS_H
+#define __CMD_AUTONOMOUS_H
 
 #include "WPILib.h"
 

@@ -1,5 +1,5 @@
-#ifndef _SHOOTER_H
-#define _SHOOTER_H
+#ifndef __SYS_SHOOTER_H
+#define __SYS_SHOOTER_H
 
 #include "WPILib.h"
 #include "../Robotmap.h"

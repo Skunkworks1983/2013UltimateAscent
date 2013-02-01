@@ -1,5 +1,5 @@
-#ifndef __DUAL_PID_OUTPUT_H
-#define __DUAL_PID_OUTPUT_H
+#ifndef __DUALPIDOUTPUT_H
+#define __DUALPIDOUTPUT_H
 #include "WPILib.h"
 
 class DualPIDOutput: public PIDOutput {

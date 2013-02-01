@@ -1,5 +1,5 @@
-#ifndef __UPDATE_LIGHTS_H
-#define __UPDATE_LIGHTS_H
+#ifndef __CMD_UPDATEOI_H
+#define __CMD_UPDATEOI_H
 
 #include "../CommandBase.h"
 

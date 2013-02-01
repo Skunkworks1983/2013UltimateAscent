@@ -1,5 +1,5 @@
-#ifndef __CLIMB_H
-#define __CLIMB_H
+#ifndef __CMD_CLIMB_CLIMB_H
+#define __CMD_CLIMB_CLIMB_H
 
 #include "WPILib.h"
 /**

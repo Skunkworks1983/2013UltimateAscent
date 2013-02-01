@@ -1,5 +1,5 @@
-#ifndef _SHIFTER_H
-#define _SHIFTER_H
+#ifndef __SYS_SHIFTER_H
+#define __SYS_SHIFTER_H
 
 #include "WPILib.h"
 
