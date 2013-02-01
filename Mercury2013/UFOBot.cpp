@@ -1,6 +1,6 @@
 #include "UFOBot.h"
 #include "Commands/CommandBase.h"
-#include "Commands/OI/UpdateOI.h"
+#include "Commands/UpdateOI.h"
 
 void UFOBot::RobotInit() {
 	CommandBase::init();
