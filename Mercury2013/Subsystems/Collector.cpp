@@ -3,16 +3,15 @@
 
 Collector::Collector() :
 	Subsystem("Collector") {
-	//TODO pitchPot = new AnalogChannel(COLLECTOR_PITCH_POT);	//potentionmeter for colelctor pitch
-	//TODO collectorPitchMotor = COLLECTOR_PITCH_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);	//collector pitch motor
-	//TODO collectorMotor = COLLECTOR_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);
-	//TODO IRLow = new DigitalInput(COLLECTOR_IR_LOW_CHANNEL);	//IR sensor near or on floor
-	//TODO IRMid = new DigitalInput(COLLECTOR_IR_MID_CHANNEL);	//IR sensor inside middle of robot
-	//TODO IRHigh = new DigitalInput(COLLECTOR_IR_HIGH_CHANNEL);	//IR sensor next to shooter?
+	// TODO pitchPot = new AnalogChannel(COLLECTOR_PITCH_POT);	//potentionmeter for colelctor pitch
+	// TODO collectorPitchMotor = COLLECTOR_PITCH_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);	//collector pitch motor
+	// TODO collectorMotor = COLLECTOR_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);
+	// TODO IRLow = new DigitalInput(COLLECTOR_IR_LOW_CHANNEL);	//IR sensor near or on floor
+	// TODO IRMid = new DigitalInput(COLLECTOR_IR_MID_CHANNEL);	//IR sensor inside middle of robot
+	// TODO IRHigh = new DigitalInput(COLLECTOR_IR_HIGH_CHANNEL);	//IR sensor next to shooter?
 }
 
 Collector::~Collector() {
-	/* deleting of the objects created above */
 	delete pitchPot;
 	delete collectorEncoder;
 	delete IRLow;
@@ -21,7 +20,7 @@ Collector::~Collector() {
 }
 
 void Collector::setCollectorState(bool state) {
-	/* Sets motor speed to a DEFINE value, turns motor off if false */
+	// Sets motor speed to a DEFINE value, turns motor off if false
 	if (state == true){
 		collectorMotor->Set(COLLECTOR_MOTOR_SPEED);
 	}else
@@ -31,32 +30,32 @@ void Collector::setCollectorState(bool state) {
 }
 
 bool Collector::isUp() {
-	//if colelctor is in up position (true is up)
+	// If colelctor is in up position (true is up)
 	return currentPosition;
 }
 
 Encoder* Collector::getCollectorEncoder() {
-	//returns pointer to colelctor encoder
+	// Returns pointer to colelctor encoder
 	return collectorEncoder;
 }
 
 float Collector::getRealPosition(){
-	// returns the real potentiometer reading TODO
-	return pitchPot->GetVoltage();				//TODO
+	// TODO Returns the real potentiometer reading
+	return pitchPot->GetVoltage();
 }
 
 void Collector::setCollectorPitchMotor(float speed){
-	//sets collector pitch motor speed
+	// Sets collector pitch motor speed
 	collectorPitchMotor->Set(speed);
 }
 
 void Collector::setCollectorSpeed(float speed){
-	//sets the collector speed NOT SURE IF IMPLEMENTED
+	// Sets the collector speed NOT SURE IF IMPLEMENTED
 	collectorMotor->Set(speed);
 }
 
 int Collector::getSense(int height){
-	// returns the IR sensor's feedback depending on what argument is (0==low, 1==mid, 2==high)
+	// Returns the IR sensor's feedback depending on what argument is (0==low, 1==mid, 2==high)
 	switch(height){
 	case 0:
 		return IRLow->Get() &1;

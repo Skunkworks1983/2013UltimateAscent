@@ -89,4 +89,4 @@ void Climber::PIDWrite(float speed) {
 	sliderMotor2->Set(speed);
 }
 
-//TODO: Need pokey stick thingies
+// TODO: Need pokey stick thingies

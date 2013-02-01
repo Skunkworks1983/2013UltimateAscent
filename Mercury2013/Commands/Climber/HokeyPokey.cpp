@@ -16,7 +16,7 @@ void HokeyPokey::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void HokeyPokey::Execute() {
-	//Here call the collector to do the movey thingy
+	// Here call the collector to do the movey thingy
 	
 }
 
