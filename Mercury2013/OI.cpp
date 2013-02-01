@@ -2,7 +2,7 @@
 #include "Robotmap.h"
 
 #include "Buttons/ReleasedButtonScheduler.h"
-#include "Commands/Autonomous.h"
+#include "Commands/Automatic/DriveDistance.h"
 #include "Commands/Drivebase/Shift.h"
 
 OI::OI() {
@@ -18,7 +18,7 @@ OI::OI() {
 					new JoystickButton(driveJoystickLeft, 1),
 					new Shift(Shift::kToggle));
 	distanceScheduler = new ReleasedButtonScheduler(false,
-			new JoystickButton(driveJoystickLeft, 11), new Autonomous());
+			new JoystickButton(driveJoystickLeft, 11), new DriveDistance(24));
 }
 
 Joystick *OI::getDriveJoystickLeft() {

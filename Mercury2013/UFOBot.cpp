@@ -1,6 +1,7 @@
 #include "UFOBot.h"
 #include "Commands/CommandBase.h"
 #include "Commands/UpdateOI.h"
+#include "Commands/Autonomous.h"
 
 void UFOBot::RobotInit() {
 	CommandBase::init();
@@ -9,8 +10,9 @@ void UFOBot::RobotInit() {
 }
 
 void UFOBot::AutonomousInit() {
-	DefualtInit();
+	DefaultInit();
 	Scheduler::GetInstance()->RemoveAll();
+	Scheduler::GetInstance()->AddCommand(new Autonomous());
 }
 void UFOBot::AutonomousPeriodic() {
 	GetWatchdog().Feed();
@@ -24,7 +26,7 @@ void UFOBot::DefaultInit() {
 }
 
 void UFOBot::TeleopInit() {
-	DefualtInit();
+	DefaultInit();
 	CommandBase::oi->registerButtonSchedulers();
 }
 
