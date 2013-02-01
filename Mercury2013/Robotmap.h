@@ -2,11 +2,11 @@
 #define __ROBOTMAP_H
 
 /**
- * The RobotMap is a mapping from the ports sensors and actuators are wired into
- * to a variable name. This provides flexibility changing wiring, makes checking
- * the wiring easier and significantly reduces the number of magic numbers
- * floating around.
+ * @brief Ports and settings for the robot.
  * 
+ * The ports and settings for the robot.  This file has only defined variables and macros.
+ */
+/*
  * --MULTIPLE MODULES--
  * If you are using multiple modules, make sure to define both the port
  * number and the module. For example you with a rangefinder:
