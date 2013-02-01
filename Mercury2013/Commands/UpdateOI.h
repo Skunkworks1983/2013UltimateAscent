@@ -1,7 +1,7 @@
 #ifndef __CMD_UPDATEOI_H
 #define __CMD_UPDATEOI_H
 
-#include "../CommandBase.h"
+#include "CommandBase.h"
 
 /**
  * @brief Updates lights and dashboard outputs on the driver station interface.
