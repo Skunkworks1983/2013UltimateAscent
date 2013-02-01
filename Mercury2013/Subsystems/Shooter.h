@@ -140,7 +140,7 @@ public:
 	bool isPitchStable();
 
 //	Encoder *getShooterEncoder();  TODO Deprecated
-//	Encoder *getPitchEncoder();
+//	Encoder *getPitchEncoder();   TODO Deprecated
 
 	virtual void InitDefaultCommand();
 };

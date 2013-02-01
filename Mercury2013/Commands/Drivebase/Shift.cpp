@@ -2,7 +2,7 @@
 
 Shift::Shift(ShiftType shiftingType) :
 	CommandBase("Shift") {
-	//It requires the drive base, but we don't need a lock on it.
+	// It requires the drive base, but we don't need a lock on it.
 	this->toGear = shiftingType;
 	SetInterruptible(true);
 }

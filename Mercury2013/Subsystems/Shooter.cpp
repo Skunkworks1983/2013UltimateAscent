@@ -3,10 +3,10 @@
 
 Shooter::Shooter() :
 	Subsystem("Shooter") {
-	//TODO shooterMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR);
-	//TODO pitchMotor = SHOOTER_PITCH_MOTOR_CREATE(SHOOTER_PITCH_MOTOR);
-	//TODO speedEncoder = new Encoder(SHOOTER_SPEED_ENCODER_PORTS, false, Encoder::k4X);
-	//TODO pitchPot = new AnalogChannel(SHOOTER_PITCH_POT_PORT);
+	// TODO shooterMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR);
+	// TODO pitchMotor = SHOOTER_PITCH_MOTOR_CREATE(SHOOTER_PITCH_MOTOR);
+	// TODO speedEncoder = new Encoder(SHOOTER_SPEED_ENCODER_PORTS, false, Encoder::k4X);
+	// TODO pitchPot = new AnalogChannel(SHOOTER_PITCH_POT_PORT);
 
 	motorUpdateLoop = new Notifier(Shooter::callUpdateMotors, this);
 
@@ -31,7 +31,7 @@ void Shooter::endUpdateLoop() {
 }
 
 void Shooter::InitDefaultCommand() {
-	//No default command.  The update loop is a seperate task.
+	// No default command.  The update loop is a seperate task.
 }
 
 void Shooter::setTargetPitch(float degree) {
@@ -39,7 +39,7 @@ void Shooter::setTargetPitch(float degree) {
 }
 
 float Shooter::getCurrentPitch() {
-	//TODO Conversion
+	// TODO Conversion
 	return pitchPot->GetValue();
 }
 
@@ -48,7 +48,7 @@ bool Shooter::isPitchStable() {
 }
 
 float Shooter::getCurrentSpeed() {
-	return speedEncoder->GetRate(); //TODO Conversion
+	return speedEncoder->GetRate(); // TODO Conversion
 }
 
 void Shooter::setTargetSpeed(float rpm) {

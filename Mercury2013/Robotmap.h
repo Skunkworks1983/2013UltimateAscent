@@ -23,15 +23,15 @@
 #define OI_JOYSTICK_RIGHT			2
 
 // Autonomous Settings
-#define AUTO_TURN_SPEED_MIN       	.2		//Scalar Minimum Speed (0-1)
-#define AUTO_TURN_SPEED_MAX       	.5		//Scalar Maximum Speed
-#define AUTO_TURN_GYRO_THRESHOLD  	.25	    //Degrees, stopping tolerance
+#define AUTO_TURN_SPEED_MIN       	.2		// Scalar Minimum Speed (0-1)
+#define AUTO_TURN_SPEED_MAX       	.5		// Scalar Maximum Speed
+#define AUTO_TURN_GYRO_THRESHOLD  	.25	    // Degrees, stopping tolerance
 #define AUTO_TURN_SLOW_DOWN			5
-#define AUTO_TURN_SPEED_RANGE (AUTO_TURN_SPEED_MAX - AUTO_TURN_SPEED_MIN) //Speed Range
+#define AUTO_TURN_SPEED_RANGE (AUTO_TURN_SPEED_MAX - AUTO_TURN_SPEED_MIN) // Speed Range
 #define AUTO_DRIVE_DIST_SLOW_DOWN	6
-#define AUTO_DRIVE_DIST_THRESHOLD			1		//Inches, stopping tolerance
-#define AUTO_DRIVE_DIST_SPEED_MAX 	0.5   	//Maximum speed allowed by DriveDistance
-#define AUTO_DRIVE_DIST_SPEED_MIN	.25   	//Minimum speed of robot
+#define AUTO_DRIVE_DIST_THRESHOLD			1		// Inches, stopping tolerance
+#define AUTO_DRIVE_DIST_SPEED_MAX 	0.5   	// Maximum speed allowed by DriveDistance
+#define AUTO_DRIVE_DIST_SPEED_MIN	.25   	// Minimum speed of robot
 #define AUTO_DRIVE_DIST_SPEED_RANGE		(AUTO_DRIVE_DIST_SPEED_MAX - AUTO_DRIVE_DIST_SPEED_MIN)
 #define AUTO_DRIVE_DIST_STABILITY	10
 
@@ -86,20 +86,20 @@
  */
 #define COLLECTOR_MOTOR				7 // TODO
 #define COLLECTOR_PITCH_MOTOR		8 // TODO
-//Class name of the shooter and collector pitch motor controllers
+// Class name of the shooter and collector pitch motor controllers
 #define COLLECTOR_MOTOR_CREATE(channel) (new Jaguar(channel))
 #define COLLECTOR_PITCH_MOTOR_CREATE(channel) (new Jaguar(channel))
-//Collector constant speed
+// Collector constant speed
 #define COLLECTOR_MOTOR_SPEED				.5 // TODO get value from design team
 #define COLLECTOR_PITCH_POT					4  // TODO
-#define COLLECTOR_DOWN_AMOUNT				400 //TODO get value from design team
+#define COLLECTOR_DOWN_AMOUNT				400 // TODO get value from design team
 #define COLLECTOR_PITCH_THRESHOLD			100
-#define COLLECTOR_UP_AMOUNT					0	//TODO
-#define COLLECTOR_PITCH_SPEED_SCALAR		1.0005	//TODO
-#define COLLECTOR_IR_LOW_CHANNEL			5  //TODO
-#define COLLECTOR_IR_MID_CHANNEL			7  //TODO
-#define COLLECTOR_IR_HIGH_CHANNEL			8  //TODO
-#define COLLECTOR_PITCH_LOWEST_SPEED		.25	//TODO
+#define COLLECTOR_UP_AMOUNT					0	// TODO
+#define COLLECTOR_PITCH_SPEED_SCALAR		1.0005	// TODO
+#define COLLECTOR_IR_LOW_CHANNEL			5  // TODO
+#define COLLECTOR_IR_MID_CHANNEL			7  // TODO
+#define COLLECTOR_IR_HIGH_CHANNEL			8  // TODO
+#define COLLECTOR_PITCH_LOWEST_SPEED		.25	// TODO
 /**
  * --COMPRESSOR--
  */
@@ -109,7 +109,7 @@
 /**
  * --CLIMBER--
  */
-//TODO: Make the ports not pi
+// TODO: Make the ports not pi
 #define CLIMBER_SLIDER_MOTOR_1		3
 #define CLIMBER_SLIDER_MOTOR_2		1
 #define CLIMBER_SLIDER_ENCODER_1	4
@@ -125,9 +125,9 @@
 
 #define CLIMBER_BRAKE				5
 
-#define CLIMBER_SLIDER_P			0	//TODO
-#define CLIMBER_SLIDER_I			0
-#define CLIMBER_SLIDER_D			0
+#define CLIMBER_SLIDER_P			0	// TODO
+#define CLIMBER_SLIDER_I			0	// TODO
+#define CLIMBER_SLIDER_D			0	// TODO
 
 #define CLIMBER_SLIDER_TOLERANCE	0.1  // 1/10 of the total length
 #endif
