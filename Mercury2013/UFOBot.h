@@ -37,5 +37,4 @@ public:
 };
 
 START_ROBOT_CLASS(UFOBot)
-;
 #endif
