@@ -1,5 +1,5 @@
-#ifndef OI_H
-#define OI_H
+#ifndef __OI_H
+#define __OI_H
 
 #include "WPILib.h"
 

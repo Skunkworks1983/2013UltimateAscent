@@ -1,5 +1,5 @@
-#ifndef _COLLECTOR_H
-#define _COLLECTOR_H
+#ifndef __SYS_COLLECTOR_H
+#define __SYS_COLLECTOR_H
 
 #include "WPILib.h"
 

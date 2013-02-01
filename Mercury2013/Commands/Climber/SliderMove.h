@@ -1,5 +1,5 @@
-#ifndef __SLIDER_MOVE_H
-#define __SLIDER_MOVE_H
+#ifndef __CMD_CLIMB_SLIDERMOVE_H
+#define __CMD_CLIMB_SLIDERMOVE_H
 #include "WPILib.h"
 #include "../CommandBase.h"
 

@@ -1,5 +1,5 @@
-#ifndef _CHANGE_POSITION_H
-#define _CHANGE_POSITION_H
+#ifndef __CMD_COLLECT_CHANGEPOSITION_H
+#define __CMD_COLLECT_CHANGEPOSITION_H
 
 #include "../CommandBase.h"
 

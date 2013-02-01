@@ -1,5 +1,5 @@
-#ifndef _DRIVE_BASE_H
-#define _DRIVE_BASE_H
+#ifndef __SYS_DRIVEBASE_H
+#define __SYS_DRIVEBASE_H
 
 #include "WPILib.h"
 #include "../Robotmap.h"

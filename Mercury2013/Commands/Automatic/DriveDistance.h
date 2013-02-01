@@ -1,5 +1,5 @@
-#ifndef DRIVE_DISTANCE_H
-#define DRIVE_DISTANCE_H
+#ifndef __CMD_AUTO_DRIVEDISTANCE_H
+#define __CMD_AUTO_DRIVEDISTANCE_H
 #include "../../Subsystems/DriveBase.h" 
 #include "../CommandBase.h"
 

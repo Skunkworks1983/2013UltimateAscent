@@ -1,5 +1,5 @@
-#ifndef COLLECT_H
-#define COLLECT_H
+#ifndef __CMD_COLLECT_COLLECT_H
+#define __CMD_COLLECT_COLLECT_H
 
 #include "../CommandBase.h"
 

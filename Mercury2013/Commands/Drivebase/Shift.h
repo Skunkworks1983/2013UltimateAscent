@@ -1,5 +1,5 @@
-#ifndef SHIFT_H
-#define SHIFT_H
+#ifndef __CMD_DRIVEBASE_H
+#define __CMD_DRIVEBASE_H
 
 #include "../CommandBase.h"
 

@@ -1,5 +1,5 @@
-#ifndef TANKDRIVE_COMMAND_H
-#define TANKDRIVE_COMMAND_H
+#ifndef __CMD_DRIVE_TANKDRIVE_H
+#define __CMD_DRIVE_TANKDRIVE_H
 
 #include "../CommandBase.h"
 

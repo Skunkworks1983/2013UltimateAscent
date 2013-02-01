@@ -1,5 +1,5 @@
-#ifndef __CLIMBER_H
-#define __CLIMBER_H
+#ifndef __SYS_CLIMBER_H
+#define __SYS_CLIMBER_H
 #include "WPILib.h"
 #include "../Robotmap.h"
 #include "../Utils/DualPIDOutput.h"
