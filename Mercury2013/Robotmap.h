@@ -35,6 +35,10 @@
 #define AUTO_DRIVE_DIST_SPEED_RANGE		(AUTO_DRIVE_DIST_SPEED_MAX - AUTO_DRIVE_DIST_SPEED_MIN)
 #define AUTO_DRIVE_DIST_STABILITY	10
 
+// Autonomous Configuration Settings
+#define AUTO_SCRIPT_MAXLENGTH		256
+#define AUTO_SCRIPT_MAXLINES		64
+
 /**
  * --DRIVE BASE--
  * Drive base motor channels.

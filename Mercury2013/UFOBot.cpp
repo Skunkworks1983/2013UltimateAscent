@@ -13,7 +13,7 @@ void UFOBot::AutonomousInit() {
 	DefaultInit();
 	Scheduler::GetInstance()->RemoveAll();
 	int argc = 0;
-	char ** argv = new char*[50];
+	char ** argv = new char*[AUTO_SCRIPT_MAXLINES];
 	CommandBase::oi->getAutonomousConfig(argc, argv);
 	Scheduler::GetInstance()->AddCommand(new Autonomous(argc,argv));
 	for (argc = 0; argc<50; argc++){
