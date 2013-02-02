@@ -6,6 +6,7 @@
 class Autonomous: public CommandGroup {
 public:
 	Autonomous();
+	Autonomous(int argc, char **argv);
 	~Autonomous();
 };
 
