@@ -61,4 +61,5 @@ void OI::getAutonomousConfig(int &argc, char ** argv) {
 			lineStart = i + 1;
 		}
 	}
+	delete rawData;
 }
