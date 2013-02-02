@@ -16,7 +16,7 @@ void UFOBot::AutonomousInit() {
 	char ** argv = new char*[AUTO_SCRIPT_MAXLINES];
 	CommandBase::oi->getAutonomousConfig(argc, argv);
 	Scheduler::GetInstance()->AddCommand(new Autonomous(argc,argv));
-	for (argc = 0; argc<50; argc++){
+	for (argc = 0; argc < AUTO_SCRIPT_MAXLINES; argc++){
 		delete argv[argc];
 	}
 	delete argv;
