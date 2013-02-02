@@ -17,8 +17,8 @@ public:
 	virtual void End();
 	virtual void Interrupted();
 private:
-	float m_targetAngle;
-	float m_angleRemaining;
+	float targetAngle;
+	float angleRemaining;
 };
 #endif
 // Gyro,angle turned, target angle, count, 
