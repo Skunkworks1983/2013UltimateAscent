@@ -5,23 +5,23 @@
 
 TurnDegree::TurnDegree(float targetAngle) {
 	Requires(driveBase);
-	m_targetAngle = targetAngle;
+	this->targetAngle = targetAngle;
 }
 
 void TurnDegree::Initialize() {
 	driveBase->getGyro()->Reset();
-	m_angleRemaining = 0;
+	angleRemaining = 0;
 }
 
 void TurnDegree::Execute() {
-	m_angleRemaining = m_targetAngle - driveBase->getGyro()->GetAngle();
+	angleRemaining = targetAngle - driveBase->getGyro()->GetAngle();
 
-	float turnScaleFactor = fabs(m_angleRemaining) / AUTO_TURN_SLOW_DOWN;
+	float turnScaleFactor = fabs(angleRemaining) / AUTO_TURN_SLOW_DOWN;
 
 	float turnSpeed = fmin(AUTO_TURN_SPEED_MAX,
 			(AUTO_TURN_SPEED_RANGE * turnScaleFactor) + AUTO_TURN_SPEED_MIN)
-			* fsign(m_angleRemaining);
-	if (fabs(m_angleRemaining) <= AUTO_TURN_GYRO_THRESHOLD) {
+			* fsign(angleRemaining);
+	if (fabs(angleRemaining) <= AUTO_TURN_GYRO_THRESHOLD) {
 		turnSpeed = 0;
 	}
 	
@@ -29,7 +29,7 @@ void TurnDegree::Execute() {
 }
 
 bool TurnDegree::IsFinished() {
-	return fabs(m_angleRemaining) <= AUTO_TURN_GYRO_THRESHOLD;
+	return fabs(angleRemaining) <= AUTO_TURN_GYRO_THRESHOLD;
 }
 
 void TurnDegree::End() {
