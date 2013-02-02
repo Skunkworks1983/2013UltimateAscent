@@ -31,9 +31,10 @@
 #define AUTO_DRIVE_DIST_SLOW_DOWN	6
 #define AUTO_DRIVE_DIST_THRESHOLD			1		// Inches, stopping tolerance
 #define AUTO_DRIVE_DIST_SPEED_MAX 	0.5   	// Maximum speed allowed by DriveDistance
-#define AUTO_DRIVE_DIST_SPEED_MIN	.25   	// Minimum speed of robot
+#define AUTO_DRIVE_DIST_SPEED_MIN	.25   	// Minimum speed of robot.  
+//TODO reduce A_D_D_S_MIN to let robot crawl the last few feet.
 #define AUTO_DRIVE_DIST_SPEED_RANGE		(AUTO_DRIVE_DIST_SPEED_MAX - AUTO_DRIVE_DIST_SPEED_MIN)
-#define AUTO_DRIVE_DIST_STABILITY	10
+#define AUTO_DRIVE_DIST_STABILITY	10 //TODO: See what this is in order to reset the amound of ticks the encoders do.
 
 // Autonomous Configuration Settings
 #define AUTO_SCRIPT_MAXLENGTH		256
