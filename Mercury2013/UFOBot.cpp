@@ -16,6 +16,10 @@ void UFOBot::AutonomousInit() {
 	char ** argv = new char*[50];
 	CommandBase::oi->getAutonomousConfig(argc, argv);
 	Scheduler::GetInstance()->AddCommand(new Autonomous(argc,argv));
+	for (argc = 0; argc<50; argc++){
+		delete argv[argc];
+	}
+	delete argv;
 }
 void UFOBot::AutonomousPeriodic() {
 	GetWatchdog().Feed();
