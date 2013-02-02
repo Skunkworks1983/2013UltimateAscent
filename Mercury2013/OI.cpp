@@ -13,6 +13,8 @@ OI::OI() {
 	driverStationLCD = DriverStationLCD::GetInstance();
 	driverStationEIO = &(driverStation->GetEnhancedIO());
 
+	hasStashedAuto = false;
+
 	shiftScheduler
 			= new ReleasedButtonScheduler(false,
 					new JoystickButton(driveJoystickLeft, 1),
@@ -36,4 +38,27 @@ void OI::registerButtonSchedulers() {
 
 void OI::setLightState(DriverStationLight light, bool state) {
 	driverStationEIO->SetDigitalOutput(light, state);
+}
+
+void OI::getAutonomousConfig(int &argc, char ** argv) {
+	if (!hasStashedAuto) {
+		SmartDashboard::PutString("autoConfig",
+				"d 24|d -24|d 12|t -90|d 84|t -90|d 84|");
+		hasStashedAuto = true;
+	}
+	char * rawData = new char[256];
+	int read = SmartDashboard::GetString("autoConfig", rawData, 256);
+	printf("%s\n", rawData);
+	int lineStart = 0, i = 0;
+	for (i = 0; i < read; i++) {
+		if (rawData[i] == '|') {
+			argv[argc] = new char[i - lineStart + 1];
+			memcpy(argv[argc], &(rawData[lineStart]),
+					sizeof(char) * (i - lineStart));
+			argv[argc][i - lineStart] = '\0';
+			printf("S: %s\n", argv[argc]);
+			argc++;
+			lineStart = i + 1;
+		}
+	}
 }

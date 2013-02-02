@@ -18,6 +18,8 @@ public:
 		kLightClimberHook3 = 3,
 		kLightClimberHook4 = 4
 	};
+	bool hasStashedAuto;
+	
 private:
 	Joystick *driveJoystickLeft;
 	Joystick *driveJoystickRight;
@@ -37,6 +39,8 @@ public:
 
 	void registerButtonSchedulers();
 	void setLightState(DriverStationLight light, bool state);
+	
+	void getAutonomousConfig(int &argc, char ** argv);
 };
 
 #endif
