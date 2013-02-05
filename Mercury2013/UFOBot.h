@@ -11,7 +11,9 @@
  */
 class UFOBot: public IterativeRobot {
 private:
+	Command *autonomousCommand;
 	LiveWindow *lw;
+	SendableChooser *chooser;
 
 public:
 	virtual void RobotInit();

@@ -2,15 +2,23 @@
 #include "Commands/CommandBase.h"
 #include "Commands/UpdateOI.h"
 #include "Commands/Autonomous/Autonomous.h"
+#include "Commands/Automatic/DriveDistance.h"
+#include "Commands/Automatic/TurnDegree.h"
 
 void UFOBot::RobotInit() {
 	CommandBase::init();
 	lw = LiveWindow::GetInstance();
 	GetWatchdog().SetEnabled(true);
+	chooser = new SendableChooser();
+	chooser->AddDefault("DriveDistance", new DriveDistance(13));
+	chooser->AddObject("TurnDegree", new TurnDegree(5));
+	SmartDashboard::PutData("Autonomous modes", chooser);
 }
 
 void UFOBot::AutonomousInit() {
 	DefaultInit();
+	autonomousCommand = (Command *) chooser->GetSelected();
+	autonomousCommand->Start();
 	Scheduler::GetInstance()->RemoveAll();
 	int argc = 0;
 	char ** argv = new char*[AUTO_SCRIPT_MAXLINES];
