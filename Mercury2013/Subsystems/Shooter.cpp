@@ -43,6 +43,10 @@ float Shooter::getCurrentPitch() {
 	return pitchPot->GetValue();
 }
 
+void Shooter::setPitchMotorSpeed(float speed) {
+	pitchMotor->Set(speed);
+}
+
 bool Shooter::isPitchStable() {
 	return pitchStability >= SHOOTER_PITCH_STABILITY;
 }
@@ -95,14 +99,5 @@ void Shooter::updateMotors() {
 		} else {
 			speedStability = 0;
 		}
-	}
-
-	float pitchOffset = targetPitch - getCurrentPitch();
-	if (fabs(pitchOffset) < SHOOTER_PITCH_THRESHOLD) {
-		pitchMotor->Set(0);
-		pitchStability++;
-	} else {
-		pitchMotor->Set(pitchOffset < 0 ? 1 : -1);
-		pitchStability = 0;
 	}
 }

@@ -134,6 +134,11 @@ public:
 	 */
 	float getCurrentPitch();
 	/**
+	 * Sets the speed of the pitch motor
+	 * @param speed
+	 */
+	void setPitchMotorSpeed(float speed);
+	/**
 	 * Checks if the shooter apparatus angle has been within the accepted range for at least the accepted length of time.
 	 * @return the stability as a boolean
 	 */
