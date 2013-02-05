@@ -8,7 +8,7 @@ Shooter::Shooter() :
 	// TODO speedEncoder = new Encoder(SHOOTER_SPEED_ENCODER_PORTS, false, Encoder::k4X);
 	// TODO pitchPot = new AnalogChannel(SHOOTER_PITCH_POT_PORT);
 
-	motorUpdateLoop = new Notifier(Shooter::callUpdateMotors, this);
+	motorUpdateLoop = new Notifier(Shooter::callUpdateMotors,this);
 
 	armed = false;
 }
@@ -41,6 +41,10 @@ void Shooter::setTargetPitch(float degree) {
 float Shooter::getCurrentPitch() {
 	// TODO Conversion
 	return pitchPot->GetValue();
+}
+
+void Shooter::setPitchMotorSpeed(float speed) {
+	pitchMotor->Set(speed);
 }
 
 bool Shooter::isPitchStable() {
@@ -95,14 +99,5 @@ void Shooter::updateMotors() {
 		} else {
 			speedStability = 0;
 		}
-	}
-
-	float pitchOffset = targetPitch - getCurrentPitch();
-	if (fabs(pitchOffset) < SHOOTER_PITCH_THRESHOLD) {
-		pitchMotor->Set(0);
-		pitchStability++;
-	} else {
-		pitchMotor->Set(pitchOffset < 0 ? 1 : -1);
-		pitchStability = 0;
 	}
 }
