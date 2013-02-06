@@ -19,7 +19,7 @@ private:
 	AnalogChannel *pitchPot;
 	SpeedController *collectorMotor;
 	SpeedController *collectorPitchMotor;
-	bool currentPosition;
+	bool m_isUp;
 	DigitalInput * IRLow;
 	DigitalInput * IRMid;
 	DigitalInput * IRHigh;

@@ -31,7 +31,7 @@ void Collector::setCollectorState(bool state) {
 
 bool Collector::isUp() {
 	// If colelctor is in up position (true is up)
-	return currentPosition;
+	return m_isUp;
 }
 
 Encoder* Collector::getCollectorEncoder() {
