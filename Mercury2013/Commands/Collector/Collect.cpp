@@ -1,5 +1,9 @@
 #include "Collect.h"
-
+/**
+ * Collect command that turns on, off or toggle for the collector
+ * 
+ * @param one of three enum State can be on, off, or toggle
+ */
 Collect::Collect(State state) {
 	Requires(collector);
 	this->mode = state;
