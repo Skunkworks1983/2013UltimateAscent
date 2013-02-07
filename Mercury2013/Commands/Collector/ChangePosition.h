@@ -17,12 +17,14 @@ private:
 	bool isFinished;
 public:
 	/**
+		 * @brief This command will change the positon of the collector based on the bool passed to the intilizer
+		 * 
+		 * @param bool, true for up, false for down
+		 * 
 		 * A bool passed into initializer
 		 * to determine desired position of
 		 * the collector.
-		 * 
-		 * @param bool, true for up, false for down
-	*/
+		 */
 	ChangePosition(bool position);
 	~ChangePosition();
 	virtual void Initialize();
@@ -34,6 +36,7 @@ public:
 		 * in robotmap.h. The speed is multiplied ever so slightly by a scalar
 		 * in robotmap.h
 	*/
+	
 	virtual void Execute();
 	virtual bool IsFinished();
 	virtual void End();
