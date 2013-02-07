@@ -13,7 +13,8 @@ DriveBase::DriveBase() :
 	motorRight2 = DRIVE_MOTOR_CREATE(DRIVE_MOTOR_RIGHT_2);
 #endif
 
-	shifter = new Relay(DRIVE_SHIFT_RELAY);
+	shiftLow = new Solenoid(DRIVE_SHIFT_LOW);
+	shiftHigh = new Solenoid(DRIVE_SHIFT_HIGH);
 
 #ifdef DRIVE_ENCODER_LEFT
 	leftEncoder = new Encoder(DRIVE_ENCODER_LEFT);
@@ -56,7 +57,8 @@ DriveBase::~DriveBase() {
 #ifdef DRIVE_GYRO
 	delete gyro;
 #endif
-	delete shifter;
+	delete shiftLow;
+	delete shiftHigh;
 }
 
 void DriveBase::setSpeed(float leftSpeed, float rightSpeed) {
@@ -89,7 +91,8 @@ void DriveBase::InitDefaultCommand() {
 
 void DriveBase::shift(bool lowGear) {
 	cachedLowState = lowGear;
-	shifter->Set(lowGear ? Relay::kForward : Relay::kReverse);
+	shiftLow->Set(lowGear);
+	shiftHigh->Set(!lowGear);
 }
 
 void DriveBase::reset() {
