@@ -1,13 +1,7 @@
 #include "ChangePosition.h"
 
 ChangePosition::ChangePosition(bool position) {
-	/**
-	 * @param bool, true for up, false for down
-	 * 
-	 * A bool passed into initializer
-	 * to determine desired position of
-	 * the collector.
-	 */
+	
 	Requires(collector);
 	this->position = position;
 }
@@ -21,14 +15,7 @@ void ChangePosition::Initialize() {
 }
 
 void ChangePosition::Execute() {
-	/**
-	 * Execute function
-	 * 
-	 * This function turns on the collector pitch motor
-	 * while the encoder is reading less than half the desired amount
-	 * in robotmap.h. The speed is multiplied ever so slightly by a scalar
-	 * in robotmap.h
-	 * */
+	
 	if (position == false) {
 		if (collector->getRealPosition() >= COLLECTOR_DOWN_AMOUNT) {
 			// Finsishes the command
