@@ -55,13 +55,14 @@
 // Class name of the drive motor controller
 #define DRIVE_MOTOR_CREATE(channel)	(new CANJaguar(channel))
 
-#define DRIVE_SHIFT_RELAY							2
+#define DRIVE_SHIFT_LOW				1
+#define DRIVE_SHIFT_HIGH			2
 
 #define DRIVE_ENCODER_TICKS_PER_REV	(250.0)
 #define DRIVE_WHEEL_DIAMETER					(6.0)
 #define DRIVE_ENCODER_INCH_PER_TICK	((DRIVE_WHEEL_DIAMETER * 3.14159)/DRIVE_ENCODER_TICKS_PER_REV)
-#define DRIVE_ENCODER_LEFT						4,5
-#define DRIVE_ENCODER_RIGHT					2,3
+#define DRIVE_ENCODER_LEFT			2,3
+#define DRIVE_ENCODER_RIGHT			4,5
 
 #define DRIVE_GYRO										1
 
@@ -111,7 +112,7 @@
  * --COMPRESSOR--
  */
 #define COMPRESSOR_RELAY			1
-#define COMPRESSOR_SWITCH			1
+#define COMPRESSOR_SWITCH			14
 
 /**
  * --CLIMBER--

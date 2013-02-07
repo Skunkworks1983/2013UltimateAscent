@@ -26,7 +26,9 @@ private:
 	Encoder *rightEncoder;
 	Gyro *gyro;
 
-	Relay *shifter;
+	Solenoid *shiftLow;
+	Solenoid *shiftHigh;
+	
 	bool cachedLowState;
 public:
 	/**
