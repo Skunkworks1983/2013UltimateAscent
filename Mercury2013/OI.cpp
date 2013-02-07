@@ -52,7 +52,7 @@ void OI::getAutonomousConfig(int &argc, char ** argv) {
 	printf("%s\n", rawData);
 	int lineStart = 0, i = 0;
 	for (i = 0; i < read; i++) {
-		if (rawData[i] == '|') {
+		if (rawData[i] == '\n') {
 			argv[argc] = new char[i - lineStart + 1];
 			memcpy(argv[argc], &(rawData[lineStart]),
 					sizeof(char) * (i - lineStart));

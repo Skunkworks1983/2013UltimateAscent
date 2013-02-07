@@ -1,6 +1,6 @@
 #ifndef __UFOBOT_H
 #define __UFOBOT_H
-#include "Commands/Autonomous/ScriptReader.h"
+
 #include "WPILib.h"
 
 /**
@@ -11,8 +11,6 @@
  */
 class UFOBot: public IterativeRobot {
 private:
-	Command *autonomousCommand;
-	ScriptReader *scriptReader;
 	LiveWindow *lw;
 	SendableChooser *chooser;
 

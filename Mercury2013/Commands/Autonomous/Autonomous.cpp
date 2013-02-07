@@ -1,6 +1,7 @@
 #include "Autonomous.h" 
 #include "../Automatic/DriveDistance.h"
 #include "../Automatic/TurnDegree.h"
+#include "Commands/WaitCommand.h"
 
 Autonomous::Autonomous() :
 	CommandGroup("Autonomous") {
@@ -16,7 +17,8 @@ Autonomous::Autonomous() :
 	AddSequential(new DriveDistance(84));
 }
 
-Autonomous::Autonomous(int argc, char **argv) {
+Autonomous::Autonomous(int argc, char **argv) :
+	CommandGroup("Autonomous") {
 	int i = 0;
 	char type = '0';
 	float arg = 0.0;
@@ -29,6 +31,8 @@ Autonomous::Autonomous(int argc, char **argv) {
 		case 't':
 			AddSequential(new TurnDegree(arg));
 			break;
+		case 'w':
+			AddSequential(new WaitCommand(arg));
 		default:
 			break;
 		}

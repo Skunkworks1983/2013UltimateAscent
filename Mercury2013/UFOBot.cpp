@@ -4,38 +4,55 @@
 #include "Commands/Autonomous/Autonomous.h"
 #include "Commands/Automatic/DriveDistance.h"
 #include "Commands/Automatic/TurnDegree.h"
-#include "Commands/Autonomous/Scriptreader.h"
+#include "Utils/Scripting.h"
+
+#include <stdio.h>
+#include <sys/types.h>
+#include <dirent.h>
 
 void UFOBot::RobotInit() {
 	CommandBase::init();
 	lw = LiveWindow::GetInstance();
 	GetWatchdog().SetEnabled(true);
-	chooser = new SendableChooser();
-	chooser->AddDefault("DriveDistance", new DriveDistance(2));
-	chooser->AddObject("TurnDegree", new TurnDegree(90));
-	
-	chooser->AddDefault("Test1", new ScriptReader("test1.txt"));
-	chooser->AddObject("Test2", new ScriptReader("test2.txt"));
-	chooser->AddObject("Test3", new ScriptReader("test3.txt"));
 
-SmartDashboard::PutData("Autonomous modes", chooser);
+	chooser = new SendableChooser();
+
+	DIR * dp;
+	struct dirent * ep;
+	dp = opendir(AUTO_SCRIPT_LOCATIONS);
+	bool isDefault = true;
+	if (dp != NULL) {
+		while (ep = readdir(dp)) {
+			char * fileName = new char[50];
+			sprintf(fileName, "%s%s", AUTO_SCRIPT_LOCATIONS, ep->d_name);
+			printf("%s\n", fileName);
+
+			if (isDefault) {
+				chooser->AddDefault(ep->d_name, fileName);
+				isDefault = false;
+			} else {
+				chooser->AddObject(ep->d_name, fileName);
+			}
+		}
+		(void) closedir(dp);
+	} else {
+		printf("SOMETHING IS VERY, VERY WRONG\n");
+	}
+	delete dp;
+	delete ep;
+
+	SmartDashboard::PutData("Autonomous modes", chooser);
 }
 
 void UFOBot::AutonomousInit() {
 	DefaultInit();
-	int argc = 0;
-	char ** argv = new char*[AUTO_SCRIPT_MAXLINES];
-//	autonomousCommand = (Command *) chooser->GetSelected();
-//	autonomousCommand->Start();
-	scriptReader = (ScriptReader *) chooser->GetSelected();
-	scriptReader->ReadScript(&argc, argv);
+	char *fName = (char*) chooser->GetSelected();
 	Scheduler::GetInstance()->RemoveAll();
-//	CommandBase::oi->getAutonomousConfig(argc, argv);
-	Scheduler::GetInstance()->AddCommand(new Autonomous(argc,argv));
-	for (argc = 0; argc < AUTO_SCRIPT_MAXLINES; argc++){
-		delete argv[argc];
-	}
-	delete argv;
+	int size = 0;
+	char *rawData = Scripting::readFromFile(fName, size);
+	Scheduler::GetInstance()->AddCommand(
+			Scripting::createCommand(size, rawData));
+	delete rawData;
 }
 void UFOBot::AutonomousPeriodic() {
 	GetWatchdog().Feed();
