@@ -39,6 +39,8 @@
 // Autonomous Configuration Settings
 #define AUTO_SCRIPT_MAXLENGTH		256
 #define AUTO_SCRIPT_MAXLINES		64
+#define AUTO_SCRIPT_COMMAND_MAXLENGTH 20
+#define AUTO_SCRIPT_LOCATIONS		"/c/ni-rt/automagic/"
 
 /**
  * --DRIVE BASE--
