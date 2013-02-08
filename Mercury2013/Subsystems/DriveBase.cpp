@@ -30,6 +30,11 @@ DriveBase::DriveBase() :
 #else
 	rightEncoder = NULL;
 #endif
+	
+	LiveWindow::GetInstance()->AddSensor("DriveBase", "LeftEncoder",
+			leftEncoder);
+	LiveWindow::GetInstance()->AddSensor("DriveBase", "RightEncoder",
+			rightEncoder);
 
 #ifdef DRIVE_GYRO
 	gyro = new Gyro(DRIVE_GYRO);
@@ -59,6 +64,9 @@ DriveBase::~DriveBase() {
 #endif
 	delete shiftLow;
 	delete shiftHigh;
+	
+	LiveWindow::GetInstance()->AddSensor("DriveBase", "DriveGyro",
+				gyro);
 }
 
 void DriveBase::setSpeed(float leftSpeed, float rightSpeed) {

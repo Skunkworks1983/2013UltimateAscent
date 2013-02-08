@@ -20,6 +20,10 @@ Shooter::~Shooter() {
 	delete pitchPot;
 
 	delete motorUpdateLoop;
+	LiveWindow::GetInstance()->AddSensor("DriveBase", "SpeedEncoder",
+			speedEncoder);
+	LiveWindow::GetInstance()->AddSensor("DriveBase", "PitchPot",
+			pitchPot);
 }
 
 void Shooter::startUpdateLoop() {
