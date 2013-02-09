@@ -1,6 +1,12 @@
 #include "Scripting.h"
+
+#include "WPILib.h"
 #include "../Commands/Autonomous/Autonomous.h"
 #include "../Robotmap.h"
+
+#include <stdio.h>
+#include <sys/types.h>
+#include <dirent.h>
 
 char* Scripting::readFromFile(char *fileName, int &size) {
 	FILE* f = fopen(fileName, "r");
@@ -36,4 +42,35 @@ Autonomous *Scripting::createCommand(int size, char *rawData) {
 	}
 	delete argv;
 	return cmd;
+}
+
+SendableChooser *Scripting::generateAutonomousModes(char *scriptLocations) {
+	SendableChooser * chooser = new SendableChooser();
+
+	DIR * dp;
+	struct dirent * ep;
+	dp = opendir(scriptLocations);
+	bool isDefault = true;
+	if (dp != NULL) {
+		while (ep = readdir(dp)) {
+			char * fileName = new char[50];
+			sprintf(fileName, "%s%s", scriptLocations, ep->d_name);
+			printf("%s\n", fileName);
+
+			if (isDefault) {
+				chooser->AddDefault(ep->d_name, fileName);
+				isDefault = false;
+			} else {
+				chooser->AddObject(ep->d_name, fileName);
+			}
+			delete fileName;
+		}
+		(void) closedir(dp);
+	} else {
+		printf("SOMETHING IS VERY, VERY WRONG\n");
+	}
+	delete dp;
+	delete ep;
+	
+	return chooser;
 }

@@ -6,42 +6,12 @@
 #include "Commands/Automatic/TurnDegree.h"
 #include "Utils/Scripting.h"
 
-#include <stdio.h>
-#include <sys/types.h>
-#include <dirent.h>
-
 void UFOBot::RobotInit() {
 	CommandBase::init();
 	lw = LiveWindow::GetInstance();
 	GetWatchdog().SetEnabled(true);
 
-	chooser = new SendableChooser();
-
-	DIR * dp;
-	struct dirent * ep;
-	dp = opendir(AUTO_SCRIPT_LOCATIONS);
-	bool isDefault = true;
-	if (dp != NULL) {
-		while (ep = readdir(dp)) {
-			char * fileName = new char[50];
-			sprintf(fileName, "%s%s", AUTO_SCRIPT_LOCATIONS, ep->d_name);
-			printf("%s\n", fileName);
-
-			if (isDefault) {
-				chooser->AddDefault(ep->d_name, fileName);
-				isDefault = false;
-			} else {
-				chooser->AddObject(ep->d_name, fileName);
-			}
-			delete fileName;
-		}
-		(void) closedir(dp);
-	} else {
-		printf("SOMETHING IS VERY, VERY WRONG\n");
-	}
-	delete dp;
-	delete ep;
-
+	chooser = Scripting::generateAutonomousModes(AUTO_SCRIPT_LOCATIONS);
 	SmartDashboard::PutData("Autonomous modes", chooser);
 }
 
