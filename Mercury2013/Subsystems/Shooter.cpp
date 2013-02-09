@@ -3,43 +3,62 @@
 
 Shooter::Shooter() :
 	Subsystem("Shooter") {
-	// TODO shooterMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR);
-	// TODO pitchMotor = SHOOTER_PITCH_MOTOR_CREATE(SHOOTER_PITCH_MOTOR);
-	// TODO speedEncoder = new Encoder(SHOOTER_SPEED_ENCODER_PORTS, false, Encoder::k4X);
-	// TODO pitchPot = new AnalogChannel(SHOOTER_PITCH_POT_PORT);
+	// TODO frontMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR_FRONT);
+	// TODO middleMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR_MIDDLE);
+	// TODO rearMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR_REAR);
 
-	motorUpdateLoop = new Notifier(Shooter::callUpdateMotors,this);
+	// TODO pitchMotor = SHOOTER_PITCH_MOTOR_CREATE(SHOOTER_PITCH_MOTOR);
+	// TODO pitchPot = new AnalogChannel(SHOOTER_PITCH_POT_PORT);
+	
+	// TODO shooterExtended = new Solenoid(SHOOTER_EXTENDED);
+	// TODO shooterDextended = new Solenoid(SHOOTER_DEXTENDED);
 
 	armed = false;
 }
 
 Shooter::~Shooter() {
-	delete shooterMotor;
+	delete frontMotor;
+	delete middleMotor;
+	delete rearMotor;
+
 	delete pitchMotor;
-	delete speedEncoder;
 	delete pitchPot;
+	
+	delete shooterExtended;
+	delete shooterDextended;
 
-	delete motorUpdateLoop;
-	LiveWindow::GetInstance()->AddSensor("DriveBase", "SpeedEncoder",
-			speedEncoder);
-	LiveWindow::GetInstance()->AddSensor("DriveBase", "PitchPot",
-			pitchPot);
+	LiveWindow::GetInstance()->AddSensor("DriveBase", "PitchPot", pitchPot);
 }
 
-void Shooter::startUpdateLoop() {
-	motorUpdateLoop->StartPeriodic(SHOOTER_MOTOR_UPDATE_SPEED);
+void Shooter::setArmed(bool armed) {
+	if (armed) {
+		frontMotor->Set(SHOOTER_MOTOR_FRONT_SPEED);
+		middleMotor->Set(SHOOTER_MOTOR_MIDDLE_SPEED);
+		rearMotor->Set(SHOOTER_MOTOR_REAR_SPEED);
+	} else {
+		frontMotor->Set(0);
+		middleMotor->Set(0);
+		rearMotor->Set(0);
+	}
+	this->armed = armed;
 }
 
-void Shooter::endUpdateLoop() {
-	motorUpdateLoop->Stop();
+bool Shooter::isArmed() {
+	return armed;
 }
 
-void Shooter::InitDefaultCommand() {
-	// No default command.  The update loop is a seperate task.
+void Shooter::shoot() {
+	shooterExtended->Set(true);
+	shooterDextended->Set(false);
 }
 
-void Shooter::setTargetPitch(float degree) {
-	targetPitch = degree;
+void Shooter::deShoot() {
+	shooterExtended->Set(false);
+	shooterDextended->Set(true);
+}
+
+void Shooter::setPitchMotorSpeed(float speed) {
+	pitchMotor->Set(speed);
 }
 
 float Shooter::getCurrentPitch() {
@@ -47,61 +66,5 @@ float Shooter::getCurrentPitch() {
 	return pitchPot->GetValue();
 }
 
-void Shooter::setPitchMotorSpeed(float speed) {
-	pitchMotor->Set(speed);
-}
 
-bool Shooter::isPitchStable() {
-	return pitchStability >= SHOOTER_PITCH_STABILITY;
-}
 
-float Shooter::getCurrentSpeed() {
-	return speedEncoder->GetRate(); // TODO Conversion
-}
-
-void Shooter::setTargetSpeed(float rpm) {
-	targetSpeed = rpm;
-}
-
-float Shooter::getTargetSpeed() {
-	return targetSpeed;
-}
-
-bool Shooter::isSpeedStable() {
-	return speedStability >= SHOOTER_SPEED_STABILITY;
-}
-
-bool Shooter::isArmed() {
-	return armed;
-}
-
-void Shooter::setArmed(bool armed) {
-	if (this->armed && !armed) {
-		speedEncoder->Stop();
-	} else if (!this->armed && armed) {
-		speedEncoder->Start();
-	}
-	this->armed = armed;
-}
-
-void Shooter::callUpdateMotors(void* shooter) {
-	((Shooter*) shooter)->updateMotors();
-}
-
-void Shooter::updateMotors() {
-	if (armed && targetSpeed > SHOOTER_SPEED_THRESHOLD) { // If target speed is close to zero, don't do any processing
-		float speedOffset = targetSpeed - getCurrentSpeed();
-		if (speedOffset > 0) {
-			shooterMotor->Set(1);
-		} else if (speedOffset < 0) {
-			shooterMotor->Set(-1);
-		} else {
-			shooterMotor->Set(0);
-		}
-		if (fabs(speedOffset) < SHOOTER_SPEED_THRESHOLD) {
-			speedStability++;
-		} else {
-			speedStability = 0;
-		}
-	}
-}

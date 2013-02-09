@@ -1,11 +1,14 @@
 #include "ArmShooter.h"
+#include "../../Utils/Time.h"
 
 ArmShooter::ArmShooter(ArmType armType) :
 	CommandBase("ArmShooter") {
+	Requires(shooter);
 	this->armType = armType;
 }
 
 void ArmShooter::Initialize() {
+	startTime = getCurrentMillis();
 	switch(armType) {
 	case kOn:
 		enabled = true;
@@ -26,7 +29,7 @@ void ArmShooter::Execute() {
 }
 
 bool ArmShooter::IsFinished() {
-	return shooter->isArmed() == enabled;
+	return (shooter->isArmed() == enabled) && (startTime + SHOOTER_ARM_TIME <= getCurrentMillis());
 }
 
 void ArmShooter::End() {

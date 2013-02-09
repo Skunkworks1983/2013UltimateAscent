@@ -1,5 +1,5 @@
-#ifndef __CMD_SHOOT_ARM_H
-#define __CMD_SHOOT_ARM_H
+#ifndef __CMD_ARM_SHOOTER_H
+#define __CMD_ARM_SHOOTER_H
 
 #include "../CommandBase.h"
 
@@ -30,6 +30,7 @@ public:
 		kToggle
 	};
 private:
+	double startTime;
 	bool enabled;
 	ArmType armType;
 public:
