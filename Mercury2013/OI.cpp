@@ -2,7 +2,8 @@
 #include "Robotmap.h"
 
 #include "Buttons/ReleasedButtonScheduler.h"
-#include "Commands/Automatic/DriveDistance.h"
+#include "Commands/Shooter/Shoot.h"
+#include "Commands/Shooter/ArmShooter.h"
 #include "Commands/Drivebase/Shift.h"
 
 OI::OI() {
@@ -19,8 +20,11 @@ OI::OI() {
 			= new ReleasedButtonScheduler(false,
 					new JoystickButton(driveJoystickLeft, 1),
 					new Shift(Shift::kToggle));
-	distanceScheduler = new ReleasedButtonScheduler(false,
-			new JoystickButton(driveJoystickLeft, 11), new DriveDistance(24));
+	shootScheduler = new ReleasedButtonScheduler(false,
+			new JoystickButton(driveJoystickLeft, 4), new Shoot());
+	spinupScheduler = new ReleasedButtonScheduler(false,
+			new JoystickButton(driveJoystickLeft, 5),
+			new ArmShooter(ArmShooter::kToggle));
 }
 
 Joystick *OI::getDriveJoystickLeft() {
@@ -32,8 +36,9 @@ Joystick *OI::getDriveJoystickRight() {
 }
 
 void OI::registerButtonSchedulers() {
-	shiftScheduler->Start();
-	distanceScheduler->Start();
+	//shiftScheduler->Start();
+	shootScheduler->Start();
+	spinupScheduler->Start();
 }
 
 void OI::setLightState(DriverStationLight light, bool state) {
