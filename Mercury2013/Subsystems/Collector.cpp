@@ -3,11 +3,11 @@
 
 Collector::Collector() :
 	Subsystem("Collector") {
-	// TODO pitchPot = new AnalogChannel(COLLECTOR_PITCH_POT);	//potentionmeter for colelctor pitch
+	// TODO pitchPot = new AnalogChannel(COLLECTOR_PITCH_POT);		//potentionmeter for colelctor pitch
 	// TODO collectorPitchMotor = COLLECTOR_PITCH_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);	//collector pitch motor
-	// TODO collectorMotor = COLLECTOR_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);
-	// TODO IRLow = new DigitalInput(COLLECTOR_IR_LOW_CHANNEL);	//IR sensor near or on floor
-	// TODO IRMid = new DigitalInput(COLLECTOR_IR_MID_CHANNEL);	//IR sensor inside middle of robot
+	// TODO collectorMotor = COLLECTOR_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);				//actual collector motor
+	// TODO IRLow = new DigitalInput(COLLECTOR_IR_LOW_CHANNEL);		//IR sensor near or on floor
+	// TODO IRMid = new DigitalInput(COLLECTOR_IR_MID_CHANNEL);		//IR sensor inside middle of robot
 	// TODO IRHigh = new DigitalInput(COLLECTOR_IR_HIGH_CHANNEL);	//IR sensor next to shooter?
 }
 
@@ -20,7 +20,7 @@ Collector::~Collector() {
 }
 
 void Collector::setCollectorState(bool state) {
-	// Sets motor speed to a DEFINE value, turns motor off if false
+	// Sets motor speed to a DEFINE value, turns motor off if state is false
 	if (state == true){
 		collectorMotor->Set(COLLECTOR_MOTOR_SPEED);
 	}else
