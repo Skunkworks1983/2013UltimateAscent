@@ -29,7 +29,7 @@ void ArmShooter::Execute() {
 }
 
 bool ArmShooter::IsFinished() {
-	return (shooter->isArmed() == enabled) && (startTime + SHOOTER_ARM_TIME <= getCurrentMillis());
+	return (getCurrentMillis() >= startTime + SHOOTER_ARM_TIME) && (shooter->isArmed() == enabled);
 }
 
 void ArmShooter::End() {

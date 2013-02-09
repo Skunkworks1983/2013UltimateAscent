@@ -23,15 +23,15 @@ private:
 	Solenoid *shooterExtended;
 	Solenoid *shooterDextended;
 	
-	bool armed;
+	bool cachedArmState;
+	bool cachedShootState;
 public:
 	Shooter();
 	~Shooter();
 	
-	void setArmed(bool armed);
+	void setArmed(bool arming);
 	bool isArmed();
-	void shoot();
-	void deShoot();
+	void shoot(bool shooting);
 	
 	void setPitchMotorSpeed(float speed);
 	float getCurrentPitch();
