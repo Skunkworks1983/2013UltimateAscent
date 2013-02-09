@@ -55,8 +55,8 @@
 // Class name of the drive motor controller
 #define DRIVE_MOTOR_CREATE(channel)				(new CANJaguar(channel))
 
-#define DRIVE_SHIFT_LOW							1
-#define DRIVE_SHIFT_HIGH						2
+#define DRIVE_SHIFT_LOW							1,1
+#define DRIVE_SHIFT_HIGH						1,2
 
 #define DRIVE_ENCODER_TICKS_PER_REV				(250.0)
 #define DRIVE_WHEEL_DIAMETER					(6.0)
@@ -64,20 +64,20 @@
 #define DRIVE_ENCODER_LEFT						2,3
 #define DRIVE_ENCODER_RIGHT						4,5
 
-#define DRIVE_GYRO								1
+#define DRIVE_GYRO								1,1
 
 /**
  * --SHOOTER--
  */
 // Shooter motor channels.
-#define SHOOTER_MOTOR							5 // TODO
-#define SHOOTER_PITCH_MOTOR						6 // TODO
+#define SHOOTER_MOTOR							1,5 // TODO
+#define SHOOTER_PITCH_MOTOR						1,6 // TODO
 // Class name of the shooter and shooter pitch motor controllers
 #define SHOOTER_MOTOR_CREATE(channel) 			(new Jaguar(channel))
 #define SHOOTER_PITCH_MOTOR_CREATE(channel) 	(new Jaguar(channel))
 // Shooter speed and pitch sensors
 #define SHOOTER_SPEED_ENCODER_PORTS 			1,1 // TODO
-#define SHOOTER_PITCH_POT_PORT					1   // TODO
+#define SHOOTER_PITCH_POT_PORT					1,1   // TODO
 // Shooter pitch control info
 #define SHOOTER_PITCH_THRESHOLD					5
 #define SHOOTER_PITCH_STABILITY					25
@@ -95,8 +95,8 @@
 #define COLLECTOR_MOTOR							7 // TODO
 #define COLLECTOR_PITCH_MOTOR					8 // TODO
 // Class name of the shooter and collector pitch motor controllers
-#define COLLECTOR_MOTOR_CREATE(channel) (new Jaguar(channel))
-#define COLLECTOR_PITCH_MOTOR_CREATE(channel) (new Jaguar(channel))
+#define COLLECTOR_MOTOR_CREATE(channel) 		(new Jaguar(channel))
+#define COLLECTOR_PITCH_MOTOR_CREATE(channel) 	(new Jaguar(channel))
 // Collector constant speed
 #define COLLECTOR_MOTOR_SPEED					.5 // TODO get value from design team
 #define COLLECTOR_PITCH_POT						4  // TODO
