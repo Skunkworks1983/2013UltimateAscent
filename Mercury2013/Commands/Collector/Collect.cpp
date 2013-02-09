@@ -26,7 +26,7 @@ void Collect::Execute() {
 		}
 		break;
 	case toggle:
-		if (collector->isUp() == true) && (collector->getSense(0) == false){
+		if ((collector->isUp() == true) && (collector->getSense(0) == false)){
 			collector->setCollectorSpeed(false);
 		} else {
 			if (collector->getSense(0) == false){
