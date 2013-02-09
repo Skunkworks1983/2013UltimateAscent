@@ -7,14 +7,12 @@
 /**
  * @brief All of the necessary methods and accessors for Climb and its child commands
  * 
- * @author Connor Barlow
+ * @author Connor Barlow, Westin Miller
  */
 class Climber: public Subsystem, public PIDOutput, public PIDSource {
 public:
 	enum SliderState {
-		kDown,
-		kUp,
-		kOther
+		kDown, kUp, kOther
 	};
 
 private:
@@ -36,10 +34,10 @@ private:
 	DigitalInput *hookButton2;
 
 	/**  
-	 * Solenoids to operate the two pokeys ticks
+	 * Solenoid to operate the two pokeys ticks
 	 */
-	Solenoid *pokey1;
-	Solenoid *pokey2;
+	Solenoid *pokeyUp;
+	Solenoid *pokeyDown;
 
 	/**
 	 * Solenoid to control slider brake
@@ -51,6 +49,11 @@ private:
 	 */
 	bool cachedBrakeState;
 
+	/**
+	 * The pid controller for controlling the motors with a velocity.
+	 */
+	PIDController *velocityController;
+
 public:
 	Climber();
 	~Climber();
@@ -59,11 +62,6 @@ public:
 	 * Mokes the pokey stick to a state specified
 	 */
 	void movePokey(bool pos);
-
-	/**  
-	 * Gets the position of the arms at a current point
-	 */
-	float getPosition();
 
 	/**  
 	 * Gets the pokey state with a specific pokey number given
@@ -89,6 +87,12 @@ public:
 	 * Gets the state of the slider.
 	 */
 	SliderState getSliderState();
+
+	/**
+	 * Resets the velocity PID, to keep it from running away, and makes sure that it's started.
+	 */
+	void resetVelocityPID();
+	
 
 	/**
 	 * Writes the speed to two motors.
