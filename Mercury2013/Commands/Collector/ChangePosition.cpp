@@ -1,9 +1,8 @@
 #include "ChangePosition.h"
 
-ChangePosition::ChangePosition(bool position) {
-	
+ChangePosition::ChangePosition(raise_or_lower desiredPosition) {
 	Requires(collector);
-	this->position = position;
+	this->desiredPosition = targetPosition;
 }
 
 ChangePosition::~ChangePosition() {
@@ -16,7 +15,7 @@ void ChangePosition::Initialize() {
 
 void ChangePosition::Execute() {
 	
-	if (position == false) {
+	if (desiredPosition == lower) {
 		if (collector->getRealPosition() >= COLLECTOR_DOWN_AMOUNT) {
 			// Finsishes the command
 			isFinished = true;
