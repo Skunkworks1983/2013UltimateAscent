@@ -17,10 +17,11 @@
  */
 class ChangePosition: public CommandBase {
 private:
-	bool position;
+	raise_or_lower targetPosition;
 	float speed;
 	bool isFinished;
 public:
+	enum raise_or_lower {raise, lower};
 	/**
 		 * @brief This command will change the positon of the collector based on the bool passed to the intilizer
 		 * 
@@ -30,7 +31,7 @@ public:
 		 * to determine desired position of
 		 * the collector.
 		 */
-	ChangePosition(bool position);
+	ChangePosition(raise_or_lower desiredPosition);
 	~ChangePosition();
 	virtual void Initialize();
 	/**
