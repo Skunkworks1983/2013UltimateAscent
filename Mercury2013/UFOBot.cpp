@@ -33,6 +33,7 @@ void UFOBot::RobotInit() {
 			} else {
 				chooser->AddObject(ep->d_name, fileName);
 			}
+			delete fileName;
 		}
 		(void) closedir(dp);
 	} else {
