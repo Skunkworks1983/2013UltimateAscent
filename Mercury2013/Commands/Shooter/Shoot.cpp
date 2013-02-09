@@ -8,21 +8,23 @@ Shoot::Shoot() :
 
 void Shoot::Initialize() {
 	startTime = getCurrentMillis();
-	shooter->shoot();
+	shooter->shoot(true);
 }
 
 void Shoot::Execute() {
-	
+	if (getCurrentMillis() >= startTime + SHOOTER_SHOOT_TIME) {
+		shooter->shoot(false);
+	}
 }
 
 bool Shoot::IsFinished() {
-	return startTime + SHOOTER_SHOOT_TIME <= getCurrentMillis();
+	return getCurrentMillis() >= startTime + SHOOTER_SHOOT_TIME + SHOOTER_WAIT_TIME;
 }
 
 void Shoot::End() {
-	shooter->deShoot();
+	
 }
 
 void Shoot::Interrupted() {
-	shooter->deShoot();
+	shooter->shoot(false);
 }

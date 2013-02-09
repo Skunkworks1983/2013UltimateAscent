@@ -13,7 +13,8 @@ Shooter::Shooter() :
 	// TODO shooterExtended = new Solenoid(SHOOTER_EXTENDED);
 	// TODO shooterDextended = new Solenoid(SHOOTER_DEXTENDED);
 
-	armed = false;
+	cachedArmState = false;
+	cachedShootState = false;
 }
 
 Shooter::~Shooter() {
@@ -40,21 +41,19 @@ void Shooter::setArmed(bool armed) {
 		middleMotor->Set(0);
 		rearMotor->Set(0);
 	}
-	this->armed = armed;
+	this->cachedArmState = armed;
 }
 
 bool Shooter::isArmed() {
-	return armed;
+	return cachedArmState;
 }
 
-void Shooter::shoot() {
-	shooterExtended->Set(true);
-	shooterDextended->Set(false);
-}
-
-void Shooter::deShoot() {
-	shooterExtended->Set(false);
-	shooterDextended->Set(true);
+void Shooter::shoot(bool shooting) {
+	if (shooting != cachedShootState) {
+		shooterExtended->Set(shooting);
+		shooterDextended->Set(!shooting);
+		cachedShootState = shooting;
+	}
 }
 
 void Shooter::setPitchMotorSpeed(float speed) {
