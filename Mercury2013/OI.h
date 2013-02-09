@@ -29,7 +29,8 @@ private:
 	DriverStationEnhancedIO *driverStationEIO;
 
 	ButtonScheduler *shiftScheduler;
-	ButtonScheduler *distanceScheduler;
+	ButtonScheduler *shootScheduler;
+	ButtonScheduler *spinupScheduler;
 
 public:
 	OI();
