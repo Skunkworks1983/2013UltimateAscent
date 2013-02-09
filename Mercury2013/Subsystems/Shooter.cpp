@@ -65,5 +65,7 @@ float Shooter::getCurrentPitch() {
 	return pitchPot->GetValue();
 }
 
-
+void Shooter::InitDefaultCommand() {
+	
+}
 
