@@ -128,14 +128,21 @@
 #define CLIMBER_HOOK_BUTTON_1		5
 #define CLIMBER_HOOK_BUTTON_2		9
 
-#define	CLIMBER_POKEY_1					2
-#define	CLIMBER_POKEY_2					6
+#define	CLIMBER_POKEY_UP				2
+#define	CLIMBER_POKEY_DOWN				2
 
 #define CLIMBER_BRAKE						5
 
 #define CLIMBER_SLIDER_P					0	// TODO
 #define CLIMBER_SLIDER_I					0	// TODO
 #define CLIMBER_SLIDER_D					0	// TODO
+
+#define CLIMBER_SLIDER_VP					0	// TODO
+#define CLIMBER_SLIDER_VI					0	// TODO
+#define CLIMBER_SLIDER_VD					0	// TODO
+
+#define CLIMBER_SLIDER_MAX_VELOCITY			1
+#define CLIMBER_SLIDER_MAX_RANGE			2
 
 #define CLIMBER_SLIDER_TOLERANCE	0.1  // 1/10 of the total length
 #endif

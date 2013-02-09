@@ -2,22 +2,40 @@
 
 Climber::Climber() :
 	Subsystem("Climber") {
-	// TODO sliderEncoder = new Encoder(CLIMBER_SLIDER_ENCODER_1, CLIMBER_SLIDER_ENCODER_2, false, Encoder::k4X);
-	// TODO sliderMotor1 = CLIMBER_SLIDER_MOTOR_CREATE(CLIMBER_SLIDER_MOTOR_1);
-	// TODO sliderMotor2 = CLIMBER_SLIDER_MOTOR_CREATE(CLIMBER_SLIDER_MOTOR_2);
+	/* sliderEncoder = new Encoder(CLIMBER_SLIDER_ENCODER_1, CLIMBER_SLIDER_ENCODER_2, false, Encoder::k4X);
+	 sliderEncoder->SetPIDSourceParameter(Encoder::kRate);
+	 sliderMotor1 = CLIMBER_SLIDER_MOTOR_CREATE(CLIMBER_SLIDER_MOTOR_1);
+	 sliderMotor2 = CLIMBER_SLIDER_MOTOR_CREATE(CLIMBER_SLIDER_MOTOR_2);
 
-	// TODO sliderEncoder->Reset();
+	 sliderEncoder->Reset();
+	 sliderEncoder->Start();
 
-	// TODO hookButton1 = new DigitalInput(CLIMBER_HOOK_BUTTON_1);
-	// TODO hookButton2 = new DigitalInput(CLIMBER_HOOK_BUTTON_2);
+	 hookButton1 = new DigitalInput(CLIMBER_HOOK_BUTTON_1);
+	 hookButton2 = new DigitalInput(CLIMBER_HOOK_BUTTON_2);
 
-	// TODO pokey1 = new Solenoid(CLIMBER_POKEY_1);
-	// TODO pokey2 = new Solenoid(CLIMBER_POKEY_2);
+	 pokeyUp = new Solenoid(CLIMBER_POKEY_UP);
+	 pokeyDown = new Solenoid(CLIMBER_POKEY_DOWN);
 
-	// TODO sliderBrake = new Solenoid(CLIMBER_BRAKE);
+	 sliderBrake = new Solenoid(CLIMBER_BRAKE);
+
+	 // Live window registration
+	LiveWindow::GetInstance()->AddActuator("Climber", "Slider Brake",
+			sliderBrake);
+	LiveWindow::GetInstance()->AddSensor("Climber", "Slider Encoder",
+			sliderEncoder);
+
+	velocityController = new PIDController(CLIMBER_SLIDER_VP,
+			CLIMBER_SLIDER_VI, CLIMBER_SLIDER_VD, sliderEncoder,
+			new DualPIDOutput(sliderMotor1, sliderMotor2));
+	velocityController->SetInputRange(-CLIMBER_SLIDER_MAX_VELOCITY,
+			CLIMBER_SLIDER_MAX_VELOCITY);
+	velocityController->SetOutputRange(-1, 1);
+	SmartDashboard::PutData("Velocity Controller", velocityController);*/
 }
 
 Climber::~Climber() {
+	delete velocityController;
+
 	delete sliderEncoder;
 	delete sliderMotor1;
 	delete sliderMotor2;
@@ -25,30 +43,19 @@ Climber::~Climber() {
 	delete hookButton1;
 	delete hookButton2;
 
-	delete pokey1;
-	delete pokey2;
+	delete pokeyUp;
+	delete pokeyDown;
 
 	delete sliderBrake;
 }
 
 void Climber::movePokey(bool pos) {
-	pokey1->Set(pos);
-	pokey1->Set(pos);
-}
-
-float Climber::getPosition() {
-	return false;
+	pokeyUp->Set(!pos);
+	pokeyDown->Set(pos);
 }
 
 bool Climber::getPokey(int num) {
-	switch (num) {
-	case 1:
-		return pokey1->Get();
-
-	case 2:
-		return pokey2->Get();
-	}
-	return false;
+	return pokeyDown->Get();
 }
 
 bool Climber::getButton(int num) {
@@ -84,9 +91,15 @@ double Climber::PIDGet() {
 	return sliderEncoder->GetDistance();
 }
 
+void Climber::resetVelocityPID() {
+	velocityController->Reset();
+	if (!velocityController->IsEnabled()) {
+		velocityController->Enable();
+	}
+}
+
 void Climber::PIDWrite(float speed) {
-	sliderMotor1->Set(speed);
-	sliderMotor2->Set(speed);
+	velocityController->SetSetpoint(speed);
 }
 
 // TODO: Need pokey stick thingies
