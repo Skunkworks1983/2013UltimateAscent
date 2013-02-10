@@ -4,12 +4,12 @@
 ArmShooter::ArmShooter(ArmType armType) :
 	CommandBase("ArmShooter") {
 	Requires(shooter);
+	SetTimeout(((double) SHOOTER_ARM_TIME) / 1000.0);
 	this->armType = armType;
 }
 
 void ArmShooter::Initialize() {
-	startTime = getCurrentMillis();
-	switch(armType) {
+	switch (armType) {
 	case kOn:
 		enabled = true;
 		break;
@@ -29,7 +29,7 @@ void ArmShooter::Execute() {
 }
 
 bool ArmShooter::IsFinished() {
-	return (getCurrentMillis() >= startTime + SHOOTER_ARM_TIME) && (shooter->isArmed() == enabled);
+	return IsTimedOut() && (shooter->isArmed() == enabled);
 }
 
 void ArmShooter::End() {
