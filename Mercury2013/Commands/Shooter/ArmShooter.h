@@ -30,7 +30,6 @@ public:
 		kToggle
 	};
 private:
-	double startTime;
 	bool enabled;
 	ArmType armType;
 public:

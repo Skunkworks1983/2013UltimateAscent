@@ -4,25 +4,23 @@
 Shoot::Shoot() :
 	CommandBase("Shoot") {
 	Requires(shooter);
+	SetTimeout(((double) SHOOTER_SHOOT_TIME + SHOOTER_WAIT_TIME) / 1000.0);
 }
 
 void Shoot::Initialize() {
 	startTime = getCurrentMillis();
-	shooter->shoot(true);
 }
 
 void Shoot::Execute() {
-	if (getCurrentMillis() >= startTime + SHOOTER_SHOOT_TIME) {
-		shooter->shoot(false);
-	}
+	shooter->shoot(getCurrentMillis() < startTime + SHOOTER_SHOOT_TIME);
 }
 
 bool Shoot::IsFinished() {
-	return getCurrentMillis() >= startTime + SHOOTER_SHOOT_TIME + SHOOTER_WAIT_TIME;
+	return IsTimedOut();
 }
 
 void Shoot::End() {
-	
+
 }
 
 void Shoot::Interrupted() {
