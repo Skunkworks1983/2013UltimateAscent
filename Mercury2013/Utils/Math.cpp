@@ -10,6 +10,9 @@ float fzero(float a, float b) {
 }
 
 float fsign(float a) {
+	if (a == 0.0) {
+		return 0.0;
+	}
 	return a > 0 ? 1.0 : -1.0;
 }
 
