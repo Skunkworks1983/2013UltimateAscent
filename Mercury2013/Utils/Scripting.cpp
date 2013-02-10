@@ -55,7 +55,7 @@ SendableChooser *Scripting::generateAutonomousModes(char *scriptLocations) {
 		while (ep = readdir(dp)) {
 			char * fileName = new char[50];
 			sprintf(fileName, "%s%s", scriptLocations, ep->d_name);
-			printf("%s\n", fileName);
+			printf("Adding Autonomous Mode: %s\n", fileName);
 
 			if (isDefault) {
 				chooser->AddDefault(ep->d_name, fileName);
@@ -65,12 +65,12 @@ SendableChooser *Scripting::generateAutonomousModes(char *scriptLocations) {
 			}
 			delete fileName;
 		}
-		(void) closedir(dp);
+		closedir(dp);
 	} else {
-		printf("SOMETHING IS VERY, VERY WRONG\n");
+		printf("Unable to read directory %s\n", scriptLocations);
 	}
 	delete dp;
 	delete ep;
-	
+
 	return chooser;
 }
