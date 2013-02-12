@@ -8,17 +8,14 @@
  * @param one of three enum State can be on, off, or toggle
  */
 class Collect: public CommandBase {
-private:
-	enum State {on, off, toggle};
-	State mode;
 public:
-	Collect(State state);
+	Collect(ControlType ctrlType);
 	~Collect();
 	virtual void Initialize();
 	/**
-			 * Execute function
-			 * either turns on, off or toggles the collector motor
-		*/
+	 * Execute function
+	 * either turns on, off or toggles the collector motor
+	 */
 	virtual void Execute();
 	virtual bool IsFinished();
 	virtual void End();

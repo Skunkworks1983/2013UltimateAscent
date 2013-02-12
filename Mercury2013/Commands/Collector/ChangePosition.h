@@ -16,33 +16,18 @@
  * @author Ross Bajocich
  */
 class ChangePosition: public CommandBase {
-private:
-	raise_or_lower targetPosition;
-	float speed;
-	bool isFinished;
 public:
-	enum raise_or_lower {raise, lower};
-	/**
-		 * @brief This command will change the positon of the collector based on the bool passed to the intilizer
-		 * 
-		 * @param bool, true for up, false for down
-		 * 
-		 * A bool passed into initializer
-		 * to determine desired position of
-		 * the collector.
-		 */
-	ChangePosition(raise_or_lower desiredPosition);
+	enum ChangeType {
+		kUp, kDown, kToggle
+	};
+private:
+	PIDController *controller;
+	ChangeType goal;
+	Collector::CollectorState targetState;
+public:
+	ChangePosition(ChangeType goal);
 	~ChangePosition();
 	virtual void Initialize();
-	/**
-		 * Execute function
-		 * 
-		 * This function turns on the collector pitch motor
-		 * while the encoder is reading less than half the desired amount
-		 * in robotmap.h. The speed is multiplied ever so slightly by a scalar
-		 * in robotmap.h
-	*/
-	
 	virtual void Execute();
 	virtual bool IsFinished();
 	virtual void End();

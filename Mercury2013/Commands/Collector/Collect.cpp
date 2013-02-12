@@ -1,8 +1,9 @@
 #include "Collect.h"
 
-Collect::Collect(State state) {
+Collect::Collect() {
 	Requires(collector);
-	this->mode = state;
+	SetTimeout(((double) COLLECTOR_COLLECT_TIMEOUT) / 1000.0);
+	SetInterruptible(true);
 }
 
 Collect::~Collect() {
@@ -10,41 +11,20 @@ Collect::~Collect() {
 }
 
 void Collect::Initialize() {
-
 }
 
 void Collect::Execute() {
-	switch (mode) {
-	case on:
-		if (collector->getSense(0) == false){
-			collector->setCollectorState(true);
-		}
-		break;
-	case off:
-		if (collector->getSense(0) == false){
-			collector->setCollectorState(false);
-		}
-		break;
-	case toggle:
-		if ((collector->isUp() == true) && (collector->getSense(0) == false)){
-			collector->setCollectorSpeed(false);
-		} else {
-			if (collector->getSense(0) == false){
-				collector->setCollectorState(true);
-			}
-		}
-		break;
-	default:
-		collector->setCollectorState(true);
-	}
+	collector->setCollectorMotor(collector->getFrisbeeSensorCount() != 0);
 }
 
 bool Collect::IsFinished() {
-	return true;
+	return collector->isSpinnerOn() && !IsTimedOut();
 }
 
 void Collect::End() {
+	collector->setCollectorMotor(false);
 }
 
 void Collect::Interrupted() {
+	collector->setCollectorMotor(false);
 }

@@ -13,16 +13,20 @@
  * 
  * @author Ross Bajocich
  */
-class Collector : public Subsystem {
+class Collector: public Subsystem, public PIDOutput, public PIDSource {
+public:
+	enum CollectorState {
+		kOtherUp = 0, kOtherDown = 1, kUp = 2, kDown = 3
+	};
 private:
-	Encoder *collectorEncoder;
 	AnalogChannel *pitchPot;
+	SpeedController *collectorPitchMotorA;
+	SpeedController *collectorPitchMotorB;
 	SpeedController *collectorMotor;
-	SpeedController *collectorPitchMotor;
-	bool m_isUp;
-	DigitalInput * IRLow;
-	DigitalInput * IRMid;
-	DigitalInput * IRHigh;
+
+	PIDController *pitchPID;
+
+	DigitalInput **frisbeeSensors;
 public:
 	/**
 	 * Initializes all objects, and deletes them in the destructor, using ports
@@ -30,55 +34,27 @@ public:
 	 */
 	Collector();
 	~Collector();
-	
-	/**
-	 * Getter for the encoder object for the collector motor
-	 */
-	Encoder *getCollectorEncoder();
-	
-	/**
-	 * Sets the collector either up or down, which then translates over to the
-	 * motor
-	 * 
-	 * @param state raises the collector with true or lowers it with false 
-	 */
-	void setCollectorState(bool state);
-	
+
+	virtual void PIDWrite(float val);
+	virtual double PIDGet();
+
+	void setSetpoint(float angle);
+	void setPIDState(bool enabled);
+	bool isPIDDone();
+
+	double getRawAngle();
+
 	/**
 	 * Checks to see if the collector is up, giving true if it is and false if
 	 * it is down
 	 */
-	bool isUp();
+	CollectorState getArmState();
 	
-	/**
-	 * Gets the real position of the motor, and not just a bool to either 
-	 * check if it is in the up or down states 
-	 */
-	float getRealPosition();
+	int getFrisbeeSensorCount();
+	void setCollectorMotor(bool state);
 	
-	/**
-	 * Sets the speed of the motor to the end effector to move up or down
-	 * 
-	 * @param speed sets the speed of the motor moving the collector
-     */
-	void setCollectorPitchMotor(float speed);
-	
-	/**
-	 * Sets the speed of collector that actually moves the frisbees up to the
-	 * the actuall shooter 
-	 * 
-	 * @param speed sets the speed of the motor opperating the collector rod
-	 */
-	void setCollectorSpeed(float speed);
-	
-	/**
-	 * Senses whether an IR sensor is sensing something or not, with a given
-	 * sensor set with different set values
-	 * 
-	 * @param height is height of the certain IR sensor you want to access
-	 */
-	int getSense(int height);
-	
+	bool isSpinnerOn();
+
 	/**
 	 * Sets the default command for this subsystem
 	 */
