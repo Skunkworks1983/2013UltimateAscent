@@ -17,10 +17,13 @@ SliderMove::~SliderMove() {
 void SliderMove::Initialize() {
 	pidController->Enable();
 	pidController->SetSetpoint(destExtend ? CLIMBER_SLIDER_MAX_RANGE : 0.0);
+	climber->setBrakeState(false);
+	climber->setVelocityPIDState(true);
 }
 
 void SliderMove::Execute() {
 	// The pid stuff
+	SmartDashboard::PutData("SliderMove PID: ", pidController);
 }
 
 bool SliderMove::IsFinished() {
@@ -34,4 +37,6 @@ void SliderMove::End() {
 
 void SliderMove::Interrupted() {
 	pidController->Disable();
+	climber->setBrakeState(true);
+	climber->setVelocityPIDState(false);
 }

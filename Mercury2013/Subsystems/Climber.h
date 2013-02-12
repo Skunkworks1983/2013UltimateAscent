@@ -89,12 +89,6 @@ public:
 	SliderState getSliderState();
 
 	/**
-	 * Resets the velocity PID, to keep it from running away, and makes sure that it's started.
-	 */
-	void resetVelocityPID();
-	
-
-	/**
 	 * Writes the speed to two motors.
 	 * @param speed the scalar speed
 	 */
@@ -105,6 +99,8 @@ public:
 	 * @return the position, 0-1
 	 */
 	virtual double PIDGet();
+	
+	void setVelocityPIDState(bool state);
 };
 
 #endif
