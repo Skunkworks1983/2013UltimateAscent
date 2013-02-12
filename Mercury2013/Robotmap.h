@@ -145,7 +145,8 @@
 #define	CLIMBER_POKEY_UP						2
 #define	CLIMBER_POKEY_DOWN						2
 
-#define CLIMBER_BRAKE							5
+#define CLIMBER_BRAKE_ACTIVE					5
+#define CLIMBER_BRAKE_UNACTIVE					5
 
 #define CLIMBER_SLIDER_P						0	// TODO
 #define CLIMBER_SLIDER_I						0	// TODO

@@ -36,18 +36,12 @@ private:
 	/**  
 	 * Solenoid to operate the two pokeys ticks
 	 */
-	Solenoid *pokeyUp;
-	Solenoid *pokeyDown;
+	DoubleSolenoid *pokey;
 
 	/**
 	 * Solenoid to control slider brake
 	 */
-	Solenoid *sliderBrake;
-
-	/**
-	 * The cached state of the brake
-	 */
-	bool cachedBrakeState;
+	DoubleSolenoid *sliderBrake;
 
 	/**
 	 * The pid controller for controlling the motors with a velocity.
