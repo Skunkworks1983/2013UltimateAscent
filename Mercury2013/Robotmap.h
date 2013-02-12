@@ -89,7 +89,8 @@
 #define SHOOTER_EXTENDED						3 // TODO
 #define SHOOTER_DEXTENDED						4 // TODO
 // Shooter speed and pitch sensors
-#define SHOOTER_PITCH_POT_PORT					1,1 // TODO
+#define SHOOTER_PITCH_ENCODER					1,1 // TODO
+#define SHOOTER_PITCH_DEGREES_PER_PULSE			0 // TODO
 // Shooter pitch control info
 #define SHOOTER_PITCH_THRESHOLD					5
 #define SHOOTER_PITCH_STABILITY					25
@@ -106,6 +107,8 @@
 // Collector constant speed
 #define COLLECTOR_MOTOR_SPEED					.5 // TODO get value from design team
 #define COLLECTOR_PITCH_POT						4  // TODO
+
+#define COLLECTOR_PITCH_CONVERT(voltage)		((voltage-vOffset) * conversionRate)
 
 #define COLLECTOR_PITCH_P						0.1
 #define COLLECTOR_PITCH_I						0.001

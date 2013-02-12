@@ -8,7 +8,9 @@ Shooter::Shooter() :
 	// TODO rearMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR_REAR);
 
 	// TODO pitchMotor = SHOOTER_PITCH_MOTOR_CREATE(SHOOTER_PITCH_MOTOR);
-	// TODO pitchPot = new AnalogChannel(SHOOTER_PITCH_POT_PORT);
+	
+	// TODO angleEncoder = new Encoder(SHOOTER_PITCH_ENCODER, false, Encoder::k4x);
+	// TODO angleEncoder->SetDistancePerPulse(SHOOTER_PITCH_DEGREES_PER_PULSE);
 	
 	// TODO shooterExtended = new Solenoid(SHOOTER_EXTENDED);
 	// TODO shooterDextended = new Solenoid(SHOOTER_DEXTENDED);

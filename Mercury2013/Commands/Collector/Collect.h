@@ -9,7 +9,7 @@
  */
 class Collect: public CommandBase {
 public:
-	Collect(ControlType ctrlType);
+	Collect();
 	~Collect();
 	virtual void Initialize();
 	/**

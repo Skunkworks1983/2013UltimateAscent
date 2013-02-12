@@ -70,7 +70,7 @@ Collector::CollectorState Collector::getArmState() {
 }
 
 double Collector::getRawAngle() {
-	return pitchPot->GetVoltage();
+	return COLLECTOR_PITCH_CONVERT(pitchPot->GetVoltage());
 }
 
 void Collector::PIDWrite(float val) {
