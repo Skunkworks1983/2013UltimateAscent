@@ -30,6 +30,7 @@ Climber::Climber() :
 	velocityController->SetInputRange(-CLIMBER_SLIDER_MAX_VELOCITY,
 			CLIMBER_SLIDER_MAX_VELOCITY);
 	velocityController->SetOutputRange(-1, 1);
+	velocityController->SetContinous(true);
 	SmartDashboard::PutData("Velocity Controller", velocityController);*/
 }
 
