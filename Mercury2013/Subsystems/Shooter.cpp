@@ -58,6 +58,16 @@ void Shooter::shoot(bool shooting) {
 	}
 }
 
+void Shooter::flush(bool flushing) {
+	if (!cachedShootState && !cachedArmState) {
+		if (flushing) {
+			rearMotor->Set(SHOOTER_MOTOR_FLUSH_SPEED);
+		} else {
+			rearMotor->Set(0);
+		}
+	}
+}
+
 void Shooter::setPitchMotorSpeed(float speed) {
 	pitchMotor->Set(speed);
 }
