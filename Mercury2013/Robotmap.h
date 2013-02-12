@@ -79,10 +79,12 @@
 #define SHOOTER_MOTOR_FRONT_SPEED				0.5 // TODO
 #define SHOOTER_MOTOR_MIDDLE_SPEED				0.5 // TODO
 #define SHOOTER_MOTOR_REAR_SPEED				1 // TODO
-// Various times
+#define SHOOTER_MOTOR_FLUSH_SPEED				-0.75 // TODO
+// Various times (millis)
 #define SHOOTER_ARM_TIME						1000 // TODO
 #define SHOOTER_SHOOT_TIME						500 // TODO
 #define SHOOTER_WAIT_TIME						1000 // TODO
+#define SHOOTER_FLUSH_TIME						100 // TODO
 // Class name of the shooter and shooter pitch motor controllers
 #define SHOOTER_MOTOR_CREATE(channel) 			(new Jaguar(channel))
 #define SHOOTER_PITCH_MOTOR_CREATE(channel) 	(new Jaguar(channel))

@@ -31,6 +31,7 @@ public:
 	void setArmed(bool arming);
 	bool isArmed();
 	void shoot(bool shooting);
+	void flush(bool flushing);
 	
 	void setPitchMotorSpeed(float speed);
 	float getCurrentPitch();
