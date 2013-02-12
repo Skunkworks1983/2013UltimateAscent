@@ -106,14 +106,21 @@
 // Collector constant speed
 #define COLLECTOR_MOTOR_SPEED					.5 // TODO get value from design team
 #define COLLECTOR_PITCH_POT						4  // TODO
-#define COLLECTOR_DOWN_AMOUNT					400 // TODO get value from design team
-#define COLLECTOR_PITCH_THRESHOLD				100
-#define COLLECTOR_UP_AMOUNT						0	// TODO
-#define COLLECTOR_PITCH_SPEED_SCALAR			1.0005	// TODO
-#define COLLECTOR_IR_LOW_CHANNEL				5  // TODO
-#define COLLECTOR_IR_MID_CHANNEL				7  // TODO
-#define COLLECTOR_IR_HIGH_CHANNEL				8  // TODO
-#define COLLECTOR_PITCH_LOWEST_SPEED	 		.25	// TODO
+
+#define COLLECTOR_PITCH_P						0.1
+#define COLLECTOR_PITCH_I						0.001
+#define COLLECTOR_PITCH_D						0
+
+#define COLLECTOR_PITCH_TOLERANCE				.1
+#define COLLECTOR_PITCH_DOWN					0
+#define COLLECTOR_PITCH_UP						90
+
+#define COLLECTOR_FRISBEE_CHN_1					1
+#define COLLECTOR_FRISBEE_CHN_2					1
+#define COLLECTOR_FRISBEE_CHN_3					1
+
+#define COLLECTOR_COLLECT_TIMEOUT				5000 //5 seconds
+
 /**
  * --COMPRESSOR--
  */
