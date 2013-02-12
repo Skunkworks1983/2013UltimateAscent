@@ -18,7 +18,7 @@ private:
 	SpeedController *rearMotor;
 	
 	SpeedController *pitchMotor;
-	AnalogChannel *pitchPot;
+	Encoder *angleEncoder;
 	
 	Solenoid *shooterExtended;
 	Solenoid *shooterDextended;
