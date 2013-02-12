@@ -19,19 +19,19 @@ Climber::Climber() :
 	 sliderBrake = new Solenoid(CLIMBER_BRAKE);
 
 	 // Live window registration
-	LiveWindow::GetInstance()->AddActuator("Climber", "Slider Brake",
-			sliderBrake);
-	LiveWindow::GetInstance()->AddSensor("Climber", "Slider Encoder",
-			sliderEncoder);
+	 LiveWindow::GetInstance()->AddActuator("Climber", "Slider Brake",
+	 sliderBrake);
+	 LiveWindow::GetInstance()->AddSensor("Climber", "Slider Encoder",
+	 sliderEncoder);
 
-	velocityController = new PIDController(CLIMBER_SLIDER_VP,
-			CLIMBER_SLIDER_VI, CLIMBER_SLIDER_VD, sliderEncoder,
-			new DualPIDOutput(sliderMotor1, sliderMotor2));
-	velocityController->SetInputRange(-CLIMBER_SLIDER_MAX_VELOCITY,
-			CLIMBER_SLIDER_MAX_VELOCITY);
-	velocityController->SetOutputRange(-1, 1);
-	velocityController->SetContinous(true);
-	SmartDashboard::PutData("Velocity Controller", velocityController);*/
+	 velocityController = new PIDController(CLIMBER_SLIDER_VP,
+	 CLIMBER_SLIDER_VI, CLIMBER_SLIDER_VD, sliderEncoder,
+	 new DualPIDOutput(sliderMotor1, sliderMotor2));
+	 velocityController->SetInputRange(-CLIMBER_SLIDER_MAX_VELOCITY,
+	 CLIMBER_SLIDER_MAX_VELOCITY);
+	 velocityController->SetOutputRange(-1, 1);
+	 velocityController->SetContinous(true);
+	 SmartDashboard::PutData("Velocity Controller", velocityController);*/
 }
 
 Climber::~Climber() {
@@ -92,15 +92,18 @@ double Climber::PIDGet() {
 	return sliderEncoder->GetDistance();
 }
 
-void Climber::resetVelocityPID() {
-	velocityController->Reset();
-	if (!velocityController->IsEnabled()) {
-		velocityController->Enable();
-	}
-}
-
 void Climber::PIDWrite(float speed) {
 	velocityController->SetSetpoint(speed);
 }
 
+void Climber::setVelocityPIDState(bool state) {
+	if (state) {
+		velocityController->Reset();
+		if (!velocityController->IsEnabled()) {
+			velocityController->Enable();
+		}
+	}else{
+		velocityController->Disable();
+	}
+}
 // TODO: Need pokey stick thingies
