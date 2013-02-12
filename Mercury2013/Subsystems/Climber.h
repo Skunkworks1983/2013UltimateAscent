@@ -55,7 +55,7 @@ public:
 	/**  
 	 * Mokes the pokey stick to a state specified
 	 */
-	void movePokey(bool pos);
+	void setPokey(bool pos);
 
 	/**  
 	 * Gets the pokey state with a specific pokey number given

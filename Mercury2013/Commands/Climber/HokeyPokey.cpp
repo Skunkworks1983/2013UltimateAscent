@@ -11,7 +11,7 @@ HokeyPokey::~HokeyPokey() {
 
 // Called just before this Command runs the first time
 void HokeyPokey::Initialize() {
-	climber->movePokey(true);
+	climber->setPokey(true);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -33,7 +33,7 @@ bool HokeyPokey::IsFinished() {
 
 // Called once after isFinished returns true
 void HokeyPokey::End() {
-	climber->movePokey(false);
+	climber->setPokey(false);
 }
 
 // Called when another command which requires one or more of the same

@@ -52,7 +52,7 @@ Climber::~Climber() {
 	delete sliderBrake;
 }
 
-void Climber::movePokey(bool pos) {
+void Climber::setPokey(bool pos) {
 	pokey->Set(pos ? DoubleSolenoid::kForward : DoubleSolenoid::kReverse);
 }
 
