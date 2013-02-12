@@ -13,8 +13,7 @@ DriveBase::DriveBase() :
 	motorRight2 = DRIVE_MOTOR_CREATE(DRIVE_MOTOR_RIGHT_2);
 #endif
 
-	shiftLow = new Solenoid(DRIVE_SHIFT_LOW);
-	shiftHigh = new Solenoid(DRIVE_SHIFT_HIGH);
+	shiftSolenoid = new DoubleSolenoid(DRIVE_SHIFT_LOW, DRIVE_SHIFT_HIGH);
 
 #ifdef DRIVE_ENCODER_LEFT
 	leftEncoder = new Encoder(DRIVE_ENCODER_LEFT);
@@ -30,7 +29,7 @@ DriveBase::DriveBase() :
 #else
 	rightEncoder = NULL;
 #endif
-	
+
 	LiveWindow::GetInstance()->AddSensor("DriveBase", "LeftEncoder",
 			leftEncoder);
 	LiveWindow::GetInstance()->AddSensor("DriveBase", "RightEncoder",
@@ -62,11 +61,9 @@ DriveBase::~DriveBase() {
 #ifdef DRIVE_GYRO
 	delete gyro;
 #endif
-	delete shiftLow;
-	delete shiftHigh;
-	
-	LiveWindow::GetInstance()->AddSensor("DriveBase", "DriveGyro",
-				gyro);
+	delete shiftSolenoid;
+
+	LiveWindow::GetInstance()->AddSensor("DriveBase", "DriveGyro", gyro);
 }
 
 void DriveBase::setSpeed(float leftSpeed, float rightSpeed) {
@@ -99,8 +96,8 @@ void DriveBase::InitDefaultCommand() {
 
 void DriveBase::shift(bool lowGear) {
 	cachedLowState = lowGear;
-	shiftLow->Set(lowGear);
-	shiftHigh->Set(!lowGear);
+	shiftSolenoid->Set(
+			lowGear ? DoubleSolenoid::kForward : DoubleSolenoid::kReverse);
 }
 
 void DriveBase::reset() {

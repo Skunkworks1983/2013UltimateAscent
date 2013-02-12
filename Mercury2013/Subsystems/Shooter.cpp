@@ -8,13 +8,12 @@ Shooter::Shooter() :
 	// TODO rearMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR_REAR);
 
 	// TODO pitchMotor = SHOOTER_PITCH_MOTOR_CREATE(SHOOTER_PITCH_MOTOR);
-	
+
 	// TODO pitchEncoder = new Encoder(SHOOTER_PITCH_ENCODER, false, Encoder::k4x);
 	// TODO pitchEncoder->SetDistancePerPulse(SHOOTER_PITCH_DEGREES_PER_PULSE);
 	// TODO pitchEncoder->Reset();
-	
-	// TODO shooterExtended = new Solenoid(SHOOTER_EXTENDED);
-	// TODO shooterDextended = new Solenoid(SHOOTER_DEXTENDED);
+
+	// TODO shootSolenoid = new DoubleSolenoid(SHOOTER_EXTENDED, SHOOTER_DEXTENDED);
 
 	cachedArmState = false;
 	cachedShootState = false;
@@ -27,11 +26,11 @@ Shooter::~Shooter() {
 
 	delete pitchMotor;
 	delete pitchEncoder;
-	
-	delete shooterExtended;
-	delete shooterDextended;
 
-	LiveWindow::GetInstance()->AddSensor("DriveBase", "Pitch Encoder", pitchEncoder);
+	delete shootSolenoid;
+
+	LiveWindow::GetInstance()->AddSensor("DriveBase", "Pitch Encoder",
+			pitchEncoder);
 }
 
 void Shooter::setArmed(bool armed) {
@@ -53,8 +52,8 @@ bool Shooter::isArmed() {
 
 void Shooter::shoot(bool shooting) {
 	if (shooting != cachedShootState) {
-		shooterExtended->Set(shooting);
-		shooterDextended->Set(!shooting);
+		shootSolenoid->Set(
+				shooting ? DoubleSolenoid::kForward : DoubleSolenoid::kReverse);
 		cachedShootState = shooting;
 	}
 }
@@ -69,6 +68,6 @@ float Shooter::getCurrentPitch() {
 }
 
 void Shooter::InitDefaultCommand() {
-	
+
 }
 
