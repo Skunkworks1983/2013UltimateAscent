@@ -15,6 +15,7 @@
  * 
  * --NAMING CONVENTIONS--
  * SUBSYSTEM_COMPONENT_PART 
+ 
  * 
  * --OPERATOR INTERFACE--
  * Joystick Channels
@@ -35,12 +36,12 @@
 //TODO reduce A_D_D_S_MIN to let robot crawl the last few feet.
 #define AUTO_DRIVE_DIST_SPEED_RANGE		(AUTO_DRIVE_DIST_SPEED_MAX - AUTO_DRIVE_DIST_SPEED_MIN)
 #define AUTO_DRIVE_DIST_STABILITY		10 //TODO: See what this is in order to reset the amound of ticks the encoders do.
-
 // Autonomous Configuration Settings
 #define AUTO_SCRIPT_MAXLENGTH			256
 #define AUTO_SCRIPT_MAXLINES			64
 #define AUTO_SCRIPT_COMMAND_MAXLENGTH	20
 #define AUTO_SCRIPT_LOCATIONS			"/c/ni-rt/automagic/"
+#define AUTO_SCRIPT_CHARMASK(a,b)		((((int)a) << 8) | ((int)b))
 
 /**
  * --DRIVE BASE--
@@ -107,9 +108,7 @@
 // Collector constant speed
 #define COLLECTOR_MOTOR_SPEED					.5 // TODO get value from design team
 #define COLLECTOR_PITCH_POT						4  // TODO
-
-#define COLLECTOR_PITCH_CONVERT(voltage)		((voltage-vOffset) * conversionRate)
-
+#define COLLECTOR_PITCH_CONVERT(voltage)		((voltage-5) * 5) //TODO Convert it.
 #define COLLECTOR_PITCH_P						0.1
 #define COLLECTOR_PITCH_I						0.001
 #define COLLECTOR_PITCH_D						0
@@ -123,7 +122,6 @@
 #define COLLECTOR_FRISBEE_CHN_3					1
 
 #define COLLECTOR_COLLECT_TIMEOUT				5000 //5 seconds
-
 /**
  * --COMPRESSOR--
  */
@@ -152,15 +150,12 @@
 #define CLIMBER_SLIDER_P						0	// TODO
 #define CLIMBER_SLIDER_I						0	// TODO
 #define CLIMBER_SLIDER_D						0	// TODO
-
 #define CLIMBER_SLIDER_VP						0	// TODO
 #define CLIMBER_SLIDER_VI						0	// TODO
 #define CLIMBER_SLIDER_VD						0	// TODO
-
 #define CLIMBER_SLIDER_MAX_VELOCITY				1
 #define CLIMBER_SLIDER_MAX_RANGE				2
 
 #define CLIMBER_SLIDER_TOLERANCE				0.1  // 1/10 of the total length
-
 #endif
 

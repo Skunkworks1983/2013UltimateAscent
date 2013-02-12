@@ -9,8 +9,9 @@ Shooter::Shooter() :
 
 	// TODO pitchMotor = SHOOTER_PITCH_MOTOR_CREATE(SHOOTER_PITCH_MOTOR);
 	
-	// TODO angleEncoder = new Encoder(SHOOTER_PITCH_ENCODER, false, Encoder::k4x);
-	// TODO angleEncoder->SetDistancePerPulse(SHOOTER_PITCH_DEGREES_PER_PULSE);
+	// TODO pitchEncoder = new Encoder(SHOOTER_PITCH_ENCODER, false, Encoder::k4x);
+	// TODO pitchEncoder->SetDistancePerPulse(SHOOTER_PITCH_DEGREES_PER_PULSE);
+	// TODO pitchEncoder->Reset();
 	
 	// TODO shooterExtended = new Solenoid(SHOOTER_EXTENDED);
 	// TODO shooterDextended = new Solenoid(SHOOTER_DEXTENDED);
@@ -25,12 +26,12 @@ Shooter::~Shooter() {
 	delete rearMotor;
 
 	delete pitchMotor;
-	delete pitchPot;
+	delete pitchEncoder;
 	
 	delete shooterExtended;
 	delete shooterDextended;
 
-	LiveWindow::GetInstance()->AddSensor("DriveBase", "PitchPot", pitchPot);
+	LiveWindow::GetInstance()->AddSensor("DriveBase", "Pitch Encoder", pitchEncoder);
 }
 
 void Shooter::setArmed(bool armed) {
@@ -64,7 +65,7 @@ void Shooter::setPitchMotorSpeed(float speed) {
 
 float Shooter::getCurrentPitch() {
 	// TODO Conversion
-	return pitchPot->GetValue();
+	return pitchEncoder->GetDistance();
 }
 
 void Shooter::InitDefaultCommand() {
