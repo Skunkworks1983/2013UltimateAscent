@@ -14,11 +14,11 @@ void Collect::Initialize() {
 }
 
 void Collect::Execute() {
-	collector->setCollectorMotor(collector->getFrisbeeSensorCount() != 0);
+	collector->setCollectorMotor(collector->getFrisbeeSensorCount() == 0);
 }
 
 bool Collect::IsFinished() {
-	return collector->isSpinnerOn() && !IsTimedOut();
+	return collector->getFrisbeeSensorCount() == 0 && !IsTimedOut();
 }
 
 void Collect::End() {
