@@ -56,8 +56,8 @@
 // Class name of the drive motor controller
 #define DRIVE_MOTOR_CREATE(channel)				(new CANJaguar(channel))
 
-#define DRIVE_SHIFT_LOW							1,1
-#define DRIVE_SHIFT_HIGH						1,2
+#define DRIVE_SHIFT_LOW							1
+#define DRIVE_SHIFT_HIGH						2
 
 #define DRIVE_ENCODER_TICKS_PER_REV				(250.0)
 #define DRIVE_WHEEL_DIAMETER					(6.0)

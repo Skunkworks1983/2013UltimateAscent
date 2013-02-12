@@ -26,8 +26,7 @@ private:
 	Encoder *rightEncoder;
 	Gyro *gyro;
 
-	Solenoid *shiftLow;
-	Solenoid *shiftHigh;
+	DoubleSolenoid *shiftSolenoid;
 	
 	bool cachedLowState;
 public:

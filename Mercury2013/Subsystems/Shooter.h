@@ -20,8 +20,7 @@ private:
 	SpeedController *pitchMotor;
 	Encoder *pitchEncoder;
 	
-	Solenoid *shooterExtended;
-	Solenoid *shooterDextended;
+	DoubleSolenoid *shootSolenoid;
 	
 	bool cachedArmState;
 	bool cachedShootState;
