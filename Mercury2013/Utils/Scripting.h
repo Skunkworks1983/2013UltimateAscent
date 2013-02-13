@@ -3,6 +3,36 @@
 
 class Autonomous;
 class SendableChooser;
+class Command;
+
+/**
+ * Starts an arbitrary command.
+ */
+class ScriptRunner {
+public:
+	virtual void startCommand() = 0;
+};
+/**
+ * Starts an arbitrary command with the command parameter.
+ */
+class ScriptCommand: public ScriptRunner {
+private:
+	Command *local;
+public:
+	ScriptCommand(Command *start);
+	virtual void startCommand();
+};
+/**
+ * Loads and executes an autonomous command.
+ */
+class ScriptLoader {
+private:
+	char *fileName;
+public:
+	ScriptLoader(char *fName);
+	virtual void startCommand();
+};
+
 class Scripting {
 public:
 	/**
@@ -15,7 +45,7 @@ public:
 	 * @return File contents
 	 */
 	static char *readFromFile(char *file, int &size);
-	
+
 	/**
 	 * @brief Creates an Autonomous command
 	 * 
@@ -25,7 +55,7 @@ public:
 	 * @return New Autonomous command
 	 */
 	static Autonomous *createCommand(int size, char *rawData);
-	
+
 	/**
 	 * @brief Creates a SendableChooser from a folder of autonomous files
 	 * 
@@ -35,5 +65,5 @@ public:
 	 * @return The SendableChooser (GetSelected returns a char array)
 	 */
 	static SendableChooser *generateAutonomousModes(char *scriptLocations);
-};	
+};
 #endif

@@ -1,7 +1,8 @@
 #include "UpdateOI.h"
 #include "WPILib.h"
 
-UpdateOI::UpdateOI() {
+UpdateOI::UpdateOI() :
+	CommandBase("UpdateOI") {
 	// Depends on any subsystems with visible output, but doesn't need a lock.
 }
 

@@ -1,6 +1,6 @@
 #include "HokeyPokey.h" 
 
-HokeyPokey::HokeyPokey() {
+HokeyPokey::HokeyPokey() : CommandBase("ClimberPokey") {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
 }

@@ -1,6 +1,7 @@
 #include "ChangePosition.h"
 
-ChangePosition::ChangePosition(ChangeType goal) {
+ChangePosition::ChangePosition(ChangeType goal) :
+	CommandBase("ChangePosition") {
 	Requires(collector);
 	this->goal = goal;
 }

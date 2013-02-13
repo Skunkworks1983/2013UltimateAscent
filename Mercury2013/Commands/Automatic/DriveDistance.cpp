@@ -3,7 +3,8 @@
 #include "DriveDistance.h"
 #include "../../Robotmap.h"
 
-DriveDistance::DriveDistance(float targetDistance) {
+DriveDistance::DriveDistance(float targetDistance) :
+	CommandBase("DriveDistance") {
 	Requires(driveBase);
 	this->targetDistance = targetDistance;
 }

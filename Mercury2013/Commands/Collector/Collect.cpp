@@ -1,6 +1,7 @@
 #include "Collect.h"
 
-Collect::Collect() {
+Collect::Collect() :
+	CommandBase("Collect") {
 	Requires(collector);
 	SetTimeout(((double) COLLECTOR_COLLECT_TIMEOUT) / 1000.0);
 	SetInterruptible(true);
