@@ -23,7 +23,7 @@ OI::OI() {
 			new DigitalIOButton(11), new Shoot());
 	spinupScheduler = new ReleasedButtonScheduler(false,
 			new DigitalIOButton(3), new ArmShooter(ArmShooter::kToggle));
-	shootScheduler = new ReleasedButtonScheduler(false, new DigitalIOButton(1),
+	flushScheduler = new ReleasedButtonScheduler(false, new DigitalIOButton(1),
 			new FlushShooter());
 }
 
