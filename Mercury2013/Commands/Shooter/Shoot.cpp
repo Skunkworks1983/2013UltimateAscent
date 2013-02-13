@@ -5,6 +5,7 @@ Shoot::Shoot() :
 	CommandBase("Shoot") {
 	Requires(shooter);
 	SetTimeout(((double) SHOOTER_SHOOT_TIME + SHOOTER_WAIT_TIME) / 1000.0);
+	SetInterruptible(false);
 }
 
 void Shoot::Initialize() {
