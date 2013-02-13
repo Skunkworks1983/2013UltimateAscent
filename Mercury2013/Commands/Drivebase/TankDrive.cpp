@@ -19,7 +19,9 @@ bool TankDrive::IsFinished() {
 }
 
 void TankDrive::End() {
+	driveBase->setSpeed(0, 0);
 }
 
 void TankDrive::Interrupted() {
+	driveBase->setSpeed(0, 0);
 }

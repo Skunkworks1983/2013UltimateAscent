@@ -28,9 +28,6 @@ Shooter::~Shooter() {
 	delete pitchEncoder;
 
 	delete shootSolenoid;
-
-	LiveWindow::GetInstance()->AddSensor("DriveBase", "Pitch Encoder",
-			pitchEncoder);
 }
 
 void Shooter::setArmed(bool armed) {

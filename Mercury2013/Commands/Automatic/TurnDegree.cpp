@@ -3,7 +3,8 @@
 #include "TurnDegree.h"
 #include "../../Robotmap.h"
 
-TurnDegree::TurnDegree(float targetAngle) {
+TurnDegree::TurnDegree(float targetAngle) :
+	CommandBase("TurnDegree") {
 	Requires(driveBase);
 	this->targetAngle = targetAngle;
 }
@@ -24,7 +25,7 @@ void TurnDegree::Execute() {
 	if (fabs(angleRemaining) <= AUTO_TURN_GYRO_THRESHOLD) {
 		turnSpeed = 0;
 	}
-	
+
 	driveBase->setSpeed(turnSpeed, -turnSpeed);
 }
 

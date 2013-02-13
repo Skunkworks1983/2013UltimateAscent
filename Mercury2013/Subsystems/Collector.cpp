@@ -4,9 +4,9 @@
 
 Collector::Collector() :
 	Subsystem("Collector") {
-	// TODO pitchPot = new AnalogChannel(COLLECTOR_PITCH_POT);		//potentionmeter for colelctor pitch
-	// TODO collectorPitchMotor = COLLECTOR_PITCH_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);	//collector pitch motor
-	// TODO collectorMotor = COLLECTOR_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);				//actual collector motor
+	/* TODO pitchPot = new AnalogChannel(COLLECTOR_PITCH_POT);		//potentionmeter for colelctor pitch
+	collectorPitchMotor = COLLECTOR_PITCH_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);	//collector pitch motor
+	collectorMotor = COLLECTOR_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);				//actual collector motor
 
 #ifdef COLLECTOR_FRISBEE_CHN_3
 	frisbeeSensors = new DigitalInput*[3];
@@ -22,7 +22,7 @@ Collector::Collector() :
 	pitchPID = new PIDController(COLLECTOR_PITCH_P, COLLECTOR_PITCH_I,
 			COLLECTOR_PITCH_D, this, this);
 	pitchPID->SetAbsoluteTolerance(COLLECTOR_PITCH_TOLERANCE);
-	SmartDashboard::PutData("Collector Pitch PID", pitchPID);
+	SmartDashboard::PutData("Collector Pitch PID", pitchPID);*/
 }
 
 Collector::~Collector() {
@@ -30,9 +30,9 @@ Collector::~Collector() {
 	delete collectorPitchMotorA;
 	delete collectorPitchMotorB;
 	delete collectorMotor;
-	for (int i = 0; i < COLLECTOR_FRISBEE_CHN_CNT; i++) {
-		delete frisbeeSensors[i];
-	}
+	//TODO for (int i = 0; i < COLLECTOR_FRISBEE_CHN_CNT; i++) {
+	//	delete frisbeeSensors[i];
+	//}
 	delete frisbeeSensors;
 }
 
@@ -80,9 +80,9 @@ void Collector::PIDWrite(float val) {
 
 int Collector::getFrisbeeSensorCount() {
 	int count = 0;
-	for (int i = 0; i < COLLECTOR_FRISBEE_CHN_CNT; i++) {
-		count += (frisbeeSensors[i]->Get() & 1);
-	}
+	//for (int i = 0; i < COLLECTOR_FRISBEE_CHN_CNT; i++) {
+	//	count += (frisbeeSensors[i]->Get() & 1);
+	//}
 	return count;
 }
 

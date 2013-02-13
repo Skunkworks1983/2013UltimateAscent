@@ -8,6 +8,26 @@
 #include <sys/types.h>
 #include <dirent.h>
 
+ScriptLoader::ScriptLoader(char *fName) {
+	this->fileName = fName;
+}
+
+void ScriptLoader::startCommand() {
+	int size = 0;
+	char *rawData = Scripting::readFromFile(fileName, size);
+	Scheduler::GetInstance()->AddCommand(
+			Scripting::createCommand(size, rawData));
+	delete rawData;
+}
+
+ScriptCommand::ScriptCommand(Command *start) {
+	this->local = start;
+}
+
+void ScriptCommand::startCommand() {
+	Scheduler::GetInstance()->AddCommand(local);
+}
+
 char* Scripting::readFromFile(char *fileName, int &size) {
 	FILE* f = fopen(fileName, "r");
 	fseek(f, 0, SEEK_END);
@@ -47,22 +67,18 @@ Autonomous *Scripting::createCommand(int size, char *rawData) {
 SendableChooser *Scripting::generateAutonomousModes(char *scriptLocations) {
 	SendableChooser * chooser = new SendableChooser();
 
+	chooser->AddDefault("Default", new ScriptCommand(new Autonomous()));
+	
 	DIR * dp;
 	struct dirent * ep;
 	dp = opendir(scriptLocations);
-	bool isDefault = true;
 	if (dp != NULL) {
 		while (ep = readdir(dp)) {
 			char * fileName = new char[50];
 			sprintf(fileName, "%s%s", scriptLocations, ep->d_name);
 			printf("Adding Autonomous Mode: %s\n", fileName);
 
-			if (isDefault) {
-				chooser->AddDefault(ep->d_name, fileName);
-				isDefault = false;
-			} else {
-				chooser->AddObject(ep->d_name, fileName);
-			}
+			chooser->AddObject(ep->d_name, new ScriptLoader(fileName));
 			delete fileName;
 		}
 		closedir(dp);

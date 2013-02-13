@@ -1,6 +1,7 @@
 #include "UpdateCompressor.h"
 
-UpdateCompressor::UpdateCompressor() {
+UpdateCompressor::UpdateCompressor() :
+	CommandBase("UpdateCompressor") {
 	Requires(pneumatics);
 	SetInterruptible(true);
 }

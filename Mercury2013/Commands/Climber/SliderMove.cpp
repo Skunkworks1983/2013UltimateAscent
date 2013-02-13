@@ -1,6 +1,7 @@
 #include "SliderMove.h"
 
-SliderMove::SliderMove(bool destIsExtended) {
+SliderMove::SliderMove(bool destIsExtended) :
+	CommandBase("SliderMove") {
 	Requires(climber);
 	destExtend = destIsExtended;
 	pidController = new PIDController(CLIMBER_SLIDER_P, CLIMBER_SLIDER_I,

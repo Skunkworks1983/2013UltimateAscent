@@ -18,13 +18,8 @@ void UFOBot::RobotInit() {
 
 void UFOBot::AutonomousInit() {
 	DefaultInit();
-	char *fName = (char*) chooser->GetSelected();
 	Scheduler::GetInstance()->RemoveAll();
-	int size = 0;
-	char *rawData = Scripting::readFromFile(fName, size);
-	Scheduler::GetInstance()->AddCommand(
-			Scripting::createCommand(size, rawData));
-	delete rawData;
+	((ScriptLoader*) chooser->GetSelected())->startCommand();
 }
 void UFOBot::AutonomousPeriodic() {
 	GetWatchdog().Feed();

@@ -22,10 +22,9 @@ OI::OI() {
 	shootScheduler = new ReleasedButtonScheduler(false,
 			new DigitalIOButton(11), new Shoot());
 	spinupScheduler = new ReleasedButtonScheduler(false,
-			new DigitalIOButton(3),
-			new ArmShooter(ArmShooter::kToggle));
-	shootScheduler = new ReleasedButtonScheduler(false,
-				new DigitalIOButton(1), new FlushShooter());
+			new DigitalIOButton(3), new ArmShooter(ArmShooter::kToggle));
+	shootScheduler = new ReleasedButtonScheduler(false, new DigitalIOButton(1),
+			new FlushShooter());
 }
 
 Joystick *OI::getDriveJoystickLeft() {
