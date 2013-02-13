@@ -34,6 +34,8 @@ bool SliderMove::IsFinished() {
 
 void SliderMove::End() {
 	pidController->Disable();
+	climber->setBrakeState(true);
+	climber->setVelocityPIDState(false);
 }
 
 void SliderMove::Interrupted() {
