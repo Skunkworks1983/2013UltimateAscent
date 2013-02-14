@@ -158,6 +158,8 @@
 #define CLIMBER_SLIDER_VD						0	// TODO
 #define CLIMBER_SLIDER_MAX_VELOCITY				1
 #define CLIMBER_SLIDER_MAX_RANGE				2
+#define CLIMBER_SAFTEY_PERIOD					0.02 //20 milliseconds
+#define CLIMBER_SLIDER_CUTOFF_VELOCITY			1.5
 
 #define CLIMBER_SLIDER_TOLERANCE				0.1  // 1/10 of the total length
 #endif

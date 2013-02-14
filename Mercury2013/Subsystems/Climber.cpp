@@ -1,4 +1,5 @@
 #include "Climber.h"
+#include <math.h>
 
 Climber::Climber() :
 	Subsystem("Climber") {
@@ -35,10 +36,14 @@ Climber::Climber() :
 	 velocityController->SetOutputRange(-1, 1);
 	 velocityController->SetContinuous(true);
 	 SmartDashboard::PutData("Velocity Controller", velocityController);*/
+
+	climberSaftey = new Notifier(Climber::callSaftey, this);
+	climberSaftey->StartPeriodic(CLIMBER_SAFTEY_PERIOD);
 }
 
 Climber::~Climber() {
 	delete velocityController;
+	delete climberSaftey;
 
 	delete sliderEncoder;
 	delete sliderMotor1;
@@ -50,6 +55,18 @@ Climber::~Climber() {
 	delete pokey;
 
 	delete sliderBrake;
+}
+
+void Climber::callSaftey(void *param) {
+	((Climber*) param)->saftey();
+}
+
+void Climber::saftey() {
+	if (fabs(sliderEncoder->GetRate()) > CLIMBER_SLIDER_CUTOFF_VELOCITY) {
+		// Dear god, stop it please.
+		velocityController->Disable();
+		setBrakeState(true);
+	}
 }
 
 void Climber::setPokey(bool pos) {
