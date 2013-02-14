@@ -48,10 +48,12 @@ private:
 	 */
 	PIDController *velocityController;
 
+	Notifier *climberSaftey;
+	static void callSaftey(void *climber);
+	void saftey();
 public:
 	Climber();
 	~Climber();
-
 	/**  
 	 * Mokes the pokey stick to a state specified
 	 */
@@ -93,7 +95,7 @@ public:
 	 * @return the position, 0-1
 	 */
 	virtual double PIDGet();
-	
+
 	void setVelocityPIDState(bool state);
 };
 
