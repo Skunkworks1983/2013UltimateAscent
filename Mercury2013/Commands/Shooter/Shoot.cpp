@@ -25,5 +25,5 @@ void Shoot::End() {
 }
 
 void Shoot::Interrupted() {
-
+	shooter->shoot(false);
 }
