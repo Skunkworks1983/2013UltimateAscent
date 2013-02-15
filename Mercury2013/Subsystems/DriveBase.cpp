@@ -38,7 +38,6 @@ DriveBase::DriveBase() :
 #ifdef DRIVE_GYRO
 	gyro = new Gyro(DRIVE_GYRO);
 #endif
-	cachedLowState = false;
 }
 
 DriveBase::~DriveBase() {
@@ -95,7 +94,6 @@ void DriveBase::InitDefaultCommand() {
 }
 
 void DriveBase::shift(bool lowGear) {
-	cachedLowState = lowGear;
 	shiftSolenoid->Set(
 			lowGear ? DoubleSolenoid::kForward : DoubleSolenoid::kReverse);
 }
@@ -113,5 +111,5 @@ void DriveBase::reset() {
 }
 
 bool DriveBase::isLowGear() {
-	return cachedLowState;
+	return (shiftSolenoid->Get() == DoubleSolenoid::kForward);
 }

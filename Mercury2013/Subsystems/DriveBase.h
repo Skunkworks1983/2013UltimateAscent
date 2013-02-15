@@ -27,8 +27,6 @@ private:
 	Gyro *gyro;
 
 	DoubleSolenoid *shiftSolenoid;
-	
-	bool cachedLowState;
 public:
 	/**
 	 * Creates the drive base motors, encoders, and any other components.
