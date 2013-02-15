@@ -110,7 +110,7 @@
 // Collector constant speed
 #define COLLECTOR_MOTOR_SPEED					.5 // TODO get value from design team
 #define COLLECTOR_PITCH_POT						4  // TODO
-#define COLLECTOR_PITCH_CONVERT(voltage)		((voltage-5) * 5) //TODO Convert it.
+#define COLLECTOR_PITCH_CONVERT(voltage)		((voltage + 5) * 312 / 971) //TODO Convert it.
 #define COLLECTOR_PITCH_P						0.1
 #define COLLECTOR_PITCH_I						0.001
 #define COLLECTOR_PITCH_D						0
