@@ -4,7 +4,6 @@
 ArmShooter::ArmShooter(ArmType armType) :
 	CommandBase("ArmShooter") {
 	Requires(shooter);
-	SetTimeout(((double) SHOOTER_ARM_TIME) / 1000.0);
 	this->armType = armType;
 }
 
@@ -29,7 +28,7 @@ void ArmShooter::Execute() {
 }
 
 bool ArmShooter::IsFinished() {
-	return IsTimedOut() && (shooter->isArmed() == enabled);
+	return shooter->isArmed() == enabled;
 }
 
 void ArmShooter::End() {

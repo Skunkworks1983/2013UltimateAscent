@@ -33,9 +33,9 @@
 #define AUTO_DRIVE_DIST_THRESHOLD		1		// Inches, stopping tolerance
 #define AUTO_DRIVE_DIST_SPEED_MAX 		0.5   	// Maximum speed allowed by DriveDistance
 #define AUTO_DRIVE_DIST_SPEED_MIN		.25   	// Minimum speed of robot.  
-//TODO reduce A_D_D_S_MIN to let robot crawl the last few feet.
+// TODO reduce A_D_D_S_MIN to let robot crawl the last few feet.
 #define AUTO_DRIVE_DIST_SPEED_RANGE		(AUTO_DRIVE_DIST_SPEED_MAX - AUTO_DRIVE_DIST_SPEED_MIN)
-#define AUTO_DRIVE_DIST_STABILITY		10 //TODO: See what this is in order to reset the amound of ticks the encoders do.
+#define AUTO_DRIVE_DIST_STABILITY		10 // TODO: See what this is in order to reset the amound of ticks the encoders do.
 // Autonomous Configuration Settings
 #define AUTO_SCRIPT_MAXLENGTH			256
 #define AUTO_SCRIPT_MAXLINES			64
@@ -78,7 +78,7 @@
 // Shooter motor speeds
 #define SHOOTER_MOTOR_FRONT_SPEED				0.5 // TODO
 #define SHOOTER_MOTOR_MIDDLE_SPEED				0.5 // TODO
-#define SHOOTER_MOTOR_REAR_SPEED				1 // TODO
+#define SHOOTER_MOTOR_REAR_SPEED				1.0 // TODO
 #define SHOOTER_MOTOR_FLUSH_SPEED				-0.75 // TODO
 // Various times (millis)
 #define SHOOTER_ARM_TIME						1000 // TODO
@@ -123,7 +123,8 @@
 #define COLLECTOR_FRISBEE_CHN_2					1
 #define COLLECTOR_FRISBEE_CHN_3					1
 
-#define COLLECTOR_COLLECT_TIMEOUT				5000 //5 seconds
+#define COLLECTOR_COLLECT_TIMEOUT				5000 // (millis)
+
 /**
  * --COMPRESSOR--
  */
@@ -158,7 +159,7 @@
 #define CLIMBER_SLIDER_VD						0	// TODO
 #define CLIMBER_SLIDER_MAX_VELOCITY				1
 #define CLIMBER_SLIDER_MAX_RANGE				2
-#define CLIMBER_SAFTEY_PERIOD					0.02 //20 milliseconds
+#define CLIMBER_SAFTEY_PERIOD					0.02 // (seconds)
 #define CLIMBER_SLIDER_CUTOFF_VELOCITY			1.5
 
 #define CLIMBER_SLIDER_TOLERANCE				0.1  // 1/10 of the total length
