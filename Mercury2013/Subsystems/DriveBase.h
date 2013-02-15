@@ -12,6 +12,7 @@
  * @author Westin Miller
  */
 class DriveBase: public Subsystem {
+	bool cached;
 private:
 	SpeedController *motorLeft;
 #ifdef DRIVE_MOTOR_LEFT_2
@@ -47,10 +48,12 @@ public:
 	 * Gets a pointer to this drive base's gyroscope, or NULL if one doesn't exist.
 	 */
 	Gyro *getGyro();
+	
 	/**
 	 * Gets a pointer to this drive base's left encoder, or NULL if one doesn't exist.
 	 */
 	Encoder *getLeftEncoder();
+	
 	/**
 	 * Gets a pointer to this drive base's right encoder, or NULL if one doesn't exist.
 	 */
@@ -61,9 +64,9 @@ public:
 	 * @param lowGear true if shifting to low gear, false if shifting high.
 	 */
 	void shift(bool lowGear);
+	
 	/**
 	 * Gets the current shifted state.
-	 * This is the cached value from shift(), so it may not actually reflect the gear at robot initialization.
 	 * @return true if in low gear, otherwise false
 	 */
 	bool isLowGear();
