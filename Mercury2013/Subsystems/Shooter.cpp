@@ -1,5 +1,6 @@
 #include "Shooter.h"
 #include <math.h>
+#include "../Utils/Time.h"
 
 Shooter::Shooter() :
 	Subsystem("Shooter") {
@@ -15,8 +16,7 @@ Shooter::Shooter() :
 
 	// TODO shootSolenoid = new DoubleSolenoid(SHOOTER_EXTENDED, SHOOTER_DEXTENDED);
 
-	cachedArmState = false;
-	cachedShootState = false;
+	timeTillShootReady = 0;
 }
 
 Shooter::~Shooter() {
@@ -35,34 +35,40 @@ void Shooter::setArmed(bool armed) {
 		frontMotor->Set(SHOOTER_MOTOR_FRONT_SPEED);
 		middleMotor->Set(SHOOTER_MOTOR_MIDDLE_SPEED);
 		rearMotor->Set(SHOOTER_MOTOR_REAR_SPEED);
+		timeTillShootReady = getCurrentMillis() + SHOOTER_ARM_TIME;
 	} else {
 		frontMotor->Set(0);
 		middleMotor->Set(0);
 		rearMotor->Set(0);
 	}
-	this->cachedArmState = armed;
 }
 
 bool Shooter::isArmed() {
-	return cachedArmState;
+	return ((frontMotor->Get() > 0) && (middleMotor->Get() > 0)
+			&& (rearMotor->Get() > 0));
 }
 
 void Shooter::shoot(bool shooting) {
-	if (shooting != cachedShootState) {
+	if (shootSolenoid->Get() != (shooting ? DoubleSolenoid::kForward
+			: DoubleSolenoid::kReverse) && (!shooting || readyToShoot())) {
 		shootSolenoid->Set(
 				shooting ? DoubleSolenoid::kForward : DoubleSolenoid::kReverse);
-		cachedShootState = shooting;
+		timeTillShootReady = getCurrentMillis() + SHOOTER_WAIT_TIME;
 	}
 }
 
 void Shooter::flush(bool flushing) {
-	if (!cachedShootState && !cachedArmState) {
+	if ((shootSolenoid->Get() == DoubleSolenoid::kReverse) && !isArmed()) {
 		if (flushing) {
 			rearMotor->Set(SHOOTER_MOTOR_FLUSH_SPEED);
 		} else {
 			rearMotor->Set(0);
 		}
 	}
+}
+
+bool Shooter::readyToShoot() {
+	return getCurrentMillis() > timeTillShootReady;
 }
 
 void Shooter::setPitchMotorSpeed(float speed) {

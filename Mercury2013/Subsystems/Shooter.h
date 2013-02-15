@@ -22,8 +22,7 @@ private:
 	
 	DoubleSolenoid *shootSolenoid;
 	
-	bool cachedArmState;
-	bool cachedShootState;
+	double timeTillShootReady;
 public:
 	Shooter();
 	~Shooter();
@@ -32,6 +31,8 @@ public:
 	bool isArmed();
 	void shoot(bool shooting);
 	void flush(bool flushing);
+	
+	bool readyToShoot();
 	
 	void setPitchMotorSpeed(float speed);
 	float getCurrentPitch();

@@ -4,16 +4,16 @@
 Shoot::Shoot() :
 	CommandBase("Shoot") {
 	Requires(shooter);
-	SetTimeout(((double) SHOOTER_SHOOT_TIME + SHOOTER_WAIT_TIME) / 1000.0);
+	SetTimeout(((double) SHOOTER_SHOOT_TIME) / 1000.0);
 	SetInterruptible(false);
 }
 
 void Shoot::Initialize() {
-	startTime = getCurrentMillis();
+
 }
 
 void Shoot::Execute() {
-	shooter->shoot(getCurrentMillis() < startTime + SHOOTER_SHOOT_TIME);
+	shooter->shoot(true);
 }
 
 bool Shoot::IsFinished() {
@@ -21,9 +21,9 @@ bool Shoot::IsFinished() {
 }
 
 void Shoot::End() {
-
+	shooter->shoot(false);
 }
 
 void Shoot::Interrupted() {
-	shooter->shoot(false);
+
 }
