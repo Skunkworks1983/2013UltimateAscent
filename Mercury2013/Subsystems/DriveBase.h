@@ -12,7 +12,6 @@
  * @author Westin Miller
  */
 class DriveBase: public Subsystem {
-	bool cached;
 private:
 	SpeedController *motorLeft;
 #ifdef DRIVE_MOTOR_LEFT_2
