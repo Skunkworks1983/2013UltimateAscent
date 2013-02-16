@@ -3,6 +3,7 @@
 #include "WPILib.h"
 #include "../Robotmap.h"
 #include "../Utils/DualPIDOutput.h"
+#include "../Utils/DualLiveSpeed.h"
 
 /**
  * @brief All of the necessary methods and accessors for Climb and its child commands
@@ -24,8 +25,7 @@ private:
 	/**  
 	 * The motor for the arm movement
 	 */
-	SpeedController *sliderMotor1;
-	SpeedController *sliderMotor2;
+	DualLiveSpeed *sliderMotor;
 
 	/**  
 	 * The buttons on the first and second hook to check state

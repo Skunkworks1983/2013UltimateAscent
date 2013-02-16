@@ -4,9 +4,9 @@
 
 Collector::Collector() :
 	Subsystem("Collector") {
-	/* TODO pitchPot = new AnalogChannel(COLLECTOR_PITCH_POT);		//potentionmeter for colelctor pitch
-	collectorPitchMotor = COLLECTOR_PITCH_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);	//collector pitch motor
-	collectorMotor = COLLECTOR_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR);				//actual collector motor
+	pitchPot = new AnalogChannel(COLLECTOR_PITCH_POT); //potentionmeter for colelctor pitch
+	collectorPitchMotor = new DualLiveSpeed(COLLECTOR_PITCH_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR_A),COLLECTOR_PITCH_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR_B));
+	collectorMotor = COLLECTOR_MOTOR_CREATE(COLLECTOR_MOTOR); //actual collector motor
 
 #ifdef COLLECTOR_FRISBEE_CHN_3
 	frisbeeSensors = new DigitalInput*[3];
@@ -22,13 +22,16 @@ Collector::Collector() :
 	pitchPID = new PIDController(COLLECTOR_PITCH_P, COLLECTOR_PITCH_I,
 			COLLECTOR_PITCH_D, this, this);
 	pitchPID->SetAbsoluteTolerance(COLLECTOR_PITCH_TOLERANCE);
-	SmartDashboard::PutData("Collector Pitch PID", pitchPID);*/
+	SmartDashboard::PutData("Collector Pitch PID", pitchPID);
+
+	LiveWindow::GetInstance()->AddActuator("Collector", "Angle POT", pitchPot);
+	LiveWindow::GetInstance()->AddActuator("Collector", "Angle Motor", collectorPitchMotor);
+	LiveWindow::GetInstance()->AddActuator("Collector", "Collect Motor", collectorMotor);
 }
 
 Collector::~Collector() {
 	delete pitchPot;
-	delete collectorPitchMotorA;
-	delete collectorPitchMotorB;
+	delete collectorPitchMotor;
 	delete collectorMotor;
 	//TODO for (int i = 0; i < COLLECTOR_FRISBEE_CHN_CNT; i++) {
 	//	delete frisbeeSensors[i];
@@ -61,8 +64,8 @@ Collector::CollectorState Collector::getArmState() {
 	} else if (fabs(getRawAngle() - COLLECTOR_PITCH_DOWN)
 			< COLLECTOR_PITCH_TOLERANCE) {
 		return Collector::kDown;
-	} else if (fabs(getRawAngle() - COLLECTOR_PITCH_DOWN) < fabs(
-			getRawAngle() - COLLECTOR_PITCH_UP)) {
+	} else if (fabs(getRawAngle() - COLLECTOR_PITCH_DOWN) < fabs(getRawAngle()
+			- COLLECTOR_PITCH_UP)) {
 		return Collector::kOtherDown;
 	} else {
 		return Collector::kOtherUp;
@@ -74,8 +77,7 @@ double Collector::getRawAngle() {
 }
 
 void Collector::PIDWrite(float val) {
-	collectorPitchMotorA->Set(val);
-	collectorPitchMotorB->Set(val);
+	collectorPitchMotor->Set(val);
 }
 
 int Collector::getFrisbeeSensorCount() {
