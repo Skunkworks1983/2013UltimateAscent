@@ -7,7 +7,9 @@ DualLiveSpeed::DualLiveSpeed(SpeedController *aA, SpeedController *bB) {
 
 DualLiveSpeed::~DualLiveSpeed() {
 	delete a;
-	delete b;
+	if (b != NULL) {
+		delete b;
+	}
 }
 void DualLiveSpeed::ValueChanged(ITable* source, const std::string& key,
 		EntryValue value, bool isNew) {
@@ -20,7 +22,9 @@ float DualLiveSpeed::Get() {
 
 void DualLiveSpeed::Set(float f, UINT8 syncGroup) {
 	a->Set(f);
-	b->Set(f);
+	if (b != NULL) {
+		b->Set(f);
+	}
 }
 
 void DualLiveSpeed::UpdateTable() {
