@@ -3,17 +3,29 @@
 
 DriveBase::DriveBase() :
 		Subsystem("DriveBase") {
-	motorLeft = DRIVE_MOTOR_CREATE(DRIVE_MOTOR_LEFT);
-#ifdef DRIVE_MOTOR_LEFT_2		// Only create the second motor if it's needed
-	motorLeft2 = DRIVE_MOTOR_CREATE(DRIVE_MOTOR_LEFT_2);
+#ifdef DRIVE_MOTOR_LEFT_2		// Same thing ad infinitum
+	motorLeft = new DualLiveSpeed(DRIVE_MOTOR_CREATE(DRIVE_MOTOR_LEFT),
+			DRIVE_MOTOR_CREATE(DRIVE_MOTOR_LEFT_2));
+#else
+	motorLeft = new DualLiveSpeed(
+			motorLeft = DRIVE_MOTOR_CREATE(DRIVE_MOTOR_LEFT),NULL);
 #endif
+	LiveWindow::GetInstance()->AddActuator("DriveBase", "Left Motor",
+			motorLeft);
 
-	motorRight = DRIVE_MOTOR_CREATE(DRIVE_MOTOR_RIGHT);
 #ifdef DRIVE_MOTOR_RIGHT_2		// Same thing ad infinitum
-	motorRight2 = DRIVE_MOTOR_CREATE(DRIVE_MOTOR_RIGHT_2);
+	motorRight = new DualLiveSpeed(DRIVE_MOTOR_CREATE(DRIVE_MOTOR_RIGHT),
+			DRIVE_MOTOR_CREATE(DRIVE_MOTOR_RIGHT_2));
+#else
+	motorRight = new DualLiveSpeed(
+			motorRight = DRIVE_MOTOR_CREATE(DRIVE_MOTOR_RIGHT),NULL);
 #endif
+	LiveWindow::GetInstance()->AddActuator("DriveBase", "Right Motor",
+			motorRight);
 
 	shiftSolenoid = new DoubleSolenoid(DRIVE_SHIFT_LOW, DRIVE_SHIFT_HIGH);
+	LiveWindow::GetInstance()->AddActuator("DriveBase", "Shifter",
+			shiftSolenoid);
 
 #ifdef DRIVE_ENCODER_LEFT
 	leftEncoder = new Encoder(DRIVE_ENCODER_LEFT);
@@ -42,14 +54,7 @@ DriveBase::DriveBase() :
 
 DriveBase::~DriveBase() {
 	delete motorLeft;
-#ifdef DRIVE_MOTOR_LEFT_2		// Only create the second motor if it's needed
-	delete motorLeft2;
-#endif
-
 	delete motorRight;
-#ifdef DRIVE_MOTOR_RIGHT_2		// Same thing ad infinitum
-	delete motorRight2;
-#endif
 
 #ifdef DRIVE_ENCODER_LEFT
 	delete leftEncoder;
@@ -67,14 +72,7 @@ DriveBase::~DriveBase() {
 
 void DriveBase::setSpeed(float leftSpeed, float rightSpeed) {
 	motorLeft->Set(-leftSpeed);
-#ifdef DRIVE_MOTOR_LEFT_2
-	motorLeft2->Set(-leftSpeed);
-#endif
-
 	motorRight->Set(rightSpeed);
-#ifdef DRIVE_MOTOR_RIGHT_2
-	motorRight2->Set(rightSpeed);
-#endif
 }
 
 Gyro *DriveBase::getGyro() {

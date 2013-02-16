@@ -3,6 +3,7 @@
 
 #include "WPILib.h"
 #include "../Robotmap.h"
+#include "../Utils/DualLiveSpeed.h"
 
 /**
  * @brief Drive base subsystem for a parallel wheel configuration, with a shifter.
@@ -13,14 +14,8 @@
  */
 class DriveBase: public Subsystem {
 private:
-	SpeedController *motorLeft;
-#ifdef DRIVE_MOTOR_LEFT_2
-	SpeedController *motorLeft2;
-#endif
-	SpeedController *motorRight;
-#ifdef DRIVE_MOTOR_RIGHT_2
-	SpeedController *motorRight2;
-#endif
+	DualLiveSpeed *motorLeft;
+	DualLiveSpeed *motorRight;
 
 	Encoder *leftEncoder;
 	Encoder *rightEncoder;
