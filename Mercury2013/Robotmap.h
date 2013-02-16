@@ -60,7 +60,7 @@
 #define DRIVE_SHIFT_HIGH						2
 
 #define DRIVE_ENCODER_TICKS_PER_REV				(250.0)
-#define DRIVE_WHEEL_DIAMETER					(6.0)
+#define DRIVE_WHEEL_DIAMETER					(4.0)
 #define DRIVE_ENCODER_INCH_PER_TICK				((DRIVE_WHEEL_DIAMETER * 3.14159)/DRIVE_ENCODER_TICKS_PER_REV)
 #define DRIVE_ENCODER_LEFT						2,3
 #define DRIVE_ENCODER_RIGHT						4,5
@@ -102,14 +102,15 @@
  * --COLLECTOR--
  * 	Collector motor channels
  */
-#define COLLECTOR_MOTOR							7 // TODO
-#define COLLECTOR_PITCH_MOTOR					8 // TODO
+#define COLLECTOR_MOTOR							3 // TODO
+#define COLLECTOR_PITCH_MOTOR_A					1 // TODO
+#define COLLECTOR_PITCH_MOTOR_B					2 // TODO
 // Class name of the shooter and collector pitch motor controllers
-#define COLLECTOR_MOTOR_CREATE(channel) 		(new Jaguar(channel))
-#define COLLECTOR_PITCH_MOTOR_CREATE(channel) 	(new Jaguar(channel))
+#define COLLECTOR_MOTOR_CREATE(channel) 		(new Talon(channel))
+#define COLLECTOR_PITCH_MOTOR_CREATE(channel) 	(new Talon(channel))
 // Collector constant speed
 #define COLLECTOR_MOTOR_SPEED					.5 // TODO get value from design team
-#define COLLECTOR_PITCH_POT						4  // TODO
+#define COLLECTOR_PITCH_POT						1  // TODO
 #define COLLECTOR_PITCH_CONVERT(voltage)		((voltage + 5) * 312 / 971) //TODO Convert it.
 #define COLLECTOR_PITCH_P						0.1
 #define COLLECTOR_PITCH_I						0.001
@@ -121,10 +122,9 @@
 
 #define COLLECTOR_FRISBEE_CHN_1					1
 #define COLLECTOR_FRISBEE_CHN_2					1
-#define COLLECTOR_FRISBEE_CHN_3					1
+//#define COLLECTOR_FRISBEE_CHN_3					1
 
 #define COLLECTOR_COLLECT_TIMEOUT				5000 // (millis)
-
 /**
  * --COMPRESSOR--
  */
@@ -135,12 +135,12 @@
  * --CLIMBER--
  */
 // TODO: Make the ports not pi
-#define CLIMBER_SLIDER_MOTOR_1					3
-#define CLIMBER_SLIDER_MOTOR_2					1
+#define CLIMBER_SLIDER_MOTOR_1					4
+#define CLIMBER_SLIDER_MOTOR_2					5
 #define CLIMBER_SLIDER_ENCODER_1				4
 #define CLIMBER_SLIDER_ENCODER_2				1
 
-#define CLIMBER_SLIDER_MOTOR_CREATE(channel) 	(new Jaguar(channel))
+#define CLIMBER_SLIDER_MOTOR_CREATE(channel) 	(new Talon(channel))
 
 #define CLIMBER_HOOK_BUTTON_1					5
 #define CLIMBER_HOOK_BUTTON_2					9
@@ -148,8 +148,8 @@
 #define	CLIMBER_POKEY_UP						2
 #define	CLIMBER_POKEY_DOWN						2
 
-#define CLIMBER_BRAKE_ACTIVE					5
-#define CLIMBER_BRAKE_UNACTIVE					5
+#define CLIMBER_BRAKE_ACTIVE					3
+#define CLIMBER_BRAKE_UNACTIVE					4
 
 #define CLIMBER_SLIDER_P						0	// TODO
 #define CLIMBER_SLIDER_I						0	// TODO

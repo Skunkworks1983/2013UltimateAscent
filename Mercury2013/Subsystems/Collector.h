@@ -2,6 +2,7 @@
 #define __SYS_COLLECTOR_H
 
 #include "WPILib.h"
+#include "../Utils/DualLiveSpeed.h"
 
 /**
  * @brief Collector subsystem, provides functions to get and set speed for the 
@@ -20,9 +21,8 @@ public:
 	};
 private:
 	AnalogChannel *pitchPot;
-	SpeedController *collectorPitchMotorA;
-	SpeedController *collectorPitchMotorB;
-	SpeedController *collectorMotor;
+	DualLiveSpeed *collectorPitchMotor;
+	Talon *collectorMotor;
 
 	PIDController *pitchPID;
 

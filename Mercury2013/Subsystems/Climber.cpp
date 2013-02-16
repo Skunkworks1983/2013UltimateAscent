@@ -3,12 +3,12 @@
 
 Climber::Climber() :
 	Subsystem("Climber") {
+	sliderMotor = new DualLiveSpeed(CLIMBER_SLIDER_MOTOR_CREATE(CLIMBER_SLIDER_MOTOR_1), CLIMBER_SLIDER_MOTOR_CREATE(CLIMBER_SLIDER_MOTOR_2));
+	LiveWindow::GetInstance()->AddActuator("Climber", "Slider Motor", sliderMotor);
 	/*sliderEncoder = new Encoder(CLIMBER_SLIDER_ENCODER_1,
 	 CLIMBER_SLIDER_ENCODER_2, false, Encoder::k4X);
 	 sliderEncoder->SetPIDSourceParameter(Encoder::kRate);
 
-	 sliderMotor1 = CLIMBER_SLIDER_MOTOR_CREATE(CLIMBER_SLIDER_MOTOR_1);
-	 sliderMotor2 = CLIMBER_SLIDER_MOTOR_CREATE(CLIMBER_SLIDER_MOTOR_2);
 
 	 sliderEncoder->Reset();
 	 sliderEncoder->Start();
@@ -46,8 +46,7 @@ Climber::~Climber() {
 	delete climberSaftey;
 
 	delete sliderEncoder;
-	delete sliderMotor1;
-	delete sliderMotor2;
+	delete sliderMotor;
 
 	delete hookButton1;
 	delete hookButton2;
@@ -89,8 +88,8 @@ bool Climber::getButton(int num) {
 }
 
 void Climber::setBrakeState(bool isBraking) {
-	sliderBrake->Set(
-			isBraking ? DoubleSolenoid::kForward : DoubleSolenoid::kReverse);
+	sliderBrake->Set(isBraking ? DoubleSolenoid::kForward
+			: DoubleSolenoid::kReverse);
 }
 
 bool Climber::getBrakeState() {

@@ -2,7 +2,7 @@
 #include "../Commands/Drivebase/TankDrive.h"
 
 DriveBase::DriveBase() :
-	Subsystem("DriveBase") {
+		Subsystem("DriveBase") {
 	motorLeft = DRIVE_MOTOR_CREATE(DRIVE_MOTOR_LEFT);
 #ifdef DRIVE_MOTOR_LEFT_2		// Only create the second motor if it's needed
 	motorLeft2 = DRIVE_MOTOR_CREATE(DRIVE_MOTOR_LEFT_2);
@@ -19,6 +19,8 @@ DriveBase::DriveBase() :
 	leftEncoder = new Encoder(DRIVE_ENCODER_LEFT);
 	leftEncoder->SetDistancePerPulse(-DRIVE_ENCODER_INCH_PER_TICK);
 	leftEncoder->Start();
+	LiveWindow::GetInstance()->AddSensor("DriveBase", "LeftEncoder",
+			leftEncoder);
 #else
 	leftEncoder = NULL;
 #endif
@@ -26,17 +28,15 @@ DriveBase::DriveBase() :
 	rightEncoder = new Encoder(DRIVE_ENCODER_RIGHT);
 	rightEncoder->SetDistancePerPulse(DRIVE_ENCODER_INCH_PER_TICK);
 	rightEncoder->Start();
+	LiveWindow::GetInstance()->AddSensor("DriveBase", "RightEncoder",
+			rightEncoder);
 #else
 	rightEncoder = NULL;
 #endif
 
-	LiveWindow::GetInstance()->AddSensor("DriveBase", "LeftEncoder",
-			leftEncoder);
-	LiveWindow::GetInstance()->AddSensor("DriveBase", "RightEncoder",
-			rightEncoder);
-
 #ifdef DRIVE_GYRO
 	gyro = new Gyro(DRIVE_GYRO);
+	LiveWindow::GetInstance()->AddSensor("DriveBase", "Gyro", gyro);
 #endif
 }
 
