@@ -30,6 +30,9 @@ private:
 	ButtonScheduler *shootScheduler;
 	ButtonScheduler *spinupScheduler;
 	ButtonScheduler *flushScheduler;
+	
+	ButtonScheduler *armUpScheduler;
+	ButtonScheduler *armDownScheduler;
 
 public:
 	OI();

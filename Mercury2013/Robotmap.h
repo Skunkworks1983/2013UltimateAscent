@@ -56,8 +56,7 @@
 // Class name of the drive motor controller
 #define DRIVE_MOTOR_CREATE(channel)				(new CANJaguar(channel))
 
-#define DRIVE_SHIFT_LOW							1
-#define DRIVE_SHIFT_HIGH						2
+#define DRIVE_SHIFT								1,2
 
 #define DRIVE_ENCODER_TICKS_PER_REV				(250.0)
 #define DRIVE_WHEEL_DIAMETER					(4.0)
@@ -65,7 +64,7 @@
 #define DRIVE_ENCODER_LEFT						2,3
 #define DRIVE_ENCODER_RIGHT						4,5
 
-#define DRIVE_GYRO								1,1
+#define DRIVE_GYRO								2
 
 /**
  * --SHOOTER--
@@ -89,8 +88,7 @@
 #define SHOOTER_MOTOR_CREATE(channel) 			(new Jaguar(channel))
 #define SHOOTER_PITCH_MOTOR_CREATE(channel) 	(new Jaguar(channel))
 // Shooter solenoid ports
-#define SHOOTER_EXTENDED						3 // TODO
-#define SHOOTER_DEXTENDED						4 // TODO
+#define SHOOTER_PNEUMATIC						7,8 // TODO
 // Shooter speed and pitch sensors
 #define SHOOTER_PITCH_ENCODER					1,1 // TODO
 #define SHOOTER_PITCH_DEGREES_PER_PULSE			0 // TODO
@@ -103,15 +101,18 @@
  * 	Collector motor channels
  */
 #define COLLECTOR_MOTOR							3 // TODO
-#define COLLECTOR_PITCH_MOTOR_A					1 // TODO
-#define COLLECTOR_PITCH_MOTOR_B					2 // TODO
+#define COLLECTOR_PITCH_MOTOR_A					2 // TODO
+#define COLLECTOR_PITCH_MOTOR_B					1 // TODO
 // Class name of the shooter and collector pitch motor controllers
 #define COLLECTOR_MOTOR_CREATE(channel) 		(new Talon(channel))
 #define COLLECTOR_PITCH_MOTOR_CREATE(channel) 	(new Talon(channel))
 // Collector constant speed
-#define COLLECTOR_MOTOR_SPEED					.5 // TODO get value from design team
+#define COLLECTOR_PITCH_MOTOR_SPEED_UP			.6 // TODO get value from design team
+#define COLLECTOR_PITCH_MOTOR_SPEED_DOWN		.4 // TODO get value from design team
+#define COLLECTOR_PITCH_MOTOR_B_TUNING			-1.0, -1.05
+#define COLLECTOR_MOTOR_SPEED					.5
 #define COLLECTOR_PITCH_POT						1  // TODO
-#define COLLECTOR_PITCH_CONVERT(voltage)		((voltage + 5) * 312 / 971) //TODO Convert it.
+#define COLLECTOR_PITCH_CONVERT(voltage)		(172.678-((voltage + 5) * 312 / 725)) //TODO Convert it.
 #define COLLECTOR_PITCH_P						0.1
 #define COLLECTOR_PITCH_I						0.001
 #define COLLECTOR_PITCH_D						0
@@ -120,8 +121,11 @@
 #define COLLECTOR_PITCH_DOWN					0
 #define COLLECTOR_PITCH_UP						90
 
-#define COLLECTOR_FRISBEE_CHN_1					1
-#define COLLECTOR_FRISBEE_CHN_2					1
+#define COLLECTOR_PITCH_POT_MIN					-10
+#define COLLECTOR_PITCH_POT_MAX					100
+
+#define COLLECTOR_FRISBEE_CHN_1					6
+#define COLLECTOR_FRISBEE_CHN_2					7
 //#define COLLECTOR_FRISBEE_CHN_3					1
 
 #define COLLECTOR_COLLECT_TIMEOUT				5000 // (millis)
@@ -137,19 +141,16 @@
 // TODO: Make the ports not pi
 #define CLIMBER_SLIDER_MOTOR_1					4
 #define CLIMBER_SLIDER_MOTOR_2					5
-#define CLIMBER_SLIDER_ENCODER_1				4
-#define CLIMBER_SLIDER_ENCODER_2				1
+#define CLIMBER_SLIDER_ENCODER					8,9
 
 #define CLIMBER_SLIDER_MOTOR_CREATE(channel) 	(new Talon(channel))
 
 #define CLIMBER_HOOK_BUTTON_1					5
 #define CLIMBER_HOOK_BUTTON_2					9
 
-#define	CLIMBER_POKEY_UP						2
-#define	CLIMBER_POKEY_DOWN						2
+#define	CLIMBER_POKEY							5,6
 
-#define CLIMBER_BRAKE_ACTIVE					3
-#define CLIMBER_BRAKE_UNACTIVE					4
+#define CLIMBER_BRAKE							3,4
 
 #define CLIMBER_SLIDER_P						0	// TODO
 #define CLIMBER_SLIDER_I						0	// TODO
