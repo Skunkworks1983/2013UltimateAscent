@@ -108,7 +108,7 @@
 #define COLLECTOR_PITCH_MOTOR_CREATE(channel) 	(new Talon(channel))
 // Collector constant speed
 #define COLLECTOR_PITCH_MOTOR_SPEED_UP			.6 // TODO get value from design team
-#define COLLECTOR_PITCH_MOTOR_SPEED_DOWN		.4 // TODO get value from design team
+#define COLLECTOR_PITCH_MOTOR_SPEED_DOWN		-.4 // TODO get value from design team
 #define COLLECTOR_PITCH_MOTOR_B_TUNING			-1.0, -1.05
 #define COLLECTOR_MOTOR_SPEED					.5
 #define COLLECTOR_PITCH_POT						1  // TODO
