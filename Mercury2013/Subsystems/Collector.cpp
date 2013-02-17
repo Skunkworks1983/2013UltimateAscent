@@ -94,7 +94,7 @@ void Collector::PIDWrite(float val) {
 int Collector::getFrisbeeSensorCount() {
 	int count = 0;
 	for (int i = 0; i < COLLECTOR_FRISBEE_CHN_CNT; i++) {
-		count += (frisbeeSensors[i]->Get() & 1);
+		count += ((~frisbeeSensors[i]->Get()) & 1);
 	}
 	return count;
 }
