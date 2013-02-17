@@ -1,9 +1,11 @@
 #include "Shooter.h"
 #include <math.h>
 #include "../Utils/Time.h"
+#include "../Utils/SolenoidPair.h"
 
 Shooter::Shooter() :
-	Subsystem("Shooter") {
+		Subsystem("Shooter") {
+	printf("Creating Shooter...\t");
 	// TODO frontMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR_FRONT);
 	// TODO middleMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR_MIDDLE);
 	// TODO rearMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR_REAR);
@@ -14,9 +16,10 @@ Shooter::Shooter() :
 	// TODO pitchEncoder->SetDistancePerPulse(SHOOTER_PITCH_DEGREES_PER_PULSE);
 	// TODO pitchEncoder->Reset();
 
-	// TODO shootSolenoid = new DoubleSolenoid(SHOOTER_EXTENDED, SHOOTER_DEXTENDED);
+	// TODO shootSolenoid = new SolenoidPair(SHOOTER_EXTENDED, SHOOTER_DEXTENDED);
 
 	timeTillShootReady = 0;
+	printf("Done!\n");
 }
 
 Shooter::~Shooter() {
@@ -49,16 +52,14 @@ bool Shooter::isArmed() {
 }
 
 void Shooter::shoot(bool shooting) {
-	if (shootSolenoid->Get() != (shooting ? DoubleSolenoid::kForward
-			: DoubleSolenoid::kReverse) && (!shooting || readyToShoot())) {
-		shootSolenoid->Set(
-				shooting ? DoubleSolenoid::kForward : DoubleSolenoid::kReverse);
+	if (shootSolenoid->Get() != shooting && (!shooting || readyToShoot())) {
+		shootSolenoid->Set(shooting);
 		timeTillShootReady = getCurrentMillis() + SHOOTER_WAIT_TIME;
 	}
 }
 
 void Shooter::flush(bool flushing) {
-	if ((shootSolenoid->Get() == DoubleSolenoid::kReverse) && !isArmed()) {
+	if (!shootSolenoid->Get() && !isArmed()) {
 		if (flushing) {
 			rearMotor->Set(SHOOTER_MOTOR_FLUSH_SPEED);
 		} else {

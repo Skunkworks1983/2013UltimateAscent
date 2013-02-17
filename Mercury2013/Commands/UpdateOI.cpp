@@ -2,7 +2,7 @@
 #include "WPILib.h"
 
 UpdateOI::UpdateOI() :
-	CommandBase("UpdateOI") {
+		CommandBase("UpdateOI") {
 	// Depends on any subsystems with visible output, but doesn't need a lock.
 }
 
@@ -16,7 +16,12 @@ void UpdateOI::Initialize() {
 void UpdateOI::Execute() {
 	//oi->setLightState(OI::kLightClimberHook1, climber->getButton(0));
 	//oi->setLightState(OI::kLightClimberHook2, climber->getButton(1));
-	SmartDashboard::PutBoolean("Is low gear", driveBase->isLowGear());
+	SmartDashboard::PutBoolean("Is Low Gear", driveBase->isLowGear());
+	SmartDashboard::PutBoolean("Is Below Pressure",
+			pneumatics->isBelowPressure());
+	SmartDashboard::PutNumber("Collector Angle", collector->getRawAngle());
+	SmartDashboard::PutNumber("Collector Frisbee Trigger",
+			collector->getFrisbeeSensorCount());
 }
 
 bool UpdateOI::IsFinished() {

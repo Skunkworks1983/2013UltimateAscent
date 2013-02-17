@@ -2,7 +2,7 @@
 #define __SYS_CLIMBER_H
 #include "WPILib.h"
 #include "../Robotmap.h"
-#include "../Utils/DualPIDOutput.h"
+#include "../Utils/SolenoidPair.h"
 #include "../Utils/DualLiveSpeed.h"
 
 /**
@@ -36,12 +36,12 @@ private:
 	/**  
 	 * Solenoid to operate the two pokeys ticks
 	 */
-	DoubleSolenoid *pokey;
+	SolenoidPair *pokey;
 
 	/**
 	 * Solenoid to control slider brake
 	 */
-	DoubleSolenoid *sliderBrake;
+	SolenoidPair *sliderBrake;
 
 	/**
 	 * The pid controller for controlling the motors with a velocity.

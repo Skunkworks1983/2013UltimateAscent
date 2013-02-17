@@ -3,6 +3,7 @@
 
 #include "WPILib.h"
 #include "../Robotmap.h"
+#include "../Utils/SolenoidPair.h"
 
 /**
  * @brief Shooter subsystem
@@ -20,7 +21,7 @@ private:
 	SpeedController *pitchMotor;
 	Encoder *pitchEncoder;
 	
-	DoubleSolenoid *shootSolenoid;
+	SolenoidPair *shootSolenoid;
 	
 	double timeTillShootReady;
 public:

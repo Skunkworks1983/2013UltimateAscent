@@ -1,8 +1,58 @@
 #include "DualLiveSpeed.h"
+#include <math.h>
 
-DualLiveSpeed::DualLiveSpeed(SpeedController *aA, SpeedController *bB) {
+DualLiveSpeed::DualLiveSpeed(SpeedController *aA, SpeedController *bB,
+		float bScaling) {
 	this->a = aA;
 	this->b = bB;
+
+	if (fabs(bScaling) > 1.0) {
+		this->aScalingPos = fabs(1.0 / bScaling);
+		this->aScalingNeg = fabs(1.0 / bScaling);
+		if (bScaling < 0.0) {
+			this->bScalingPos = -1.0;
+			this->bScalingNeg = -1.0;
+		}
+	} else {
+		this->aScalingNeg = 1.0;
+		this->aScalingPos = 1.0;
+		this->bScalingPos = bScaling;
+		this->bScalingNeg = bScaling;
+	}
+
+	LiveWindow::GetInstance()->AddActuator("DualSpeedController", (int) aA,
+			(int) bB, this);
+}
+
+DualLiveSpeed::DualLiveSpeed(SpeedController *aA, SpeedController *bB,
+		float bScalingPos, float bScalingNeg) {
+	this->a = aA;
+	this->b = bB;
+
+	if (fabs(bScalingPos) > 1.0) {
+		this->aScalingPos = fabs(1.0 / bScalingPos);
+		if (bScalingPos < 0.0) {
+			this->bScalingPos = -1.0;
+		}
+	} else {
+	this->aScalingPos = 1.0;
+		this->bScalingPos = bScalingPos;
+	}
+
+	if (fabs(bScalingNeg) > 1.0) {
+		this->aScalingNeg = fabs(1.0 / bScalingNeg);
+		if (bScalingNeg < 0.0) {
+			this->bScalingNeg = -1.0;
+		}
+	} else {
+		this->aScalingNeg = 1.0;
+		this->bScalingNeg = bScalingNeg;
+	}
+
+	printf("Scaling:\t%f,%f\t%f,%f\n", aScalingPos, aScalingNeg,
+			this->bScalingPos, this->bScalingNeg);
+	LiveWindow::GetInstance()->AddActuator("DualSpeedController", (int) aA,
+			(int) bB, this);
 }
 
 DualLiveSpeed::~DualLiveSpeed() {
@@ -13,7 +63,7 @@ DualLiveSpeed::~DualLiveSpeed() {
 }
 void DualLiveSpeed::ValueChanged(ITable* source, const std::string& key,
 		EntryValue value, bool isNew) {
-	Set(value.f);
+	Set((float) value.f);
 }
 
 float DualLiveSpeed::Get() {
@@ -21,9 +71,16 @@ float DualLiveSpeed::Get() {
 }
 
 void DualLiveSpeed::Set(float f, UINT8 syncGroup) {
-	a->Set(f);
-	if (b != NULL) {
-		b->Set(f);
+	if (f > 0.0) {
+		a->Set(f * aScalingPos, syncGroup);
+		if (b != NULL) {
+			b->Set(f * bScalingPos, syncGroup);
+		}
+	} else {
+		a->Set(f * aScalingNeg, syncGroup);
+		if (b != NULL) {
+			b->Set(f * bScalingNeg, syncGroup);
+		}
 	}
 }
 
@@ -38,8 +95,8 @@ void DualLiveSpeed::StartLiveWindowMode() {
 }
 
 void DualLiveSpeed::StopLiveWindowMode() {
-	Set(0);
 	m_table->RemoveTableListener(this);
+	Set(0);
 }
 
 std::string DualLiveSpeed::GetSmartDashboardType() {
@@ -56,7 +113,10 @@ void DualLiveSpeed::PIDWrite(float f) {
 }
 
 void DualLiveSpeed::Disable() {
-	Set(0);
+	a->Disable();
+	if (b != NULL) {
+		b->Disable();
+	}
 }
 
 ITable * DualLiveSpeed::GetTable() {

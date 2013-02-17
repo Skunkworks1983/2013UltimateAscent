@@ -3,6 +3,7 @@
 
 DriveBase::DriveBase() :
 		Subsystem("DriveBase") {
+	printf("Creating drive base...\t");
 #ifdef DRIVE_MOTOR_LEFT_2		// Same thing ad infinitum
 	motorLeft = new DualLiveSpeed(DRIVE_MOTOR_CREATE(DRIVE_MOTOR_LEFT),
 			DRIVE_MOTOR_CREATE(DRIVE_MOTOR_LEFT_2));
@@ -23,7 +24,7 @@ DriveBase::DriveBase() :
 	LiveWindow::GetInstance()->AddActuator("DriveBase", "Right Motor",
 			motorRight);
 
-	shiftSolenoid = new DoubleSolenoid(DRIVE_SHIFT_LOW, DRIVE_SHIFT_HIGH);
+	shiftSolenoid = new SolenoidPair(DRIVE_SHIFT);
 	LiveWindow::GetInstance()->AddActuator("DriveBase", "Shifter",
 			shiftSolenoid);
 
@@ -50,6 +51,7 @@ DriveBase::DriveBase() :
 	gyro = new Gyro(DRIVE_GYRO);
 	LiveWindow::GetInstance()->AddSensor("DriveBase", "Gyro", gyro);
 #endif
+	printf("Done\n");
 }
 
 DriveBase::~DriveBase() {
@@ -92,8 +94,7 @@ void DriveBase::InitDefaultCommand() {
 }
 
 void DriveBase::shift(bool lowGear) {
-	shiftSolenoid->Set(
-			lowGear ? DoubleSolenoid::kForward : DoubleSolenoid::kReverse);
+	shiftSolenoid->Set(lowGear);
 }
 
 void DriveBase::reset() {
@@ -109,5 +110,5 @@ void DriveBase::reset() {
 }
 
 bool DriveBase::isLowGear() {
-	return (shiftSolenoid->Get() == DoubleSolenoid::kForward);
+	return shiftSolenoid->Get();
 }

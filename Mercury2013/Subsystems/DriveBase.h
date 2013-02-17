@@ -3,6 +3,7 @@
 
 #include "WPILib.h"
 #include "../Robotmap.h"
+#include "../Utils/SolenoidPair.h"
 #include "../Utils/DualLiveSpeed.h"
 
 /**
@@ -21,7 +22,7 @@ private:
 	Encoder *rightEncoder;
 	Gyro *gyro;
 
-	DoubleSolenoid *shiftSolenoid;
+	SolenoidPair *shiftSolenoid;
 public:
 	/**
 	 * Creates the drive base motors, encoders, and any other components.
