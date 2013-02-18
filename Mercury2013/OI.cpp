@@ -7,6 +7,7 @@
 #include "Commands/Shooter/FlushShooter.h"
 #include "Commands/Drivebase/Shift.h"
 #include "Commands/Collector/ChangePosition.h"
+#include "Commands/Collector/Collect.h"
 
 OI::OI() {
 	driveJoystickLeft = new Joystick(OI_JOYSTICK_LEFT);
@@ -16,22 +17,23 @@ OI::OI() {
 	driverStationLCD = DriverStationLCD::GetInstance();
 	driverStationEIO = &(driverStation->GetEnhancedIO());
 
-	shiftScheduler = new ReleasedButtonScheduler(false,
-			new JoystickButton(driveJoystickLeft, 1),
-			new Shift(Shift::kToggle));
-	/*shootScheduler = new ReleasedButtonScheduler(false, new DigitalIOButton(11),
-			new Shoot());
-	spinupScheduler = new ReleasedButtonScheduler(false, new DigitalIOButton(3),
-			new ArmShooter(ArmShooter::kToggle));
+	shiftScheduler
+			= new ReleasedButtonScheduler(false,
+					new JoystickButton(driveJoystickLeft, 1),
+					new Shift(Shift::kToggle));
+	shootScheduler = new ReleasedButtonScheduler(false,
+			new DigitalIOButton(11), new Shoot());
+	spinupScheduler = new ReleasedButtonScheduler(false,
+			new DigitalIOButton(3), new ArmShooter(ArmShooter::kToggle));
 	flushScheduler = new ReleasedButtonScheduler(false, new DigitalIOButton(1),
-			new FlushShooter());*/
+			new FlushShooter());
 
-	armUpScheduler = new ReleasedButtonScheduler(false,
-			new JoystickButton(driveJoystickLeft, 6),
+	armUpScheduler = new ReleasedButtonScheduler(false, new DigitalIOButton(4),
 			new ChangePosition(ChangePosition::kUp));
 	armDownScheduler = new ReleasedButtonScheduler(false,
-			new JoystickButton(driveJoystickLeft, 7),
-			new ChangePosition(ChangePosition::kDown));
+			new DigitalIOButton(8), new ChangePosition(ChangePosition::kDown));
+	collectScheduler = new ReleasedButtonScheduler(false,
+			new JoystickButton(driveJoystickRight, 1), new Collect());
 }
 
 Joystick *OI::getDriveJoystickLeft() {
@@ -44,9 +46,9 @@ Joystick *OI::getDriveJoystickRight() {
 
 void OI::registerButtonSchedulers() {
 	shiftScheduler->Start();
-	//shootScheduler->Start();
-	//spinupScheduler->Start();
-	//flushScheduler->Start();
+	shootScheduler->Start();
+	spinupScheduler->Start();
+	flushScheduler->Start();
 	armUpScheduler->Start();
 	armDownScheduler->Start();
 }

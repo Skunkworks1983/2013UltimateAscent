@@ -33,6 +33,7 @@ private:
 	
 	ButtonScheduler *armUpScheduler;
 	ButtonScheduler *armDownScheduler;
+	ButtonScheduler *collectScheduler;
 
 public:
 	OI();

@@ -32,5 +32,5 @@ void ChangePitch::End() {
 }
 
 void ChangePitch::Interrupted() {
-
+	shooter->setPitchMotorSpeed(0);
 }
