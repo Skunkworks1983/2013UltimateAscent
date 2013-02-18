@@ -1,5 +1,4 @@
 #include "Collector.h"
-#include "../Robotmap.h"
 #include <math.h>
 
 Collector::Collector() :

@@ -3,6 +3,7 @@
 
 #include "WPILib.h"
 #include "../Utils/DualLiveSpeed.h"
+#include "../RobotMap.h"
 
 /**
  * @brief Collector subsystem, provides functions to get and set speed for the 
@@ -22,7 +23,7 @@ public:
 private:
 	AnalogChannel *pitchPot;
 	DualLiveSpeed *collectorPitchMotor;
-	Talon *collectorMotor;
+	COLLECTOR_MOTOR_TYPE *collectorMotor;
 
 	PIDController *pitchPID;
 

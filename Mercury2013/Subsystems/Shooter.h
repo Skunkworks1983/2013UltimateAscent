@@ -14,11 +14,11 @@
  */
 class Shooter: public Subsystem {
 private:
-	Talon *frontMotor;
-	Talon *middleMotor;
-	Talon *rearMotor;
+	SHOOTER_MOTOR_TYPE *frontMotor;
+	SHOOTER_MOTOR_TYPE *middleMotor;
+	SHOOTER_MOTOR_TYPE *rearMotor;
 	
-	Talon *pitchMotor;
+	SHOOTER_PITCH_MOTOR_TYPE *pitchMotor;
 	Encoder *pitchEncoder;
 	DigitalInput *pitchLimitSwitch;
 	
