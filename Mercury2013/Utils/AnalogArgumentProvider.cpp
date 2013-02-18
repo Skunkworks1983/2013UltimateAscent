@@ -4,20 +4,17 @@
 /* must be accompanied by the FIRST BSD license file in $(WIND_BASE)/WPILib.  */
 /*----------------------------------------------------------------------------*/
 
-#ifndef __ANALOGRANGE_IO_BUTTON_H__
-#define __ANALOGRANGE_IO_BUTTON_H__
+#include "AnalogArgumentProvider.h"
+#include "DriverStation.h"
 
-#include "Buttons/Button.h"
+AnalogArgumentProvider::AnalogArgumentProvider(int port) {
+	this->port = port;
+}
 
-class AnalogRangeIOButton: public Button {
-private:
-	double lowThreshold, highThreshold;
-	int port;
-public:
-	AnalogRangeIOButton(int port, double lowThreshold, double highThreshold);
-	virtual ~AnalogRangeIOButton();
-	virtual bool Get();
-};
+AnalogArgumentProvider::~AnalogArgumentProvider() {
+}
 
-#endif
-
+void* AnalogArgumentProvider::getArgument() {
+	volts = DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(port);
+	return &volts;
+}

@@ -10,7 +10,7 @@
  * 
  * The subsystem that controls the shooter.
  * Contains the main motor for shooting as well as a pitch motor for pitching up and down.
- * @author Mark Old
+ * @author Mark Old, Westin Miller
  */
 class Shooter: public Subsystem {
 private:
@@ -38,6 +38,7 @@ public:
 
 	float getCurrentPitch();
 	void setPitchMotorSpeed(float f);
+	bool isPitchGrounded();
 	
 	virtual void InitDefaultCommand();
 };
