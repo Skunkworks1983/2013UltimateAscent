@@ -54,7 +54,8 @@
 #define DRIVE_MOTOR_RIGHT						3
 #define DRIVE_MOTOR_RIGHT_2						4
 // Class name of the drive motor controller
-#define DRIVE_MOTOR_CREATE(channel)				(new CANJaguar(channel))
+#define DRIVE_MOTOR_TYPE						CANJaguar
+#define DRIVE_MOTOR_CREATE(channel)				(new DRIVE_MOTOR_TYPE(channel))
 
 #define DRIVE_SHIFT								1,2
 
@@ -85,8 +86,10 @@
 #define SHOOTER_WAIT_TIME						1000 // TODO
 #define SHOOTER_FLUSH_TIME						100 // TODO
 // Class name of the shooter and shooter pitch motor controllers
-#define SHOOTER_MOTOR_CREATE(channel) 			(new Talon(channel))
-#define SHOOTER_PITCH_MOTOR_CREATE(channel) 	(new Talon(channel))
+#define SHOOTER_MOTOR_TYPE						Talon
+#define SHOOTER_PITCH_MOTOR_TYPE				Talon
+#define SHOOTER_MOTOR_CREATE(channel) 			(new SHOOTER_MOTOR_TYPE(channel))
+#define SHOOTER_PITCH_MOTOR_CREATE(channel) 	(new SHOOTER_PITCH_MOTOR_TYPE(channel))
 // Shooter solenoid ports
 #define SHOOTER_PNEUMATIC						7,8 // TODO
 // Shooter speed and pitch sensors
@@ -108,8 +111,10 @@
 #define COLLECTOR_PITCH_MOTOR_A					2 // TODO
 #define COLLECTOR_PITCH_MOTOR_B					1 // TODO
 // Class name of the shooter and collector pitch motor controllers
-#define COLLECTOR_MOTOR_CREATE(channel) 		(new Talon(channel))
-#define COLLECTOR_PITCH_MOTOR_CREATE(channel) 	(new Talon(channel))
+#define COLLECTOR_MOTOR_TYPE					Talon
+#define COLLECTOR_PITCH_MOTOR_TYPE				Talon
+#define COLLECTOR_MOTOR_CREATE(channel) 		(new COLLECTOR_MOTOR_TYPE(channel))
+#define COLLECTOR_PITCH_MOTOR_CREATE(channel) 	(new COLLECTOR_PITCH_MOTOR_TYPE(channel))
 // Collector constant speed
 #define COLLECTOR_PITCH_MOTOR_SPEED_UP			.6 // TODO get value from design team
 #define COLLECTOR_PITCH_MOTOR_SPEED_DOWN		-.4 // TODO get value from design team
@@ -147,7 +152,8 @@
 #define CLIMBER_SLIDER_MOTOR_2					5
 #define CLIMBER_SLIDER_ENCODER					8,9
 
-#define CLIMBER_SLIDER_MOTOR_CREATE(channel) 	(new Talon(channel))
+#define CLIMBER_SLIDER_MOTOR_TYPE				Talon
+#define CLIMBER_SLIDER_MOTOR_CREATE(channel) 	(new CLIMBER_SLIDER_MOTOR_TYPE(channel))
 
 #define CLIMBER_HOOK_BUTTON_1					5
 #define CLIMBER_HOOK_BUTTON_2					9
