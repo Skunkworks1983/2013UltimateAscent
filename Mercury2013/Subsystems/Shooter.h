@@ -14,12 +14,13 @@
  */
 class Shooter: public Subsystem {
 private:
-	SpeedController *frontMotor;
-	SpeedController *middleMotor;
-	SpeedController *rearMotor;
+	Talon *frontMotor;
+	Talon *middleMotor;
+	Talon *rearMotor;
 	
-	SpeedController *pitchMotor;
+	Talon *pitchMotor;
 	Encoder *pitchEncoder;
+	DigitalInput *pitchLimitSwitch;
 	
 	SolenoidPair *shootSolenoid;
 	
@@ -34,10 +35,10 @@ public:
 	void flush(bool flushing);
 	
 	bool readyToShoot();
-	
-	void setPitchMotorSpeed(float speed);
-	float getCurrentPitch();
 
+	float getCurrentPitch();
+	void setPitchMotorSpeed(float f);
+	
 	virtual void InitDefaultCommand();
 };
 

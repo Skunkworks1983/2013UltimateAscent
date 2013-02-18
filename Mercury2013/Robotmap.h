@@ -70,14 +70,14 @@
  * --SHOOTER--
  */
 // Shooter motor channels
-#define SHOOTER_MOTOR_FRONT						1,5 // TODO
-#define SHOOTER_MOTOR_MIDLLE					1,6 // TODO
+#define SHOOTER_MOTOR_FRONT						1,9 // TODO
+#define SHOOTER_MOTOR_MIDDLE					1,8 // TODO
 #define SHOOTER_MOTOR_REAR						1,7 // TODO
-#define SHOOTER_PITCH_MOTOR						1,8 // TODO
+#define SHOOTER_PITCH_MOTOR						1,6 // TODO
 // Shooter motor speeds
-#define SHOOTER_MOTOR_FRONT_SPEED				0.5 // TODO
-#define SHOOTER_MOTOR_MIDDLE_SPEED				0.5 // TODO
-#define SHOOTER_MOTOR_REAR_SPEED				1.0 // TODO
+#define SHOOTER_MOTOR_FRONT_SPEED				-0.5 // TODO
+#define SHOOTER_MOTOR_MIDDLE_SPEED				-0.5 // TODO
+#define SHOOTER_MOTOR_REAR_SPEED				-1.0 // TODO
 #define SHOOTER_MOTOR_FLUSH_SPEED				-0.75 // TODO
 // Various times (millis)
 #define SHOOTER_ARM_TIME						1000 // TODO
@@ -85,13 +85,14 @@
 #define SHOOTER_WAIT_TIME						1000 // TODO
 #define SHOOTER_FLUSH_TIME						100 // TODO
 // Class name of the shooter and shooter pitch motor controllers
-#define SHOOTER_MOTOR_CREATE(channel) 			(new Jaguar(channel))
-#define SHOOTER_PITCH_MOTOR_CREATE(channel) 	(new Jaguar(channel))
+#define SHOOTER_MOTOR_CREATE(channel) 			(new Talon(channel))
+#define SHOOTER_PITCH_MOTOR_CREATE(channel) 	(new Talon(channel))
 // Shooter solenoid ports
 #define SHOOTER_PNEUMATIC						7,8 // TODO
 // Shooter speed and pitch sensors
-#define SHOOTER_PITCH_ENCODER					1,1 // TODO
-#define SHOOTER_PITCH_DEGREES_PER_PULSE			0 // TODO
+#define SHOOTER_PITCH_ENCODER					12,13 // TODO
+#define SHOOTER_PITCH_LIMIT_SWITCH				11
+#define SHOOTER_PITCH_DEGREES_PER_PULSE			1 // TODO
 // Shooter pitch control info
 #define SHOOTER_PITCH_THRESHOLD					5
 #define SHOOTER_PITCH_STABILITY					25
@@ -109,8 +110,8 @@
 // Collector constant speed
 #define COLLECTOR_PITCH_MOTOR_SPEED_UP			.6 // TODO get value from design team
 #define COLLECTOR_PITCH_MOTOR_SPEED_DOWN		-.4 // TODO get value from design team
-#define COLLECTOR_PITCH_MOTOR_B_TUNING			-1.0, -1.05
-#define COLLECTOR_MOTOR_SPEED					.5
+#define COLLECTOR_PITCH_MOTOR_B_TUNING			-1.0, -1.10 // TODO Tune This
+#define COLLECTOR_MOTOR_SPEED					-0.5
 #define COLLECTOR_PITCH_POT						1  // TODO
 #define COLLECTOR_PITCH_CONVERT(value)			(161-((value + 5) * 312 / 971)) //TODO Convert it.
 #define COLLECTOR_PITCH_P						0.1

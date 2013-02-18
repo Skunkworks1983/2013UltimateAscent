@@ -4,22 +4,42 @@
 #include "../Utils/SolenoidPair.h"
 
 Shooter::Shooter() :
-		Subsystem("Shooter") {
+	Subsystem("Shooter") {
 	printf("Creating Shooter...\t");
-	// TODO frontMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR_FRONT);
-	// TODO middleMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR_MIDDLE);
-	// TODO rearMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR_REAR);
+	frontMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR_FRONT);
+	middleMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR_MIDDLE);
+	rearMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR_REAR);
 
-	// TODO pitchMotor = SHOOTER_PITCH_MOTOR_CREATE(SHOOTER_PITCH_MOTOR);
+	pitchMotor = SHOOTER_PITCH_MOTOR_CREATE(SHOOTER_PITCH_MOTOR);
 
-	// TODO pitchEncoder = new Encoder(SHOOTER_PITCH_ENCODER, false, Encoder::k4x);
-	// TODO pitchEncoder->SetDistancePerPulse(SHOOTER_PITCH_DEGREES_PER_PULSE);
-	// TODO pitchEncoder->Reset();
+	pitchEncoder = new Encoder(SHOOTER_PITCH_ENCODER, false, Encoder::k4X);
+	pitchEncoder->SetDistancePerPulse(SHOOTER_PITCH_DEGREES_PER_PULSE);
+	pitchEncoder->Reset();
+	pitchEncoder->Start();
 
-	// TODO shootSolenoid = new SolenoidPair(SHOOTER_EXTENDED, SHOOTER_DEXTENDED);
+	pitchLimitSwitch = new DigitalInput(SHOOTER_PITCH_LIMIT_SWITCH);
+
+	shootSolenoid = new SolenoidPair(SHOOTER_PNEUMATIC);
 
 	timeTillShootReady = 0;
+
+	LiveWindow::GetInstance()->AddSensor("Shooter", "Pitch Encoder",
+			pitchEncoder);
+	LiveWindow::GetInstance()->AddSensor("Shooter", "Pitch Limit Switch",
+			pitchLimitSwitch);
+	LiveWindow::GetInstance()->AddActuator("Shooter", "Shoot Solenoid",
+			pitchEncoder);
+	LiveWindow::GetInstance()->AddActuator("Shooter", "Pitch Motor",
+			pitchMotor);
 	printf("Done!\n");
+	
+
+	Preferences::GetInstance()->PutFloat(
+					"SHOOTER_MOTOR_FRONT_SPEED",SHOOTER_MOTOR_FRONT_SPEED);
+	Preferences::GetInstance()->PutFloat(
+					"SHOOTER_MOTOR_MIDDLE_SPEED",SHOOTER_MOTOR_MIDDLE_SPEED);
+	Preferences::GetInstance()->PutFloat(
+					"SHOOTER_MOTOR_REAR_SPEED",SHOOTER_MOTOR_REAR_SPEED);
 }
 
 Shooter::~Shooter() {
@@ -27,6 +47,7 @@ Shooter::~Shooter() {
 	delete middleMotor;
 	delete rearMotor;
 
+	delete pitchLimitSwitch;
 	delete pitchMotor;
 	delete pitchEncoder;
 
@@ -35,9 +56,18 @@ Shooter::~Shooter() {
 
 void Shooter::setArmed(bool armed) {
 	if (armed) {
-		frontMotor->Set(SHOOTER_MOTOR_FRONT_SPEED);
-		middleMotor->Set(SHOOTER_MOTOR_MIDDLE_SPEED);
-		rearMotor->Set(SHOOTER_MOTOR_REAR_SPEED);
+		frontMotor->Set(
+				Preferences::GetInstance()->GetFloat(
+						"SHOOTER_MOTOR_FRONT_SPEED"));
+		//SHOOTER_MOTOR_FRONT_SPEED);
+		middleMotor->Set(
+				Preferences::GetInstance()->GetFloat(
+						"SHOOTER_MOTOR_MIDDLE_SPEED"));
+		//SHOOTER_MOTOR_MIDDLE_SPEED);
+		rearMotor->Set(
+				Preferences::GetInstance()->GetFloat(
+						"SHOOTER_MOTOR_REAR_SPEED"));
+		//SHOOTER_MOTOR_REAR_SPEED);
 		timeTillShootReady = getCurrentMillis() + SHOOTER_ARM_TIME;
 	} else {
 		frontMotor->Set(0);
@@ -47,8 +77,8 @@ void Shooter::setArmed(bool armed) {
 }
 
 bool Shooter::isArmed() {
-	return ((frontMotor->Get() > 0) && (middleMotor->Get() > 0)
-			&& (rearMotor->Get() > 0));
+	return fabs(frontMotor->Get()) > 0 || fabs(middleMotor->Get()) > 0
+			|| fabs(rearMotor->Get()) > 0;
 }
 
 void Shooter::shoot(bool shooting) {
