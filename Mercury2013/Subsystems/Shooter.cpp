@@ -1,5 +1,6 @@
 #include "Shooter.h"
 #include <math.h>
+#include "../Utils/Math.h"
 #include "../Utils/Time.h"
 #include "../Utils/SolenoidPair.h"
 
@@ -32,14 +33,13 @@ Shooter::Shooter() :
 	LiveWindow::GetInstance()->AddActuator("Shooter", "Pitch Motor",
 			pitchMotor);
 	printf("Done!\n");
-	
 
 	Preferences::GetInstance()->PutFloat(
-					"SHOOTER_MOTOR_FRONT_SPEED",SHOOTER_MOTOR_FRONT_SPEED);
+			"SHOOTER_MOTOR_FRONT_SPEED",SHOOTER_MOTOR_FRONT_SPEED);
 	Preferences::GetInstance()->PutFloat(
-					"SHOOTER_MOTOR_MIDDLE_SPEED",SHOOTER_MOTOR_MIDDLE_SPEED);
+			"SHOOTER_MOTOR_MIDDLE_SPEED",SHOOTER_MOTOR_MIDDLE_SPEED);
 	Preferences::GetInstance()->PutFloat(
-					"SHOOTER_MOTOR_REAR_SPEED",SHOOTER_MOTOR_REAR_SPEED);
+			"SHOOTER_MOTOR_REAR_SPEED",SHOOTER_MOTOR_REAR_SPEED);
 }
 
 Shooter::~Shooter() {
@@ -65,8 +65,7 @@ void Shooter::setArmed(bool armed) {
 						"SHOOTER_MOTOR_MIDDLE_SPEED"));
 		//SHOOTER_MOTOR_MIDDLE_SPEED);
 		rearMotor->Set(
-				Preferences::GetInstance()->GetFloat(
-						"SHOOTER_MOTOR_REAR_SPEED"));
+				Preferences::GetInstance()->GetFloat("SHOOTER_MOTOR_REAR_SPEED"));
 		//SHOOTER_MOTOR_REAR_SPEED);
 		timeTillShootReady = getCurrentMillis() + SHOOTER_ARM_TIME;
 	} else {
@@ -77,8 +76,8 @@ void Shooter::setArmed(bool armed) {
 }
 
 bool Shooter::isArmed() {
-	return fabs(frontMotor->Get()) > 0 || fabs(middleMotor->Get()) > 0
-			|| fabs(rearMotor->Get()) > 0;
+	return fabs(frontMotor->Get()) > 0 || fabs(middleMotor->Get()) > 0 || fabs(
+			rearMotor->Get()) > 0;
 }
 
 void Shooter::shoot(bool shooting) {
@@ -102,8 +101,20 @@ bool Shooter::readyToShoot() {
 	return getCurrentMillis() > timeTillShootReady;
 }
 
-void Shooter::setPitchMotorSpeed(float speed) {
-	pitchMotor->Set(speed);
+void Shooter::setPitchMotorSpeed(float direction) {
+	float speed = fsign(direction);
+	if (pitchEncoder->GetDistance() < SHOOTER_PITCH_SLOWDOWN_RANGE && speed
+			< 0.0) {
+		speed *= SHOOTER_PITCH_SLOWDOWN_SPEED;
+	} else {
+		speed *= SHOOTER_PITCH_SPEED;
+	}
+	if (speed < 0.0 && isPitchGrounded()) {
+		pitchMotor->Set(0);
+		pitchEncoder->Reset();
+	} else {
+		pitchMotor->Set(-speed);
+	}
 }
 
 float Shooter::getCurrentPitch() {
@@ -111,7 +122,10 @@ float Shooter::getCurrentPitch() {
 	return pitchEncoder->GetDistance();
 }
 
-void Shooter::InitDefaultCommand() {
+bool Shooter::isPitchGrounded() {
+	return pitchLimitSwitch->Get() & 1;
+}
 
+void Shooter::InitDefaultCommand() {
 }
 

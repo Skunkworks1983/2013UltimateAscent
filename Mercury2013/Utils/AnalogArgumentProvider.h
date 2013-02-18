@@ -4,19 +4,19 @@
 /* must be accompanied by the FIRST BSD license file in $(WIND_BASE)/WPILib.  */
 /*----------------------------------------------------------------------------*/
 
-#ifndef __ANALOGRANGE_IO_BUTTON_H__
-#define __ANALOGRANGE_IO_BUTTON_H__
+#ifndef __ANALOGARGUMENT_PROVIDER_H__
+#define __ANALOGARGUMENT_PROVIDER_H__
 
-#include "Buttons/Button.h"
+#include "ArgumentProvider.h"
 
-class AnalogRangeIOButton: public Button {
+class AnalogArgumentProvider: public ArgumentProvider {
 private:
-	double lowThreshold, highThreshold;
 	int port;
+	double volts;
 public:
-	AnalogRangeIOButton(int port, double lowThreshold, double highThreshold);
-	virtual ~AnalogRangeIOButton();
-	virtual bool Get();
+	AnalogArgumentProvider(int port);
+	virtual ~AnalogArgumentProvider();
+	virtual void* getArgument();
 };
 
 #endif

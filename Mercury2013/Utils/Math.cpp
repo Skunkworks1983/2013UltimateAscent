@@ -16,12 +16,12 @@ float fsign(float a) {
 	return a > 0 ? 1.0 : -1.0;
 }
 
-int min(int a, int b) {
+int imin(int a, int b) {
 	return a < b ? a : b;
 }
 float fmax(float a, float b) {
 	return a > b ? a : b;
 }
-int max(int a, int b) {
+int imax(int a, int b) {
 	return a > b ? a : b;
 }

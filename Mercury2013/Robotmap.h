@@ -90,6 +90,9 @@
 // Shooter solenoid ports
 #define SHOOTER_PNEUMATIC						7,8 // TODO
 // Shooter speed and pitch sensors
+#define SHOOTER_PITCH_SPEED						0.5
+#define SHOOTER_PITCH_SLOWDOWN_RANGE			50
+#define SHOOTER_PITCH_SLOWDOWN_SPEED			0.5
 #define SHOOTER_PITCH_ENCODER					12,13 // TODO
 #define SHOOTER_PITCH_LIMIT_SWITCH				11
 #define SHOOTER_PITCH_DEGREES_PER_PULSE			1 // TODO

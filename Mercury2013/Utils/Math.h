@@ -27,14 +27,14 @@ float fsign(float a);
  * @param b
  * @return the minimum
  */
-int min(int a, int b);
+int imin(int a, int b);
 /**
  * Returns the maximum of two numbers
  * @param a
  * @param b
  * @return the maximum
  */
-int max(int a, int b);
+int imax(int a, int b);
 /**
  * Returns the maximum of two floating point numbers
  * @param a
