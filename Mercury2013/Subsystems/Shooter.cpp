@@ -29,17 +29,10 @@ Shooter::Shooter() :
 	LiveWindow::GetInstance()->AddSensor("Shooter", "Pitch Limit Switch",
 			pitchLimitSwitch);
 	LiveWindow::GetInstance()->AddActuator("Shooter", "Shoot Solenoid",
-			pitchEncoder);
+			shootSolenoid);
 	LiveWindow::GetInstance()->AddActuator("Shooter", "Pitch Motor",
 			pitchMotor);
 
-	Preferences::GetInstance()->PutFloat(
-			"SHOOTER_MOTOR_FRONT_SPEED",SHOOTER_MOTOR_FRONT_SPEED);
-	Preferences::GetInstance()->PutFloat(
-			"SHOOTER_MOTOR_MIDDLE_SPEED",SHOOTER_MOTOR_MIDDLE_SPEED);
-	Preferences::GetInstance()->PutFloat(
-			"SHOOTER_MOTOR_REAR_SPEED",SHOOTER_MOTOR_REAR_SPEED);
-	
 	tunedEncoder = false;
 	printf("Done!\n");
 }
@@ -58,17 +51,9 @@ Shooter::~Shooter() {
 
 void Shooter::setArmed(bool armed) {
 	if (armed) {
-		frontMotor->Set(
-				Preferences::GetInstance()->GetFloat(
-						"SHOOTER_MOTOR_FRONT_SPEED"));
-		//SHOOTER_MOTOR_FRONT_SPEED);
-		middleMotor->Set(
-				Preferences::GetInstance()->GetFloat(
-						"SHOOTER_MOTOR_MIDDLE_SPEED"));
-		//SHOOTER_MOTOR_MIDDLE_SPEED);
-		rearMotor->Set(
-				Preferences::GetInstance()->GetFloat("SHOOTER_MOTOR_REAR_SPEED"));
-		//SHOOTER_MOTOR_REAR_SPEED);
+		frontMotor->Set(SHOOTER_MOTOR_FRONT_SPEED);
+		middleMotor->Set(SHOOTER_MOTOR_MIDDLE_SPEED);
+		rearMotor->Set(SHOOTER_MOTOR_REAR_SPEED);
 		timeTillShootReady = getCurrentMillis() + SHOOTER_ARM_TIME;
 	} else {
 		frontMotor->Set(0);
@@ -86,6 +71,15 @@ void Shooter::shoot(bool shooting) {
 	if (shootSolenoid->Get() != shooting && (!shooting || readyToShoot())) {
 		shootSolenoid->Set(shooting);
 		timeTillShootReady = getCurrentMillis() + SHOOTER_WAIT_TIME;
+		if (shooting) {
+			frontMotor->Set(SHOOTER_MOTOR_FRONT_BANG_SPEED);
+			middleMotor->Set(SHOOTER_MOTOR_MIDDLE_BANG_SPEED);
+			rearMotor->Set(SHOOTER_MOTOR_REAR_BANG_SPEED);
+		} else {
+			frontMotor->Set(SHOOTER_MOTOR_FRONT_SPEED);
+			middleMotor->Set(SHOOTER_MOTOR_MIDDLE_SPEED);
+			rearMotor->Set(SHOOTER_MOTOR_REAR_SPEED);
+		}
 	}
 }
 
