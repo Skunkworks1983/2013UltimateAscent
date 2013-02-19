@@ -5,21 +5,21 @@ DriveBase::DriveBase() :
 		Subsystem("DriveBase") {
 	printf("Creating drive base...\t");
 #ifdef DRIVE_MOTOR_LEFT_2		// Same thing ad infinitum
-	motorLeft = new DualLiveSpeed(DRIVE_MOTOR_CREATE(DRIVE_MOTOR_LEFT),
-			DRIVE_MOTOR_CREATE(DRIVE_MOTOR_LEFT_2));
+	motorLeft = new DualLiveSpeed(new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_LEFT),
+			new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_LEFT_2));
 #else
 	motorLeft = new DualLiveSpeed(
-			motorLeft = DRIVE_MOTOR_CREATE(DRIVE_MOTOR_LEFT),NULL);
+			motorLeft = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_LEFT),NULL);
 #endif
 	LiveWindow::GetInstance()->AddActuator("DriveBase", "Left Motor",
 			motorLeft);
 
 #ifdef DRIVE_MOTOR_RIGHT_2		// Same thing ad infinitum
-	motorRight = new DualLiveSpeed(DRIVE_MOTOR_CREATE(DRIVE_MOTOR_RIGHT),
-			DRIVE_MOTOR_CREATE(DRIVE_MOTOR_RIGHT_2));
+	motorRight = new DualLiveSpeed(new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_RIGHT),
+			new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_RIGHT_2));
 #else
 	motorRight = new DualLiveSpeed(
-			motorRight = DRIVE_MOTOR_CREATE(DRIVE_MOTOR_RIGHT),NULL);
+			motorRight = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_RIGHT),NULL);
 #endif
 	LiveWindow::GetInstance()->AddActuator("DriveBase", "Right Motor",
 			motorRight);

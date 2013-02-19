@@ -7,11 +7,11 @@
 Shooter::Shooter() :
 	Subsystem("Shooter") {
 	printf("Creating Shooter...\t");
-	frontMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR_FRONT);
-	middleMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR_MIDDLE);
-	rearMotor = SHOOTER_MOTOR_CREATE(SHOOTER_MOTOR_REAR);
+	frontMotor = new SHOOTER_MOTOR_TYPE(SHOOTER_MOTOR_FRONT);
+	middleMotor = new SHOOTER_MOTOR_TYPE(SHOOTER_MOTOR_MIDDLE);
+	rearMotor = new SHOOTER_MOTOR_TYPE(SHOOTER_MOTOR_REAR);
 
-	pitchMotor = SHOOTER_PITCH_MOTOR_CREATE(SHOOTER_PITCH_MOTOR);
+	pitchMotor = new SHOOTER_PITCH_MOTOR_TYPE(SHOOTER_PITCH_MOTOR);
 
 	pitchEncoder = new Encoder(SHOOTER_PITCH_ENCODER, false, Encoder::k4X);
 	pitchEncoder->SetDistancePerPulse(SHOOTER_PITCH_DEGREES_PER_PULSE);
