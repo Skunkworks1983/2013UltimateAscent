@@ -86,6 +86,7 @@ void OI::setLightState(DriverStationLight light, bool state) {
 }
 
 Command* OI::createChangePitchFromOI() {
+	double val = DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(OI_SHOOTER_ANGLE_PROVIDER_CHANNEL);
 	return new ChangePitch(
-			OI_SHOOTER_ANGLE_CONVERT(DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(OI_SHOOTER_ANGLE_PROVIDER_CHANNEL)));
+			OI_SHOOTER_ANGLE_CONVERT(val));
 }
