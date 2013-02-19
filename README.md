@@ -5,3 +5,5 @@ Skunkworks: http://skunkworks1983.com
 FIRST (For Inspiration and Recognition of Science and Technology): http://www.usfirst.org
 
 Aviation High School: http://www.aviationhs.org
+
+![yay](http://octodex.github.com/images/FIRSTocat.png "yay")
