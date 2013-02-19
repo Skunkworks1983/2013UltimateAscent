@@ -4,8 +4,8 @@
 ChangePitch::ChangePitch(float targetPitch) :
 	CommandBase("ChangePitch") {
 	Requires(shooter);
-	pitchStability = 0;
 	this->targetPitch = targetPitch;
+	this->outOfBounds = false;
 }
 
 void ChangePitch::Initialize() {
@@ -13,18 +13,19 @@ void ChangePitch::Initialize() {
 }
 
 void ChangePitch::Execute() {
-	float pitchOffset = targetPitch - shooter->getCurrentPitch();
+	targetPitch
+			= OI_SHOOTER_ANGLE_CONVERT(DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(OI_SHOOTER_ANGLE_PROVIDER_CHANNEL));
+	float pitchOffset = shooter->getCurrentPitch() - targetPitch;
 	if (fabs(pitchOffset) < SHOOTER_PITCH_THRESHOLD) {
 		shooter->setPitchMotorSpeed(0);
-		pitchStability++;
+		outOfBounds = true;
 	} else {
-		shooter->setPitchMotorSpeed(pitchOffset < 0 ? 1 : -1);
-		pitchStability = 0;
+		outOfBounds = !shooter->setPitchMotorSpeed(pitchOffset < 0 ? 1 : -1);
 	}
 }
 
 bool ChangePitch::IsFinished() {
-	return pitchStability >= SHOOTER_PITCH_STABILITY;
+	return false;//outOfBounds;
 }
 
 void ChangePitch::End() {

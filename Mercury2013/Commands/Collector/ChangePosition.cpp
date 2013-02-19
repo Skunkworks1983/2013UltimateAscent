@@ -1,6 +1,6 @@
 #include "ChangePosition.h"
 
-ChangePosition::ChangePosition(ChangeType goal) :
+ChangePosition::ChangePosition(float goal) :
 	CommandBase("ChangePosition") {
 	Requires(collector);
 	this->goal = goal;
@@ -11,26 +11,7 @@ ChangePosition::~ChangePosition() {
 
 void ChangePosition::Initialize() {
 	collector->setPIDState(true);
-	switch (goal) {
-	case kUp:
-		targetState = Collector::kUp;
-		collector->setSetpoint(COLLECTOR_PITCH_UP);
-		break;
-	case kDown:
-		targetState = Collector::kDown;
-		collector->setSetpoint(COLLECTOR_PITCH_DOWN);
-		break;
-	case kToggle:
-		targetState = (collector->getArmState() & 1) ? Collector::kDown
-				: Collector::kUp;
-		collector ->setSetpoint(
-				(collector->getArmState() & 1) ? COLLECTOR_PITCH_DOWN
-						: COLLECTOR_PITCH_UP);
-		break;
-	default:
-		collector->setPIDState(false);
-		break;
-	}
+	collector->setSetpoint(goal);
 }
 
 void ChangePosition::Execute() {
@@ -38,7 +19,7 @@ void ChangePosition::Execute() {
 }
 
 bool ChangePosition::IsFinished() {
-	return collector->isPIDDone() || collector->getArmState() == targetState;
+	return collector->isPIDDone();
 }
 
 void ChangePosition::End() {

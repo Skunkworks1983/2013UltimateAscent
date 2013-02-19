@@ -1,17 +1,14 @@
 #ifndef __CMD_COMMANDSTARTER_H
 #define __CMD_COMMANDSTARTER_H
 
-#include "../Utils/ArgumentProvider.h"
 #include "CommandBase.h"
 
-typedef Command* (*CreateCommand)(void *param);
+typedef Command* (*CreateCommand)();
 class CommandStarter: public CommandBase {
 private:
 	CreateCommand create;
-	ArgumentProvider *arg;
-	bool scheduled;
 public:
-	CommandStarter(CreateCommand createFunc, ArgumentProvider *arg = NULL);
+	CommandStarter(CreateCommand createFunc);
 	~CommandStarter();
 	virtual void Initialize();
 	virtual void Execute();

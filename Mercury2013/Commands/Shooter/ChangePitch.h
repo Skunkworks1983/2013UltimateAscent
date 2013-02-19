@@ -12,7 +12,7 @@
  */
 class ChangePitch: public CommandBase {
 private:
-	float pitchStability;
+	bool outOfBounds;
 	float targetPitch;
 public:
 	ChangePitch(float targetPitch);

@@ -51,7 +51,7 @@ Autonomous::Autonomous(int argc, char **argv) :
 			use = new Collect();
 			break;
 		case AUTO_SCRIPT_CHARMASK('c','p'):
-			use = new ChangePosition((ChangePosition::ChangeType) ((int) arg));
+			use = new ChangePosition(arg);
 			break;
 		case AUTO_SCRIPT_CHARMASK('a','s'):
 			use = new ArmShooter((ArmShooter::ArmType) ((int) arg));

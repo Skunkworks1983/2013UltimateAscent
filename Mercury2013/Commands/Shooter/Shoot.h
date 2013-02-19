@@ -11,8 +11,6 @@
  * @author Mark Old
  */
 class Shoot: public CommandBase {
-private:
-	double startTime;
 public:
 	Shoot();
 	virtual void Initialize();

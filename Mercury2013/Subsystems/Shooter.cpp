@@ -32,7 +32,6 @@ Shooter::Shooter() :
 			pitchEncoder);
 	LiveWindow::GetInstance()->AddActuator("Shooter", "Pitch Motor",
 			pitchMotor);
-	printf("Done!\n");
 
 	Preferences::GetInstance()->PutFloat(
 			"SHOOTER_MOTOR_FRONT_SPEED",SHOOTER_MOTOR_FRONT_SPEED);
@@ -40,6 +39,9 @@ Shooter::Shooter() :
 			"SHOOTER_MOTOR_MIDDLE_SPEED",SHOOTER_MOTOR_MIDDLE_SPEED);
 	Preferences::GetInstance()->PutFloat(
 			"SHOOTER_MOTOR_REAR_SPEED",SHOOTER_MOTOR_REAR_SPEED);
+	
+	tunedEncoder = false;
+	printf("Done!\n");
 }
 
 Shooter::~Shooter() {
@@ -101,7 +103,7 @@ bool Shooter::readyToShoot() {
 	return getCurrentMillis() > timeTillShootReady;
 }
 
-void Shooter::setPitchMotorSpeed(float direction) {
+bool Shooter::setPitchMotorSpeed(float direction) {
 	float speed = fsign(direction);
 	if (pitchEncoder->GetDistance() < SHOOTER_PITCH_SLOWDOWN_RANGE && speed
 			< 0.0) {
@@ -112,13 +114,19 @@ void Shooter::setPitchMotorSpeed(float direction) {
 	if (speed < 0.0 && isPitchGrounded()) {
 		pitchMotor->Set(0);
 		pitchEncoder->Reset();
-	} else {
+		tunedEncoder = true;
+		return false;
+	} else if (speed > 0.0 && pitchEncoder->GetDistance()
+			> SHOOTER_PITCH_UPPER_LIMIT) {
+		pitchMotor->Set(0);
+		return false;
+	} else if (tunedEncoder || speed < 0.0) {
 		pitchMotor->Set(-speed);
 	}
+	return true;
 }
 
 float Shooter::getCurrentPitch() {
-	// TODO Conversion
 	return pitchEncoder->GetDistance();
 }
 

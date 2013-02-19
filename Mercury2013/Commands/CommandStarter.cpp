@@ -1,30 +1,23 @@
 #include "CommandStarter.h"
 #include "WPILib.h"
 
-CommandStarter::CommandStarter(CreateCommand create, ArgumentProvider *argP) :
+CommandStarter::CommandStarter(CreateCommand create) :
 	CommandBase("CommandStarter") {
 	this->create = create;
-	this->arg = argP;
 }
 
 CommandStarter::~CommandStarter() {
 }
 
 void CommandStarter::Initialize() {
-	Command *cmd;
-	if (arg != NULL) {
-		cmd = create(arg->getArgument());
-	} else {
-		cmd = create(NULL);
-	}
-	Scheduler::GetInstance()->AddCommand(cmd);
+	Scheduler::GetInstance()->AddCommand(create());
 }
 
 void CommandStarter::Execute() {
 }
 
 bool CommandStarter::IsFinished() {
-	return false;
+	return true;
 }
 
 void CommandStarter::End() {
