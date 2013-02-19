@@ -32,5 +32,5 @@ void CommandBase::init() {
 	collector = new Collector();
 	oi = new OI();
 	climber = new Climber();
-	arduino = new Arduino();
+	arduino = new Arduino(Arduino::kSerial, 9600);
 }
