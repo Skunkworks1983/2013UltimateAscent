@@ -23,6 +23,7 @@ void UFOBot::AutonomousInit() {
 }
 void UFOBot::AutonomousPeriodic() {
 	GetWatchdog().Feed();
+	
 	Scheduler::GetInstance()->Run();
 }
 
