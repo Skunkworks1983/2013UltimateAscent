@@ -179,5 +179,10 @@
 #define CLIMBER_SLIDER_CUTOFF_VELOCITY			1.5
 
 #define CLIMBER_SLIDER_TOLERANCE				0.1  // 1/10 of the total length
+
+/*
+ * --ARDUINO SERIAL READ--
+ */
+
 #endif
 

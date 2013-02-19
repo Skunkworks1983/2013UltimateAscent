@@ -16,6 +16,7 @@ Collector *CommandBase::collector = NULL;
 OI *CommandBase::oi = NULL;
 Pneumatics *CommandBase::pneumatics = NULL;
 Climber *CommandBase::climber = NULL;
+Arduino *CommandBase::arduino = NULL;
 bool CommandBase::subsystems = false;
 
 void CommandBase::init() {
@@ -31,4 +32,5 @@ void CommandBase::init() {
 	collector = new Collector();
 	oi = new OI();
 	climber = new Climber();
+	arduino = new Arduino();
 }
