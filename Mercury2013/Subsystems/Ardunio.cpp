@@ -29,10 +29,11 @@
  * @param in If kSerial, Baud Rate, if kI2C, Address on bus
  */
 
-Arduino::Arduino(CommsMode comms, int in) {
+Arduino::Arduino(CommsMode comms, int in) :
+	Subsystem("Arduino") {
 	Initialize();
 	if (comms == kSerial) {
-		if (in> 100) {
+		if (in > 100) {
 			printf("Invalid Baud Rate--Are you sure you want to use serial?\n");
 		} else {
 			serial = new SerialPort(in);
@@ -75,7 +76,8 @@ Arduino::Arduino(CommsMode comms, int in) {
  * @param outChannel The digital output channel to use
  */
 
-Arduino::Arduino(CommsMode comms, int inChannel, int outChannel) {
+Arduino::Arduino(CommsMode comms, int inChannel, int outChannel) :
+	Subsystem("Arduino") {
 	Initialize();
 	if (comms == kDigital) {
 		digIn = new DigitalInput(inChannel);
@@ -92,7 +94,8 @@ Arduino::Arduino(CommsMode comms, int inChannel, int outChannel) {
  * Defaults to Serial at 115200 Baud
  */
 
-Arduino::Arduino() {
+Arduino::Arduino() :
+	Subsystem("Arduino") {
 	Initialize();
 	m_commsMode = kSerial;
 	serial = new SerialPort(115200);
@@ -132,7 +135,7 @@ string Arduino::RequestData() {
 
 int Arduino::RequestData(string request) {
 	this->serial->Printf(request.c_str());
-	return (int)this->GetData().length();
+	return (int) this->GetData().length();
 }
 
 /**

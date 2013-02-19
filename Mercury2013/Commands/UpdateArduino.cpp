@@ -1,12 +1,12 @@
 #include "UpdateArduino.h"
 
-UpdateArduino::UpdateCompressor() {
+UpdateArduino::UpdateArduino() {
 	Requires(arduino);
 	SetInterruptible(true);
 }
 
 void UpdateArduino::Initialize() {
-	arduino->Arduino(Arduino::kSerial, 9600);
+
 }
 
 void UpdateArduino::Execute() {

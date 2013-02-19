@@ -4,7 +4,7 @@
 #include "../Utils/Time.h"
 #include <String>
 
-class Arduino {
+class Arduino: public Subsystem {
 public:
 	enum CommsMode {
 		kDigital = 1,
