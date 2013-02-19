@@ -13,7 +13,7 @@ void UFOBot::RobotInit() {
 
 	chooser = Scripting::generateAutonomousModes(AUTO_SCRIPT_LOCATIONS);
 	SmartDashboard::PutData("Autonomous modes", chooser);
-//	SmartDashboard::PutData(Scheduler::GetInstance());
+	SmartDashboard::PutData(Scheduler::GetInstance());
 }
 
 void UFOBot::AutonomousInit() {

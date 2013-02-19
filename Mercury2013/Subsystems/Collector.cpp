@@ -43,9 +43,9 @@ Collector::~Collector() {
 	delete pitchPot;
 	delete collectorPitchMotor;
 	delete collectorMotor;
-	//TODO for (int i = 0; i < COLLECTOR_FRISBEE_CHN_CNT; i++) {
-	//	delete frisbeeSensors[i];
-	//}
+	for (int i = 0; i < COLLECTOR_FRISBEE_CHN_CNT; i++) {
+		delete frisbeeSensors[i];
+	}
 	delete frisbeeSensors;
 }
 
@@ -68,21 +68,8 @@ bool Collector::isPIDDone() {
 	return pitchPID->OnTarget();
 }
 
-Collector::CollectorState Collector::getArmState() {
-	if (fabs(getRawAngle() - COLLECTOR_PITCH_UP) < COLLECTOR_PITCH_TOLERANCE) {
-		return Collector::kUp;
-	} else if (fabs(
-			getRawAngle() - COLLECTOR_PITCH_DOWN) < COLLECTOR_PITCH_TOLERANCE) {
-		return Collector::kDown;
-	} else if (fabs(getRawAngle() - COLLECTOR_PITCH_DOWN)
-			< fabs(getRawAngle() - COLLECTOR_PITCH_UP)) {
-		return Collector::kOtherDown;
-	} else {
-		return Collector::kOtherUp;
-	}
-}
-
 double Collector::getRawAngle() {
+	printf("%d\n", pitchPot->GetAverageValue());
 	return COLLECTOR_PITCH_CONVERT(pitchPot->GetAverageValue());
 }
 
@@ -103,7 +90,7 @@ void Collector::setCollectorMotor(bool state) {
 }
 
 bool Collector::isSpinnerOn() {
-	return collectorMotor->Get() > 0;
+	return fabs(collectorMotor->Get()) > 0;
 }
 
 double Collector::PIDGet() {

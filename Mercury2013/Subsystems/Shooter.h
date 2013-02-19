@@ -25,6 +25,8 @@ private:
 	SolenoidPair *shootSolenoid;
 	
 	double timeTillShootReady;
+	
+	bool tunedEncoder;
 public:
 	Shooter();
 	~Shooter();
@@ -37,7 +39,7 @@ public:
 	bool readyToShoot();
 
 	float getCurrentPitch();
-	void setPitchMotorSpeed(float f);
+	bool setPitchMotorSpeed(float f);
 	bool isPitchGrounded();
 	
 	virtual void InitDefaultCommand();

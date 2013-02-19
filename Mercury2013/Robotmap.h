@@ -20,8 +20,11 @@
  * --OPERATOR INTERFACE--
  * Joystick Channels
  */
-#define OI_JOYSTICK_LEFT				1
-#define OI_JOYSTICK_RIGHT				2
+#define OI_JOYSTICK_LEFT					1
+#define OI_JOYSTICK_RIGHT					2
+#define OI_SHOOTER_ANGLE_PROVIDER_CHANNEL	3
+// SEE AnalogChangeTrigger #define OI_POT_GENERIC_CONVERT(val)
+#define OI_SHOOTER_ANGLE_CONVERT(val)		((.0858 * val * val * val) - (.5267 * val * val) + (1.081* val) + .0754)
 
 // Autonomous Settings
 #define AUTO_TURN_SPEED_MIN       		.2		// Scalar Minimum Speed (0-1)
@@ -76,8 +79,8 @@
 #define SHOOTER_MOTOR_REAR						1,7 // TODO
 #define SHOOTER_PITCH_MOTOR						1,6 // TODO
 // Shooter motor speeds
-#define SHOOTER_MOTOR_FRONT_SPEED				-0.5 // TODO
-#define SHOOTER_MOTOR_MIDDLE_SPEED				-0.5 // TODO
+#define SHOOTER_MOTOR_FRONT_SPEED				-1.0 // TODO
+#define SHOOTER_MOTOR_MIDDLE_SPEED				-0.8 // TODO
 #define SHOOTER_MOTOR_REAR_SPEED				-1.0 // TODO
 #define SHOOTER_MOTOR_FLUSH_SPEED				-0.75 // TODO
 // Various times (millis)
@@ -93,14 +96,15 @@
 // Shooter solenoid ports
 #define SHOOTER_PNEUMATIC						7,8 // TODO
 // Shooter speed and pitch sensors
-#define SHOOTER_PITCH_SPEED						0.5
-#define SHOOTER_PITCH_SLOWDOWN_RANGE			50
-#define SHOOTER_PITCH_SLOWDOWN_SPEED			0.5
+#define SHOOTER_PITCH_SPEED						.8
+#define SHOOTER_PITCH_SLOWDOWN_RANGE			0.05
+#define SHOOTER_PITCH_SLOWDOWN_SPEED			.75
 #define SHOOTER_PITCH_ENCODER					12,13 // TODO
 #define SHOOTER_PITCH_LIMIT_SWITCH				11
-#define SHOOTER_PITCH_DEGREES_PER_PULSE			1 // TODO
+#define SHOOTER_PITCH_UPPER_LIMIT				(0.95)
+#define SHOOTER_PITCH_DEGREES_PER_PULSE			(1.0/23345.0) // TODO
 // Shooter pitch control info
-#define SHOOTER_PITCH_THRESHOLD					5
+#define SHOOTER_PITCH_THRESHOLD					0.0125 //Random units; scalar of shooter angle
 #define SHOOTER_PITCH_STABILITY					25
 
 /**
@@ -126,18 +130,19 @@
 #define COLLECTOR_PITCH_I						0.001
 #define COLLECTOR_PITCH_D						0
 
-#define COLLECTOR_PITCH_TOLERANCE				.1
-#define COLLECTOR_PITCH_DOWN					0
-#define COLLECTOR_PITCH_UP						90
+#define COLLECTOR_PITCH_TOLERANCE				5
+#define COLLECTOR_PITCH_DOWN					1
+#define COLLECTOR_PITCH_MID						60
+#define COLLECTOR_PITCH_UP						100
 
-#define COLLECTOR_PITCH_POT_MIN					-10
-#define COLLECTOR_PITCH_POT_MAX					100
+#define COLLECTOR_PITCH_POT_MIN					0
+#define COLLECTOR_PITCH_POT_MAX					110
 
 #define COLLECTOR_FRISBEE_CHN_1					6
 #define COLLECTOR_FRISBEE_CHN_2					7
 //#define COLLECTOR_FRISBEE_CHN_3					1
 
-#define COLLECTOR_COLLECT_TIMEOUT				5000 // (millis)
+#define COLLECTOR_COLLECT_TIMEOUT				500 // (millis)
 /**
  * --COMPRESSOR--
  */

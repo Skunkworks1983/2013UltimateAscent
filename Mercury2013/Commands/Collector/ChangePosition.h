@@ -16,16 +16,11 @@
  * @author Ross Bajocich
  */
 class ChangePosition: public CommandBase {
-public:
-	enum ChangeType {
-		kUp, kDown, kToggle
-	};
 private:
 	PIDController *controller;
-	ChangeType goal;
-	Collector::CollectorState targetState;
+	float goal;
 public:
-	ChangePosition(ChangeType goal);
+	ChangePosition(float goal);
 	~ChangePosition();
 	virtual void Initialize();
 	virtual void Execute();

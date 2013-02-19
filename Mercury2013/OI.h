@@ -27,17 +27,24 @@ private:
 	DriverStationEnhancedIO *driverStationEIO;
 
 	ButtonScheduler *shiftScheduler;
+	
 	ButtonScheduler *shootScheduler;
 	ButtonScheduler *spinupScheduler;
+	ButtonScheduler *spindownScheduler;
 	ButtonScheduler *flushScheduler;
+	ButtonScheduler *changePositionScheduler;
+	ButtonScheduler *tuneShooterScheduler;
 	
 	ButtonScheduler *armUpScheduler;
+	ButtonScheduler *armMidScheduler;
 	ButtonScheduler *armDownScheduler;
 	ButtonScheduler *collectScheduler;
 
 public:
 	OI();
 
+	static Command* createChangePitchFromOI();
+	
 	Joystick *getDriveJoystickLeft();
 	Joystick *getDriveJoystickRight();
 

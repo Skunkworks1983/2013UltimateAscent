@@ -1,5 +1,5 @@
-#ifndef __CMD_CHANGE_PITCH_H
-#define __CMD_CHANGE_PITCH_H
+#ifndef __CMD_SHOOTER_TUNE_PITCH_H
+#define __CMD_SHOOTER_TUNE_PITCH_H
 
 #include "../CommandBase.h"
 

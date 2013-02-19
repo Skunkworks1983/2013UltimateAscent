@@ -16,10 +16,6 @@
  * @author Ross Bajocich
  */
 class Collector: public Subsystem, public PIDOutput, public PIDSource {
-public:
-	enum CollectorState {
-		kOtherUp = 0, kOtherDown = 1, kUp = 2, kDown = 3
-	};
 private:
 	AnalogChannel *pitchPot;
 	DualLiveSpeed *collectorPitchMotor;
@@ -44,12 +40,6 @@ public:
 	bool isPIDDone();
 
 	double getRawAngle();
-
-	/**
-	 * Checks to see if the collector is up, giving true if it is and false if
-	 * it is down
-	 */
-	CollectorState getArmState();
 	
 	int getFrisbeeSensorCount();
 	void setCollectorMotor(bool state);
