@@ -13,8 +13,9 @@ void ChangePitch::Initialize() {
 }
 
 void ChangePitch::Execute() {
+	double val = DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(OI_SHOOTER_ANGLE_PROVIDER_CHANNEL);
 	targetPitch
-			= OI_SHOOTER_ANGLE_CONVERT(DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(OI_SHOOTER_ANGLE_PROVIDER_CHANNEL));
+			= OI_SHOOTER_ANGLE_CONVERT(val);
 	float pitchOffset = shooterPitch->getCurrentPitch() - targetPitch;
 	if (fabs(pitchOffset) < SHOOTER_PITCH_THRESHOLD) {
 		shooterPitch->setPitchMotorSpeed(0);
