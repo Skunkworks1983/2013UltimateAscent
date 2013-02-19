@@ -10,7 +10,7 @@ void UpdateArduino::Initialize() {
 }
 
 void UpdateArduino::Execute() {
-	printf("%s\n", arduino->GetData());
+	printf("%s\n", arduino->GetData().c_str());
 }
 
 bool UpdateArduino::IsFinished() {
