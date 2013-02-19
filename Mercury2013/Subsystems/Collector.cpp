@@ -2,14 +2,14 @@
 #include <math.h>
 
 Collector::Collector() :
-		Subsystem("Collector") {
+	Subsystem("Collector") {
 	printf("Creating Collector...");
 	pitchPot = new AnalogChannel(COLLECTOR_PITCH_POT); //potentionmeter for collector pitch
 	collectorPitchMotor = new DualLiveSpeed(
-			COLLECTOR_PITCH_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR_A),
-			COLLECTOR_PITCH_MOTOR_CREATE(COLLECTOR_PITCH_MOTOR_B),
+			new COLLECTOR_PITCH_MOTOR_TYPE(COLLECTOR_PITCH_MOTOR_A),
+			new COLLECTOR_PITCH_MOTOR_TYPE(COLLECTOR_PITCH_MOTOR_B),
 			COLLECTOR_PITCH_MOTOR_B_TUNING);
-	collectorMotor = COLLECTOR_MOTOR_CREATE(COLLECTOR_MOTOR); //actual collector motor
+	collectorMotor = new COLLECTOR_MOTOR_TYPE(COLLECTOR_MOTOR); //actual collector motor
 
 #ifdef COLLECTOR_FRISBEE_CHN_3
 	frisbeeSensors = new DigitalInput*[3];

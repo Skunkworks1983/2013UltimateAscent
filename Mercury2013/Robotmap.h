@@ -58,7 +58,6 @@
 #define DRIVE_MOTOR_RIGHT_2						4
 // Class name of the drive motor controller
 #define DRIVE_MOTOR_TYPE						CANJaguar
-#define DRIVE_MOTOR_CREATE(channel)				(new DRIVE_MOTOR_TYPE(channel))
 
 #define DRIVE_SHIFT								1,2
 
@@ -91,8 +90,6 @@
 // Class name of the shooter and shooter pitch motor controllers
 #define SHOOTER_MOTOR_TYPE						Talon
 #define SHOOTER_PITCH_MOTOR_TYPE				Talon
-#define SHOOTER_MOTOR_CREATE(channel) 			(new SHOOTER_MOTOR_TYPE(channel))
-#define SHOOTER_PITCH_MOTOR_CREATE(channel) 	(new SHOOTER_PITCH_MOTOR_TYPE(channel))
 // Shooter solenoid ports
 #define SHOOTER_PNEUMATIC						7,8 // TODO
 // Shooter speed and pitch sensors
@@ -117,8 +114,6 @@
 // Class name of the shooter and collector pitch motor controllers
 #define COLLECTOR_MOTOR_TYPE					Talon
 #define COLLECTOR_PITCH_MOTOR_TYPE				Talon
-#define COLLECTOR_MOTOR_CREATE(channel) 		(new COLLECTOR_MOTOR_TYPE(channel))
-#define COLLECTOR_PITCH_MOTOR_CREATE(channel) 	(new COLLECTOR_PITCH_MOTOR_TYPE(channel))
 // Collector constant speed
 #define COLLECTOR_PITCH_MOTOR_SPEED_UP			.6 // TODO get value from design team
 #define COLLECTOR_PITCH_MOTOR_SPEED_DOWN		-.4 // TODO get value from design team
