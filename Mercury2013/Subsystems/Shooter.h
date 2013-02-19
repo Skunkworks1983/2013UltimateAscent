@@ -18,15 +18,9 @@ private:
 	SHOOTER_MOTOR_TYPE *middleMotor;
 	SHOOTER_MOTOR_TYPE *rearMotor;
 	
-	SHOOTER_PITCH_MOTOR_TYPE *pitchMotor;
-	Encoder *pitchEncoder;
-	DigitalInput *pitchLimitSwitch;
-	
 	SolenoidPair *shootSolenoid;
 	
 	double timeTillShootReady;
-	
-	bool tunedEncoder;
 public:
 	Shooter();
 	~Shooter();
@@ -37,10 +31,6 @@ public:
 	void flush(bool flushing);
 	
 	bool readyToShoot();
-
-	float getCurrentPitch();
-	bool setPitchMotorSpeed(float f);
-	bool isPitchGrounded();
 	
 	virtual void InitDefaultCommand();
 };

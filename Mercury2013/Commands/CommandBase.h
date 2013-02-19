@@ -9,6 +9,7 @@
 #include "../Subsystems/Pneumatics.h"
 #include "../Subsystems/Climber.h"
 #include "../Subsystems/Arduino.h"
+#include "../Subsystems/ShooterPitch.h"
 #include "../OI.h"
 
 /**
@@ -31,6 +32,7 @@ public:
 	static Pneumatics *pneumatics;
 	static Climber *climber;
 	static Arduino *arduino;
+	static ShooterPitch *shooterPitch;
 	static bool subsystems;
 };
 

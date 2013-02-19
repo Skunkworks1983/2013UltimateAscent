@@ -11,29 +11,13 @@ Shooter::Shooter() :
 	middleMotor = new SHOOTER_MOTOR_TYPE(SHOOTER_MOTOR_MIDDLE);
 	rearMotor = new SHOOTER_MOTOR_TYPE(SHOOTER_MOTOR_REAR);
 
-	pitchMotor = new SHOOTER_PITCH_MOTOR_TYPE(SHOOTER_PITCH_MOTOR);
-
-	pitchEncoder = new Encoder(SHOOTER_PITCH_ENCODER, false, Encoder::k4X);
-	pitchEncoder->SetDistancePerPulse(SHOOTER_PITCH_DEGREES_PER_PULSE);
-	pitchEncoder->Reset();
-	pitchEncoder->Start();
-
-	pitchLimitSwitch = new DigitalInput(SHOOTER_PITCH_LIMIT_SWITCH);
-
 	shootSolenoid = new SolenoidPair(SHOOTER_PNEUMATIC);
 
 	timeTillShootReady = 0;
 
-	LiveWindow::GetInstance()->AddSensor("Shooter", "Pitch Encoder",
-			pitchEncoder);
-	LiveWindow::GetInstance()->AddSensor("Shooter", "Pitch Limit Switch",
-			pitchLimitSwitch);
 	LiveWindow::GetInstance()->AddActuator("Shooter", "Shoot Solenoid",
 			shootSolenoid);
-	LiveWindow::GetInstance()->AddActuator("Shooter", "Pitch Motor",
-			pitchMotor);
 
-	tunedEncoder = false;
 	printf("Done!\n");
 }
 
@@ -41,12 +25,6 @@ Shooter::~Shooter() {
 	delete frontMotor;
 	delete middleMotor;
 	delete rearMotor;
-
-	delete pitchLimitSwitch;
-	delete pitchMotor;
-	delete pitchEncoder;
-
-	delete shootSolenoid;
 }
 
 void Shooter::setArmed(bool armed) {
@@ -95,37 +73,6 @@ void Shooter::flush(bool flushing) {
 
 bool Shooter::readyToShoot() {
 	return getCurrentMillis() > timeTillShootReady;
-}
-
-bool Shooter::setPitchMotorSpeed(float direction) {
-	float speed = fsign(direction);
-	if (pitchEncoder->GetDistance() < SHOOTER_PITCH_SLOWDOWN_RANGE && speed
-			< 0.0) {
-		speed *= SHOOTER_PITCH_SLOWDOWN_SPEED;
-	} else {
-		speed *= SHOOTER_PITCH_SPEED;
-	}
-	if (speed < 0.0 && isPitchGrounded()) {
-		pitchMotor->Set(0);
-		pitchEncoder->Reset();
-		tunedEncoder = true;
-		return false;
-	} else if (speed > 0.0 && pitchEncoder->GetDistance()
-			> SHOOTER_PITCH_UPPER_LIMIT) {
-		pitchMotor->Set(0);
-		return false;
-	} else if (tunedEncoder || speed < 0.0) {
-		pitchMotor->Set(-speed);
-	}
-	return true;
-}
-
-float Shooter::getCurrentPitch() {
-	return pitchEncoder->GetDistance();
-}
-
-bool Shooter::isPitchGrounded() {
-	return pitchLimitSwitch->Get() & 1;
 }
 
 void Shooter::InitDefaultCommand() {

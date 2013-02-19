@@ -17,6 +17,7 @@ OI *CommandBase::oi = NULL;
 Pneumatics *CommandBase::pneumatics = NULL;
 Climber *CommandBase::climber = NULL;
 Arduino *CommandBase::arduino = NULL;
+ShooterPitch *CommandBase::shooterPitch = NULL;
 bool CommandBase::subsystems = false;
 
 void CommandBase::init() {
@@ -33,4 +34,5 @@ void CommandBase::init() {
 	oi = new OI();
 	climber = new Climber();
 	arduino = new Arduino(Arduino::kSerial, 9600);
+	shooterPitch = new ShooterPitch();
 }

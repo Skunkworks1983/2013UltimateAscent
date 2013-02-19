@@ -3,7 +3,7 @@
 
 TunePitchEncoder::TunePitchEncoder() :
 	CommandBase("TunePitchEncoder") {
-	Requires(shooter);
+	Requires(shooterPitch);
 }
 
 void TunePitchEncoder::Initialize() {
@@ -11,19 +11,19 @@ void TunePitchEncoder::Initialize() {
 }
 
 void TunePitchEncoder::Execute() {
-	shooter->setPitchMotorSpeed(-1.0);
+	shooterPitch->setPitchMotorSpeed(-1.0);
 }
 
 bool TunePitchEncoder::IsFinished() {
-	return shooter->isPitchGrounded();
+	return shooterPitch->isPitchGrounded();
 }
 
 void TunePitchEncoder::End() {
 	//Forces the shooter to reset it
-	shooter->setPitchMotorSpeed(-1.0);
-	shooter->setPitchMotorSpeed(0);
+	shooterPitch->setPitchMotorSpeed(-1.0);
+	shooterPitch->setPitchMotorSpeed(0);
 }
 
 void TunePitchEncoder::Interrupted() {
-	shooter->setPitchMotorSpeed(0);
+	shooterPitch->setPitchMotorSpeed(0);
 }
