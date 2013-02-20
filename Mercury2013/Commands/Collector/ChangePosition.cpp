@@ -24,10 +24,8 @@ bool ChangePosition::IsFinished() {
 
 void ChangePosition::End() {
 	collector->setPIDState(false);
-	collector->PIDWrite(0);
 }
 
 void ChangePosition::Interrupted() {
 	collector->setPIDState(false);
-	collector->PIDWrite(0);
 }

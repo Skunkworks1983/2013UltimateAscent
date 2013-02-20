@@ -114,8 +114,8 @@
  * 	Collector motor channels
  */
 #define COLLECTOR_MOTOR							3 // TODO
-#define COLLECTOR_PITCH_MOTOR_A					2 // TODO
-#define COLLECTOR_PITCH_MOTOR_B					1 // TODO
+#define COLLECTOR_PITCH_MOTOR_LEFT				2 // TODO
+#define COLLECTOR_PITCH_MOTOR_RIGHT				1 // TODO
 // Class name of the shooter and collector pitch motor controllers
 #define COLLECTOR_MOTOR_TYPE					Talon
 #define COLLECTOR_PITCH_MOTOR_TYPE				Talon
@@ -124,8 +124,10 @@
 #define COLLECTOR_PITCH_MOTOR_SPEED_DOWN		-.4 // TODO get value from design team
 #define COLLECTOR_PITCH_MOTOR_B_TUNING			-1.0, -1.10 // TODO Tune This
 #define COLLECTOR_MOTOR_SPEED					-0.5
-#define COLLECTOR_PITCH_POT						1  // TODO
-#define COLLECTOR_PITCH_CONVERT(value)			(161-((value + 5) * 312 / 971)) //TODO Convert it.
+#define COLLECTOR_PITCH_POT_LEFT				1  // TODO
+#define COLLECTOR_PITCH_POT_RIGHT				1  // TODO
+#define COLLECTOR_PITCH_CONVERT(value)			(161-((value + 5) * 312 / 971))
+#define COLLECTOR_PITCH_INVERT(value)			(((161-value) * 971 / 312) - 5)
 #define COLLECTOR_PITCH_P						0.1
 #define COLLECTOR_PITCH_I						0.001
 #define COLLECTOR_PITCH_D						0

@@ -64,6 +64,5 @@ bool ShooterPitch::isPitchGrounded() {
 }
 
 void ShooterPitch::InitDefaultCommand() {
-	
 }
 
