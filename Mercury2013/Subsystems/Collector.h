@@ -15,7 +15,7 @@
  * 
  * @author Ross Bajocich
  */
-class Collector: public Subsystem {
+class Collector: public Subsystem, public PIDOutput {
 private:
 	AnalogChannel *pitchPotLeft;
 	AnalogChannel *pitchPotRight;
@@ -45,7 +45,12 @@ public:
 	void setCollectorMotor(bool state);
 	void killPitchMotors();
 	
+	double getLeftAngle();
+	double getRightAngle();
+	
 	bool isSpinnerOn();
+	
+	virtual void PIDWrite(float f);
 
 	/**
 	 * Sets the default command for this subsystem

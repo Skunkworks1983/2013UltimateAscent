@@ -1,6 +1,7 @@
 #include "ShooterPitch.h"
 #include "../Utils/Math.h"
 #include "../RobotMap.h"
+#include "../Commands/Shooter/ChangePitch.h"
 
 ShooterPitch::ShooterPitch() :
 	Subsystem("ShooterPitch") {
@@ -22,7 +23,7 @@ ShooterPitch::ShooterPitch() :
 	LiveWindow::GetInstance()->AddActuator("ShooterPitch", "Pitch Motor",
 			pitchMotor);
 
-	tunedEncoder = false;
+	tunedEncoder = isPitchGrounded();
 	printf("Done!\n");
 }
 
@@ -64,5 +65,6 @@ bool ShooterPitch::isPitchGrounded() {
 }
 
 void ShooterPitch::InitDefaultCommand() {
+	SetDefaultCommand(new ChangePitch(getCurrentPitch()));
 }
 

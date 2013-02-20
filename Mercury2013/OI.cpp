@@ -72,7 +72,7 @@ void OI::registerButtonSchedulers() {
 	spinupScheduler->Start();
 	spindownScheduler->Start();
 	//flushScheduler->Start();
-	changePositionScheduler->Start();
+	//changePositionScheduler->Start();
 	tuneShooterScheduler->Start();
 
 	collectScheduler->Start();
