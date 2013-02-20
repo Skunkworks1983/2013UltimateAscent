@@ -48,15 +48,17 @@ bool Shooter::isArmed() {
 void Shooter::shoot(bool shooting) {
 	if (shootSolenoid->Get() != shooting && (!shooting || readyToShoot())) {
 		shootSolenoid->Set(shooting);
-		timeTillShootReady = getCurrentMillis() + SHOOTER_WAIT_TIME;
-		if (shooting) {
-			frontMotor->Set(SHOOTER_MOTOR_FRONT_BANG_SPEED);
-			middleMotor->Set(SHOOTER_MOTOR_MIDDLE_BANG_SPEED);
-			rearMotor->Set(SHOOTER_MOTOR_REAR_BANG_SPEED);
-		} else {
-			frontMotor->Set(SHOOTER_MOTOR_FRONT_SPEED);
-			middleMotor->Set(SHOOTER_MOTOR_MIDDLE_SPEED);
-			rearMotor->Set(SHOOTER_MOTOR_REAR_SPEED);
+		if (isArmed()) {
+			timeTillShootReady = getCurrentMillis() + SHOOTER_WAIT_TIME;
+			if (shooting) {
+				frontMotor->Set(SHOOTER_MOTOR_FRONT_BANG_SPEED);
+				middleMotor->Set(SHOOTER_MOTOR_MIDDLE_BANG_SPEED);
+				rearMotor->Set(SHOOTER_MOTOR_REAR_BANG_SPEED);
+			} else {
+				frontMotor->Set(SHOOTER_MOTOR_FRONT_SPEED);
+				middleMotor->Set(SHOOTER_MOTOR_MIDDLE_SPEED);
+				rearMotor->Set(SHOOTER_MOTOR_REAR_SPEED);
+			}
 		}
 	}
 }

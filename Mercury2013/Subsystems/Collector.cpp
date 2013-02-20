@@ -24,7 +24,7 @@ Collector::Collector() :
 	frisbeeSensors[1] = new DigitalInput(COLLECTOR_FRISBEE_CHN_2);
 
 	pitchPIDLeft = new PIDController(COLLECTOR_PITCH_P, COLLECTOR_PITCH_I,
-			COLLECTOR_PITCH_D, pitchPotLeft, collectorPitchMotorLeft);
+			COLLECTOR_PITCH_D, pitchPotLeft, this);
 	pitchPIDLeft->SetAbsoluteTolerance(
 			COLLECTOR_PITCH_INVERT(COLLECTOR_PITCH_TOLERANCE));
 	pitchPIDLeft->SetOutputRange(COLLECTOR_PITCH_MOTOR_SPEED_DOWN,
@@ -110,9 +110,16 @@ bool Collector::isPIDDone() {
 	return pitchPIDLeft->OnTarget() && pitchPIDRight->OnTarget();
 }
 
+double Collector::getLeftAngle() {
+	return COLLECTOR_PITCH_CONVERT(pitchPotLeft->GetAverageValue());
+}
+
+double Collector::getRightAngle() {
+	return COLLECTOR_PITCH_CONVERT(pitchPotRight->GetAverageValue());
+}
+
 double Collector::getRawAngle() {
-	return (COLLECTOR_PITCH_CONVERT(pitchPotLeft->GetAverageValue())
-			+ COLLECTOR_PITCH_CONVERT(pitchPotRight->GetAverageValue())) / 2.0;
+	return (getLeftAngle() + getRightAngle()) / 2.0;
 }
 
 int Collector::getFrisbeeSensorCount() {
@@ -134,6 +141,10 @@ bool Collector::isSpinnerOn() {
 void Collector::killPitchMotors() {
 	collectorPitchMotorLeft->Set(0);
 	collectorPitchMotorRight->Set(0);
+}
+
+void Collector::PIDWrite(float f) {
+	collectorPitchMotorLeft->Set(-f);
 }
 
 void Collector::InitDefaultCommand() {

@@ -4,6 +4,7 @@
 ChangePitch::ChangePitch(float targetPitch) :
 	CommandBase("ChangePitch") {
 	Requires(shooterPitch);
+	SetInterruptible(true);
 	this->targetPitch = targetPitch;
 	this->outOfBounds = false;
 }

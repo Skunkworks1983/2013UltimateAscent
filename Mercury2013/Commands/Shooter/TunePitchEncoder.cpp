@@ -4,6 +4,7 @@
 TunePitchEncoder::TunePitchEncoder() :
 	CommandBase("TunePitchEncoder") {
 	Requires(shooterPitch);
+	SetInterruptible(true);
 }
 
 void TunePitchEncoder::Initialize() {
