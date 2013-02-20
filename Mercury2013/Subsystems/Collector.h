@@ -15,13 +15,16 @@
  * 
  * @author Ross Bajocich
  */
-class Collector: public Subsystem, public PIDOutput, public PIDSource {
+class Collector: public Subsystem {
 private:
-	AnalogChannel *pitchPot;
-	DualLiveSpeed *collectorPitchMotor;
+	AnalogChannel *pitchPotLeft;
+	AnalogChannel *pitchPotRight;
+	COLLECTOR_PITCH_MOTOR_TYPE *collectorPitchMotorLeft;
+	COLLECTOR_PITCH_MOTOR_TYPE *collectorPitchMotorRight;
 	COLLECTOR_MOTOR_TYPE *collectorMotor;
 
-	PIDController *pitchPID;
+	PIDController *pitchPIDLeft;
+	PIDController *pitchPIDRight;
 
 	DigitalInput **frisbeeSensors;
 public:
@@ -32,9 +35,6 @@ public:
 	Collector();
 	~Collector();
 
-	virtual void PIDWrite(float val);
-	virtual double PIDGet();
-
 	void setSetpoint(float angle);
 	void setPIDState(bool enabled);
 	bool isPIDDone();
@@ -43,6 +43,7 @@ public:
 	
 	int getFrisbeeSensorCount();
 	void setCollectorMotor(bool state);
+	void killPitchMotors();
 	
 	bool isSpinnerOn();
 

@@ -25,5 +25,6 @@ void TunePitchEncoder::End() {
 }
 
 void TunePitchEncoder::Interrupted() {
+	shooterPitch->setPitchMotorSpeed(-1.0);
 	shooterPitch->setPitchMotorSpeed(0);
 }
