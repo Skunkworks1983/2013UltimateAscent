@@ -1,3 +1,4 @@
+#include "Time.h"
 #include "Utility.h"
 
 double getCurrentMillis() {
