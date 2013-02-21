@@ -5,6 +5,8 @@
 #include "../Utils/DualLiveSpeed.h"
 #include "../RobotMap.h"
 
+class ArmController;
+
 /**
  * @brief Collector subsystem, provides functions to get and set speed for the 
  * Collecting commands 
@@ -13,18 +15,13 @@
  * with functions to opperate the interior, with things like getters for IR 
  * sensor states, and othe logic to opperate the collectors management
  * 
- * @author Ross Bajocich
+ * @author Ross Bajocich, Westin Miller
  */
-class Collector: public Subsystem, public PIDOutput {
+class Collector: public Subsystem {
 private:
-	AnalogChannel *pitchPotLeft;
-	AnalogChannel *pitchPotRight;
-	COLLECTOR_PITCH_MOTOR_TYPE *collectorPitchMotorLeft;
-	COLLECTOR_PITCH_MOTOR_TYPE *collectorPitchMotorRight;
 	COLLECTOR_MOTOR_TYPE *collectorMotor;
-
-	PIDController *pitchPIDLeft;
-	PIDController *pitchPIDRight;
+	ArmController *leftArmController;
+	ArmController *rightArmController;
 
 	DigitalInput **frisbeeSensors;
 public:
@@ -40,16 +37,16 @@ public:
 	bool isPIDDone();
 
 	double getRawAngle();
-	
+
 	int getFrisbeeSensorCount();
 	void setCollectorMotor(bool state);
 	void killPitchMotors();
-	
+
 	double getLeftAngle();
 	double getRightAngle();
-	
+
 	bool isSpinnerOn();
-	
+
 	virtual void PIDWrite(float f);
 
 	/**
