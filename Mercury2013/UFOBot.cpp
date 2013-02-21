@@ -19,11 +19,11 @@ void UFOBot::RobotInit() {
 void UFOBot::AutonomousInit() {
 	DefaultInit();
 	Scheduler::GetInstance()->RemoveAll();
-	((ScriptLoader*) chooser->GetSelected())->startCommand();
+	((ScriptRunner*) chooser->GetSelected())->startCommand();
 }
 void UFOBot::AutonomousPeriodic() {
 	GetWatchdog().Feed();
-	
+
 	Scheduler::GetInstance()->Run();
 }
 
