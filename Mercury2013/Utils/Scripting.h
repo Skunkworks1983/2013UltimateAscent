@@ -23,9 +23,9 @@ public:
 	virtual void startCommand();
 };
 /**
- * Loads and executes an autonomous command.
+ * Loads and starts an arbitrary autonomous command.
  */
-class ScriptLoader {
+class ScriptLoader: public ScriptRunner {
 private:
 	char *fileName;
 public:

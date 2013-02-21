@@ -8,6 +8,14 @@
 #include <sys/types.h>
 #include <dirent.h>
 
+ScriptCommand::ScriptCommand(Command *start) {
+	this->local = start;
+}
+
+void ScriptCommand::startCommand() {
+	Scheduler::GetInstance()->AddCommand(local);
+}
+
 ScriptLoader::ScriptLoader(char *fName) {
 	this->fileName = fName;
 }
@@ -18,14 +26,6 @@ void ScriptLoader::startCommand() {
 	Scheduler::GetInstance()->AddCommand(
 			Scripting::createCommand(size, rawData));
 	delete rawData;
-}
-
-ScriptCommand::ScriptCommand(Command *start) {
-	this->local = start;
-}
-
-void ScriptCommand::startCommand() {
-	Scheduler::GetInstance()->AddCommand(local);
 }
 
 char* Scripting::readFromFile(char *fileName, int &size) {
@@ -68,7 +68,7 @@ SendableChooser *Scripting::generateAutonomousModes(char *scriptLocations) {
 	SendableChooser * chooser = new SendableChooser();
 
 	chooser->AddDefault("Default", new ScriptCommand(new Autonomous()));
-	
+
 	DIR * dp;
 	struct dirent * ep;
 	dp = opendir(scriptLocations);
