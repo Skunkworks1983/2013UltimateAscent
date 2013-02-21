@@ -124,7 +124,7 @@
 #define COLLECTOR_PITCH_POT_LEFT				2  // TODO
 #define COLLECTOR_PITCH_POT_RIGHT				1  // TODO
 #define COLLECTOR_PITCH_CONVERT(value)			(((value - 205) * 90) / 315)
-#define COLLECTOR_PITCH_INVERTs(value)			(((value * 315) / 90) + 205)
+//#define COLLECTOR_PITCH_INVERTs(value)			(((value * 315) / 90) + 205)
 #define COLLECTOR_PITCH_P						0.1
 #define COLLECTOR_PITCH_I						0.001
 #define COLLECTOR_PITCH_D						0

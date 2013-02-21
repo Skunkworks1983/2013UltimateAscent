@@ -40,10 +40,7 @@ Arduino::Arduino(CommsMode comms, int in) :
 			this->serial->DisableTermination();
 			this->serial->Printf("h");
 			printf("Arduino Starting, waiting 0.5 seconds to get data\n");
-			//FIXME PLZ
-			double foo = getCurrentMillis();
-			while (getCurrentMillis() - foo < 500) {
-			}
+			Wait(0.5);
 			string e = this->GetData();
 			m_commsMode = kSerial;
 
@@ -102,10 +99,7 @@ Arduino::Arduino() :
 	this->serial->DisableTermination();
 	this->serial->Printf("h");
 	printf("Arduino Starting, waiting 0.5 seconds to get data\n");
-	//FIXME PLZ
-	double foo = getCurrentMillis();
-	while (getCurrentMillis() - foo < 500) {
-	}
+	Wait(0.5);
 	string e = this->GetData();
 	if (e == "h") {
 		printf("Arduino communications locked in\n");
