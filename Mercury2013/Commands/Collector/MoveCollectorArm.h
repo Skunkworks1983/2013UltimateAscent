@@ -15,13 +15,13 @@
  * true is up, false is down
  * @author Ross Bajocich
  */
-class ChangePosition: public CommandBase {
+class MoveCollectorArm: public CommandBase {
 private:
 	PIDController *controller;
 	float goal;
 public:
-	ChangePosition(float goal);
-	~ChangePosition();
+	MoveCollectorArm(float goal);
+	~MoveCollectorArm();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

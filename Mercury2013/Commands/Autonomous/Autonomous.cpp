@@ -2,10 +2,10 @@
 #include "../Automatic/DriveDistance.h"
 #include "../Automatic/TurnDegree.h"
 #include "../Collector/Collect.h"
-#include "../Collector/ChangePosition.h"
+#include "../Collector/MoveCollectorArm.h"
 
 #include "../Shooter/Shoot.h"
-#include "../Shooter/ChangePitch.h"
+#include "../Shooter/ChangeShooterPitch.h"
 #include "../Shooter/ArmShooter.h"
 #include "../Drivebase/Shift.h"
 
@@ -51,7 +51,7 @@ Autonomous::Autonomous(int argc, char **argv) :
 			use = new Collect();
 			break;
 		case AUTO_SCRIPT_CHARMASK('c','p'):
-			use = new ChangePosition(arg);
+			use = new MoveCollectorArm(arg);
 			break;
 		case AUTO_SCRIPT_CHARMASK('a','s'):
 			use = new ArmShooter((ArmShooter::ArmType) ((int) arg));
@@ -60,7 +60,7 @@ Autonomous::Autonomous(int argc, char **argv) :
 			use = new Shoot();
 			break;
 		case AUTO_SCRIPT_CHARMASK('s','p'):
-			use = new ChangePitch(arg);
+			use = new ChangeShooterPitch(arg);
 			break;
 		default:
 			break;

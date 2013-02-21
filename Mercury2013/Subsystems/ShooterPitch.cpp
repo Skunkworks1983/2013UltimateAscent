@@ -1,7 +1,7 @@
 #include "ShooterPitch.h"
 #include "../Utils/Math.h"
 #include "../RobotMap.h"
-#include "../Commands/Shooter/ChangePitch.h"
+#include "../Commands/Shooter/ChangeShooterPitch.h"
 
 ShooterPitch::ShooterPitch() :
 	Subsystem("ShooterPitch") {
@@ -65,6 +65,6 @@ bool ShooterPitch::isPitchGrounded() {
 }
 
 void ShooterPitch::InitDefaultCommand() {
-	SetDefaultCommand(new ChangePitch(getCurrentPitch()));
+	SetDefaultCommand(new ChangeShooterPitch(getCurrentPitch()));
 }
 

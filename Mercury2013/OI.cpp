@@ -7,10 +7,10 @@
 #include "Commands/Shooter/Shoot.h"
 #include "Commands/Shooter/ArmShooter.h"
 #include "Commands/Shooter/FlushShooter.h"
-#include "Commands/Shooter/ChangePitch.h"
+#include "Commands/Shooter/ChangeShooterPitch.h"
 #include "Commands/Shooter/TunePitchEncoder.h"
 #include "Commands/Drivebase/Shift.h"
-#include "Commands/Collector/ChangePosition.h"
+#include "Commands/Collector/MoveCollectorArm.h"
 #include "Commands/CommandStarter.h"
 #include "Commands/Collector/Collect.h"
 #include "Utils/AnalogChangeTrigger.h"
@@ -48,11 +48,11 @@ OI::OI() {
 			new DigitalIOButton(8), new TunePitchEncoder());
 
 	armUpScheduler = new ReleasedButtonScheduler(false, new DigitalIOButton(3),
-			new ChangePosition(COLLECTOR_PITCH_UP));
+			new MoveCollectorArm(COLLECTOR_PITCH_UP));
 	armMidScheduler = new ReleasedButtonScheduler(false,
-			new DigitalIOButton(11), new ChangePosition(COLLECTOR_PITCH_MID));
+			new DigitalIOButton(11), new MoveCollectorArm(COLLECTOR_PITCH_MID));
 	armDownScheduler = new ReleasedButtonScheduler(false,
-			new DigitalIOButton(1), new ChangePosition(COLLECTOR_PITCH_DOWN));
+			new DigitalIOButton(1), new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
 	collectScheduler = new ReleasedButtonScheduler(false,
 			new JoystickButton(driveJoystickRight, 1), new Collect());
 }
@@ -87,6 +87,6 @@ void OI::setLightState(DriverStationLight light, bool state) {
 
 Command* OI::createChangePitchFromOI() {
 	double val = DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(OI_SHOOTER_ANGLE_PROVIDER_CHANNEL);
-	return new ChangePitch(
+	return new ChangeShooterPitch(
 			OI_SHOOTER_ANGLE_CONVERT(val));
 }
