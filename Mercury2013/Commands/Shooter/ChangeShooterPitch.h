@@ -10,12 +10,12 @@
  * This does require an exclusive lock on the shooter.
  * @author Mark Old
  */
-class ChangePitch: public CommandBase {
+class ChangeShooterPitch: public CommandBase {
 private:
 	bool outOfBounds;
 	float targetPitch;
 public:
-	ChangePitch(float targetPitch);
+	ChangeShooterPitch(float targetPitch);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

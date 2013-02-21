@@ -1,19 +1,19 @@
-#include "ChangePitch.h"
+#include "ChangeShooterPitch.h"
 #include <math.h>
 
-ChangePitch::ChangePitch(float targetPitch) :
-	CommandBase("ChangePitch") {
+ChangeShooterPitch::ChangeShooterPitch(float targetPitch) :
+	CommandBase("ChangeShooterPitch") {
 	Requires(shooterPitch);
 	SetInterruptible(true);
 	this->targetPitch = targetPitch;
 	this->outOfBounds = false;
 }
 
-void ChangePitch::Initialize() {
+void ChangeShooterPitch::Initialize() {
 
 }
 
-void ChangePitch::Execute() {
+void ChangeShooterPitch::Execute() {
 	double val = DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(OI_SHOOTER_ANGLE_PROVIDER_CHANNEL);
 	targetPitch
 			= OI_SHOOTER_ANGLE_CONVERT(val);
@@ -26,14 +26,14 @@ void ChangePitch::Execute() {
 	}
 }
 
-bool ChangePitch::IsFinished() {
+bool ChangeShooterPitch::IsFinished() {
 	return false;//outOfBounds;
 }
 
-void ChangePitch::End() {
+void ChangeShooterPitch::End() {
 	shooterPitch->setPitchMotorSpeed(0);
 }
 
-void ChangePitch::Interrupted() {
+void ChangeShooterPitch::Interrupted() {
 	shooterPitch->setPitchMotorSpeed(0);
 }
