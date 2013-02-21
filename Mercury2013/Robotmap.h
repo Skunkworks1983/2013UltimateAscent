@@ -152,34 +152,12 @@
 /**
  * --CLIMBER--
  */
-// TODO: Make the ports not pi
-#define CLIMBER_SLIDER_MOTOR_1					4
-#define CLIMBER_SLIDER_MOTOR_2					5
-#define CLIMBER_SLIDER_ENCODER					8,9
-
-#define CLIMBER_SLIDER_MOTOR_TYPE				Talon
-#define CLIMBER_SLIDER_MOTOR_CREATE(channel) 	(new CLIMBER_SLIDER_MOTOR_TYPE(channel))
-
-#define CLIMBER_HOOK_BUTTON_1					5
-#define CLIMBER_HOOK_BUTTON_2					9
-
 #define	CLIMBER_POKEY							5,6
+#define CLIMBER_PNEUMATIC						3,4 // TODO
+#define CLIMBER_PNEUMATIC_TIME					500 // (millis)
+#define HOKEY_POKEY_TIME						500 // (millis)
 
-#define CLIMBER_BRAKE							3,4
-
-#define CLIMBER_SLIDER_P						0	// TODO
-#define CLIMBER_SLIDER_I						0	// TODO
-#define CLIMBER_SLIDER_D						0	// TODO
-#define CLIMBER_SLIDER_VP						0	// TODO
-#define CLIMBER_SLIDER_VI						0	// TODO
-#define CLIMBER_SLIDER_VD						0	// TODO
-#define CLIMBER_SLIDER_MAX_VELOCITY				1
-#define CLIMBER_SLIDER_MAX_RANGE				2
-#define CLIMBER_SAFTEY_PERIOD					0.02 // (seconds)
-#define CLIMBER_SLIDER_CUTOFF_VELOCITY			1.5
-
-#define CLIMBER_SLIDER_TOLERANCE				0.1  // 1/10 of the total length
-/*
+/**
  * --ARDUINO SERIAL READ--
  */
 
