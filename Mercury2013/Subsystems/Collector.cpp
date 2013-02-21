@@ -1,16 +1,13 @@
 #include "Collector.h"
 #include <math.h>
+#include "CollectorArms.h"
 
 Collector::Collector() :
 	Subsystem("Collector") {
 	printf("Creating Collector...");
-	pitchPotLeft = new AnalogChannel(COLLECTOR_PITCH_POT_LEFT);
-	pitchPotRight = new AnalogChannel(COLLECTOR_PITCH_POT_RIGHT);
-	collectorPitchMotorLeft = new COLLECTOR_PITCH_MOTOR_TYPE(
-			COLLECTOR_PITCH_MOTOR_LEFT);
-	collectorPitchMotorRight = new COLLECTOR_PITCH_MOTOR_TYPE(
-			COLLECTOR_PITCH_MOTOR_RIGHT);
 	collectorMotor = new COLLECTOR_MOTOR_TYPE(COLLECTOR_MOTOR);
+	leftArmController = new LeftArmController(this);
+	rightArmController = new RightArmController(this);
 
 #ifdef COLLECTOR_FRISBEE_CHN_3
 	frisbeeSensors = new DigitalInput*[3];
@@ -23,53 +20,12 @@ Collector::Collector() :
 	frisbeeSensors[0] = new DigitalInput(COLLECTOR_FRISBEE_CHN_1);
 	frisbeeSensors[1] = new DigitalInput(COLLECTOR_FRISBEE_CHN_2);
 
-	pitchPIDLeft = new PIDController(COLLECTOR_PITCH_P, COLLECTOR_PITCH_I,
-			COLLECTOR_PITCH_D, pitchPotLeft, this);
-	pitchPIDLeft->SetAbsoluteTolerance(
-			COLLECTOR_PITCH_INVERT(COLLECTOR_PITCH_TOLERANCE));
-	pitchPIDLeft->SetOutputRange(COLLECTOR_PITCH_MOTOR_SPEED_DOWN,
-			COLLECTOR_PITCH_MOTOR_SPEED_UP);
-	pitchPIDLeft->SetInputRange(
-			COLLECTOR_PITCH_INVERT(COLLECTOR_PITCH_POT_MIN),
-			COLLECTOR_PITCH_INVERT(COLLECTOR_PITCH_POT_MAX));
-
-	pitchPIDRight = new PIDController(COLLECTOR_PITCH_P, COLLECTOR_PITCH_I,
-			COLLECTOR_PITCH_D, pitchPotLeft, collectorPitchMotorRight);
-	pitchPIDRight->SetAbsoluteTolerance(
-			COLLECTOR_PITCH_INVERT(COLLECTOR_PITCH_TOLERANCE));
-	pitchPIDRight->SetOutputRange(COLLECTOR_PITCH_MOTOR_SPEED_DOWN,
-			COLLECTOR_PITCH_MOTOR_SPEED_UP);
-	pitchPIDRight->SetInputRange(
-			COLLECTOR_PITCH_INVERT(COLLECTOR_PITCH_POT_MIN),
-			COLLECTOR_PITCH_INVERT(COLLECTOR_PITCH_POT_MAX));
-
-	SmartDashboard::PutData("Collector Pitch PID (Left)", pitchPIDLeft);
-	SmartDashboard::PutData("Collector Pitch PID (Right)", pitchPIDRight);
-
-	LiveWindow::GetInstance()->AddActuator("Collector", "Angle POT (Left)",
-			pitchPotLeft);
-	LiveWindow::GetInstance()->AddActuator("Collector", "Angle Motor (Left)",
-			collectorPitchMotorLeft);
-	LiveWindow::GetInstance()->AddSensor("Collector", "Pitch POT (Left)",
-			pitchPotLeft);
-
-	LiveWindow::GetInstance()->AddActuator("Collector", "Angle POT (Right)",
-			pitchPotRight);
-	LiveWindow::GetInstance()->AddActuator("Collector", "Angle Motor (Right)",
-			collectorPitchMotorRight);
-	LiveWindow::GetInstance()->AddSensor("Collector", "Pitch POT (Right)",
-			pitchPotRight);
-
 	LiveWindow::GetInstance()->AddActuator("Collector", "Collect Motor",
 			collectorMotor);
 	printf("Done\n");
 }
 
 Collector::~Collector() {
-	delete pitchPotLeft;
-	delete collectorPitchMotorLeft;
-	delete pitchPotRight;
-	delete collectorPitchMotorRight;
 	delete collectorMotor;
 	for (int i = 0; i < COLLECTOR_FRISBEE_CHN_CNT; i++) {
 		delete frisbeeSensors[i];
@@ -78,44 +34,25 @@ Collector::~Collector() {
 }
 
 void Collector::setSetpoint(float angle) {
-	pitchPIDLeft->SetSetpoint(COLLECTOR_PITCH_INVERT(angle));
-	pitchPIDRight->SetSetpoint(COLLECTOR_PITCH_INVERT(angle));
+	leftArmController->setSetpoint(angle);
+	rightArmController->setSetpoint(angle);
 }
 
 void Collector::setPIDState(bool enabled) {
-	pitchPIDLeft->Reset();
-	if (pitchPIDLeft->IsEnabled()) {
-		if (!enabled) {
-			pitchPIDLeft->Disable();
-		}
-	} else if (enabled) {
-		pitchPIDLeft->Enable();
-	}
-
-	pitchPIDRight->Reset();
-	if (pitchPIDRight->IsEnabled()) {
-		if (!enabled) {
-			pitchPIDRight->Disable();
-		}
-	} else if (enabled) {
-		pitchPIDRight->Enable();
-	}
-
-	if (!enabled) {
-		killPitchMotors();
-	}
+	leftArmController->setPIDState(enabled);
+	rightArmController->setPIDState(enabled);
 }
 
 bool Collector::isPIDDone() {
-	return pitchPIDLeft->OnTarget() && pitchPIDRight->OnTarget();
+	return leftArmController->isPIDDone() && rightArmController->isPIDDone();
 }
 
 double Collector::getLeftAngle() {
-	return COLLECTOR_PITCH_CONVERT(pitchPotLeft->GetAverageValue());
+	return leftArmController->PIDGet();
 }
 
 double Collector::getRightAngle() {
-	return COLLECTOR_PITCH_CONVERT(pitchPotRight->GetAverageValue());
+	return rightArmController->PIDGet();
 }
 
 double Collector::getRawAngle() {
@@ -139,12 +76,8 @@ bool Collector::isSpinnerOn() {
 }
 
 void Collector::killPitchMotors() {
-	collectorPitchMotorLeft->Set(0);
-	collectorPitchMotorRight->Set(0);
-}
-
-void Collector::PIDWrite(float f) {
-	collectorPitchMotorLeft->Set(-f);
+	leftArmController->PIDWrite(0);
+	rightArmController->PIDWrite(0);
 }
 
 void Collector::InitDefaultCommand() {
