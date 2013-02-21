@@ -1,43 +1,29 @@
 #include "HokeyPokey.h" 
 
-HokeyPokey::HokeyPokey() : CommandBase("ClimberPokey") {
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(chassis);
+HokeyPokey::HokeyPokey(bool position) :
+	CommandBase("ClimberPokey") {
+	Requires(climber);
+	this->position = position;
+	SetTimeout(((double) HOKEY_POKEY_TIME) / 1000.0);
+	SetInterruptible(false);
 }
 
-HokeyPokey::~HokeyPokey() {
-	
-}
-
-// Called just before this Command runs the first time
 void HokeyPokey::Initialize() {
-	climber->setPokey(true);
+	
 }
 
-// Called repeatedly when this Command is scheduled to run
 void HokeyPokey::Execute() {
-	// Here call the collector to do the movey thingy
-	
+	climber->setPokey(position);
 }
 
-// Make this return true when this Command no longer needs to run execute()
 bool HokeyPokey::IsFinished() {
-	if (climber->getButton(1) == true && climber->getButton(2) == true) {
-		return true;
-	}
-	
-	else {
-		return false;
-	}
+	return IsTimedOut() && (climber->getPokey() == position);
 }
 
-// Called once after isFinished returns true
 void HokeyPokey::End() {
-	climber->setPokey(false);
+
 }
 
-// Called when another command which requires one or more of the same
-// subsystems is scheduled to run
 void HokeyPokey::Interrupted() {
-	
+
 }

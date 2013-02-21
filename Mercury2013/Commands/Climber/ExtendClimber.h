@@ -1,5 +1,5 @@
-#ifndef __CMD_CLIMB_HOKEYPOKEY_H
-#define __CMD_CLIMB_HOKEYPOKEY_H
+#ifndef __CMD_CLIMB_EXTEND_CLIMBER_H
+#define __CMD_CLIMB_EXTEND_CLIMBER_H
 #include "WPILib.h"
 #include "../CommandBase.h"
 #include "../../Subsystems/Climber.h"
@@ -9,11 +9,11 @@
  *
  * @author Connor Barlow, Mark Old
  */
-class HokeyPokey: public CommandBase {
+class ExtendClimber: public CommandBase {
 private:
 	bool position;
 public:
-	HokeyPokey(bool position);	
+	ExtendClimber(bool position);	
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

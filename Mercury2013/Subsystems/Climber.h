@@ -8,95 +8,44 @@
 /**
  * @brief All of the necessary methods and accessors for Climb and its child commands
  * 
- * @author Connor Barlow, Westin Miller
+ * @author Connor Barlow, Westin Miller, Mark Old
  */
-class Climber: public Subsystem, public PIDOutput, public PIDSource {
-public:
-	enum SliderState {
-		kDown, kUp, kOther
-	};
-
+class Climber: public Subsystem {
 private:
-	/**  
-	 * The encoder for the arm movement motor
-	 */
-	Encoder *sliderEncoder;
-
-	/**  
-	 * The motor for the arm movement
-	 */
-	DualLiveSpeed *sliderMotor;
-
-	/**  
-	 * The buttons on the first and second hook to check state
-	 */
-	DigitalInput *hookButton1;
-	DigitalInput *hookButton2;
-
 	/**  
 	 * Solenoid to operate the two pokeys ticks
 	 */
-	SolenoidPair *pokey;
-
+	SolenoidPair *pokeySolenoid;
+	
 	/**
-	 * Solenoid to control slider brake
+	 * Solenoid to operate the climber pneumatic
 	 */
-	SolenoidPair *sliderBrake;
-
-	/**
-	 * The pid controller for controlling the motors with a velocity.
-	 */
-	PIDController *velocityController;
-
-	Notifier *climberSaftey;
-	static void callSaftey(void *climber);
-	void saftey();
+	SolenoidPair *climberSolenoid;
 public:
 	Climber();
 	~Climber();
+	
 	/**  
-	 * Mokes the pokey stick to a state specified
+	 * Moves the pokey sticks to the state specified
 	 */
 	void setPokey(bool pos);
 
 	/**  
-	 * Gets the pokey state with a specific pokey number given
+	 * Gets the state of the pokey sticks
 	 */
-	bool getPokey(int num);
-
-	/**  
-	 * Gets the state of the button given on the button number given
-	 */
-	bool getButton(int button);
-
+	bool getPokey();
+	
 	/**
-	 * Set whether we are braking or not
+	 * Moves the climber pneumatic to the state specified
 	 */
-	void setBrakeState(bool isBraking);
-
+	void setClimberPneumatic(bool position);
+	
 	/**
-	 * Get whether we are broken or not
+	 * Gets the state of the climber pneumatic
 	 */
-	bool getBrakeState();
-
-	/**
-	 * Gets the state of the slider.
-	 */
-	SliderState getSliderState();
-
-	/**
-	 * Writes the speed to two motors.
-	 * @param speed the scalar speed
-	 */
-	virtual void PIDWrite(float speed);
-
-	/**
-	 * Gets the position of the climber.
-	 * @return the position, 0-1
-	 */
-	virtual double PIDGet();
-
-	void setVelocityPIDState(bool state);
+	bool getClimberPneumatic();
+	
+	virtual void InitDefaultCommand();
 };
 
 #endif
