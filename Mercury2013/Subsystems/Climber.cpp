@@ -9,7 +9,7 @@ Climber::Climber() :
 
 	LiveWindow::GetInstance()->AddActuator("Climber", "Pokey Stick",
 			pokeySolenoid);
-	LiveWindow::GetInstance()->AddSensor("Climber", "Climber Solenoid",
+	LiveWindow::GetInstance()->AddActuator("Climber", "Climber Solenoid",
 			climberSolenoid);
 	printf("Done!");
 }
