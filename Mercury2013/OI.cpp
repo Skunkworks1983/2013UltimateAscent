@@ -55,6 +55,15 @@ OI::OI() {
 			new DigitalIOButton(1), new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
 	collectScheduler = new ReleasedButtonScheduler(false,
 			new JoystickButton(driveJoystickRight, 1), new Collect());
+	
+#define PUT_DEFAULT(val) (Preferences::GetInstance()->PutFloat(#val, val))
+	PUT_DEFAULT(SHOOTER_MOTOR_FRONT_SPEED);
+	PUT_DEFAULT(SHOOTER_MOTOR_MIDDLE_SPEED);
+	PUT_DEFAULT(SHOOTER_MOTOR_REAR_SPEED);
+
+	PUT_DEFAULT(SHOOTER_MOTOR_FRONT_BANG_SPEED);
+	PUT_DEFAULT(SHOOTER_MOTOR_MIDDLE_BANG_SPEED);
+	PUT_DEFAULT(SHOOTER_MOTOR_REAR_BANG_SPEED);
 }
 
 Joystick *OI::getDriveJoystickLeft() {

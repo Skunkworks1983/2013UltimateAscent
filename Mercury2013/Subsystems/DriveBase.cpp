@@ -73,8 +73,9 @@ DriveBase::~DriveBase() {
 }
 
 void DriveBase::setSpeed(float leftSpeed, float rightSpeed) {
-	motorLeft->Set(-leftSpeed);
-	motorRight->Set(rightSpeed);
+	//TODO Check on Competition Bot
+	motorLeft->Set(leftSpeed);
+	motorRight->Set(-rightSpeed);
 }
 
 Gyro *DriveBase::getGyro() {

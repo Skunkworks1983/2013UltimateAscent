@@ -78,13 +78,13 @@
 #define SHOOTER_MOTOR_REAR						1,7
 #define SHOOTER_PITCH_MOTOR						1,6
 // Shooter motor speeds
-#define SHOOTER_MOTOR_FRONT_SPEED				-1.0 // TODO
-#define SHOOTER_MOTOR_MIDDLE_SPEED				-0.8 // TODO
-#define SHOOTER_MOTOR_REAR_SPEED				-1.0 // TODO
+#define SHOOTER_MOTOR_FRONT_SPEED				Preferences::GetInstance()->GetFloat("SHOOTER_MOTOR_FRONT_SPEED",-1.0) // TODO
+#define SHOOTER_MOTOR_MIDDLE_SPEED				Preferences::GetInstance()->GetFloat("SHOOTER_MOTOR_MIDDLE_SPEED",-0.8) // TODO
+#define SHOOTER_MOTOR_REAR_SPEED				Preferences::GetInstance()->GetFloat("SHOOTER_MOTOR_REAR_SPEED",-1.0) // TODO
 
-#define SHOOTER_MOTOR_FRONT_BANG_SPEED			-1.0 // TODO
-#define SHOOTER_MOTOR_MIDDLE_BANG_SPEED			-1.0 // TODO
-#define SHOOTER_MOTOR_REAR_BANG_SPEED			-1.0 // TODO
+#define SHOOTER_MOTOR_FRONT_BANG_SPEED			Preferences::GetInstance()->GetFloat("SHOOTER_MOTOR_FRONT_BANG_SPEED",-1.0) // TODO
+#define SHOOTER_MOTOR_MIDDLE_BANG_SPEED			Preferences::GetInstance()->GetFloat("SHOOTER_MOTOR_MIDDLE_BANG_SPEED",-1.0) // TODO
+#define SHOOTER_MOTOR_REAR_BANG_SPEED			Preferences::GetInstance()->GetFloat("SHOOTER_MOTOR_REAR_BANG_SPEED",-1.0) // TODO
 
 #define SHOOTER_MOTOR_FLUSH_SPEED				-0.75 // TODO
 // Various times (millis)
