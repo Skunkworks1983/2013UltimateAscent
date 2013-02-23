@@ -31,8 +31,9 @@ void CommandBase::init() {
 	shooter = new Shooter();
 	driveBase = new DriveBase();
 	collector = new Collector();
-	oi = new OI();
 	climber = new Climber();
 	arduino = new Arduino(Arduino::kSerial, 9600);
 	shooterPitch = new ShooterPitch();
+	
+	oi = new OI();
 }

@@ -14,6 +14,7 @@ Shooter::Shooter() :
 	shootSolenoid = new SolenoidPair(SHOOTER_PNEUMATIC);
 
 	timeTillShootReady = 0;
+	enableShooterBang = true;
 
 	LiveWindow::GetInstance()->AddActuator("Shooter", "Shoot Solenoid",
 			shootSolenoid);
@@ -25,6 +26,8 @@ Shooter::~Shooter() {
 	delete frontMotor;
 	delete middleMotor;
 	delete rearMotor;
+
+	delete shootSolenoid;
 }
 
 void Shooter::setArmed(bool armed) {
@@ -40,6 +43,21 @@ void Shooter::setArmed(bool armed) {
 	}
 }
 
+bool Shooter::isShooterBangEnabled() {
+	return enableShooterBang & 1;
+}
+
+void Shooter::update() {
+	SmartDashboard::PutBoolean("Shooter BangBang", isShooterBangEnabled());
+	SmartDashboard::PutNumber("Shooter FM", frontMotor->Get());
+	SmartDashboard::PutNumber("Shooter MM", middleMotor->Get());
+	SmartDashboard::PutNumber("Shooter RM", rearMotor->Get());
+}
+
+void Shooter::setShooterBang(bool sB) {
+	enableShooterBang = sB & 1;
+}
+
 bool Shooter::isArmed() {
 	return fabs(frontMotor->Get()) > 0 || fabs(middleMotor->Get()) > 0 || fabs(
 			rearMotor->Get()) > 0;
@@ -50,14 +68,16 @@ void Shooter::shoot(bool shooting) {
 		shootSolenoid->Set(shooting);
 		if (isArmed()) {
 			timeTillShootReady = getCurrentMillis() + SHOOTER_WAIT_TIME;
-			if (shooting) {
-				frontMotor->Set(SHOOTER_MOTOR_FRONT_BANG_SPEED);
-				middleMotor->Set(SHOOTER_MOTOR_MIDDLE_BANG_SPEED);
-				rearMotor->Set(SHOOTER_MOTOR_REAR_BANG_SPEED);
-			} else {
-				frontMotor->Set(SHOOTER_MOTOR_FRONT_SPEED);
-				middleMotor->Set(SHOOTER_MOTOR_MIDDLE_SPEED);
-				rearMotor->Set(SHOOTER_MOTOR_REAR_SPEED);
+			if (enableShooterBang) {
+				if (shooting) {
+					frontMotor->Set(SHOOTER_MOTOR_FRONT_BANG_SPEED);
+					middleMotor->Set(SHOOTER_MOTOR_MIDDLE_BANG_SPEED);
+					rearMotor->Set(SHOOTER_MOTOR_REAR_BANG_SPEED);
+				} else {
+					frontMotor->Set(SHOOTER_MOTOR_FRONT_SPEED);
+					middleMotor->Set(SHOOTER_MOTOR_MIDDLE_SPEED);
+					rearMotor->Set(SHOOTER_MOTOR_REAR_SPEED);
+				}
 			}
 		}
 	}

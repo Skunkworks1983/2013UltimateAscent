@@ -25,6 +25,7 @@ void UpdateOI::Execute() {
 			collector->getRightAngle());
 	SmartDashboard::PutNumber("Collector Frisbee Trigger",
 			collector->getFrisbeeSensorCount());
+	shooter->update();
 }
 
 bool UpdateOI::IsFinished() {
