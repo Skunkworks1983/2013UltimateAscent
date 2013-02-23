@@ -24,7 +24,7 @@
 #define OI_JOYSTICK_RIGHT					2
 #define OI_SHOOTER_ANGLE_PROVIDER_CHANNEL	3
 // SEE AnalogChangeTrigger #define OI_POT_GENERIC_CONVERT(val)
-#define OI_SHOOTER_ANGLE_CONVERT(val)		((.0858 * val * val * val) - (.5267 * val * val) + (1.081* val) + .0754)
+#define OI_SHOOTER_ANGLE_CONVERT(x)		(((0.0817 * x * x * x) - (0.4982 * x * x) + (1.0196 * x)) * (1 / (0.970 - 0.0861)))
 
 // Autonomous Settings
 #define AUTO_TURN_SPEED_MIN       		.2		// Scalar Minimum Speed (0-1)
