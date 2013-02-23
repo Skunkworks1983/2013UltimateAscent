@@ -21,6 +21,7 @@ private:
 	SolenoidPair *shootSolenoid;
 	
 	double timeTillShootReady;
+	bool enableShooterBang;
 public:
 	Shooter();
 	~Shooter();
@@ -29,8 +30,11 @@ public:
 	bool isArmed();
 	void shoot(bool shooting);
 	void flush(bool flushing);
+	void setShooterBang(bool shouldBang);
+	void update();
 	
 	bool readyToShoot();
+	bool isShooterBangEnabled();
 	
 	virtual void InitDefaultCommand();
 };

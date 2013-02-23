@@ -53,7 +53,6 @@ LeftArmController::LeftArmController(Collector *collect) :
 			ArmController(collect,
 					new COLLECTOR_PITCH_MOTOR_TYPE(COLLECTOR_PITCH_MOTOR_LEFT),
 					new AnalogChannel(COLLECTOR_PITCH_POT_LEFT)) {
-	SmartDashboard::PutData("Left Collector Arm", pid);
 }
 
 LeftArmController::~LeftArmController() {
@@ -72,7 +71,6 @@ RightArmController::RightArmController(Collector *collect) :
 					collect,
 					new COLLECTOR_PITCH_MOTOR_TYPE(COLLECTOR_PITCH_MOTOR_RIGHT),
 					new AnalogChannel(COLLECTOR_PITCH_POT_RIGHT)) {
-	SmartDashboard::PutData("Right Collector Arm", pid);
 }
 
 RightArmController::~RightArmController() {

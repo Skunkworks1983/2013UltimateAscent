@@ -11,13 +11,6 @@
  * Getting button/joystick/etc states.
  */
 class OI {
-public:
-	enum DriverStationLight {
-		kLightClimberHook1 = 1,
-		kLightClimberHook2 = 2,
-		kLightClimberHook3 = 3,
-		kLightClimberHook4 = 4
-	};	
 private:
 	Joystick *driveJoystickLeft;
 	Joystick *driveJoystickRight;
@@ -31,9 +24,9 @@ private:
 	ButtonScheduler *shootScheduler;
 	ButtonScheduler *spinupScheduler;
 	ButtonScheduler *spindownScheduler;
-	ButtonScheduler *flushScheduler;
-	ButtonScheduler *changePositionScheduler;
 	ButtonScheduler *tuneShooterScheduler;
+	ButtonScheduler *bangBangOffScheduler;
+	ButtonScheduler *bangBangOnScheduler;
 	
 	ButtonScheduler *armUpScheduler;
 	ButtonScheduler *armMidScheduler;
@@ -49,7 +42,6 @@ public:
 	Joystick *getDriveJoystickRight();
 
 	void registerButtonSchedulers();
-	void setLightState(DriverStationLight light, bool state);
 };
 
 #endif
