@@ -7,20 +7,27 @@ SlowTankDrive::SlowTankDrive() :
 }
 
 void SlowTankDrive::Initialize() {
+	speed = 0.0;
+	driveBase->getLeftEncoder()->Reset();
+	driveBase->getRightEncoder()->Reset();
 }
 
 void SlowTankDrive::Execute() {
 	//Divides the input of the motors by 10.
-	if (-oi->getDriveJoystickLeft()->GetAxis(Joystick::kYAxis) + -oi->getDriveJoystickRight()->GetAxis(Joystick::kYAxis) == 0) {
-		driveBase->setSpeed(0.0,0.0);
-	} else {
-		driveBase->setSpeed((-oi->getDriveJoystickLeft()->GetAxis(Joystick::kYAxis) / 10) + .16,
-				-oi->getDriveJoystickRight()->GetAxis(Joystick::kYAxis) / 10);
+	//Pootis.
+	driveBase->setSpeed(speed, -speed);
+
+	if ((driveBase->getLeftEncoder() != 0) || (driveBase->getRightEncoder() != 0)){
+		SmartDashboard::PutNumber("THE FINAL NUMBER YOU WANT IS THIS", (double)speed);
+		isFinished = true;
+	}else{
+		speed += .00005;
 	}
+	SmartDashboard::PutNumber("Speed being passed", (double)speed);
 }
 
 bool SlowTankDrive::IsFinished() {
-return false;
+return isFinished;
 }
 
 void SlowTankDrive::End() {
