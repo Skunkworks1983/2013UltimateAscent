@@ -56,6 +56,9 @@ LeftArmController::LeftArmController(Collector *collect) :
 	SmartDashboard::PutData("Left Collector Arm", pid);
 }
 
+LeftArmController::~LeftArmController() {
+}
+
 void LeftArmController::PIDWrite(float f) {
 	float diff = min(
 			(COLLECTOR_PITCH_CATCHUP - fabs(
@@ -70,6 +73,9 @@ RightArmController::RightArmController(Collector *collect) :
 					new COLLECTOR_PITCH_MOTOR_TYPE(COLLECTOR_PITCH_MOTOR_RIGHT),
 					new AnalogChannel(COLLECTOR_PITCH_POT_RIGHT)) {
 	SmartDashboard::PutData("Right Collector Arm", pid);
+}
+
+RightArmController::~RightArmController() {
 }
 
 void RightArmController::PIDWrite(float f) {

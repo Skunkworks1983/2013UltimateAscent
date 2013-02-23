@@ -13,7 +13,7 @@ protected:
 public:
 	ArmController(Collector *collect, COLLECTOR_PITCH_MOTOR_TYPE *motor, AnalogChannel *pot);
 	virtual ~ArmController();
-	virtual double PIDGet();
+	double PIDGet();
 	virtual void PIDWrite(float f) = 0;
 	void setPIDState(bool b);
 	bool isPIDDone();
@@ -23,13 +23,13 @@ public:
 class LeftArmController: public ArmController {
 public:
 	LeftArmController(Collector *collect);
-	virtual ~LeftArmController();
+	~LeftArmController();
 	virtual void PIDWrite(float f);
 };
 class RightArmController: public ArmController {
 public:
 	RightArmController(Collector *collect);
-	virtual ~RightArmController();
+	~RightArmController();
 	virtual void PIDWrite(float f);
 };
 #endif
