@@ -47,8 +47,6 @@ public:
 
 	bool isSpinnerOn();
 
-	virtual void PIDWrite(float f);
-
 	/**
 	 * Sets the default command for this subsystem
 	 */
