@@ -10,6 +10,15 @@
  * @author Westin Miller & Owen Mattson
  */
 class SlowTankDrive: public CommandBase {
+private:
+	float speed;
+	bool isFinished;
+	/* while(RossisBigNub){
+			cout << "Rossisbignub";
+		else 
+			 cout << "Rossisnotbignub";
+	}
+	*/
 public:
 	SlowTankDrive();
 	virtual void Initialize();
