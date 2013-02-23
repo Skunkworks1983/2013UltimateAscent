@@ -73,36 +73,39 @@
  * --SHOOTER--
  */
 // Shooter motor channels
-#define SHOOTER_MOTOR_FRONT						1,9 // TODO
-#define SHOOTER_MOTOR_MIDDLE					1,8 // TODO
-#define SHOOTER_MOTOR_REAR						1,7 // TODO
-#define SHOOTER_PITCH_MOTOR						1,6 // TODO
+#define SHOOTER_MOTOR_FRONT						1,9
+#define SHOOTER_MOTOR_MIDDLE					1,8
+#define SHOOTER_MOTOR_REAR						1,7
+#define SHOOTER_PITCH_MOTOR						1,6
 // Shooter motor speeds
 #define SHOOTER_MOTOR_FRONT_SPEED				-1.0 // TODO
 #define SHOOTER_MOTOR_MIDDLE_SPEED				-0.8 // TODO
 #define SHOOTER_MOTOR_REAR_SPEED				-1.0 // TODO
+
 #define SHOOTER_MOTOR_FRONT_BANG_SPEED			-1.0 // TODO
 #define SHOOTER_MOTOR_MIDDLE_BANG_SPEED			-1.0 // TODO
 #define SHOOTER_MOTOR_REAR_BANG_SPEED			-1.0 // TODO
+
 #define SHOOTER_MOTOR_FLUSH_SPEED				-0.75 // TODO
 // Various times (millis)
 #define SHOOTER_ARM_TIME						1000 // TODO
 #define SHOOTER_SHOOT_TIME						500 // TODO
 #define SHOOTER_WAIT_TIME						1000 // TODO
 #define SHOOTER_FLUSH_TIME						100 // TODO
+
 // Class name of the shooter and shooter pitch motor controllers
 #define SHOOTER_MOTOR_TYPE						Talon
 #define SHOOTER_PITCH_MOTOR_TYPE				Talon
 // Shooter solenoid ports
-#define SHOOTER_PNEUMATIC						7,8 // TODO
+#define SHOOTER_PNEUMATIC						7,8
 // Shooter speed and pitch sensors
 #define SHOOTER_PITCH_SPEED						.8
 #define SHOOTER_PITCH_SLOWDOWN_RANGE			0.05
 #define SHOOTER_PITCH_SLOWDOWN_SPEED			.75
-#define SHOOTER_PITCH_ENCODER					12,13 // TODO
+#define SHOOTER_PITCH_ENCODER					12,13
 #define SHOOTER_PITCH_LIMIT_SWITCH				11
 #define SHOOTER_PITCH_UPPER_LIMIT				(1.0)
-#define SHOOTER_PITCH_DEGREES_PER_PULSE			(1.0/23345.0) // TODO
+#define SHOOTER_PITCH_DEGREES_PER_PULSE			(1.0/23345.0)
 // Shooter pitch control info
 #define SHOOTER_PITCH_THRESHOLD					0.0125 //Random units; scalar of shooter angle
 #define SHOOTER_PITCH_STABILITY					25
@@ -111,9 +114,9 @@
  * --COLLECTOR--
  * 	Collector motor channels
  */
-#define COLLECTOR_MOTOR							3 // TODO
-#define COLLECTOR_PITCH_MOTOR_LEFT				1 // TODO
-#define COLLECTOR_PITCH_MOTOR_RIGHT				2 // TODO
+#define COLLECTOR_MOTOR							3
+#define COLLECTOR_PITCH_MOTOR_LEFT				1
+#define COLLECTOR_PITCH_MOTOR_RIGHT				2
 // Class name of the shooter and collector pitch motor controllers
 #define COLLECTOR_MOTOR_TYPE					Talon
 #define COLLECTOR_PITCH_MOTOR_TYPE				Talon
@@ -121,8 +124,8 @@
 #define COLLECTOR_PITCH_MOTOR_SPEED_UP			.6 // TODO get value from design team
 #define COLLECTOR_PITCH_MOTOR_SPEED_DOWN		-.4 // TODO get value from design team
 #define COLLECTOR_MOTOR_SPEED					-0.5
-#define COLLECTOR_PITCH_POT_LEFT				2  // TODO
-#define COLLECTOR_PITCH_POT_RIGHT				1  // TODO
+#define COLLECTOR_PITCH_POT_LEFT				2
+#define COLLECTOR_PITCH_POT_RIGHT				1
 #define COLLECTOR_PITCH_CONVERT(value)			(((value - 205) * 90) / 315)
 //#define COLLECTOR_PITCH_INVERTs(value)			(((value * 315) / 90) + 205)
 #define COLLECTOR_PITCH_P						0.1
@@ -153,7 +156,7 @@
  * --CLIMBER--
  */
 #define	CLIMBER_POKEY							5,6
-#define CLIMBER_PNEUMATIC						3,4 // TODO
+#define CLIMBER_PNEUMATIC						3,4
 #define CLIMBER_PNEUMATIC_TIME					500 // (millis)
 #define HOKEY_POKEY_TIME						500 // (millis)
 
