@@ -33,7 +33,7 @@ Arduino::Arduino(CommsMode comms, int in) :
 	Subsystem("Arduino") {
 	Initialize();
 	if (comms == kSerial) {
-		if (in > 100) {
+		if (in > 115200) {
 			printf("Invalid Baud Rate--Are you sure you want to use serial?\n");
 		} else {
 			serial = new SerialPort(in);
