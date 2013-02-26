@@ -12,7 +12,7 @@
 CollectorAuto::CollectorAuto() :
 	CommandGroup("CollectorAuto") {
 	
-	AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_DOWN)); //possibly not used
+	AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_DOWN)); //probably not used
 	AddSequential(new DriveDistance(24));
 	AddSequential(new Collect());
 	AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_UP));
