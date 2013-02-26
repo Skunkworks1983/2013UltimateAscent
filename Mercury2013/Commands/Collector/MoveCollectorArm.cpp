@@ -19,7 +19,11 @@ void MoveCollectorArm::Execute() {
 }
 
 bool MoveCollectorArm::IsFinished() {
-	return collector->isPIDDone();
+	if ((goal > COLLECTOR_SHOOTER_INTERFERENCE_LOW && shooterPitch->getCurrentPitch() >= SHOOTER_PITCH_UPPER_LIMIT)) {
+		return true;
+	} else {
+		return collector->isPIDDone();
+	}
 }
 
 void MoveCollectorArm::End() {
