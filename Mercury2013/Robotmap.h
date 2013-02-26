@@ -108,6 +108,7 @@
 #define SHOOTER_PITCH_DEGREES_PER_PULSE			(1.0/23345.0)
 // Shooter pitch control info
 #define SHOOTER_PITCH_THRESHOLD					(0.0125) /* Random units; scalar of shooter angle */
+#define SHOOTER_PITCH_COLLECT					(.7)
 #define SHOOTER_PITCH_STABILITY					(25)
 
 /**

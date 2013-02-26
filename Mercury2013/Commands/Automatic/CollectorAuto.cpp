@@ -11,35 +11,15 @@
 
 CollectorAuto::CollectorAuto() :
 	CommandGroup("CollectorAuto") {
-	// Add the autonomous sequence
 	
-	/**
-	 * You nub
-	 * 
-	 * Here are the commands ill cahnge these comments later
-	 **/
-	
-	/*
-	 * -Move forward a bit maybe
-	 * -Turn on collector
-	 * -stop collector
-	 * -move collector arm to up position
-	 * -move shooter arm to correct catch postion
-	 * -move collector arm to CORRECT_POSITION
-	 * -THROW UP ALLLLL YOUR FRISBIE
-	 * -move shooter to down position
-	 * -move collector to down position
-	 * -LOOP
-	 */
-	
-	AddSequential(new MoveCollectorArm(DOWN)); //possibly not used
+	AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_DOWN)); //possibly not used
 	AddSequential(new DriveDistance(24));
 	AddSequential(new Collect());
-	AddSequential(new MoveCollectorArm(UP_POSITION));
-	AddSequential(new ChangeShooterPitch(CORRECT_POSITION));
-	AddSequential(new EjectDisk());
-	AddSequential(new ChangeShooterPitch(DOWN));
-	AddSequential(new MoveCollectorArm(DOWN));
+	AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_UP));
+	AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_COLLECT));
+	//AddSequential(new EjectDisks());
+	AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_UPPER_LIMIT));
+	AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
 }
 
 CollectorAuto::~CollectorAuto() {
