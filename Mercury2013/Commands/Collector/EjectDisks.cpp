@@ -19,7 +19,7 @@ void EjectDisks::Execute() {
 }
 
 bool EjectDisks::IsFinished() {
-	return /*TODO collector->getFrisbeeSensorCount() != 0 &&*/ IsTimedOut();
+	return collector->getFrisbeeSensorCount() == 0 || IsTimedOut();
 }
 
 void EjectDisks::End() {
