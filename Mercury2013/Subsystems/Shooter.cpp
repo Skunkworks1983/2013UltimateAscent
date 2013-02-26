@@ -14,7 +14,13 @@ Shooter::Shooter() :
 	shootSolenoid = new SolenoidPair(SHOOTER_PNEUMATIC);
 
 	timeTillShootReady = 0;
-	enableShooterBang = true;
+	controlScheme = kPowerBang;
+
+	// Speed Control
+	frontSpeed = new AnalogChannel(SHOOTER_ENCODER_FRONT);
+	middleSpeed = new AnalogChannel(SHOOTER_ENCODER_MIDDLE);
+	rearSpeed = new AnalogChannel(SHOOTER_ENCODER_REAR);
+	controlLoop = new Notifier(Shooter::callUpdateMotors, this);
 
 	LiveWindow::GetInstance()->AddActuator("Shooter", "Shoot Solenoid",
 			shootSolenoid);
@@ -26,6 +32,11 @@ Shooter::~Shooter() {
 	delete frontMotor;
 	delete middleMotor;
 	delete rearMotor;
+
+	delete frontSpeed;
+	delete middleSpeed;
+	delete rearSpeed;
+	delete controlLoop;
 
 	delete shootSolenoid;
 }
@@ -43,19 +54,12 @@ void Shooter::setArmed(bool armed) {
 	}
 }
 
-bool Shooter::isShooterBangEnabled() {
-	return enableShooterBang & 1;
+void Shooter::setControlScheme(ControlType type) {
+	controlScheme = type;
 }
 
-void Shooter::update() {
-	SmartDashboard::PutBoolean("Shooter BangBang", isShooterBangEnabled());
-	SmartDashboard::PutNumber("Shooter FM", frontMotor->Get());
-	SmartDashboard::PutNumber("Shooter MM", middleMotor->Get());
-	SmartDashboard::PutNumber("Shooter RM", rearMotor->Get());
-}
-
-void Shooter::setShooterBang(bool sB) {
-	enableShooterBang = sB & 1;
+Shooter::ControlType Shooter::getControlScheme() {
+	return controlScheme;
 }
 
 bool Shooter::isArmed() {
@@ -68,7 +72,7 @@ void Shooter::shoot(bool shooting) {
 		shootSolenoid->Set(shooting);
 		if (isArmed()) {
 			timeTillShootReady = getCurrentMillis() + SHOOTER_WAIT_TIME;
-			if (enableShooterBang) {
+			if (controlScheme == kPowerBang) {
 				if (shooting) {
 					frontMotor->Set(SHOOTER_MOTOR_FRONT_BANG_SPEED);
 					middleMotor->Set(SHOOTER_MOTOR_MIDDLE_BANG_SPEED);
@@ -100,3 +104,12 @@ bool Shooter::readyToShoot() {
 void Shooter::InitDefaultCommand() {
 }
 
+void Shooter::callUpdateMotors(void *shooter) {
+	((Shooter*) shooter)->updateMotors();
+}
+
+void Shooter::updateMotors() {
+	if (controlScheme == kSpeed) {
+		//TODO
+	}
+}

@@ -76,6 +76,13 @@
 #define SHOOTER_MOTOR_FRONT						1,9
 #define SHOOTER_MOTOR_MIDDLE					1,8
 #define SHOOTER_MOTOR_REAR						1,7
+
+#define SHOOTER_ENCODER_FRONT					1,9 /*TODO*/
+#define SHOOTER_ENCODER_MIDDLE					1,8
+#define SHOOTER_ENCODER_REAR					1,7
+
+#define SHOOTER_ENCODER_CONVERT(val)			(val) /*TODO*/
+
 #define SHOOTER_PITCH_MOTOR						1,6
 // Shooter motor speeds
 #define SHOOTER_MOTOR_FRONT_SPEED				Preferences::GetInstance()->GetFloat("SHOOTER_MOTOR_FRONT_SPEED",-1.0) /* TODO */
