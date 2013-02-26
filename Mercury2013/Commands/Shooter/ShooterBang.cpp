@@ -16,7 +16,7 @@ void ShooterBang::Initialize() {
 		enableShooterBang = false;
 		break;
 	case kToggle:
-		enableShooterBang = !shooter->isShooterBangEnabled();
+		//enableShooterBang = !shooter->isShooterBangEnabled();
 		break;
 	default:
 		enableShooterBang = true;
@@ -25,12 +25,11 @@ void ShooterBang::Initialize() {
 }
 
 void ShooterBang::Execute() {
-	shooter->setShooterBang(enableShooterBang);
-	printf("Shooter bangbang on: %d\n", shooter->isShooterBangEnabled());
+	//shooter->setShooterBang(enableShooterBang);
 }
 
 bool ShooterBang::IsFinished() {
-	return shooter->isShooterBangEnabled() == enableShooterBang;
+	return true;//shooter->isShooterBangEnabled() == enableShooterBang;
 }
 
 void ShooterBang::End() {
