@@ -21,6 +21,7 @@ Shooter::Shooter() :
 	middleSpeed = new AnalogChannel(SHOOTER_ENCODER_MIDDLE);
 	rearSpeed = new AnalogChannel(SHOOTER_ENCODER_REAR);
 	controlLoop = new Notifier(Shooter::callUpdateMotors, this);
+	updateStability = 0;
 
 	LiveWindow::GetInstance()->AddActuator("Shooter", "Shoot Solenoid",
 			shootSolenoid);
@@ -42,12 +43,25 @@ Shooter::~Shooter() {
 }
 
 void Shooter::setArmed(bool armed) {
-	if (armed) {
-		frontMotor->Set(SHOOTER_MOTOR_FRONT_SPEED);
-		middleMotor->Set(SHOOTER_MOTOR_MIDDLE_SPEED);
-		rearMotor->Set(SHOOTER_MOTOR_REAR_SPEED);
-		timeTillShootReady = getCurrentMillis() + SHOOTER_ARM_TIME;
-	} else {
+	switch (controlScheme) {
+	case kPower:
+	case kPowerBang:
+		if (armed) {
+			frontMotor->Set(SHOOTER_MOTOR_FRONT_SPEED);
+			middleMotor->Set(SHOOTER_MOTOR_MIDDLE_SPEED);
+			rearMotor->Set(SHOOTER_MOTOR_REAR_SPEED);
+			timeTillShootReady = getCurrentMillis() + SHOOTER_ARM_TIME;
+		}
+		break;
+	case kSpeed:
+		if (armed) {
+			controlLoop->StartPeriodic(SHOOTER_MOTOR_UPDATE_SPEED);
+		} else {
+			controlLoop->Stop();
+		}
+		break;
+	}
+	if (!armed) {
 		frontMotor->Set(0);
 		middleMotor->Set(0);
 		rearMotor->Set(0);
@@ -98,7 +112,14 @@ void Shooter::flush(bool flushing) {
 }
 
 bool Shooter::readyToShoot() {
-	return getCurrentMillis() > timeTillShootReady;
+	switch (controlScheme) {
+	case kSpeed:
+		return updateStability > SHOOTER_MOTOR_RPM_STABILITY;
+	case kRaw:
+		return true;
+	default:
+		return getCurrentMillis() > timeTillShootReady;
+	}
 }
 
 void Shooter::InitDefaultCommand() {
@@ -108,8 +129,21 @@ void Shooter::callUpdateMotors(void *shooter) {
 	((Shooter*) shooter)->updateMotors();
 }
 
+void Shooter::updateMotor(AnalogChannel *src, SpeedController *dst,
+		float target) {
+	float offset = target - SHOOTER_ENCODER_CONVERT(src->GetAverageValue());
+	dst->Set(offset < 0 ? 1.0 : -1.0);
+	if (fabs(offset) < SHOOTER_MOTOR_RPM_THRESHOLD) {
+		updateStability++;
+	} else {
+		updateStability = 0;
+	}
+}
+
 void Shooter::updateMotors() {
 	if (controlScheme == kSpeed) {
-		//TODO
+		updateMotor(frontSpeed, frontMotor, SHOOTER_MOTOR_FRONT_RPM);
+		updateMotor(frontSpeed, frontMotor, SHOOTER_MOTOR_MIDDLE_RPM);
+		updateMotor(frontSpeed, frontMotor, SHOOTER_MOTOR_REAR_RPM);
 	}
 }

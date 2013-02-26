@@ -30,8 +30,10 @@ private:
 	
 	// Speed Information
 	Notifier *controlLoop;
+	int updateStability;
 	static void callUpdateMotors(void *shooter);
 	void updateMotors();
+	void updateMotor(AnalogChannel *src, SpeedController *dst, float target);
 	AnalogChannel *frontSpeed;
 	AnalogChannel *middleSpeed;
 	AnalogChannel *rearSpeed;
