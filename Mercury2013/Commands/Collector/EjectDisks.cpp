@@ -15,7 +15,7 @@ void EjectDisks::Initialize() {
 }
 
 void EjectDisks::Execute() {
-	collector->setCollectorMotor(true);
+	collector->setCollectorMotor(Collector::kBackward);
 }
 
 bool EjectDisks::IsFinished() {
@@ -23,9 +23,9 @@ bool EjectDisks::IsFinished() {
 }
 
 void EjectDisks::End() {
-	collector->setCollectorMotor(false);
+	collector->setCollectorMotor(Collector::kStop);
 }
 
 void EjectDisks::Interrupted() {
-	collector->setCollectorMotor(false);
+	collector->setCollectorMotor(Collector::kStop);
 }

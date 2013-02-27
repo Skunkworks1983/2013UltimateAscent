@@ -18,13 +18,22 @@ class ArmController;
  * @author Ross Bajocich, Westin Miller
  */
 class Collector: public Subsystem {
-private:
-	COLLECTOR_MOTOR_TYPE *collectorMotor;
-	ArmController *leftArmController;
-	ArmController *rightArmController;
 
-	DigitalInput **frisbeeSensors;
 public:
+	enum MotorDirection {
+			/**
+			 * Motors push frisbees forward
+			 */
+			kForward,
+			/**
+			 * Motors push frisbees backwards
+			 */
+			kBackward,
+			/**
+			 * Motors aren't running
+			 */
+			kStop
+		};
 	/**
 	 * Initializes all objects, and deletes them in the destructor, using ports
 	 * from robot map to initialize the devices 
@@ -39,9 +48,8 @@ public:
 	double getRawAngle();
 
 	int getFrisbeeSensorCount();
-	void setCollectorMotor(bool state);
+	void setCollectorMotor(Collector::MotorDirection state);
 	void killPitchMotors();
-
 	double getLeftAngle();
 	double getRightAngle();
 
@@ -51,6 +59,14 @@ public:
 	 * Sets the default command for this subsystem
 	 */
 	virtual void InitDefaultCommand();
+	
+private:
+	COLLECTOR_MOTOR_TYPE *collectorMotor;
+	ArmController *leftArmController;
+	ArmController *rightArmController;
+
+	DigitalInput **frisbeeSensors;
+	MotorDirection myMotorDirection;
 };
 
 #endif
