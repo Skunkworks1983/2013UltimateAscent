@@ -8,6 +8,7 @@ Collector::Collector() :
 	collectorMotor = new COLLECTOR_MOTOR_TYPE(COLLECTOR_MOTOR);
 	leftArmController = new LeftArmController(this);
 	rightArmController = new RightArmController(this);
+//	this->myMotorDirection = myMotorDirection;
 
 #ifdef COLLECTOR_FRISBEE_CHN_3
 	frisbeeSensors = new DigitalInput*[3];
@@ -67,8 +68,18 @@ int Collector::getFrisbeeSensorCount() {
 	return count;
 }
 
-void Collector::setCollectorMotor(bool state) {
-	collectorMotor->Set(state ? COLLECTOR_MOTOR_SPEED : 0);
+void Collector::setCollectorMotor(Collector::MotorDirection state) {
+//	if (state == kStop) {
+//		collectorMotor->Set(0);
+//	}
+//	else if (state == kForward){
+//		collectorMotor->Set(COLLECTOR_MOTOR_SPEED);
+//	
+//	}
+//	else if (state == kBackward){
+//		collectorMotor->Set(-COLLECTOR_MOTOR_SPEED);
+//	}
+//	else (collectorMotor->Set(0));	
 }
 
 bool Collector::isSpinnerOn() {

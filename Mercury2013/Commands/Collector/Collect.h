@@ -9,6 +9,7 @@
  */
 class Collect: public CommandBase {
 public:
+	
 	Collect();
 	~Collect();
 	virtual void Initialize();

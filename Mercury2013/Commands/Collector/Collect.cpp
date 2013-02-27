@@ -15,7 +15,7 @@ void Collect::Initialize() {
 }
 
 void Collect::Execute() {
-	collector->setCollectorMotor(true);
+	collector->setCollectorMotor(Collector::kForward);
 }
 
 bool Collect::IsFinished() {
@@ -23,9 +23,9 @@ bool Collect::IsFinished() {
 }
 
 void Collect::End() {
-	collector->setCollectorMotor(false);
+	collector->setCollectorMotor(Collector::kStop);
 }
 
 void Collect::Interrupted() {
-	collector->setCollectorMotor(false);
+	collector->setCollectorMotor(Collector::kStop);
 }
