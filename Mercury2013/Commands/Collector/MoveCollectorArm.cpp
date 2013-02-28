@@ -19,7 +19,14 @@ void MoveCollectorArm::Execute() {
 }
 
 bool MoveCollectorArm::IsFinished() {
-	if ((goal > COLLECTOR_SHOOTER_INTERFERENCE_LOW && shooterPitch->getCurrentPitch() >= SHOOTER_PITCH_UPPER_LIMIT)) {
+	//(Shooter interferes && (Passing positive || Passing negative))
+	if (shooterPitch->getCurrentPitch() > SHOOTER_COLLECTOR_INTERFERENCE_LOW
+			&& shooterPitch->getCurrentPitch()
+					< SHOOTER_COLLECTOR_INTERFERENCE_HIGH && ((goal
+			> COLLECTOR_SHOOTER_INTERFERENCE_LOW && collector->getRawAngle()
+			< COLLECTOR_SHOOTER_INTERFERENCE_HIGH) || (goal
+			< COLLECTOR_SHOOTER_INTERFERENCE_HIGH && collector->getRawAngle()
+			> COLLECTOR_SHOOTER_INTERFERENCE_LOW))) {
 		return true;
 	} else {
 		return collector->isPIDDone();
