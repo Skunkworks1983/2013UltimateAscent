@@ -9,7 +9,6 @@
 #include "Commands/Shooter/FlushShooter.h"
 #include "Commands/Shooter/ChangeShooterPitch.h"
 #include "Commands/Shooter/TunePitchEncoder.h"
-#include "Commands/Shooter/ShooterBang.h"
 #include "Commands/Drivebase/Shift.h"
 #include "Commands/Collector/MoveCollectorArm.h"
 #include "Commands/CommandStarter.h"
@@ -38,10 +37,6 @@ OI::OI() {
 	
 	tuneShooterScheduler = new ReleasedButtonScheduler(false,
 			new DigitalIOButton(8), new TunePitchEncoder());
-	bangBangOffScheduler = new ReleasedButtonScheduler(false, new DigitalIOButton(6),
-			new ShooterBang(ShooterBang::kOff));
-	bangBangOnScheduler = new PressedButtonScheduler(false, new DigitalIOButton(6),
-			new ShooterBang(ShooterBang::kOn));
 
 	armUpScheduler = new ReleasedButtonScheduler(false, new DigitalIOButton(3),
 			new MoveCollectorArm(COLLECTOR_PITCH_UP));
@@ -76,8 +71,6 @@ void OI::registerButtonSchedulers() {
 	shootScheduler->Start();
 	spinupScheduler->Start();
 	spindownScheduler->Start();
-	bangBangOffScheduler->Start();
-	bangBangOnScheduler->Start();
 	tuneShooterScheduler->Start();
 
 	collectScheduler->Start();

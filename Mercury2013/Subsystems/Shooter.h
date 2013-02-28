@@ -14,12 +14,11 @@
 class Shooter: public Subsystem {
 public:
 	enum ControlType {
-		kPower, kPowerBang, kSpeed, kRaw
+		kPower, kPowerBang, kSpeed, kPowerNoWait, kPowerBangNoWait
 	};
 private:
-	SHOOTER_MOTOR_TYPE *frontMotor;
-	SHOOTER_MOTOR_TYPE *middleMotor;
-	SHOOTER_MOTOR_TYPE *rearMotor;
+	SHOOTER_MOTOR_TYPE *frontMotor;SHOOTER_MOTOR_TYPE *middleMotor;SHOOTER_MOTOR_TYPE
+			*rearMotor;
 
 	SolenoidPair *shootSolenoid;
 
@@ -27,7 +26,7 @@ private:
 
 	// Power and PowerBang information
 	double timeTillShootReady;
-	
+
 	// Speed Information
 	Notifier *controlLoop;
 	int updateStability;
@@ -43,10 +42,10 @@ public:
 
 	void setArmed(bool arming);
 	bool isArmed();
-	
+
 	void shoot(bool shooting);
 	void flush(bool flushing);
-	
+
 	void setControlScheme(ControlType type);
 	ControlType getControlScheme();
 

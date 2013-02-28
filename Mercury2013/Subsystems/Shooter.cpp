@@ -46,6 +46,8 @@ void Shooter::setArmed(bool armed) {
 	switch (controlScheme) {
 	case kPower:
 	case kPowerBang:
+	case kPowerBangNoWait:
+	case kPowerNoWait:
 		if (armed) {
 			frontMotor->Set(SHOOTER_MOTOR_FRONT_SPEED);
 			middleMotor->Set(SHOOTER_MOTOR_MIDDLE_SPEED);
@@ -86,7 +88,8 @@ void Shooter::shoot(bool shooting) {
 		shootSolenoid->Set(shooting);
 		if (isArmed()) {
 			timeTillShootReady = getCurrentMillis() + SHOOTER_WAIT_TIME;
-			if (controlScheme == kPowerBang) {
+			if (controlScheme == kPowerBang || controlScheme
+					== kPowerBangNoWait) {
 				if (shooting) {
 					frontMotor->Set(SHOOTER_MOTOR_FRONT_BANG_SPEED);
 					middleMotor->Set(SHOOTER_MOTOR_MIDDLE_BANG_SPEED);
@@ -115,7 +118,8 @@ bool Shooter::readyToShoot() {
 	switch (controlScheme) {
 	case kSpeed:
 		return updateStability > SHOOTER_MOTOR_RPM_STABILITY;
-	case kRaw:
+	case kPowerNoWait:
+	case kPowerBangNoWait:
 		return true;
 	default:
 		return getCurrentMillis() > timeTillShootReady;
