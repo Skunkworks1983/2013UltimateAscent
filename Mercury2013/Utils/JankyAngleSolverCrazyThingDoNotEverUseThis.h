@@ -3,18 +3,22 @@
 
 #define PI (3.14159265358979)
 
-#define C1 (1) /* TODO */
-#define C2 (2) /* TODO */
-#define C3 (3) /* TODO */
-#define C4 (4) /* TODO */
-#define C5 (5) /* TODO */
-#define C6 (6) /* TODO */
-#define C7 (7) /* TODO */
-#define C8 (8) /* TODO */
+#define C1 (17.807)
+#define C2 (14) 
+#define C3 (1.327) 
+#define C5 (10.267) 
+#define C6 (18.253) 
+#define C7 (14) 
+#define C8 ((112.29 / 180.0) * PI) 
+#define C9 ((14.07 / 180.0) * PI)
 
 #define FORWARDS_COSINE_LAW(a, b, C) (sqrt((a * a) + (b * b) - (2 * a * b * cos(C))))
 #define BACKWARDS_COSINE_LAW(a, b, c) (acos(((a * a) + (b * b) - (c * c)) / (2 * a * b)))
 
 double jankyAngle(double x);
+
+double moreJankyAngle(double x);
+
+double mostJankyAngle(double x);
 
 #endif
