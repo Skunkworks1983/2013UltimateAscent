@@ -2,14 +2,20 @@
 #define __CMD_EjectDisks_EJECTDISKS_H
 
 #include "../CommandBase.h"
+
+class Collector;
+enum Collector::MotorDirection;
 /**
  * @brief Command that spits the frisbee discs
  * 
  * @param one of three enum State can be on, off, or toggle
  */
 class EjectDisks: public CommandBase {
+private:
+	Collector::MotorDirection dir;
+	double startTime;
 public:
-	EjectDisks();
+	EjectDisks(Collector::MotorDirection dir);
 	~EjectDisks();
 	virtual void Initialize();
 	/**

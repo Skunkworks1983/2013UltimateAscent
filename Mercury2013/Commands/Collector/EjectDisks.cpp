@@ -1,10 +1,13 @@
 #include "EjectDisks.h"
+#include "../../Utils/Time.h"
+#include "../../Subsystems/Collector.h"
 
-EjectDisks::EjectDisks() :
+EjectDisks::EjectDisks(Collector::MotorDirection dir) :
 	CommandBase("EjectDisks") {
 	Requires(collector);
-	SetTimeout(((double) EJECTDISKS_EJECT_TIMEOUT) / 1000.0);
+	SetTimeout(((double) EJECTDISKS_SERVO_TIMEOUT) / 1000.0);
 	SetInterruptible(true);
+	this->dir = dir;
 }
 
 EjectDisks::~EjectDisks() {
@@ -12,20 +15,24 @@ EjectDisks::~EjectDisks() {
 }
 
 void EjectDisks::Initialize() {
+	startTime = getCurrentMillis();
 }
 
 void EjectDisks::Execute() {
-	collector->setCollectorMotor(Collector::kBackward);
+	collector->setFrisbeeStop(true);
+	collector->setCollectorMotor(
+			(getCurrentMillis() - startTime < EJECTDISKS_EJECT_TIMEOUT) ? dir
+					: Collector::kStop);
 }
 
 bool EjectDisks::IsFinished() {
-	return collector->getFrisbeeSensorCount() == 0 || IsTimedOut();
+	return IsTimedOut();
 }
 
 void EjectDisks::End() {
-	collector->setCollectorMotor(Collector::kStop);
+	collector->setFrisbeeStop(false);
 }
 
 void EjectDisks::Interrupted() {
-	collector->setCollectorMotor(Collector::kStop);
+	collector->setFrisbeeStop(false);
 }

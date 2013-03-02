@@ -8,10 +8,10 @@ Collector::Collector() :
 	collectorMotor = new COLLECTOR_MOTOR_TYPE(COLLECTOR_MOTOR);
 	leftArmController = new LeftArmController(this);
 	rightArmController = new RightArmController(this);
-	
+
 	frisbeeStop = new Servo(COLLECTOR_FRISBEE_STOP);
-	
-//	this->myMotorDirection = myMotorDirection;
+
+	//	this->myMotorDirection = myMotorDirection;
 
 #ifdef COLLECTOR_FRISBEE_CHN_3
 	frisbeeSensors = new DigitalInput*[3];
@@ -69,23 +69,24 @@ double Collector::getRawAngle() {
 int Collector::getFrisbeeSensorCount() {
 	int count = 0;
 	for (int i = 0; i < COLLECTOR_FRISBEE_CHN_CNT; i++) {
-		count += (frisbeeSensors[i]->Get() & 1);
+		count += (~(frisbeeSensors[i]->Get()) & 1);
 	}
 	return count;
 }
 
 void Collector::setCollectorMotor(Collector::MotorDirection state) {
-//	if (state == kStop) {
-//		collectorMotor->Set(0);
-//	}
-//	else if (state == kForward){
-//		collectorMotor->Set(COLLECTOR_MOTOR_SPEED);
-//	
-//	}
-//	else if (state == kBackward){
-//		collectorMotor->Set(-COLLECTOR_MOTOR_SPEED);
-//	}
-//	else (collectorMotor->Set(0));	
+	switch (state) {
+	case kForward:
+		collectorMotor->Set(COLLECTOR_MOTOR_SPEED);
+		break;
+	case kBackward:
+		collectorMotor->Set(-COLLECTOR_MOTOR_SPEED);
+		break;
+	case kStop:
+	default:
+		collectorMotor->Set(0);
+		break;
+	}
 }
 
 void Collector::setFrisbeeStop(bool enabled) {

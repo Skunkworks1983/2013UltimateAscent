@@ -14,7 +14,7 @@ CollectorAuto::CollectorAuto() :
 	CommandGroup("CollectorAuto") {
 	AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_COLLECT));
 	AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_MID));
-	AddSequential(new EjectDisks());
+	AddSequential(new EjectDisks(Collector::kForward));
 }
 
 CollectorAuto::~CollectorAuto() {
