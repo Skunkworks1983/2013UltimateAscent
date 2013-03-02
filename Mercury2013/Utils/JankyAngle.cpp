@@ -1,5 +1,5 @@
 #include <math.h>
-#include "JankyAngleSolverCrazyThingDoNotEverUseThis.h"
+#include "JankyAngle.h"
 
 /**
  * Slower, more accurate math.
