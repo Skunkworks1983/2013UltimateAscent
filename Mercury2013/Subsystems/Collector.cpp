@@ -8,6 +8,9 @@ Collector::Collector() :
 	collectorMotor = new COLLECTOR_MOTOR_TYPE(COLLECTOR_MOTOR);
 	leftArmController = new LeftArmController(this);
 	rightArmController = new RightArmController(this);
+	
+	frisbeeStop = new Servo(COLLECTOR_FRISBEE_STOP);
+	
 //	this->myMotorDirection = myMotorDirection;
 
 #ifdef COLLECTOR_FRISBEE_CHN_3
@@ -28,6 +31,9 @@ Collector::Collector() :
 
 Collector::~Collector() {
 	delete collectorMotor;
+	delete leftArmController;
+	delete rightArmController;
+	delete frisbeeStop;
 	for (int i = 0; i < COLLECTOR_FRISBEE_CHN_CNT; i++) {
 		delete frisbeeSensors[i];
 	}
@@ -80,6 +86,14 @@ void Collector::setCollectorMotor(Collector::MotorDirection state) {
 //		collectorMotor->Set(-COLLECTOR_MOTOR_SPEED);
 //	}
 //	else (collectorMotor->Set(0));	
+}
+
+void Collector::setFrisbeeStop(bool enabled) {
+	if (enabled) {
+		frisbeeStop->SetAngle(COLLECTOR_FRISBEE_STOP_UP);
+	} else {
+		frisbeeStop->SetAngle(COLLECTOR_FRISBEE_STOP_DOWN);
+	}
 }
 
 bool Collector::isSpinnerOn() {

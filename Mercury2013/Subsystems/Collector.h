@@ -52,6 +52,8 @@ public:
 	void killPitchMotors();
 	double getLeftAngle();
 	double getRightAngle();
+	
+	void setFrisbeeStop(bool enabled);
 
 	bool isSpinnerOn();
 
@@ -64,6 +66,8 @@ private:
 	COLLECTOR_MOTOR_TYPE *collectorMotor;
 	ArmController *leftArmController;
 	ArmController *rightArmController;
+	
+	Servo *frisbeeStop;
 
 	DigitalInput **frisbeeSensors;
 	MotorDirection myMotorDirection;

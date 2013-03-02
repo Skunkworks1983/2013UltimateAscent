@@ -133,6 +133,7 @@
 #define COLLECTOR_MOTOR							(3)
 #define COLLECTOR_PITCH_MOTOR_LEFT				(1)
 #define COLLECTOR_PITCH_MOTOR_RIGHT				(2)
+#define COLLECTOR_FRISBEE_STOP					(10) /* TODO */
 // Class name of the shooter and collector pitch motor controllers
 #define COLLECTOR_MOTOR_TYPE					Talon
 #define COLLECTOR_PITCH_MOTOR_TYPE				Talon
@@ -160,6 +161,9 @@
 #define COLLECTOR_FRISBEE_CHN_1					(6)
 #define COLLECTOR_FRISBEE_CHN_2					(7)
 //#define COLLECTOR_FRISBEE_CHN_3					1
+
+#define COLLECTOR_FRISBEE_STOP_UP				(90) /* TODO */
+#define COLLECTOR_FRISBEE_STOP_DOWN				(0) /* TODO */
 
 #define COLLECTOR_COLLECT_TIMEOUT				(500) /* (millis) */
 
