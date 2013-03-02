@@ -16,7 +16,6 @@ Collector *CommandBase::collector = NULL;
 OI *CommandBase::oi = NULL;
 Pneumatics *CommandBase::pneumatics = NULL;
 Climber *CommandBase::climber = NULL;
-Arduino *CommandBase::arduino = NULL;
 ShooterPitch *CommandBase::shooterPitch = NULL;
 bool CommandBase::subsystems = false;
 
@@ -32,7 +31,6 @@ void CommandBase::init() {
 	driveBase = new DriveBase();
 	collector = new Collector();
 	climber = new Climber();
-	arduino = new Arduino(Arduino::kSerial, 9600);
 	shooterPitch = new ShooterPitch();
 	
 	oi = new OI();
