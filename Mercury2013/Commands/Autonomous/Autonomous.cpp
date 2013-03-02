@@ -75,7 +75,7 @@ Autonomous::Autonomous(int argc, char **argv) :
 				AddSequential(use);
 				break;
 			case 'p':
-				AddSequential(use);
+				AddParallel(use);
 				break;
 			default:
 				break;
