@@ -25,6 +25,7 @@ private:
 	ButtonScheduler *spinupScheduler;
 	ButtonScheduler *spindownScheduler;
 	ButtonScheduler *tuneShooterScheduler;
+	ButtonScheduler *ejectScheduler;
 	
 	ButtonScheduler *armUpScheduler;
 	ButtonScheduler *armMidScheduler;

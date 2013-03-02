@@ -13,6 +13,7 @@
 #include "Commands/Collector/MoveCollectorArm.h"
 #include "Commands/CommandStarter.h"
 #include "Commands/Collector/Collect.h"
+#include "Commands/Collector/EjectDisks.h"
 #include "Utils/AnalogChangeTrigger.h"
 
 OI::OI() {
@@ -34,7 +35,7 @@ OI::OI() {
 			new DigitalIOButton(10), new ArmShooter(ArmShooter::kOn));
 	spindownScheduler = new ReleasedButtonScheduler(false,
 			new DigitalIOButton(10), new ArmShooter(ArmShooter::kOff));
-	
+
 	tuneShooterScheduler = new ReleasedButtonScheduler(false,
 			new DigitalIOButton(8), new TunePitchEncoder());
 
@@ -46,6 +47,8 @@ OI::OI() {
 			new DigitalIOButton(1), new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
 	collectScheduler = new ReleasedButtonScheduler(false,
 			new JoystickButton(driveJoystickRight, 1), new Collect());
+	ejectScheduler = new ReleasedButtonScheduler(false,
+			new JoystickButton(driveJoystickRight, 3), new EjectDisks(Collector::kForward));
 
 #define PUT_DEFAULT(val) (Preferences::GetInstance()->PutFloat(#val, val))
 	PUT_DEFAULT(SHOOTER_MOTOR_FRONT_SPEED);
@@ -77,6 +80,7 @@ void OI::registerButtonSchedulers() {
 	armUpScheduler->Start();
 	armMidScheduler->Start();
 	armDownScheduler->Start();
+	ejectScheduler->Start();
 }
 
 Command* OI::createChangePitchFromOI() {

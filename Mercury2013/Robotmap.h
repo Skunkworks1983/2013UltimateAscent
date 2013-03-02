@@ -140,7 +140,7 @@
 // Collector constant speed
 #define COLLECTOR_PITCH_MOTOR_SPEED_UP			(.6) /* TODO get value from design team */
 #define COLLECTOR_PITCH_MOTOR_SPEED_DOWN		(-.4) /* TODO get value from design team */
-#define COLLECTOR_MOTOR_SPEED					(-0.5)
+#define COLLECTOR_MOTOR_SPEED					(0.5)
 #define COLLECTOR_PITCH_POT_LEFT				(2)
 #define COLLECTOR_PITCH_POT_RIGHT				(1)
 #define COLLECTOR_PITCH_CONVERT(value)			(((value - 205) * 90) / 315)
@@ -150,9 +150,9 @@
 #define COLLECTOR_PITCH_D						(0)
 #define COLLECTOR_PITCH_CATCHUP					(10.0)
 
-#define COLLECTOR_PITCH_TOLERANCE				(5)
-#define COLLECTOR_PITCH_DOWN					(1)
-#define COLLECTOR_PITCH_MID						(60)
+#define COLLECTOR_PITCH_TOLERANCE				(1)
+#define COLLECTOR_PITCH_DOWN					(0)
+#define COLLECTOR_PITCH_MID						(52.5)
 #define COLLECTOR_PITCH_UP						(90) 
 
 #define COLLECTOR_PITCH_POT_MIN					(0)
@@ -165,7 +165,7 @@
 #define COLLECTOR_FRISBEE_STOP_UP				(90) /* TODO */
 #define COLLECTOR_FRISBEE_STOP_DOWN				(0) /* TODO */
 
-#define COLLECTOR_COLLECT_TIMEOUT				(500) /* (millis) */
+#define COLLECTOR_COLLECT_TIMEOUT				(10000) /* (millis) */
 
 #define COLLECTOR_SHOOTER_INTERFERENCE_HIGH		(80)
 #define COLLECTOR_SHOOTER_INTERFERENCE_LOW		(60)
@@ -194,7 +194,8 @@
  * --EJECTOR--
  */
 
-#define EJECTDISKS_EJECT_TIMEOUT				(500) /* (millis)	*/			
+#define EJECTDISKS_EJECT_TIMEOUT				(500) /* (millis)	*/
+#define EJECTDISKS_SERVO_TIMEOUT				(10000) /* (millis)	*/			
 
 #endif
 
