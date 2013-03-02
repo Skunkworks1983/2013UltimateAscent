@@ -19,7 +19,7 @@ void Collect::Execute() {
 }
 
 bool Collect::IsFinished() {
-	return /*TODO collector->getFrisbeeSensorCount() != 0 &&*/ IsTimedOut();
+	return collector->getFrisbeeSensorCount() != 0 || IsTimedOut();
 }
 
 void Collect::End() {
