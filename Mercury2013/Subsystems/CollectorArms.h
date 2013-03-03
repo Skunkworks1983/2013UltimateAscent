@@ -10,6 +10,7 @@ protected:
 	PIDController *pid;
 	COLLECTOR_PITCH_MOTOR_TYPE *motor;
 	Collector *collect;
+	int pidStability;
 public:
 	ArmController(Collector *collect, COLLECTOR_PITCH_MOTOR_TYPE *motor, AnalogChannel *pot);
 	virtual ~ArmController();

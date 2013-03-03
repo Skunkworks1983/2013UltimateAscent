@@ -33,6 +33,8 @@ private:
 	double targetCollectorPitch;
 	Trigger *armChangeTrigger;
 	
+	Button *collectorSlotButton;
+	
 	Button *collectButton;
 	Button *ejectButton;
 public:

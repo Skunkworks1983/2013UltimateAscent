@@ -77,9 +77,9 @@
 #define SHOOTER_MOTOR_MIDDLE					1,8
 #define SHOOTER_MOTOR_REAR						1,7
 
-#define SHOOTER_ENCODER_FRONT					1,9 /*TODO*/
-#define SHOOTER_ENCODER_MIDDLE					1,8
-#define SHOOTER_ENCODER_REAR					1,7
+#define SHOOTER_ENCODER_FRONT					1,8 /*TODO*/
+#define SHOOTER_ENCODER_MIDDLE					1,7
+#define SHOOTER_ENCODER_REAR					1,6
 
 #define SHOOTER_ENCODER_CONVERT(val)			(val) /*TODO*/
 
@@ -124,6 +124,7 @@
 // Shooter pitch control info
 #define SHOOTER_PITCH_THRESHOLD					(0.0125) /* Random units; scalar of shooter angle */
 #define SHOOTER_PITCH_COLLECT					(0)
+#define SHOOTER_PITCH_SLOT_COLLECT				(0.5) /*TODO*/
 #define SHOOTER_PITCH_STABILITY					(25)
 
 /**
@@ -137,6 +138,7 @@
 // Class name of the shooter and collector pitch motor controllers
 #define COLLECTOR_MOTOR_TYPE					Talon
 #define COLLECTOR_PITCH_MOTOR_TYPE				Talon
+#define COLLECTOR_PITCH_STABILITY				30
 // Collector constant speed
 #define COLLECTOR_PITCH_MOTOR_SPEED_UP			(.6) /* TODO get value from design team */
 #define COLLECTOR_PITCH_MOTOR_SPEED_DOWN		(-.4) /* TODO get value from design team */
@@ -162,13 +164,13 @@
 #define COLLECTOR_FRISBEE_CHN_2					(7)
 //#define COLLECTOR_FRISBEE_CHN_3					1
 
-#define COLLECTOR_FRISBEE_STOP_UP				(90) /* TODO */
-#define COLLECTOR_FRISBEE_STOP_DOWN				(0) /* TODO */
+#define COLLECTOR_FRISBEE_STOP_UP				(90)
+#define COLLECTOR_FRISBEE_STOP_DOWN				(0)
 
-#define COLLECTOR_COLLECT_TIMEOUT				(10000) /* (millis) */
+#define COLLECTOR_COLLECT_TIMEOUT				(1000) /* (millis) */
 
 #define COLLECTOR_SHOOTER_INTERFERENCE_HIGH		(80)
-#define COLLECTOR_SHOOTER_INTERFERENCE_LOW		(60)
+#define COLLECTOR_SHOOTER_INTERFERENCE_LOW		(50)
 #define SHOOTER_COLLECTOR_INTERFERENCE_LOW		(0.05) /* Those random shooter units!*/
 #define SHOOTER_COLLECTOR_INTERFERENCE_HIGH		(1.0)
 

@@ -4,11 +4,19 @@
 TunePitchEncoder::TunePitchEncoder() :
 	CommandBase("TunePitchEncoder") {
 	Requires(shooterPitch);
-	SetInterruptible(true);
+	SetInterruptible(false);
+	SetRunWhenDisabled(true);
 }
 
 void TunePitchEncoder::Initialize() {
 
+}
+
+void TunePitchEncoder::ExternalRun() {
+	Execute();
+	if (IsFinished()) {
+		End();
+	}
 }
 
 void TunePitchEncoder::Execute() {

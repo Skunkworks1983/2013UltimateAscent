@@ -2,6 +2,8 @@
 #include "../Utils/Math.h"
 #include "../RobotMap.h"
 #include "../Commands/Shooter/ChangeShooterPitch.h"
+#include "../Commands/Shooter/TunePitchEncoder.h"
+#include "../Utils/JankyAngle.h"
 
 ShooterPitch::ShooterPitch() :
 	Subsystem("ShooterPitch") {
@@ -56,8 +58,15 @@ bool ShooterPitch::setPitchMotorSpeed(float direction) {
 	return true;
 }
 
+bool ShooterPitch::isPitchTuned(){
+	return tunedEncoder;
+}
 float ShooterPitch::getCurrentPitch() {
 	return pitchEncoder->GetDistance();
+}
+
+float ShooterPitch::getRealPitch() {
+	return (moreJankyAngle(pitchEncoder->GetDistance() * 14 + 4) * 180.0) / PI;
 }
 
 bool ShooterPitch::isPitchGrounded() {

@@ -1,4 +1,4 @@
-#include "CollectorAuto.h" 
+#include "CollectorShooterLoad.h" 
 #include "../Automatic/DriveDistance.h"
 #include "../Automatic/TurnDegree.h"
 #include "../Collector/Collect.h"
@@ -10,13 +10,13 @@
 #include "../Shooter/ArmShooter.h"
 #include "../Drivebase/Shift.h"
 
-CollectorAuto::CollectorAuto() :
-	CommandGroup("CollectorAuto") {
+CollectorShooterLoad::CollectorShooterLoad() :
+	CommandGroup("CollectorShooterLoad") {
 	AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_COLLECT));
 	AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_MID));
 	AddSequential(new EjectDisks(Collector::kForward));
 }
 
-CollectorAuto::~CollectorAuto() {
+CollectorShooterLoad::~CollectorShooterLoad() {
 
 }

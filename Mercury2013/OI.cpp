@@ -1,9 +1,7 @@
 #include "OI.h"
 #include "Robotmap.h"
 
-#include "Buttons/ReleasedButtonScheduler.h"
-#include "Buttons/PressedButtonScheduler.h"
-
+#include "Commands/Automatic/ShooterSlotLoad.h"
 #include "Commands/Shooter/Shoot.h"
 #include "Commands/Shooter/ArmShooter.h"
 #include "Commands/Shooter/FlushShooter.h"
@@ -34,6 +32,8 @@ OI::OI() {
 	armMidButton = new DigitalIOButton(11);
 	armDownButton = new DigitalIOButton(1);
 	armChangeTrigger = new ValueChangeTrigger(OI::getCollectorTargetPitch, 5);
+	
+	collectorSlotButton = new DigitalIOButton(13);
 	
 	collectButton = new JoystickButton(driveJoystickRight, 1);
 	ejectButton = new JoystickButton(driveJoystickRight, 3);
@@ -66,17 +66,18 @@ void OI::registerButtonSchedulers() {
 	collectButton->WhenPressed(new Collect());
 	ejectButton->WhenPressed(new EjectDisks(Collector::kForward));
 	armChangeTrigger->WhenActive(new CommandStarter(OI::createChangeCollectorPitch));
+	collectorSlotButton->WhenPressed(new ShooterSlotLoad());
 }
 
 double OI::getCollectorTargetPitch() {
 	if (CommandBase::oi == NULL){
 		return 0.0;
 	}
-	if (CommandBase::oi->armUpButton->Get()){
+	if (!CommandBase::oi->armUpButton->Get()){
 		CommandBase::oi->targetCollectorPitch = COLLECTOR_PITCH_UP;
-	}else if (CommandBase::oi->armMidButton->Get()){
+	}else if (!CommandBase::oi->armMidButton->Get()){
 		CommandBase::oi->targetCollectorPitch = COLLECTOR_PITCH_MID;
-	}else if (CommandBase::oi->armDownButton->Get()){
+	}else if (!CommandBase::oi->armDownButton->Get()){
 		CommandBase::oi->targetCollectorPitch = COLLECTOR_PITCH_DOWN;
 	}/* else if (armOverrideButton->Get()) {
 		targetCollectorPitch = OI_GET_COLLLECTOR_MANUAL_ANGLE;

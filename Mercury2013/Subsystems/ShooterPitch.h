@@ -23,8 +23,10 @@ public:
 	~ShooterPitch();
 
 	float getCurrentPitch();
+	float getRealPitch();
 	bool setPitchMotorSpeed(float f);
 	bool isPitchGrounded();
+	bool isPitchTuned();
 	
 	virtual void InitDefaultCommand();
 };
