@@ -1,7 +1,7 @@
 #include "Autonomous.h" 
 #include "../Automatic/DriveDistance.h"
 #include "../Automatic/TurnDegree.h"
-#include "../Automatic/CollectorAuto.h"
+#include "../Automatic/CollectorShooterLoad.h"
 #include "../Collector/Collect.h"
 #include "../Collector/MoveCollectorArm.h"
 
@@ -64,7 +64,7 @@ Autonomous::Autonomous(int argc, char **argv) :
 			use = new ChangeShooterPitch(arg);
 			break;
 		case AUTO_SCRIPT_CHARMASK('c','a'):
-			use = new CollectorAuto();
+			use = new CollectorShooterLoad();
 			break;
 		default:
 			break;

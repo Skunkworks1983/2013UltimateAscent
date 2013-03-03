@@ -14,6 +14,7 @@ ArmController::ArmController(Collector *collect,
 	pid->SetOutputRange(COLLECTOR_PITCH_MOTOR_SPEED_DOWN,
 			COLLECTOR_PITCH_MOTOR_SPEED_UP);
 	pid->SetInputRange(COLLECTOR_PITCH_POT_MIN, COLLECTOR_PITCH_POT_MAX);
+	pidStability = 0;
 }
 
 ArmController::~ArmController() {
@@ -46,13 +47,19 @@ void ArmController::setSetpoint(float f) {
 }
 
 bool ArmController::isPIDDone() {
-	return pid->OnTarget();
+	if (pid->OnTarget()) {
+		pidStability++;
+	} else {
+		pidStability = 0;
+	}
+	return pidStability > COLLECTOR_PITCH_STABILITY;
 }
 
 LeftArmController::LeftArmController(Collector *collect) :
 			ArmController(collect,
 					new COLLECTOR_PITCH_MOTOR_TYPE(COLLECTOR_PITCH_MOTOR_LEFT),
 					new AnalogChannel(COLLECTOR_PITCH_POT_LEFT)) {
+	SmartDashboard::PutData("LeftArmPID", pid);
 }
 
 LeftArmController::~LeftArmController() {
@@ -71,6 +78,7 @@ RightArmController::RightArmController(Collector *collect) :
 					collect,
 					new COLLECTOR_PITCH_MOTOR_TYPE(COLLECTOR_PITCH_MOTOR_RIGHT),
 					new AnalogChannel(COLLECTOR_PITCH_POT_RIGHT)) {
+	SmartDashboard::PutData("RightArmPID", pid);
 }
 
 RightArmController::~RightArmController() {

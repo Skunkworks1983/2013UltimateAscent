@@ -3,6 +3,7 @@
 
 #include "WPILib.h"
 
+
 /**
  * @brief Main robot class
  * 
@@ -35,6 +36,9 @@ public:
 	virtual void TestInit();
 
 	virtual void TestPeriodic();
+	
+	virtual void DisabledInit();
+	virtual void DisabledPeriodic();
 };
 
 START_ROBOT_CLASS(UFOBot)

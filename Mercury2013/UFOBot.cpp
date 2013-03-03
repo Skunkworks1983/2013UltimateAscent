@@ -4,6 +4,7 @@
 #include "Commands/Autonomous/Autonomous.h"
 #include "Commands/Automatic/DriveDistance.h"
 #include "Commands/Automatic/TurnDegree.h"
+#include "Commands/Shooter/TunePitchEncoder.h"
 #include "Utils/Scripting.h"
 
 void UFOBot::RobotInit() {
@@ -43,6 +44,11 @@ void UFOBot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
 }
 
+void UFOBot::DisabledInit() {
+}
+void UFOBot::DisabledPeriodic() {
+	GetWatchdog().Feed();
+}
 void UFOBot::TestInit() {
 	lw->SetEnabled(true);
 }
