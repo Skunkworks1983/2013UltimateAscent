@@ -19,18 +19,17 @@ private:
 	DriverStationLCD *driverStationLCD;
 	DriverStationEnhancedIO *driverStationEIO;
 
-	ButtonScheduler *shiftScheduler;
+	Button *shiftButton;
 	
-	ButtonScheduler *shootScheduler;
-	ButtonScheduler *spinupScheduler;
-	ButtonScheduler *spindownScheduler;
-	ButtonScheduler *tuneShooterScheduler;
-	ButtonScheduler *ejectScheduler;
+	Button *shootButton;
+	Button *spinupButton;
+	Button *tuneShooterButton;
+	Button *ejectButton;
 	
-	ButtonScheduler *armUpScheduler;
-	ButtonScheduler *armMidScheduler;
-	ButtonScheduler *armDownScheduler;
-	ButtonScheduler *collectScheduler;
+	Button *armUpButton;
+	Button *armMidButton;
+	Button *armDownButton;
+	Button *collectButton;
 
 public:
 	OI();

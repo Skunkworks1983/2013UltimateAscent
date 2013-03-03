@@ -14,7 +14,6 @@
 #include "Commands/CommandStarter.h"
 #include "Commands/Collector/Collect.h"
 #include "Commands/Collector/EjectDisks.h"
-#include "Utils/AnalogChangeTrigger.h"
 
 OI::OI() {
 	driveJoystickLeft = new Joystick(OI_JOYSTICK_LEFT);
@@ -24,31 +23,17 @@ OI::OI() {
 	driverStationLCD = DriverStationLCD::GetInstance();
 	driverStationEIO = &(driverStation->GetEnhancedIO());
 
-	shiftScheduler
-			= new ReleasedButtonScheduler(false,
-					new JoystickButton(driveJoystickLeft, 1),
-					new Shift(Shift::kToggle));
+	shiftButton = new JoystickButton(driveJoystickLeft, 1);
 
-	shootScheduler = new ReleasedButtonScheduler(false, new DigitalIOButton(5),
-			new Shoot());
-	spinupScheduler = new PressedButtonScheduler(false,
-			new DigitalIOButton(10), new ArmShooter(ArmShooter::kOn));
-	spindownScheduler = new ReleasedButtonScheduler(false,
-			new DigitalIOButton(10), new ArmShooter(ArmShooter::kOff));
+	shootButton = new DigitalIOButton(5);
+	spinupButton = new DigitalIOButton(10);
+	tuneShooterButton = new DigitalIOButton(8);
 
-	tuneShooterScheduler = new ReleasedButtonScheduler(false,
-			new DigitalIOButton(8), new TunePitchEncoder());
-
-	armUpScheduler = new ReleasedButtonScheduler(false, new DigitalIOButton(3),
-			new MoveCollectorArm(COLLECTOR_PITCH_UP));
-	armMidScheduler = new ReleasedButtonScheduler(false,
-			new DigitalIOButton(11), new MoveCollectorArm(COLLECTOR_PITCH_MID));
-	armDownScheduler = new ReleasedButtonScheduler(false,
-			new DigitalIOButton(1), new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
-	collectScheduler = new ReleasedButtonScheduler(false,
-			new JoystickButton(driveJoystickRight, 1), new Collect());
-	ejectScheduler = new ReleasedButtonScheduler(false,
-			new JoystickButton(driveJoystickRight, 3), new EjectDisks(Collector::kForward));
+	armUpButton = new DigitalIOButton(3);
+	armMidButton = new DigitalIOButton(11);
+	armDownButton = new DigitalIOButton(1);
+	collectButton = new JoystickButton(driveJoystickRight, 1);
+	ejectButton = new JoystickButton(driveJoystickRight, 3);
 
 #define PUT_DEFAULT(val) (Preferences::GetInstance()->PutFloat(#val, val))
 	PUT_DEFAULT(SHOOTER_MOTOR_FRONT_SPEED);
@@ -69,18 +54,14 @@ Joystick *OI::getDriveJoystickRight() {
 }
 
 void OI::registerButtonSchedulers() {
-	shiftScheduler->Start();
+	shiftButton->WhenPressed(new Shift(Shift::kToggle));
 
-	shootScheduler->Start();
-	spinupScheduler->Start();
-	spindownScheduler->Start();
-	tuneShooterScheduler->Start();
+	shootButton->WhenPressed(new Shoot());
+	spinupButton->WhenPressed(new ArmShooter(ArmShooter::kOn));
+	spinupButton->WhenReleased(new ArmShooter(ArmShooter::kOff));
 
-	collectScheduler->Start();
-	armUpScheduler->Start();
-	armMidScheduler->Start();
-	armDownScheduler->Start();
-	ejectScheduler->Start();
+	collectButton->WhenPressed(new Collect());
+	ejectButton->WhenPressed(new EjectDisks(Collector::kForward));
 }
 
 Command* OI::createChangePitchFromOI() {
