@@ -21,20 +21,26 @@ private:
 
 	Button *shiftButton;
 	
+	//Shooter Stuff
 	Button *shootButton;
 	Button *spinupButton;
 	Button *tuneShooterButton;
-	Button *ejectButton;
-	
+		
+	//Collector Arm Stuff
 	Button *armUpButton;
 	Button *armMidButton;
 	Button *armDownButton;
+	double targetCollectorPitch;
+	Trigger *armChangeTrigger;
+	
 	Button *collectButton;
-
+	Button *ejectButton;
 public:
 	OI();
 
 	static Command* createChangePitchFromOI();
+	static Command* createChangeCollectorPitch();
+	static double getCollectorTargetPitch();
 	
 	Joystick *getDriveJoystickLeft();
 	Joystick *getDriveJoystickRight();
