@@ -67,7 +67,7 @@
 #define DRIVE_ENCODER_LEFT						4,5
 #define DRIVE_ENCODER_RIGHT						2,3
 
-//#define DRIVE_GYRO								2
+//TODO #define DRIVE_GYRO								3
 
 /**
  * --SHOOTER--
@@ -77,8 +77,8 @@
 #define SHOOTER_MOTOR_MIDDLE					1,8
 #define SHOOTER_MOTOR_REAR						1,7
 
-#define SHOOTER_ENCODER_FRONT					1,8 /*TODO*/
-#define SHOOTER_ENCODER_MIDDLE					1,7
+#define SHOOTER_ENCODER_FRONT					1,4 /*TODO*/
+#define SHOOTER_ENCODER_MIDDLE					1,5
 #define SHOOTER_ENCODER_REAR					1,6
 
 #define SHOOTER_ENCODER_CONVERT(val)			(val) /*TODO*/
@@ -114,9 +114,9 @@
 // Shooter solenoid ports
 #define SHOOTER_PNEUMATIC						7,8
 // Shooter speed and pitch sensors
-#define SHOOTER_PITCH_SPEED						(.8)
+#define SHOOTER_PITCH_SPEED						(1.0)
 #define SHOOTER_PITCH_SLOWDOWN_RANGE			(0.05)
-#define SHOOTER_PITCH_SLOWDOWN_SPEED			(.75)
+#define SHOOTER_PITCH_SLOWDOWN_SPEED			(1.0)
 #define SHOOTER_PITCH_ENCODER					12,13
 #define SHOOTER_PITCH_LIMIT_SWITCH				(11)
 #define SHOOTER_PITCH_UPPER_LIMIT				(1.0)
@@ -125,6 +125,7 @@
 #define SHOOTER_PITCH_THRESHOLD					(0.0125) /* Random units; scalar of shooter angle */
 #define SHOOTER_PITCH_COLLECT					(0)
 #define SHOOTER_PITCH_SLOT_COLLECT				(0.5) /*TODO*/
+#define SHOOTER_PITCH_PYRAMID_BACK				(.526)
 #define SHOOTER_PITCH_STABILITY					(25)
 
 /**
@@ -138,7 +139,7 @@
 // Class name of the shooter and collector pitch motor controllers
 #define COLLECTOR_MOTOR_TYPE					Talon
 #define COLLECTOR_PITCH_MOTOR_TYPE				Talon
-#define COLLECTOR_PITCH_STABILITY				30
+#define COLLECTOR_PITCH_STABILITY				20
 // Collector constant speed
 #define COLLECTOR_PITCH_MOTOR_SPEED_UP			(.6) /* TODO get value from design team */
 #define COLLECTOR_PITCH_MOTOR_SPEED_DOWN		(-.4) /* TODO get value from design team */
@@ -148,11 +149,11 @@
 #define COLLECTOR_PITCH_CONVERT(value)			(((value - 205) * 90) / 315)
 //#define COLLECTOR_PITCH_INVERTs(value)			(((value * 315) / 90) + 205)
 #define COLLECTOR_PITCH_P						(0.1)
-#define COLLECTOR_PITCH_I						(0.001)
+#define COLLECTOR_PITCH_I						(0.002)
 #define COLLECTOR_PITCH_D						(0)
 #define COLLECTOR_PITCH_CATCHUP					(10.0)
 
-#define COLLECTOR_PITCH_TOLERANCE				(1)
+#define COLLECTOR_PITCH_TOLERANCE				(5)
 #define COLLECTOR_PITCH_DOWN					(0)
 #define COLLECTOR_PITCH_MID						(52.5)
 #define COLLECTOR_PITCH_UP						(90) 

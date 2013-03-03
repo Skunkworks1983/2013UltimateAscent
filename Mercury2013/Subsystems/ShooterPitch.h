@@ -28,6 +28,8 @@ public:
 	bool isPitchGrounded();
 	bool isPitchTuned();
 	
+	void motorSafety();
+	
 	virtual void InitDefaultCommand();
 };
 

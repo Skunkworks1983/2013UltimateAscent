@@ -38,7 +38,10 @@ public:
 	virtual void TestPeriodic();
 	
 	virtual void DisabledInit();
+	
 	virtual void DisabledPeriodic();
+	
+	void motorSaftey();
 };
 
 START_ROBOT_CLASS(UFOBot)
