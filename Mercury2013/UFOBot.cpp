@@ -24,13 +24,16 @@ void UFOBot::AutonomousInit() {
 }
 void UFOBot::AutonomousPeriodic() {
 	GetWatchdog().Feed();
-
 	Scheduler::GetInstance()->Run();
+	motorSaftey();
 }
 
 void UFOBot::DefaultInit() {
 	Scheduler::GetInstance()->RemoveAll();
 	CommandBase::driveBase->reset();
+	if (!CommandBase::shooterPitch->isPitchTuned()) {
+		Scheduler::GetInstance()->AddCommand(new TunePitchEncoder());
+	}
 	Scheduler::GetInstance()->AddCommand(new UpdateOI());
 }
 
@@ -42,13 +45,15 @@ void UFOBot::TeleopInit() {
 void UFOBot::TeleopPeriodic() {
 	GetWatchdog().Feed();
 	Scheduler::GetInstance()->Run();
+	motorSaftey();
 }
 
 void UFOBot::DisabledInit() {
 }
 void UFOBot::DisabledPeriodic() {
-	GetWatchdog().Feed();
+	motorSaftey();
 }
+
 void UFOBot::TestInit() {
 	lw->SetEnabled(true);
 }
@@ -56,4 +61,11 @@ void UFOBot::TestInit() {
 void UFOBot::TestPeriodic() {
 	GetWatchdog().Feed();
 	lw->Run();
+	motorSaftey();
+}
+
+void UFOBot::motorSaftey() {
+	if (CommandBase::shooterPitch != NULL) {
+		CommandBase::shooterPitch->motorSafety();
+	}
 }

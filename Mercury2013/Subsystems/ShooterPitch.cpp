@@ -58,7 +58,7 @@ bool ShooterPitch::setPitchMotorSpeed(float direction) {
 	return true;
 }
 
-bool ShooterPitch::isPitchTuned(){
+bool ShooterPitch::isPitchTuned() {
 	return tunedEncoder;
 }
 float ShooterPitch::getCurrentPitch() {
@@ -66,14 +66,22 @@ float ShooterPitch::getCurrentPitch() {
 }
 
 float ShooterPitch::getRealPitch() {
-	return (moreJankyAngle(pitchEncoder->GetDistance() * 14 + 4) * 180.0) / PI;
+	return (moreJankyAngle(
+			pitchEncoder->GetDistance() / SHOOTER_PITCH_DEGREES_PER_PULSE
+					/ 1440.0 / 8.0 + 2) * 180.0) / PI;
 }
 
 bool ShooterPitch::isPitchGrounded() {
 	return pitchLimitSwitch->Get() & 1;
 }
 
+void ShooterPitch::motorSafety() {
+	if (isPitchGrounded() && pitchMotor->Get() > 0.0) {
+		pitchMotor->Set(0);
+	}
+}
+
 void ShooterPitch::InitDefaultCommand() {
-	SetDefaultCommand(new ChangeShooterPitch(getCurrentPitch()));
+	SetDefaultCommand(new ChangeShooterPitch(-1));
 }
 

@@ -84,6 +84,9 @@ bool Shooter::isArmed() {
 }
 
 void Shooter::shoot(bool shooting) {
+	if (!isArmed()){
+		return; //TODO Better
+	}
 	if (shootSolenoid->Get() != shooting && (!shooting || readyToShoot())) {
 		shootSolenoid->Set(shooting);
 		if (isArmed()) {

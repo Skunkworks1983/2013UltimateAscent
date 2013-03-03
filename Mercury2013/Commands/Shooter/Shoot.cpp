@@ -17,7 +17,7 @@ void Shoot::Execute() {
 }
 
 bool Shoot::IsFinished() {
-	return IsTimedOut();
+	return IsTimedOut() || !shooter->isArmed();
 }
 
 void Shoot::End() {

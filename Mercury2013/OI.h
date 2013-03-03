@@ -25,7 +25,8 @@ private:
 	Button *shootButton;
 	Button *spinupButton;
 	Button *tuneShooterButton;
-		
+	Button *shooterToThing;
+	
 	//Collector Arm Stuff
 	Button *armUpButton;
 	Button *armMidButton;

@@ -1,5 +1,4 @@
 #include "ChangeShooterPitch.h"
-#include "TunePitchEncoder.h"
 #include <math.h>
 
 ChangeShooterPitch::ChangeShooterPitch(float targetPitch) :
@@ -14,10 +13,23 @@ void ChangeShooterPitch::Initialize() {
 }
 
 void ChangeShooterPitch::Execute() {
-	double val = DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(
-			OI_SHOOTER_ANGLE_PROVIDER_CHANNEL);
-	targetPitch = OI_SHOOTER_ANGLE_CONVERT(val);
-	float pitchOffset = shooterPitch->getCurrentPitch() - targetPitch;
+	double tmpTarget = targetPitch;
+	if (targetPitch < 0) {
+		if (DriverStation::GetInstance()->GetEnhancedIO().GetDigital(15)) {
+			return;
+		}
+		double val = DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(
+				OI_SHOOTER_ANGLE_PROVIDER_CHANNEL);
+		tmpTarget = OI_SHOOTER_ANGLE_CONVERT(val);
+	}
+	if (collector->getRawAngle() > COLLECTOR_SHOOTER_INTERFERENCE_LOW
+			&& collector->getRawAngle() < COLLECTOR_SHOOTER_INTERFERENCE_HIGH
+			&& tmpTarget > SHOOTER_COLLECTOR_INTERFERENCE_LOW && tmpTarget
+			< SHOOTER_COLLECTOR_INTERFERENCE_HIGH) {
+		outOfBounds = true;
+		return;
+	}
+	float pitchOffset = shooterPitch->getCurrentPitch() - tmpTarget;
 	if (fabs(pitchOffset) < SHOOTER_PITCH_THRESHOLD) {
 		shooterPitch->setPitchMotorSpeed(0);
 		outOfBounds = true;
@@ -28,14 +40,11 @@ void ChangeShooterPitch::Execute() {
 }
 
 bool ChangeShooterPitch::IsFinished() {
-	return !shooterPitch->isPitchTuned();
+	return !shooterPitch->isPitchTuned() || (outOfBounds && targetPitch >= 0.0);
 }
 
 void ChangeShooterPitch::End() {
 	shooterPitch->setPitchMotorSpeed(0);
-	if (!shooterPitch->isPitchTuned()) {
-		TunePitchEncoder().Start();
-	}
 }
 
 void ChangeShooterPitch::Interrupted() {
