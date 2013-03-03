@@ -14,6 +14,7 @@
 #include "Commands/CommandStarter.h"
 #include "Commands/Collector/Collect.h"
 #include "Commands/Collector/EjectDisks.h"
+#include "Utils/ValueChangeTrigger.h"
 
 OI::OI() {
 	driveJoystickLeft = new Joystick(OI_JOYSTICK_LEFT);
@@ -32,6 +33,8 @@ OI::OI() {
 	armUpButton = new DigitalIOButton(3);
 	armMidButton = new DigitalIOButton(11);
 	armDownButton = new DigitalIOButton(1);
+	armChangeTrigger = new ValueChangeTrigger(OI::getCollectorTargetPitch, 5);
+	
 	collectButton = new JoystickButton(driveJoystickRight, 1);
 	ejectButton = new JoystickButton(driveJoystickRight, 3);
 
@@ -62,6 +65,27 @@ void OI::registerButtonSchedulers() {
 
 	collectButton->WhenPressed(new Collect());
 	ejectButton->WhenPressed(new EjectDisks(Collector::kForward));
+	armChangeTrigger->WhenActive(new CommandStarter(OI::createChangeCollectorPitch));
+}
+
+double OI::getCollectorTargetPitch() {
+	if (CommandBase::oi == NULL){
+		return 0.0;
+	}
+	if (CommandBase::oi->armUpButton->Get()){
+		CommandBase::oi->targetCollectorPitch = COLLECTOR_PITCH_UP;
+	}else if (CommandBase::oi->armMidButton->Get()){
+		CommandBase::oi->targetCollectorPitch = COLLECTOR_PITCH_MID;
+	}else if (CommandBase::oi->armDownButton->Get()){
+		CommandBase::oi->targetCollectorPitch = COLLECTOR_PITCH_DOWN;
+	}/* else if (armOverrideButton->Get()) {
+		targetCollectorPitch = OI_GET_COLLLECTOR_MANUAL_ANGLE;
+	}*/
+	return CommandBase::oi->targetCollectorPitch;
+}
+
+Command *OI::createChangeCollectorPitch() {
+	return new MoveCollectorArm(getCollectorTargetPitch());
 }
 
 Command* OI::createChangePitchFromOI() {
