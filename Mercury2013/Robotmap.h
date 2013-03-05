@@ -154,7 +154,8 @@
 #define COLLECTOR_PITCH_CATCHUP					(10.0)
 
 #define COLLECTOR_PITCH_TOLERANCE				(5)
-#define COLLECTOR_PITCH_DOWN					(0)
+#define COLLECTOR_PITCH_FLOOR					(0)
+#define COLLECTOR_PITCH_DOWN					(10) /* TODO */
 #define COLLECTOR_PITCH_MID						(52.5)
 #define COLLECTOR_PITCH_UP						(90) 
 
