@@ -3,8 +3,6 @@
 
 #include "../CommandBase.h"
 
-class Collector;
-enum Collector::MotorDirection;
 /**
  * @brief Command that spits the frisbee discs
  * 

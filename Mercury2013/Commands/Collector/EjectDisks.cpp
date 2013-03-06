@@ -19,7 +19,12 @@ void EjectDisks::Initialize() {
 }
 
 void EjectDisks::Execute() {
-	collector->setFrisbeeStop(true);
+	int frisbeeCount = collector->getFrisbeeSensorCount();
+	if (frisbeeCount == 2) {
+		collector->setFrisbeeStop(true);
+	} else if (frisbeeCount < 2) {
+		collector->setFrisbeeStop(false);
+	}
 	collector->setCollectorMotor(
 			(getCurrentMillis() - startTime < EJECTDISKS_EJECT_TIMEOUT) ? dir
 					: Collector::kStop);
