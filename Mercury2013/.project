@@ -3,6 +3,7 @@
 	<name>Mercury2013</name>
 	<comment></comment>
 	<projects>
+		<project>WPILib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

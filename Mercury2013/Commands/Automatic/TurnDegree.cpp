@@ -1,66 +1,43 @@
 #include <math.h>
+#include "../../Utils/Math.h"
 #include "TurnDegree.h"
-//TODO change basicaly all of this to degrees for turning instead of distance left and right.
-TurnDegree::TurnDegree(float targetAngle) {
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(chassis);
-	// TurnDegree 
+#include "../../Robotmap.h"
+
+TurnDegree::TurnDegree(float targetAngle) :
+	CommandBase("TurnDegree") {
 	Requires(driveBase);
-	this->m_targetAngle = targetAngle;
+	this->targetAngle = targetAngle;
 }
 
-// Called just before this Command runs the first time
 void TurnDegree::Initialize() {
-	//	reset leftEncoder();
-	driveBase->getLeftEncoder()->Reset();
-	//	reset rightEncoder();	
-	driveBase->getRightEncoder()->Reset();
-	//putting all encoders to 0
-//	this->m_counter = 0;
-	//not really using this counter.
-//	this->m_distanceDriven = 0;
-	//resetting distance driven to 0  
+	driveBase->getGyro()->Reset();
+	angleRemaining = 0;
 }
 
-// Called repeatedly when this Command is scheduled to run
 void TurnDegree::Execute() {
-	/** Compute remaining distance.
-	 * If distance remaining is greater than ___ inches, continue with motor on/maintaining speed. 
-	 * If distance remaining is lesser than ___ inches, turn the motor off.  
-	 * When less than the inches desired, motor off until practically no power at full stop on target destination.
-	 */
-	//Executes the distance command in order to go to the given distance.
-	float leftDist = driveBase->getLeftEncoder()->GetDistance();
-	//While driving the robot reads encoders in order to know how far it has traveled
-	float rightDist =driveBase->getRightEncoder()->GetDistance();
-/*	this->m_distanceDriven = (leftDist + rightDist) / 2;
-	//if distance traveled is greater than or equal to the target distance, motors are set to null
-	if (this->m_distanceDriven >= this->m_targetAngle) {
-		this->CommandBase::driveBase->setSpeed(0, 0);
-	} else {
-		this->CommandBase::driveBase->setSpeed(0.5, 0.5);
-	}*/
-	//if dist traveled is less than target distance, the motors will trundle along with half power
+	angleRemaining = targetAngle - driveBase->getGyro()->GetAngle();
+
+	float turnScaleFactor = fabs(angleRemaining) / AUTO_TURN_SLOW_DOWN;
+
+	float turnSpeed = fmin(AUTO_TURN_SPEED_MAX,
+			(AUTO_TURN_SPEED_RANGE * turnScaleFactor) + AUTO_TURN_SPEED_MIN)
+			* fsign(angleRemaining);
+	if (fabs(angleRemaining) <= AUTO_TURN_GYRO_THRESHOLD) {
+		turnSpeed = 0;
+	}
+
+	driveBase->setSpeed(turnSpeed, -turnSpeed);
 }
 
-// Make this return true when this Command no longer needs to run execute()
 bool TurnDegree::IsFinished() {
-	return false;//this->m_distanceDriven >= this->m_targetAngle;
-
-	//Return true when the distance you've traveled reaches the distance you've been requested to travel.
-	//Snap out of the loop and hop into the TurnDegree void
+	return fabs(angleRemaining) <= AUTO_TURN_GYRO_THRESHOLD;
 }
 
-// Called once after isFinished returns true.
 void TurnDegree::End() {
-	//Sets both motors to Zero, ends the program.
 	driveBase->setSpeed(0.0, 0.0);
 }
 
-// Called when another command which requires one or more of the same
-// subsystems is scheduled to run.
 void TurnDegree::Interrupted() {
-	//Stops loop, in case of emergency, it will pop it out no matter the distance.
 	driveBase->setSpeed(0.0, 0.0);
-	//no matter what happens, Interrupt will kill the speed
 }
+

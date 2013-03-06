@@ -1,46 +1,40 @@
 #include "Climber.h"
+#include <math.h>
 
-Climber::Climber() {
-	armsEncoder = new Encoder(ARM_ENCODER_1, ARM_ENCODER_2, false, Encoder::k4X);
-	armsMotor = ARM_MOTOR_CREATE(ARM_MOTOR);
-	
-	arm1Switch = new DigitalInput(ARM_SWITCH_1);
-	arm2Switch = new DigitalInput(ARM_SWITCH_2);
-	
-	armsEncoder->Reset();
+Climber::Climber() :
+		Subsystem("Climber") {
+	printf("Creating Climber...\t");
+	pokeySolenoid = new SolenoidPair(CLIMBER_POKEY);
+	climberSolenoid = new SolenoidPair(CLIMBER_PNEUMATIC);
+
+	LiveWindow::GetInstance()->AddActuator("Climber", "Pokey Stick",
+			pokeySolenoid);
+	LiveWindow::GetInstance()->AddActuator("Climber", "Climber Solenoid",
+			climberSolenoid);
+	printf("Done!");
 }
 
 Climber::~Climber() {
-	delete armsEncoder;
-	delete armsMotor;
-
-	delete arm1Switch;
-	delete arm2Switch;
+	delete pokeySolenoid;
+	delete climberSolenoid;
 }
 
-void Climber::moveMotor(float dist) {
-	
+void Climber::setPokey(bool position) {
+	pokeySolenoid->Set(position);
 }
 
-void Climber::movePokey(bool pos) {
-	
+bool Climber::getPokey() {
+	return pokeySolenoid->Get();
 }
 
-void Climber::setArmsMotor(float speed) {
-	armsMotor->Set(speed);
+void Climber::setClimberPneumatic(bool position) {
+	climberSolenoid->Set(position);
 }
 
-float Climber::getPosition() {
-	return false;
+bool Climber::getClimberPneumatic() {
+	return climberSolenoid->Get();
 }
 
-bool getPokey() {
-	return false;
+void Climber::InitDefaultCommand() {
+
 }
-
-bool Climber::getSwitch(int num) {
-	return false;
-}
-
-
-//TODO: Need pokey stick thingies

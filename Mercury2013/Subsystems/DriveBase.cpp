@@ -2,50 +2,80 @@
 #include "../Commands/Drivebase/TankDrive.h"
 
 DriveBase::DriveBase() :
-	Subsystem("DriveBase") {
-	motorLeft = DRIVE_MOTOR_CREATE(DRIVE_MOTOR_LEFT);
-#ifdef DRIVE_MOTOR_LEFT_2		// Only create the second motor if it's needed
-	motorLeft2 = DRIVE_MOTOR_CREATE(DRIVE_MOTOR_LEFT_2);
+		Subsystem("DriveBase") {
+	printf("Creating drive base...\t");
+#ifdef DRIVE_MOTOR_LEFT_2		// Same thing ad infinitum
+	motorLeft = new DualLiveSpeed(new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_LEFT),
+			new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_LEFT_2));
+#else
+	motorLeft = new DualLiveSpeed(
+			motorLeft = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_LEFT),NULL);
 #endif
+	LiveWindow::GetInstance()->AddActuator("DriveBase", "Left Motor",
+			motorLeft);
 
-	motorRight = DRIVE_MOTOR_CREATE(DRIVE_MOTOR_RIGHT);
 #ifdef DRIVE_MOTOR_RIGHT_2		// Same thing ad infinitum
-	motorRight2 = DRIVE_MOTOR_CREATE(DRIVE_MOTOR_RIGHT_2);
+	motorRight = new DualLiveSpeed(new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_RIGHT),
+			new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_RIGHT_2));
+#else
+	motorRight = new DualLiveSpeed(
+			motorRight = new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_RIGHT),NULL);
+#endif
+	LiveWindow::GetInstance()->AddActuator("DriveBase", "Right Motor",
+			motorRight);
+
+	shiftSolenoid = new SolenoidPair(DRIVE_SHIFT);
+	LiveWindow::GetInstance()->AddActuator("DriveBase", "Shifter",
+			shiftSolenoid);
+
+#ifdef DRIVE_ENCODER_LEFT
+	leftEncoder = new Encoder(DRIVE_ENCODER_LEFT);
+	leftEncoder->SetDistancePerPulse(-DRIVE_ENCODER_INCH_PER_TICK);
+	leftEncoder->Start();
+	LiveWindow::GetInstance()->AddSensor("DriveBase", "LeftEncoder",
+			leftEncoder);
+#else
+	leftEncoder = NULL;
+#endif
+#ifdef DRIVE_ENCODER_RIGHT
+	rightEncoder = new Encoder(DRIVE_ENCODER_RIGHT);
+	rightEncoder->SetDistancePerPulse(DRIVE_ENCODER_INCH_PER_TICK);
+	rightEncoder->Start();
+	LiveWindow::GetInstance()->AddSensor("DriveBase", "RightEncoder",
+			rightEncoder);
+#else
+	rightEncoder = NULL;
 #endif
 
-	shifter = new Relay(DRIVE_SHIFT_RELAY);
-	
-	cachedLowState = false;
+#ifdef DRIVE_GYRO
+	gyro = new Gyro(DRIVE_GYRO);
+	LiveWindow::GetInstance()->AddSensor("DriveBase", "Gyro", gyro);
+#endif
+	printf("Done\n");
 }
 
 DriveBase::~DriveBase() {
 	delete motorLeft;
-#ifdef DRIVE_MOTOR_LEFT_2		// Only create the second motor if it's needed
-	delete motorLeft2;
-#endif
-
 	delete motorRight;
-#ifdef DRIVE_MOTOR_RIGHT_2		// Same thing ad infinitum
-	delete motorRight2;
+
+#ifdef DRIVE_ENCODER_LEFT
+	delete leftEncoder;
 #endif
+#ifdef DRIVE_ENCODER_RIGHT
+	delete rightEncoder;
+#endif
+#ifdef DRIVE_GYRO
+	delete gyro;
+#endif
+	delete shiftSolenoid;
 
-	//TODO delete leftEncoder;
-	//TODO delete rightEncoder;
-	//TODO delete gyro;
-
-	delete shifter;
+	LiveWindow::GetInstance()->AddSensor("DriveBase", "DriveGyro", gyro);
 }
 
 void DriveBase::setSpeed(float leftSpeed, float rightSpeed) {
+	//TODO Check on Competition Bot
 	motorLeft->Set(leftSpeed);
-#ifdef DRIVE_MOTOR_LEFT_2
-	motorLeft2->Set(leftSpeed);
-#endif
-
 	motorRight->Set(-rightSpeed);
-#ifdef DRIVE_MOTOR_RIGHT_2
-	motorRight2->Set(-rightSpeed);
-#endif
 }
 
 Gyro *DriveBase::getGyro() {
@@ -65,10 +95,21 @@ void DriveBase::InitDefaultCommand() {
 }
 
 void DriveBase::shift(bool lowGear) {
-	cachedLowState = lowGear;
-	shifter->Set(lowGear ? Relay::kForward : Relay::kReverse);
+	shiftSolenoid->Set(lowGear);
+}
+
+void DriveBase::reset() {
+#ifdef DRIVE_ENCODER_LEFT
+	leftEncoder->Reset();
+#endif
+#ifdef DRIVE_ENCODER_RIGHT
+	rightEncoder->Reset();
+#endif
+#ifdef DRIVE_GYRO
+	gyro->Reset();
+#endif
 }
 
 bool DriveBase::isLowGear() {
-	return cachedLowState;
+	return shiftSolenoid->Get();
 }

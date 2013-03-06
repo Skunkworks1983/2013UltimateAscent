@@ -1,9 +1,10 @@
 #include "Shift.h"
 
-Shift::Shift(ShiftType toGear) {
-	//It requires the drive base, but we don't need a lock on it.
-	this->toGear = toGear;
-	toLowGear = false;
+Shift::Shift(ShiftType shiftingType) :
+	CommandBase("Shift") {
+	// It requires the drive base, but we don't need a lock on it.
+	this->toGear = shiftingType;
+	SetInterruptible(true);
 }
 
 void Shift::Initialize() {
@@ -35,8 +36,4 @@ void Shift::End() {
 }
 
 void Shift::Interrupted() {
-}
-
-bool Shift::IsInterruptible() {
-	return true;
 }

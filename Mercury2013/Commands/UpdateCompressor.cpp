@@ -1,7 +1,9 @@
 #include "UpdateCompressor.h"
 
-UpdateCompressor::UpdateCompressor() {
+UpdateCompressor::UpdateCompressor() :
+	CommandBase("UpdateCompressor") {
 	Requires(pneumatics);
+	SetInterruptible(true);
 }
 
 void UpdateCompressor::Initialize() {
@@ -22,8 +24,4 @@ void UpdateCompressor::End() {
 
 void UpdateCompressor::Interrupted() {
 	pneumatics->setCompressorState(false);
-}
-
-bool UpdateCompressor::IsInterruptible() {
-	return true;
 }

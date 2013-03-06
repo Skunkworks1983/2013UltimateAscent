@@ -1,48 +1,31 @@
 #include "Collect.h"
 
-Collect::Collect(State state) {
+Collect::Collect() :
+	CommandBase("Collect") {
 	Requires(collector);
+	SetTimeout(((double) COLLECTOR_COLLECT_TIMEOUT) / 1000.0);
+	SetInterruptible(true);
 }
 
-Collect::~Collect(){
-	
+Collect::~Collect() {
+
 }
 
 void Collect::Initialize() {
-	
 }
 
 void Collect::Execute() {
-	/*
-	switch(state){
-		case 1:
-			collector->startCollector();
-			break;
-		case 2:
-			collector->stopCollector();
-			break;
-		case 3;
-			if (collector->getPostion() == true){
-				collector->stopCollector();
-			}
-			else{
-				collector->startCollector();
-			}
-		break;
-	}
-	*/ // TODO
+	collector->setCollectorMotor(Collector::kForward);
 }
 
 bool Collect::IsFinished() {
-	return true;
+	return collector->getFrisbeeSensorCount() != 0 || IsTimedOut();
 }
 
 void Collect::End() {
+	collector->setCollectorMotor(Collector::kStop);
 }
 
 void Collect::Interrupted() {
-}
-
-bool Collect::IsInterruptible() {
-	return false;
+	collector->setCollectorMotor(Collector::kStop);
 }

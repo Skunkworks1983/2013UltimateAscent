@@ -1,26 +1,51 @@
-#ifndef __CLIMBER_H
-#define __CLIMBER_H
+#ifndef __SYS_CLIMBER_H
+#define __SYS_CLIMBER_H
 #include "WPILib.h"
-#include "../RobotMap.h"
+#include "../Robotmap.h"
+#include "../Utils/SolenoidPair.h"
+#include "../Utils/DualLiveSpeed.h"
 
-class Climber {
+/**
+ * @brief All of the necessary methods and accessors for Climb and its child commands
+ * 
+ * @author Connor Barlow, Westin Miller, Mark Old
+ */
+class Climber: public Subsystem {
 private:
-	Encoder *armsEncoder;
-	SpeedController *armsMotor;
+	/**  
+	 * Solenoid to operate the two pokeys ticks
+	 */
+	SolenoidPair *pokeySolenoid;
 	
-	DigitalInput *arm1Switch;
-	DigitalInput *arm2Switch;
-	
+	/**
+	 * Solenoid to operate the climber pneumatic
+	 */
+	SolenoidPair *climberSolenoid;
 public:
 	Climber();
 	~Climber();
-	void moveMotor(float dist);
-	void movePokey(bool pos);
-	void setArmsMotor(float speed);
 	
-	float getPosition();
+	/**  
+	 * Moves the pokey sticks to the state specified
+	 */
+	void setPokey(bool pos);
+
+	/**  
+	 * Gets the state of the pokey sticks
+	 */
 	bool getPokey();
-	bool getSwitch(int num);
+	
+	/**
+	 * Moves the climber pneumatic to the state specified
+	 */
+	void setClimberPneumatic(bool position);
+	
+	/**
+	 * Gets the state of the climber pneumatic
+	 */
+	bool getClimberPneumatic();
+	
+	virtual void InitDefaultCommand();
 };
 
 #endif
