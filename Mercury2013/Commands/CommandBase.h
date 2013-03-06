@@ -22,6 +22,8 @@ class CommandBase: public Command {
 public:
 	CommandBase(const char *name);
 	CommandBase();
+	CommandBase *makeInterruptible(bool state);
+	
 	static void init();
 
 	static Shooter *shooter;

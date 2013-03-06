@@ -9,6 +9,11 @@ CommandBase::CommandBase() :
 	Command() {
 }
 
+CommandBase *CommandBase::makeInterruptible(bool state){
+	SetInterruptible(state);
+	return this;
+}
+
 // Initialize a single static instance of all of your subsystems to NULL
 Shooter *CommandBase::shooter = NULL;
 DriveBase *CommandBase::driveBase = NULL;

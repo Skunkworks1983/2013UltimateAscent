@@ -1,9 +1,9 @@
 #include "Collect.h"
 
-Collect::Collect() :
+Collect::Collect(bool timesOut) :
 	CommandBase("Collect") {
 	Requires(collector);
-	SetTimeout(((double) COLLECTOR_COLLECT_TIMEOUT) / 1000.0);
+	SetTimeout(timesOut ? ((double) COLLECTOR_COLLECT_TIMEOUT) / 1000.0 : false);
 	SetInterruptible(true);
 }
 
@@ -15,19 +15,11 @@ void Collect::Initialize() {
 }
 
 void Collect::Execute() {
-	collector->setSetpoint(COLLECTOR_PITCH_FLOOR);
 	collector->setCollectorMotor(Collector::kForward);
 }
 
 bool Collect::IsFinished() {
-	if ((collector->getFrisbeeSensorCount() != 0 || IsTimedOut()) == true) {
-		collector->setSetpoint(COLLECTOR_PITCH_FLOOR);
-		collector->setSetpoint(COLLECTOR_PITCH_DOWN);
-		if (collector->getRawAngle() == COLLECTOR_PITCH_DOWN) {
-			return true;
-		}
-	}
-	return false;
+	return collector->getFrisbeeSensorCount() != 0 || IsTimedOut();
 }
 
 void Collect::End() {

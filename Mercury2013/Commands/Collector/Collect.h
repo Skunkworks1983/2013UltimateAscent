@@ -9,8 +9,7 @@
  */
 class Collect: public CommandBase {
 public:
-	
-	Collect();
+	Collect(bool timesOut);
 	~Collect();
 	virtual void Initialize();
 	/**

@@ -33,6 +33,7 @@ private:
 	Button *armDownButton;
 	double targetCollectorPitch;
 	Trigger *armChangeTrigger;
+	Command *autoCollectCommand;
 	
 	Button *collectorSlotButton;
 	

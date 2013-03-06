@@ -49,7 +49,7 @@ Autonomous::Autonomous(int argc, char **argv) :
 			use = new WaitUntilCommand(arg);
 			break;
 		case AUTO_SCRIPT_CHARMASK('c','n'):
-			use = new Collect();
+			use = new Collect(arg >= 1.0);
 			break;
 		case AUTO_SCRIPT_CHARMASK('c','p'):
 			use = new MoveCollectorArm(arg);

@@ -10,6 +10,7 @@
 #include "Commands/Drivebase/Shift.h"
 #include "Commands/Collector/MoveCollectorArm.h"
 #include "Commands/CommandStarter.h"
+#include "Commands/CommandCanceler.h"
 #include "Commands/Collector/Collect.h"
 #include "Commands/Collector/EjectDisks.h"
 #include "Utils/ValueChangeTrigger.h"
@@ -35,10 +36,13 @@ OI::OI() {
 
 	collectorSlotButton = new DigitalIOButton(13);
 
+	autoCollectCommand = new Collect(false);
 	collectButton = new JoystickButton(driveJoystickRight, 1);
 	ejectButton = new JoystickButton(driveJoystickRight, 3);
 
 	shooterToThing = new DigitalIOButton(16);
+	
+	
 #define PUT_DEFAULT(val) (Preferences::GetInstance()->PutFloat(#val, val))
 	PUT_DEFAULT(SHOOTER_MOTOR_FRONT_SPEED);
 	PUT_DEFAULT(SHOOTER_MOTOR_MIDDLE_SPEED);
@@ -64,7 +68,11 @@ void OI::registerButtonSchedulers() {
 	spinupButton->WhenPressed(new ArmShooter(ArmShooter::kOn));
 	spinupButton->WhenReleased(new ArmShooter(ArmShooter::kOff));
 
-	collectButton->WhenPressed(new Collect());
+	collectButton->WhenPressed(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
+	collectButton->WhileHeld(autoCollectCommand);
+	collectButton->WhenReleased(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
+	collectButton->WhenReleased(new CommandCanceler(autoCollectCommand));
+	
 	ejectButton->WhenPressed(new EjectDisks(Collector::kForward));
 	armChangeTrigger->WhenActive(
 			new CommandStarter(OI::createChangeCollectorPitch));
