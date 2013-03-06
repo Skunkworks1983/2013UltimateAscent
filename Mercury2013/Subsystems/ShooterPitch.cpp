@@ -82,6 +82,6 @@ void ShooterPitch::motorSafety() {
 }
 
 void ShooterPitch::InitDefaultCommand() {
-	SetDefaultCommand(new ChangeShooterPitch(-1));
+	//SetDefaultCommand(new ChangeShooterPitch(-1));
 }
 

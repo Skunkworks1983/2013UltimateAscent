@@ -59,7 +59,7 @@ OI::OI() {
 	shooterCollectorButton = new AnalogRangeIOButton(OI_COLLECTOR_ANGLE_ANALOG,
 			1.402, 1.602);//1.502
 
-	autoCollectCommand = new Collect(false);
+	autoCollectCommand = (new Collect(false))->makeInterruptible(false);
 	collectButton = new JoystickButton(driveJoystickRight, 1);
 	ejectButton = new JoystickButton(driveJoystickRight, 3);
 
@@ -91,7 +91,7 @@ void OI::registerButtonSchedulers() {
 	spinupButton->WhenPressed(new ArmShooter(ArmShooter::kOn));
 	spinupButton->WhenReleased(new ArmShooter(ArmShooter::kOff));
 
-	collectButton->WhenPressed(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
+	collectButton->WhenPressed((new MoveCollectorArm(COLLECTOR_PITCH_FLOOR))->makeInterruptible(false));
 	collectButton->WhileHeld(autoCollectCommand);
 	collectButton->WhenReleased(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
 	collectButton->WhenReleased(new CommandCanceler(autoCollectCommand));
@@ -101,7 +101,7 @@ void OI::registerButtonSchedulers() {
 			new CommandStarter(OI::createChangeCollectorPitch));
 	shooterAngleChangeTrigger->WhenActive(
 			new CommandStarter(OI::createChangePitchFromOI));
-	
+
 	pokeyStickButton->WhenPressed(new HokeyPokey(true));
 	pokeyStickButton->WhenReleased(new HokeyPokey(false));
 	climberRackButton->WhenPressed(new ExtendClimber(true));
@@ -119,6 +119,11 @@ double OI::getCollectorTargetPitch() {
 	} else if (!CommandBase::oi->collectorOverrideButton->Get()) {
 		CommandBase::oi->targetCollectorPitch = OI_COLLECTOR_ANGLE_CONVERT(
 				DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(3));
+		if (CommandBase::oi->targetCollectorPitch < -1) {
+			CommandBase::oi->targetCollectorPitch = -1;
+		} else if (CommandBase::oi->targetCollectorPitch > 90) {
+			CommandBase::oi->targetCollectorPitch = 90;
+		}
 	}
 	return CommandBase::oi->targetCollectorPitch;
 }
@@ -135,7 +140,7 @@ double OI::getShooterTargetPitch() {
 		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_MIDLOW;
 	} else if (CommandBase::oi->shooterLowButton->Get()) {
 		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_LOW;
-	} else if (!CommandBase::oi->collectorOverrideButton->Get()) {
+	} else if (!CommandBase::oi->shooterAngleOverrideButton->Get()) {
 		CommandBase::oi->targetShooterPitch = OI_SHOOTER_ANGLE_CONVERT(
 				DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(1))
 				/ 270.0;
