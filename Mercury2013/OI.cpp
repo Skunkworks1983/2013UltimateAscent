@@ -112,9 +112,9 @@ double OI::getCollectorTargetPitch() {
 	if (CommandBase::oi == NULL) {
 		return 0.0;
 	}
-	if (!CommandBase::oi->armUpButton->Get()) {
+	if (CommandBase::oi->armUpButton->Get()) {
 		CommandBase::oi->targetCollectorPitch = COLLECTOR_PITCH_UP;
-	} else if (!CommandBase::oi->armDownButton->Get()) {
+	} else if (CommandBase::oi->armDownButton->Get()) {
 		CommandBase::oi->targetCollectorPitch = COLLECTOR_PITCH_DOWN;
 	} else if (!CommandBase::oi->collectorOverrideButton->Get()) {
 		CommandBase::oi->targetCollectorPitch = OI_COLLECTOR_ANGLE_CONVERT(
@@ -127,13 +127,13 @@ double OI::getShooterTargetPitch() {
 	if (CommandBase::oi == NULL) {
 		return 0.0;
 	}
-	if (!CommandBase::oi->shooterHighButton->Get()) {
+	if (CommandBase::oi->shooterHighButton->Get()) {
 		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_HIGH;
-	} else if (!CommandBase::oi->shooterMidHighButton->Get()) {
+	} else if (CommandBase::oi->shooterMidHighButton->Get()) {
 		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_MIDHIGH;
-	} else if (!CommandBase::oi->shooterMidLowButton->Get()) {
+	} else if (CommandBase::oi->shooterMidLowButton->Get()) {
 		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_MIDLOW;
-	} else if (!CommandBase::oi->shooterLowButton->Get()) {
+	} else if (CommandBase::oi->shooterLowButton->Get()) {
 		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_LOW;
 	} else if (!CommandBase::oi->collectorOverrideButton->Get()) {
 		CommandBase::oi->targetShooterPitch = OI_SHOOTER_ANGLE_CONVERT(
