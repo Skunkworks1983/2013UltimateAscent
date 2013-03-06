@@ -127,8 +127,14 @@
 #define SHOOTER_PITCH_THRESHOLD					(0.0125) /* Random units; scalar of shooter angle */
 #define SHOOTER_PITCH_COLLECT					(0)
 #define SHOOTER_PITCH_SLOT_COLLECT				(0.5) /*TODO*/
-#define SHOOTER_PITCH_PYRAMID_BACK				(.526)
 #define SHOOTER_PITCH_STABILITY					(25)
+
+
+#define SHOOTER_PITCH_LOW					(.526)
+#define SHOOTER_PITCH_MIDLOW				(.526)
+#define SHOOTER_PITCH_MIDHIGH				(.526)
+#define SHOOTER_PITCH_HIGH					(.526)
+
 
 /**
  * --COLLECTOR--

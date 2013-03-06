@@ -13,7 +13,13 @@
 #include "Commands/CommandCanceler.h"
 #include "Commands/Collector/Collect.h"
 #include "Commands/Collector/EjectDisks.h"
+#include "Commands/Climber/HokeyPokey.h"
+#include "Commands/Climber/ExtendClimber.h"
 #include "Utils/ValueChangeTrigger.h"
+#include "Utils/AnalogRangeIOButton.h"
+
+#define OI_SHOOTER_ANGLE_ANALOG		6
+#define OI_COLLECTOR_ANGLE_ANALOG	4
 
 OI::OI() {
 	driveJoystickLeft = new Joystick(OI_JOYSTICK_LEFT);
@@ -25,24 +31,41 @@ OI::OI() {
 
 	shiftButton = new JoystickButton(driveJoystickLeft, 1);
 
-	shootButton = new DigitalIOButton(5);
-	spinupButton = new DigitalIOButton(10);
-	tuneShooterButton = new DigitalIOButton(8);
+	shootButton = new DigitalIOButton(16);
+	spinupButton = new DigitalIOButton(14);
+	shooterAngleOverrideButton = new DigitalIOButton(1);
+	shooterPowerOverrideButton = new DigitalIOButton(5);
 
-	armUpButton = new DigitalIOButton(3);
-	armMidButton = new DigitalIOButton(11);
-	armDownButton = new DigitalIOButton(1);
+	shooterHighButton = new AnalogRangeIOButton(OI_SHOOTER_ANGLE_ANALOG, 2.625,
+			2.825);//2.725
+	shooterMidHighButton = new AnalogRangeIOButton(OI_SHOOTER_ANGLE_ANALOG,
+			2.045, 2.245);// 2.145
+	shooterMidLowButton = new AnalogRangeIOButton(OI_SHOOTER_ANGLE_ANALOG,
+			1.406, 1.606);//1.506
+	shooterLowButton = new AnalogRangeIOButton(OI_SHOOTER_ANGLE_ANALOG, 0.629,
+			0.829);//0.729
+	shooterAngleChangeTrigger = new ValueChangeTrigger(
+			OI::getShooterTargetPitch, 0.125);
+
+	armUpButton = new AnalogRangeIOButton(OI_COLLECTOR_ANGLE_ANALOG, 2.625,
+			2.825);//2.725
+	armDownButton = new AnalogRangeIOButton(OI_COLLECTOR_ANGLE_ANALOG, .625,
+			.825);//.725
+	collectorOverrideButton = new DigitalIOButton(12);
 	armChangeTrigger = new ValueChangeTrigger(OI::getCollectorTargetPitch, 5);
 
-	collectorSlotButton = new DigitalIOButton(13);
+	collectorSlotButton = new AnalogRangeIOButton(OI_COLLECTOR_ANGLE_ANALOG,
+			2.045, 2.245);//2.145
+	shooterCollectorButton = new AnalogRangeIOButton(OI_COLLECTOR_ANGLE_ANALOG,
+			1.402, 1.602);//1.502
 
 	autoCollectCommand = new Collect(false);
 	collectButton = new JoystickButton(driveJoystickRight, 1);
 	ejectButton = new JoystickButton(driveJoystickRight, 3);
 
-	shooterToThing = new DigitalIOButton(16);
-	
-	
+	pokeyStickButton = new DigitalIOButton(7);
+	climberRackButton = new DigitalIOButton(3);
+
 #define PUT_DEFAULT(val) (Preferences::GetInstance()->PutFloat(#val, val))
 	PUT_DEFAULT(SHOOTER_MOTOR_FRONT_SPEED);
 	PUT_DEFAULT(SHOOTER_MOTOR_MIDDLE_SPEED);
@@ -72,14 +95,17 @@ void OI::registerButtonSchedulers() {
 	collectButton->WhileHeld(autoCollectCommand);
 	collectButton->WhenReleased(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
 	collectButton->WhenReleased(new CommandCanceler(autoCollectCommand));
-	
+
 	ejectButton->WhenPressed(new EjectDisks(Collector::kForward));
 	armChangeTrigger->WhenActive(
 			new CommandStarter(OI::createChangeCollectorPitch));
-	collectorSlotButton->WhenPressed(new ShooterSlotLoad());
-	shooterToThing->WhenPressed(
-			new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_BACK));
-	tuneShooterButton->WhenPressed(new TunePitchEncoder());
+	shooterAngleChangeTrigger->WhenActive(
+			new CommandStarter(OI::createChangePitchFromOI));
+	
+	pokeyStickButton->WhenPressed(new HokeyPokey(true));
+	pokeyStickButton->WhenReleased(new HokeyPokey(false));
+	climberRackButton->WhenPressed(new ExtendClimber(true));
+	climberRackButton->WhenReleased(new ExtendClimber(false));
 }
 
 double OI::getCollectorTargetPitch() {
@@ -88,14 +114,33 @@ double OI::getCollectorTargetPitch() {
 	}
 	if (!CommandBase::oi->armUpButton->Get()) {
 		CommandBase::oi->targetCollectorPitch = COLLECTOR_PITCH_UP;
-	} else if (!CommandBase::oi->armMidButton->Get()) {
-		CommandBase::oi->targetCollectorPitch = COLLECTOR_PITCH_MID;
 	} else if (!CommandBase::oi->armDownButton->Get()) {
 		CommandBase::oi->targetCollectorPitch = COLLECTOR_PITCH_DOWN;
-	}/* else if (armOverrideButton->Get()) {
-	 targetCollectorPitch = OI_GET_COLLLECTOR_MANUAL_ANGLE;
-	 }*/
+	} else if (!CommandBase::oi->collectorOverrideButton->Get()) {
+		CommandBase::oi->targetCollectorPitch = OI_COLLECTOR_ANGLE_CONVERT(
+				DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(3));
+	}
 	return CommandBase::oi->targetCollectorPitch;
+}
+
+double OI::getShooterTargetPitch() {
+	if (CommandBase::oi == NULL) {
+		return 0.0;
+	}
+	if (!CommandBase::oi->shooterHighButton->Get()) {
+		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_HIGH;
+	} else if (!CommandBase::oi->shooterMidHighButton->Get()) {
+		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_MIDHIGH;
+	} else if (!CommandBase::oi->shooterMidLowButton->Get()) {
+		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_MIDLOW;
+	} else if (!CommandBase::oi->shooterLowButton->Get()) {
+		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_LOW;
+	} else if (!CommandBase::oi->collectorOverrideButton->Get()) {
+		CommandBase::oi->targetShooterPitch = OI_SHOOTER_ANGLE_CONVERT(
+				DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(1))
+				/ 270.0;
+	}
+	return CommandBase::oi->targetShooterPitch;
 }
 
 Command *OI::createChangeCollectorPitch() {
@@ -103,7 +148,5 @@ Command *OI::createChangeCollectorPitch() {
 }
 
 Command* OI::createChangePitchFromOI() {
-	double val = DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(
-			OI_SHOOTER_ANGLE_PROVIDER_CHANNEL);
-	return new ChangeShooterPitch(OI_SHOOTER_ANGLE_CONVERT(val));
+	return new ChangeShooterPitch(OI::getShooterTargetPitch());
 }
