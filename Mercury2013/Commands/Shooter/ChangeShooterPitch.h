@@ -14,8 +14,9 @@ class ChangeShooterPitch: public CommandBase {
 private:
 	bool outOfBounds;
 	float targetPitch;
+	bool waitForCollector;
 public:
-	ChangeShooterPitch(float targetPitch);
+	ChangeShooterPitch(float targetPitch, bool waitForCollector = false);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

@@ -1,12 +1,16 @@
 #include "ChangeShooterPitch.h"
 #include <math.h>
 
-ChangeShooterPitch::ChangeShooterPitch(float targetPitch) :
+ChangeShooterPitch::ChangeShooterPitch(float targetPitch, bool waitForCollector) :
 	CommandBase("ChangeShooterPitch") {
 	Requires(shooterPitch);
 	SetInterruptible(true);
 	this->targetPitch = targetPitch;
+	if (this->targetPitch < 0.01){
+		this->targetPitch = -10.0;
+	}
 	this->outOfBounds = false;
+	this->waitForCollector = waitForCollector;
 }
 
 void ChangeShooterPitch::Initialize() {
@@ -17,7 +21,7 @@ void ChangeShooterPitch::Execute() {
 			&& collectorArms->getAngle() < COLLECTOR_SHOOTER_INTERFERENCE_HIGH
 			&& targetPitch > SHOOTER_COLLECTOR_INTERFERENCE_LOW && targetPitch
 			< SHOOTER_COLLECTOR_INTERFERENCE_HIGH) {
-		outOfBounds = true;
+		outOfBounds = !waitForCollector;
 		return;
 	}
 	float pitchOffset = shooterPitch->getCurrentPitch() - targetPitch;
