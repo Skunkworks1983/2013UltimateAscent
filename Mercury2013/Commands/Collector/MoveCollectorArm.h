@@ -5,7 +5,7 @@
 /**
  * @brief Change collector position command
  * 
- * Todo:  Collector: 1 motor, 1 speed, 1 encoder, 1 light sensor for stopping motor
+ * Todo:  CollectorArms: 1 motor, 1 speed, 1 encoder, 1 light sensor for stopping motor
  * 
  * 
  * 

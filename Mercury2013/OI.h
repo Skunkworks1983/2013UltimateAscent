@@ -26,7 +26,7 @@ private:
 	Button *shootButton;
 	Button *spinupButton;
 	
-	//Collector Arm Stuff
+	//CollectorArms Arm Stuff
 	Button *armUpButton;
 	Button *armDownButton;
 	Button *collectorOverrideButton;

@@ -18,6 +18,7 @@ CommandBase *CommandBase::makeInterruptible(bool state){
 Shooter *CommandBase::shooter = NULL;
 DriveBase *CommandBase::driveBase = NULL;
 Collector *CommandBase::collector = NULL;
+CollectorArms *CommandBase::collectorArms = NULL;
 OI *CommandBase::oi = NULL;
 Pneumatics *CommandBase::pneumatics = NULL;
 Climber *CommandBase::climber = NULL;
@@ -35,6 +36,7 @@ void CommandBase::init() {
 	shooter = new Shooter();
 	driveBase = new DriveBase();
 	collector = new Collector();
+	collectorArms = new CollectorArms();
 	climber = new Climber();
 	shooterPitch = new ShooterPitch();
 	

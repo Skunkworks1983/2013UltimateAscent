@@ -91,7 +91,9 @@ void OI::registerButtonSchedulers() {
 	spinupButton->WhenPressed(new ArmShooter(ArmShooter::kOn));
 	spinupButton->WhenReleased(new ArmShooter(ArmShooter::kOff));
 
-	collectButton->WhenPressed((new MoveCollectorArm(COLLECTOR_PITCH_FLOOR))->makeInterruptible(false));
+	collectButton->WhenPressed(
+			(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR))->makeInterruptible(
+					false));
 	collectButton->WhileHeld(autoCollectCommand);
 	collectButton->WhenReleased(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
 	collectButton->WhenReleased(new CommandCanceler(autoCollectCommand));

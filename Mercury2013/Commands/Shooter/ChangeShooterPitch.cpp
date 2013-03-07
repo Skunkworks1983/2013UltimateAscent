@@ -22,8 +22,8 @@ void ChangeShooterPitch::Execute() {
 				OI_SHOOTER_ANGLE_PROVIDER_CHANNEL);
 		tmpTarget = OI_SHOOTER_ANGLE_CONVERT(val);
 	}
-	if (collector->getRawAngle() > COLLECTOR_SHOOTER_INTERFERENCE_LOW
-			&& collector->getRawAngle() < COLLECTOR_SHOOTER_INTERFERENCE_HIGH
+	if (collectorArms->getAngle() > COLLECTOR_SHOOTER_INTERFERENCE_LOW
+			&& collectorArms->getAngle() < COLLECTOR_SHOOTER_INTERFERENCE_HIGH
 			&& tmpTarget > SHOOTER_COLLECTOR_INTERFERENCE_LOW && tmpTarget
 			< SHOOTER_COLLECTOR_INTERFERENCE_HIGH) {
 		outOfBounds = true;

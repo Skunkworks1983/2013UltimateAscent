@@ -19,7 +19,7 @@ void UpdateOI::Execute() {
 	SmartDashboard::PutBoolean("Is Low Gear", driveBase->isLowGear());
 	SmartDashboard::PutBoolean("Is Below Pressure",
 			pneumatics->isBelowPressure());
-	SmartDashboard::PutNumber("Collector Avg. Angle", collector->getRawAngle());
+	SmartDashboard::PutNumber("Collector Avg. Angle", collectorArms->getAngle());
 	SmartDashboard::PutNumber("Collector Frisbee Trigger",
 			collector->getFrisbeeSensorCount());
 	SmartDashboard::PutNumber("Shooter Angle", shooterPitch->getRealPitch());

@@ -6,6 +6,7 @@
 #include "../Subsystems/Shooter.h"
 #include "../Subsystems/DriveBase.h"
 #include "../Subsystems/Collector.h"
+#include "../Subsystems/CollectorArms.h"
 #include "../Subsystems/Pneumatics.h"
 #include "../Subsystems/Climber.h"
 #include "../Subsystems/ShooterPitch.h"
@@ -29,6 +30,7 @@ public:
 	static Shooter *shooter;
 	static DriveBase *driveBase;
 	static Collector *collector;
+	static CollectorArms *collectorArms;
 	static OI *oi;
 	static Pneumatics *pneumatics;
 	static Climber *climber;

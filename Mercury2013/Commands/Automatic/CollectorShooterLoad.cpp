@@ -9,6 +9,7 @@
 #include "../Shooter/ChangeShooterPitch.h"
 #include "../Shooter/ArmShooter.h"
 #include "../Drivebase/Shift.h"
+#include "../../Subsystems/Collector.h"
 
 CollectorShooterLoad::CollectorShooterLoad() :
 	CommandGroup("CollectorShooterLoad") {

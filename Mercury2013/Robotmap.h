@@ -138,7 +138,7 @@
 
 /**
  * --COLLECTOR--
- * 	Collector motor channels
+ * 	CollectorArms motor channels
  */
 #define COLLECTOR_MOTOR							(3)
 #define COLLECTOR_PITCH_MOTOR_LEFT				(1)
@@ -148,7 +148,7 @@
 #define COLLECTOR_MOTOR_TYPE					Talon
 #define COLLECTOR_PITCH_MOTOR_TYPE				Talon
 #define COLLECTOR_PITCH_STABILITY				20
-// Collector constant speed
+// CollectorArms constant speed
 #define COLLECTOR_PITCH_MOTOR_SPEED_UP			(.6) /* TODO get value from design team */
 #define COLLECTOR_PITCH_MOTOR_SPEED_DOWN		(-.4) /* TODO get value from design team */
 #define COLLECTOR_MOTOR_SPEED					(0.5)
