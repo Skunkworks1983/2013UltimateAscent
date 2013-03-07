@@ -4,14 +4,14 @@
 FlagControl::FlagControl(FlagControlType type) :
 	CommandBase("Collect") {
 	this->controlType = type;
-	this->complete = true;
 }
 
 FlagControl::~FlagControl() {
-
 }
 
 void FlagControl::Initialize() {
+	this->complete = false;
+	this->anglePassed = -1.0;
 	switch (controlType) {
 	case kFlagUp:
 		this->destinationState = true;
@@ -34,13 +34,12 @@ void FlagControl::Execute() {
 		if (shooterPitch->getRealPitch() > SHOOTER_PITCH_FRISBEE_SLIDE) {
 			if (anglePassed < 0) {
 				anglePassed = getCurrentMillis();
-			} else if (getCurrentMillis() - anglePassed
-					> SHOOTER_PITCH_FRISBEE_SLIDE_SPEED) {
-				collector->setFrisbeeStop(false);
-				complete = true;
 			}
-		} else {
-			anglePassed = -1.0;
+		}
+		if (anglePassed > 0.0 && getCurrentMillis() - anglePassed
+				>= SHOOTER_PITCH_FRISBEE_SLIDE_SPEED) {
+			collector->setFrisbeeStop(false);
+			complete = true;
 		}
 	} else {
 		collector->setFrisbeeStop(destinationState);
