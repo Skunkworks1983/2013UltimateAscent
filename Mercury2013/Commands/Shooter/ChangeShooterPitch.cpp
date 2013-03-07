@@ -13,23 +13,14 @@ void ChangeShooterPitch::Initialize() {
 }
 
 void ChangeShooterPitch::Execute() {
-	double tmpTarget = targetPitch;
-	if (targetPitch < 0) {
-		if (DriverStation::GetInstance()->GetEnhancedIO().GetDigital(15)) {
-			return;
-		}
-		double val = DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(
-				OI_SHOOTER_ANGLE_PROVIDER_CHANNEL);
-		tmpTarget = OI_SHOOTER_ANGLE_CONVERT(val);
-	}
 	if (collectorArms->getAngle() > COLLECTOR_SHOOTER_INTERFERENCE_LOW
 			&& collectorArms->getAngle() < COLLECTOR_SHOOTER_INTERFERENCE_HIGH
-			&& tmpTarget > SHOOTER_COLLECTOR_INTERFERENCE_LOW && tmpTarget
+			&& targetPitch > SHOOTER_COLLECTOR_INTERFERENCE_LOW && targetPitch
 			< SHOOTER_COLLECTOR_INTERFERENCE_HIGH) {
 		outOfBounds = true;
 		return;
 	}
-	float pitchOffset = shooterPitch->getCurrentPitch() - tmpTarget;
+	float pitchOffset = shooterPitch->getCurrentPitch() - targetPitch;
 	if (fabs(pitchOffset) < SHOOTER_PITCH_THRESHOLD) {
 		shooterPitch->setPitchMotorSpeed(0);
 		outOfBounds = true;
@@ -40,7 +31,7 @@ void ChangeShooterPitch::Execute() {
 }
 
 bool ChangeShooterPitch::IsFinished() {
-	return !shooterPitch->isPitchTuned() || (outOfBounds && targetPitch >= 0.0);
+	return !shooterPitch->isPitchTuned() || outOfBounds;
 }
 
 void ChangeShooterPitch::End() {

@@ -6,7 +6,7 @@
 typedef Command* (*CreateCommand)();
 class CommandStarter: public CommandBase {
 private:
-	//CreateCommand create;
+	CreateCommand create;
 	Command *orders;
 	bool waitForRequirements;
 public:

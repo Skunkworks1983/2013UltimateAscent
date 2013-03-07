@@ -3,7 +3,7 @@
 Collect::Collect(bool timesOut) :
 	CommandBase("Collect") {
 	Requires(collector);
-	SetTimeout(timesOut ? ((double) COLLECTOR_COLLECT_TIMEOUT) / 1000.0 : false);
+	SetTimeout(timesOut ? ((double) COLLECTOR_COLLECT_TIMEOUT) / 1000.0 : 999999999.0);
 	SetInterruptible(true);
 }
 

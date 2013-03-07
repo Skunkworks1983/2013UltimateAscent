@@ -2,6 +2,7 @@
 #include "Robotmap.h"
 
 #include "Commands/Automatic/ShooterSlotLoad.h"
+#include "Commands/Automatic/CollectorShooterLoad.h"
 #include "Commands/Shooter/Shoot.h"
 #include "Commands/Shooter/ArmShooter.h"
 #include "Commands/Shooter/FlushShooter.h"
@@ -96,7 +97,7 @@ void OI::registerButtonSchedulers() {
 	collectButton->WhenReleased(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
 	collectButton->WhenReleased(new CommandCanceler(autoCollectCommand));
 
-	ejectButton->WhenPressed(new EjectDisks(Collector::kForward));
+	ejectButton->WhenPressed(new EjectDisks(Collector::kReverse));
 	armChangeTrigger->WhenActive(
 			new CommandStarter(OI::createChangeCollectorPitch));
 	shooterAngleChangeTrigger->WhenActive(
@@ -106,6 +107,9 @@ void OI::registerButtonSchedulers() {
 	pokeyStickButton->WhenReleased(new HokeyPokey(false));
 	climberRackButton->WhenPressed(new ExtendClimber(true));
 	climberRackButton->WhenReleased(new ExtendClimber(false));
+	
+	collectorSlotButton->WhenPressed(new ShooterSlotLoad());
+	shooterCollectorButton->WhenPressed(new CollectorShooterLoad());
 }
 
 double OI::getCollectorTargetPitch() {
@@ -137,9 +141,9 @@ double OI::getShooterTargetPitch() {
 	} else if (CommandBase::oi->shooterMidHighButton->Get()) {
 		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_MIDHIGH;
 	} else if (CommandBase::oi->shooterMidLowButton->Get()) {
-		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_MIDLOW;
-	} else if (CommandBase::oi->shooterLowButton->Get()) {
 		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_LOW;
+	} else if (CommandBase::oi->shooterLowButton->Get()) {
+		CommandBase::oi->targetShooterPitch = -25;//SHOOTER_PITCH_LOW;
 	} else if (!CommandBase::oi->shooterAngleOverrideButton->Get()) {
 		CommandBase::oi->targetShooterPitch = OI_SHOOTER_ANGLE_CONVERT(
 				DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(1))

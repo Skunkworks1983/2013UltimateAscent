@@ -184,7 +184,7 @@
 #define SHOOTER_COLLECTOR_INTERFERENCE_LOW		(0.05) /* Those random shooter units!*/
 #define SHOOTER_COLLECTOR_INTERFERENCE_HIGH		(1.0)
 
-#define SHOOTER_PITCH_FRISBEE_SLIDE				(0.75)
+#define SHOOTER_PITCH_FRISBEE_SLIDE				(0.70)
 #define SHOOTER_PITCH_FRISBEE_SLIDE_SPEED		(1000)
 
 /**
@@ -209,7 +209,7 @@
  * --EJECTOR--
  */
 
-#define EJECTDISKS_EJECT_TIMEOUT				(500) /* (millis)	*/
+#define EJECTDISKS_EJECT_TIMEOUT				(1000) /* (millis)	*/
 #define EJECTDISKS_SERVO_TIMEOUT				(10000) /* (millis)	*/			
 
 #endif

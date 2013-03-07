@@ -3,8 +3,7 @@
 
 CommandStarter::CommandStarter(CreateCommand create, bool waitForRequirements) :
 	CommandBase("CommandStarter") {
-	//this->create = create;
-	this->orders = create();
+	this->create = create;
 	this->waitForRequirements = waitForRequirements;
 }
 
@@ -12,6 +11,7 @@ CommandStarter::~CommandStarter() {
 }
 
 void CommandStarter::Initialize() {
+	this->orders = create();
 }
 
 void CommandStarter::Execute() {

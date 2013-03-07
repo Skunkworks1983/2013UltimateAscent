@@ -16,6 +16,9 @@ CollectorShooterLoad::CollectorShooterLoad() :
 	AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_COLLECT));
 	AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_MID));
 	AddSequential(new EjectDisks(Collector::kForward));
+	AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));//TODO Parallel stuff?
+	AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_FRISBEE_SLIDE));
+	AddSequential(new ChangeShooterPitch(0.0));
 }
 
 CollectorShooterLoad::~CollectorShooterLoad() {
