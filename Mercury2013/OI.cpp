@@ -59,7 +59,7 @@ OI::OI() {
 	shooterCollectorButton = new AnalogRangeIOButton(OI_COLLECTOR_ANGLE_ANALOG,
 			1.402, 1.602);//1.502
 
-	autoCollectCommand = (new Collect(false))->makeInterruptible(false);
+	autoCollectCommand = new Collect(false);
 	collectButton = new JoystickButton(driveJoystickRight, 1);
 	ejectButton = new JoystickButton(driveJoystickRight, 3);
 
@@ -91,10 +91,8 @@ void OI::registerButtonSchedulers() {
 	spinupButton->WhenPressed(new ArmShooter(ArmShooter::kOn));
 	spinupButton->WhenReleased(new ArmShooter(ArmShooter::kOff));
 
-	collectButton->WhenPressed(
-			(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR))->makeInterruptible(
-					false));
-	collectButton->WhileHeld(autoCollectCommand);
+	collectButton->WhenPressed(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
+	collectButton->WhenPressed(autoCollectCommand);
 	collectButton->WhenReleased(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
 	collectButton->WhenReleased(new CommandCanceler(autoCollectCommand));
 
