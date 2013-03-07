@@ -6,9 +6,11 @@
 typedef Command* (*CreateCommand)();
 class CommandStarter: public CommandBase {
 private:
-	CreateCommand create;
+	//CreateCommand create;
+	Command *orders;
+	bool waitForRequirements;
 public:
-	CommandStarter(CreateCommand createFunc);
+	CommandStarter(CreateCommand createFunc, bool waitForRequirements = false);
 	~CommandStarter();
 	virtual void Initialize();
 	virtual void Execute();
