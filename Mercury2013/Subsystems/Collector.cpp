@@ -62,6 +62,11 @@ void Collector::setFrisbeeStop(bool enabled) {
 	}
 }
 
+bool Collector::getFrisbeeStop() {
+	return fabs(frisbeeStop->GetAngle() - COLLECTOR_FRISBEE_STOP_UP) < fabs(
+			frisbeeStop->GetAngle() - COLLECTOR_FRISBEE_STOP_DOWN);
+}
+
 Collector::MotorDirection Collector::getSpinnerDirection() {
 	float clampSpeed = collectorMotor->Get() / COLLECTOR_MOTOR_SPEED;
 	if (clampSpeed < 0.0) {

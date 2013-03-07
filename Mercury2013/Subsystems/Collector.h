@@ -44,6 +44,7 @@ public:
 	int getFrisbeeSensorCount();
 	void setCollectorMotor(Collector::MotorDirection state);
 	void setFrisbeeStop(bool enabled);
+	bool getFrisbeeStop();
 	MotorDirection getSpinnerDirection();
 
 	/**

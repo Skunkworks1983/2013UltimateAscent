@@ -17,8 +17,9 @@ void CommandStarter::Initialize() {
 void CommandStarter::Execute() {
 	if (orders != NULL) {
 		if (waitForRequirements) {
-			for (Subsystem *sys = orders->GetRequirements().begin(); sys
-					!= orders->GetRequirements().end(); sys++) {
+			for (SubsystemSet::iterator itr = orders->GetRequirements().begin(); itr
+					!= orders->GetRequirements().end(); itr++) {
+				Subsystem *sys = *(itr);
 				if (sys != NULL && sys->GetCurrentCommand() != NULL
 						&& sys->GetCurrentCommand() != sys->GetDefaultCommand()) {
 					return;
