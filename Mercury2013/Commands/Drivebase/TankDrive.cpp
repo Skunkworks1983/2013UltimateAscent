@@ -1,17 +1,21 @@
 #include "TankDrive.h"
 
-TankDrive::TankDrive() :
+TankDrive::TankDrive(float speedMultiplier) :
 	CommandBase("TankDrive") {
 	Requires(driveBase);
 	SetInterruptible(true);
+	this->speedMultiplier = speedMultiplier;
 }
 
 void TankDrive::Initialize() {
 }
 
 void TankDrive::Execute() {
-	driveBase->setSpeed(-oi->getDriveJoystickLeft()->GetAxis(Joystick::kYAxis),
-			-oi->getDriveJoystickRight()->GetAxis(Joystick::kYAxis));
+	driveBase->setSpeed(
+			-oi->getDriveJoystickLeft()->GetAxis(Joystick::kYAxis)
+					* speedMultiplier,
+			-oi->getDriveJoystickRight()->GetAxis(Joystick::kYAxis)
+					* speedMultiplier);
 }
 
 bool TankDrive::IsFinished() {
