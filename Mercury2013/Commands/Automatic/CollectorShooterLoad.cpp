@@ -19,7 +19,8 @@ CollectorShooterLoad::CollectorShooterLoad() :
 	lowerCollector = new MoveCollectorArm(COLLECTOR_PITCH_DOWN);
 	jiggleShooter = new CommandGroup("CollectorShooterJiggle");
 	jiggleShooter->AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_FRISBEE_SLIDE, true));
-	jiggleShooter->AddSequential(new ChangeShooterPitch(0.0, true));
+//	jiggleShooter->AddSequential(new WaitCommand(0.5));
+//	jiggleShooter->AddSequential(new ChangeShooterPitch(0.0, true));
 }
 
 CollectorShooterLoad::~CollectorShooterLoad() {

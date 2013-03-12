@@ -67,8 +67,8 @@ float ShooterPitch::getCurrentPitch() {
 
 float ShooterPitch::getRealPitch() {
 	return (moreJankyAngle(
-			pitchEncoder->GetDistance() / SHOOTER_PITCH_DEGREES_PER_PULSE
-					/ 1440.0 / 8.0 + 2) * 180.0) / PI;
+			(pitchEncoder->GetDistance() / SHOOTER_PITCH_DEGREES_PER_PULSE
+					/ 360.0 / -8.0) + 3) * 180.0) / PI;
 }
 
 bool ShooterPitch::isPitchGrounded() {

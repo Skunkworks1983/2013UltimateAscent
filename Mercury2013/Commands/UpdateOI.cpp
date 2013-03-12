@@ -11,6 +11,9 @@ UpdateOI::~UpdateOI() {
 }
 
 void UpdateOI::Initialize() {
+	DriverStationLCD::GetInstance()->Printf(DriverStationLCD::kUser_Line1, 1,
+			"Version: %f", 1.15);
+	DriverStationLCD::GetInstance()->UpdateLCD();
 }
 
 void UpdateOI::Execute() {

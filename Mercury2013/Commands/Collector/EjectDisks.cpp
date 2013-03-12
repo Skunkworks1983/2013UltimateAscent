@@ -21,10 +21,10 @@ void EjectDisks::Initialize() {
 }
 
 void EjectDisks::Execute() {
-	int frisbeeCount = collector->getFrisbeeSensorCount();
+	int frisbeeCount = collector->getCachedFrisbeeSensorCount();
 	if (frisbeeCount == 2 && dir == Collector::kForward) {
 		collector->setFrisbeeStop(true);
-	} else if (frisbeeCount < 2) {
+	} else {
 		collector->setFrisbeeStop(false);
 	}
 	collector->setCollectorMotor(
@@ -40,9 +40,11 @@ void EjectDisks::End() {
 	Scheduler::GetInstance()->AddCommand(
 			new FlagControl(FlagControl::kFlagAutoDown));
 	collector->setCollectorMotor(Collector::kStop);
+	collector->updateFrisbeeCache(0);
 }
 
 void EjectDisks::Interrupted() {
 	collector->setFrisbeeStop(false);
 	collector->setCollectorMotor(Collector::kStop);
+	collector->updateFrisbeeCache(0);
 }

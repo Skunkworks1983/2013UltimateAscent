@@ -18,7 +18,8 @@ class ArmController;
  * @author Ross Bajocich, Westin Miller
  */
 class Collector: public Subsystem {
-
+private:
+	int cachedFrisbees;
 public:
 	enum MotorDirection {
 			/**
@@ -42,6 +43,8 @@ public:
 	~Collector();
 
 	int getFrisbeeSensorCount();
+	int getCachedFrisbeeSensorCount();
+	void updateFrisbeeCache(int v);
 	void setCollectorMotor(Collector::MotorDirection state);
 	void setFrisbeeStop(bool enabled);
 	bool getFrisbeeStop();

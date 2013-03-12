@@ -2,7 +2,7 @@
 #include "../../Utils/Time.h"
 
 FlagControl::FlagControl(FlagControlType type) :
-	CommandBase("Collect") {
+	CommandBase("FlagControl") {
 	this->controlType = type;
 }
 
@@ -20,9 +20,10 @@ void FlagControl::Initialize() {
 		this->destinationState = false;
 		break;
 	case kFlagToggle:
-		this->destinationState = collector->getFrisbeeStop();
+		this->destinationState = !collector->getFrisbeeStop();
 		break;
 	case kFlagAutoDown:
+		anglePassed = -1.0;
 		break;
 	default:
 		this->destinationState = false;
@@ -31,13 +32,14 @@ void FlagControl::Initialize() {
 
 void FlagControl::Execute() {
 	if (controlType == kFlagAutoDown) {
-		if (shooterPitch->getRealPitch() > SHOOTER_PITCH_FRISBEE_SLIDE) {
+		if (shooterPitch->getCurrentPitch() > SHOOTER_PITCH_FRISBEE_SLIDE) {
 			if (anglePassed < 0) {
 				anglePassed = getCurrentMillis();
 			}
 		}
 		if (anglePassed > 0.0 && getCurrentMillis() - anglePassed
 				>= SHOOTER_PITCH_FRISBEE_SLIDE_SPEED) {
+			printf("LOWER\n");
 			collector->setFrisbeeStop(false);
 			complete = true;
 		}
@@ -48,13 +50,11 @@ void FlagControl::Execute() {
 }
 
 bool FlagControl::IsFinished() {
-	return collector->getFrisbeeSensorCount() != 0 || IsTimedOut();
+	return complete;
 }
 
 void FlagControl::End() {
-	collector->setCollectorMotor(Collector::kStop);
 }
 
 void FlagControl::Interrupted() {
-	collector->setCollectorMotor(Collector::kStop);
 }

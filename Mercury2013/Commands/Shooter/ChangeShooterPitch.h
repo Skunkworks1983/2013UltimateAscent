@@ -16,12 +16,12 @@ private:
 	float targetPitch;
 	bool waitForCollector;
 public:
-	ChangeShooterPitch(float targetPitch, bool waitForCollector = false);
+	ChangeShooterPitch(float targetPitch, bool waitForCollector = true);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
 	virtual void End();
-	virtual void Interrupted();  
+	virtual void Interrupted();
 };
 
 #endif

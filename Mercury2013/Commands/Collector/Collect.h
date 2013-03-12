@@ -8,6 +8,8 @@
  * @param one of three enum State can be on, off, or toggle
  */
 class Collect: public CommandBase {
+private:
+	double gotOne;
 public:
 	Collect(bool timesOut);
 	~Collect();

@@ -9,7 +9,7 @@ Shoot::Shoot() :
 }
 
 void Shoot::Initialize() {
-
+	printf("SHOOT\n");
 }
 
 void Shoot::Execute() {
