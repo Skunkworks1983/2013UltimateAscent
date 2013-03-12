@@ -30,6 +30,9 @@ Autonomous::Autonomous(int argc, char **argv) :
 	char typeA = '0', typeB = '0', cmdType = '0';
 	float arg = 0.0;
 	for (i = 0; i < argc; i++) {
+		if (argv[i][0] == '#') {
+			continue;
+		}
 		sscanf(argv[i], "%c\t%c%c\t%f", &cmdType, &typeA, &typeB, &arg);
 		Command *use = NULL;
 		switch (AUTO_SCRIPT_CHARMASK(typeA,typeB)) {
