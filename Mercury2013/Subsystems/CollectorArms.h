@@ -35,6 +35,9 @@ public:
 	void killPitchMotors();
 	double getLeftAngle();
 	double getRightAngle();
+	
+	float getLeftOutput();
+	float getRightOutput();
 
 	/**
 	 * Sets the default command for this subsystem

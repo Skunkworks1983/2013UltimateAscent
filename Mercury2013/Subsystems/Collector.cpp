@@ -17,11 +17,13 @@ Collector::Collector() :
 #endif
 	frisbeeSensors[0] = new DigitalInput(COLLECTOR_FRISBEE_CHN_1);
 	frisbeeSensors[1] = new DigitalInput(COLLECTOR_FRISBEE_CHN_2);
-	
+
 	cachedFrisbees = 0;
 
 	LiveWindow::GetInstance()->AddActuator("Collector", "Collect Motor",
 			collectorMotor);
+	LiveWindow::GetInstance()->AddActuator("Collector", "Servo Flag",
+			frisbeeStop);
 	printf("Done\n");
 }
 
@@ -46,7 +48,7 @@ int Collector::getCachedFrisbeeSensorCount() {
 	return cachedFrisbees;
 }
 
-void Collector::updateFrisbeeCache(int v){
+void Collector::updateFrisbeeCache(int v) {
 	cachedFrisbees = v;
 }
 

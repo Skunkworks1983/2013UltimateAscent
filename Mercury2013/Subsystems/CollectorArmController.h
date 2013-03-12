@@ -19,6 +19,7 @@ public:
 	void setPIDState(bool b);
 	bool isPIDDone();
 	void setSetpoint(float f);
+	float getOutput();
 };
 
 class LeftArmController: public ArmController {

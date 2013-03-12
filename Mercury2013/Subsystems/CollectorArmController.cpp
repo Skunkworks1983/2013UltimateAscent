@@ -23,6 +23,10 @@ ArmController::~ArmController() {
 	delete pid;
 }
 
+float ArmController::getOutput() {
+	return motor->Get();
+}
+
 double ArmController::PIDGet() {
 	return COLLECTOR_PITCH_CONVERT(pot->GetAverageValue());
 }

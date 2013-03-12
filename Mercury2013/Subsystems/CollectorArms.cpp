@@ -37,6 +37,13 @@ double CollectorArms::getRightAngle() {
 	return rightArmController->PIDGet();
 }
 
+float CollectorArms::getLeftOutput() {
+	return rightArmController->getOutput();
+}
+float CollectorArms::getRightOutput() {
+	return leftArmController->getOutput();
+}
+
 double CollectorArms::getAngle() {
 	return (getLeftAngle() + getRightAngle()) / 2.0;
 }
