@@ -2,6 +2,8 @@
 #define __UFOBOT_H
 
 #include "WPILib.h"
+#include <fstream>
+#include <string>
 
 
 /**
@@ -14,7 +16,9 @@ class UFOBot: public IterativeRobot {
 private:
 	LiveWindow *lw;
 	SendableChooser *chooser;
-
+	ofstream outstream;
+	bool debugEnabled;
+	string name;
 public:
 	virtual void RobotInit();
 
@@ -42,6 +46,10 @@ public:
 	virtual void DisabledPeriodic();
 	
 	void motorSaftey();
+	
+	void printDebug();
+	
+	void createDebug();
 };
 
 START_ROBOT_CLASS(UFOBot)
