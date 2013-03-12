@@ -3,6 +3,7 @@
 #include "../Automatic/TurnDegree.h"
 #include "../Automatic/CollectorShooterLoad.h"
 #include "../Collector/Collect.h"
+#include "../Collector/EjectDisks.h"
 #include "../Collector/MoveCollectorArm.h"
 
 #include "../Shooter/Shoot.h"
@@ -68,6 +69,9 @@ Autonomous::Autonomous(int argc, char **argv) :
 			break;
 		case AUTO_SCRIPT_CHARMASK('c','a'):
 			use = new CollectorShooterLoad();
+			break;
+		case AUTO_SCRIPT_CHARMASK('c','e'):
+			use = new EjectDisks((Collector::MotorDirection) ((int) arg));
 			break;
 		default:
 			break;
