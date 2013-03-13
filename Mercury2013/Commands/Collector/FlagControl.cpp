@@ -39,7 +39,6 @@ void FlagControl::Execute() {
 		}
 		if (anglePassed > 0.0 && getCurrentMillis() - anglePassed
 				>= SHOOTER_PITCH_FRISBEE_SLIDE_SPEED) {
-			printf("LOWER\n");
 			collector->setFrisbeeStop(false);
 			complete = true;
 		}

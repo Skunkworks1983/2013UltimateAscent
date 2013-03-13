@@ -66,15 +66,6 @@ OI::OI() {
 
 	pokeyStickButton = new DigitalIOButton(7);
 	climberRackButton = new DigitalIOButton(3);
-
-#define PUT_DEFAULT(val) (Preferences::GetInstance()->PutFloat(#val, val))
-	PUT_DEFAULT(SHOOTER_MOTOR_FRONT_SPEED);
-	PUT_DEFAULT(SHOOTER_MOTOR_MIDDLE_SPEED);
-	PUT_DEFAULT(SHOOTER_MOTOR_REAR_SPEED);
-
-	PUT_DEFAULT(SHOOTER_MOTOR_FRONT_BANG_SPEED);
-	PUT_DEFAULT(SHOOTER_MOTOR_MIDDLE_BANG_SPEED);
-	PUT_DEFAULT(SHOOTER_MOTOR_REAR_BANG_SPEED);
 }
 
 Joystick *OI::getDriveJoystickLeft() {

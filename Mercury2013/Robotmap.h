@@ -71,7 +71,7 @@
 #define DRIVE_ENCODER_LEFT						4,5
 #define DRIVE_ENCODER_RIGHT						2,3
 
-//TODO #define DRIVE_GYRO								3
+//#define DRIVE_GYRO								3
 
 /**
  * --SHOOTER--
@@ -97,13 +97,13 @@
 #define SHOOTER_MOTOR_UPDATE_SPEED				0.02 /*TODO seconds*/
 
 // Shooter motor speeds
-#define SHOOTER_MOTOR_FRONT_SPEED				Preferences::GetInstance()->GetFloat("SHOOTER_MOTOR_FRONT_SPEED",-1.0) /* TODO */
-#define SHOOTER_MOTOR_MIDDLE_SPEED				Preferences::GetInstance()->GetFloat("SHOOTER_MOTOR_MIDDLE_SPEED",-0.8) /* TODO */
-#define SHOOTER_MOTOR_REAR_SPEED				Preferences::GetInstance()->GetFloat("SHOOTER_MOTOR_REAR_SPEED",-1.0) /* TODO */
+#define SHOOTER_MOTOR_FRONT_SPEED				(-1.0) /* TODO */
+#define SHOOTER_MOTOR_MIDDLE_SPEED				(-0.8) /* TODO */
+#define SHOOTER_MOTOR_REAR_SPEED				(-1.0) /* TODO */
 
-#define SHOOTER_MOTOR_FRONT_BANG_SPEED			Preferences::GetInstance()->GetFloat("SHOOTER_MOTOR_FRONT_BANG_SPEED",-1.0) /* TODO */
-#define SHOOTER_MOTOR_MIDDLE_BANG_SPEED			Preferences::GetInstance()->GetFloat("SHOOTER_MOTOR_MIDDLE_BANG_SPEED",-1.0) /* TODO */
-#define SHOOTER_MOTOR_REAR_BANG_SPEED			Preferences::GetInstance()->GetFloat("SHOOTER_MOTOR_REAR_BANG_SPEED",-1.0) /* TODO */
+#define SHOOTER_MOTOR_FRONT_BANG_SPEED			(-1.0) /* TODO */
+#define SHOOTER_MOTOR_MIDDLE_BANG_SPEED			(-1.0) /* TODO */
+#define SHOOTER_MOTOR_REAR_BANG_SPEED			(-1.0) /* TODO */
 
 #define SHOOTER_MOTOR_FLUSH_SPEED				(-0.75) /* TODO */
 // Various times (millis)
@@ -149,7 +149,7 @@
 // Class name of the shooter and collector pitch motor controllers
 #define COLLECTOR_MOTOR_TYPE					Talon
 #define COLLECTOR_PITCH_MOTOR_TYPE				Talon
-#define COLLECTOR_PITCH_STABILITY				20
+#define COLLECTOR_PITCH_STABILITY				5
 // CollectorArms constant speed
 #define COLLECTOR_PITCH_MOTOR_SPEED_UP			(.6) /* TODO get value from design team */
 #define COLLECTOR_PITCH_MOTOR_SPEED_DOWN		(-.4) /* TODO get value from design team */
@@ -158,9 +158,9 @@
 #define COLLECTOR_PITCH_POT_RIGHT				(1)
 #define COLLECTOR_PITCH_CONVERT(value)			(((value - 205) * 90) / 315)
 //#define COLLECTOR_PITCH_INVERTs(value)			(((value * 315) / 90) + 205)
-#define COLLECTOR_PITCH_P						(0.1)
-#define COLLECTOR_PITCH_I						(0.002)
-#define COLLECTOR_PITCH_D						(0)
+#define COLLECTOR_PITCH_P						(0.09)
+#define COLLECTOR_PITCH_I						(0.001)
+#define COLLECTOR_PITCH_D						(0.05)
 #define COLLECTOR_PITCH_CATCHUP					(10.0)
 
 #define COLLECTOR_PITCH_TOLERANCE				(5)
