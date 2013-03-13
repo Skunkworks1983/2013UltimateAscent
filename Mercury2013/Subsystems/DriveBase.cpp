@@ -38,8 +38,8 @@ DriveBase::DriveBase() :
 	LiveWindow::GetInstance()->AddSensor("DriveBase", "RightEncoder",
 			rightEncoder);
 	
-	gyro = new Gyro(DRIVE_GYRO);
-	LiveWindow::GetInstance()->AddSensor("DriveBase", "Gyro", gyro);
+	// gyro = new Gyro(DRIVE_GYRO);
+	// LiveWindow::GetInstance()->AddSensor("DriveBase", "Gyro", gyro);
 	
 	printf("Done\n");
 }
