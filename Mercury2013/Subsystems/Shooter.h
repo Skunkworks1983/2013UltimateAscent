@@ -14,7 +14,10 @@
 class Shooter: public Subsystem {
 public:
 	enum ControlType {
-		kPower, kPowerBang, kSpeed, kPowerNoWait, kPowerBangNoWait
+		kPower, kPowerBang
+	};
+	enum WaitType {
+		kSpeed, kTime, kNone
 	};
 private:
 	SHOOTER_MOTOR_TYPE *frontMotor;SHOOTER_MOTOR_TYPE *middleMotor;SHOOTER_MOTOR_TYPE
@@ -23,18 +26,13 @@ private:
 	SolenoidPair *shootSolenoid;
 
 	ControlType controlScheme;
+	WaitType waitScheme;
 
 	// Power and PowerBang information
 	double timeTillShootReady;
 
 	// Speed Information
-	Notifier *controlLoop;
-	int updateStability;
-	static void callUpdateMotors(void *shooter);
-	void updateMotors();
-	void updateMotor(AnalogChannel *src, SpeedController *dst, float target);
 	AnalogChannel *frontSpeed;
-	AnalogChannel *middleSpeed;
 	AnalogChannel *rearSpeed;
 public:
 	Shooter();
@@ -48,6 +46,8 @@ public:
 
 	void setControlScheme(ControlType type);
 	ControlType getControlScheme();
+	void setWaitScheme(WaitType type);
+	WaitType getWaitScheme();
 
 	bool readyToShoot();
 

@@ -82,7 +82,6 @@
 #define SHOOTER_MOTOR_REAR						1,7
 
 #define SHOOTER_ENCODER_FRONT					1,4 /*TODO*/
-#define SHOOTER_ENCODER_MIDDLE					1,5
 #define SHOOTER_ENCODER_REAR					1,6
 
 #define SHOOTER_ENCODER_CONVERT(val)			(val) /*TODO*/
@@ -90,11 +89,7 @@
 #define SHOOTER_PITCH_MOTOR						1,6
 
 #define SHOOTER_MOTOR_FRONT_RPM					600 /*TODO*/
-#define SHOOTER_MOTOR_MIDDLE_RPM				600
 #define SHOOTER_MOTOR_REAR_RPM					600
-#define SHOOTER_MOTOR_RPM_THRESHOLD				50
-#define SHOOTER_MOTOR_RPM_STABILITY				50
-#define SHOOTER_MOTOR_UPDATE_SPEED				0.02 /*TODO seconds*/
 
 // Shooter motor speeds
 #define SHOOTER_MOTOR_FRONT_SPEED				(-1.0) /* TODO */
