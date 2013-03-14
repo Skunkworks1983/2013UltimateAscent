@@ -12,9 +12,10 @@ ValueChangeTrigger::~ValueChangeTrigger() {
 
 bool ValueChangeTrigger::Get() {
 	double value = getValue();
-	bool changed = fabs(value - lastValue) > changeThreshold;
+	bool changed = fabs(value - lastValue)
+			> changeThreshold;
 	if (changed) {
 		lastValue = value;
 	}
-	return changed;
+	return changed && value != FORCE_VALUE_CHANGE;
 }

@@ -77,7 +77,7 @@ Joystick *OI::getDriveJoystickRight() {
 }
 
 void OI::registerButtonSchedulers() {
-	shiftButton->WhenPressed(new Shift(Shift::kToggle));
+	shiftButton->WhenReleased(new Shift(Shift::kToggle));
 
 	shootButton->WhenReleased(new Shoot());
 	spinupButton->WhenPressed(new ArmShooter(ArmShooter::kOn));
@@ -98,7 +98,7 @@ void OI::registerButtonSchedulers() {
 	pokeyStickButton->WhenReleased(new HokeyPokey(false));
 	climberRackButton->WhenPressed(new ExtendClimber(true));
 	climberRackButton->WhenReleased(new ExtendClimber(false));
-	
+
 	collectorSlotButton->WhenPressed(new ShooterSlotLoad());
 	shooterCollectorButton->WhenPressed(new CollectorShooterLoad());
 }
@@ -109,8 +109,10 @@ double OI::getCollectorTargetPitch() {
 	}
 	if (CommandBase::oi->armUpButton->Get()) {
 		CommandBase::oi->targetCollectorPitch = COLLECTOR_PITCH_UP;
+		return FORCE_VALUE_CHANGE;
 	} else if (CommandBase::oi->armDownButton->Get()) {
 		CommandBase::oi->targetCollectorPitch = COLLECTOR_PITCH_DOWN;
+		return FORCE_VALUE_CHANGE;
 	} else if (!CommandBase::oi->collectorOverrideButton->Get()) {
 		CommandBase::oi->targetCollectorPitch = OI_COLLECTOR_ANGLE_CONVERT(
 				DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(3));
@@ -129,12 +131,16 @@ double OI::getShooterTargetPitch() {
 	}
 	if (CommandBase::oi->shooterHighButton->Get()) {
 		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_HIGH;
+		return FORCE_VALUE_CHANGE;
 	} else if (CommandBase::oi->shooterMidHighButton->Get()) {
 		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_MIDHIGH;
+		return FORCE_VALUE_CHANGE;
 	} else if (CommandBase::oi->shooterMidLowButton->Get()) {
 		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_LOW;
+		return FORCE_VALUE_CHANGE;
 	} else if (CommandBase::oi->shooterLowButton->Get()) {
 		CommandBase::oi->targetShooterPitch = -25;//SHOOTER_PITCH_LOW;
+		return FORCE_VALUE_CHANGE;
 	} else if (!CommandBase::oi->shooterAngleOverrideButton->Get()) {
 		CommandBase::oi->targetShooterPitch = OI_SHOOTER_ANGLE_CONVERT(
 				DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(1))
