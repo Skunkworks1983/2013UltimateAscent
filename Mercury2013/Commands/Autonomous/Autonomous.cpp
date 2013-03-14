@@ -16,7 +16,7 @@ Autonomous::Autonomous() :
 	AddSequential(new MoveCollectorArm(0));
 	AddParallel(new DriveDistance(22));
 	AddSequential(new Collect(false));
-	AddSequential(new MoveCollectorArm(50));
+	AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_MID));
 	AddSequential(new EjectDisks(Collector::kForward));
 	AddParallel(new MoveCollectorArm(10));
 	AddSequential(new ArmShooter(ArmShooter::kOn));

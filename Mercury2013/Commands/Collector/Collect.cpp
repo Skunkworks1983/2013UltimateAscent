@@ -30,7 +30,7 @@ void Collect::Execute() {
 }
 
 bool Collect::IsFinished() {
-	return (collector->getFrisbeeSensorCount() != 0 && gotOne + 250
+	return (collector->getFrisbeeSensorCount() != 0 && gotOne + COLLECTOR_COLLECT_STOP_DELAY
 			< getCurrentMillis()) || IsTimedOut();
 }
 

@@ -131,12 +131,10 @@
 #define SHOOTER_PITCH_SLOT_COLLECT				(0.5) /*TODO*/
 #define SHOOTER_PITCH_STABILITY					(25)
 
-
 #define SHOOTER_PITCH_LOW					(.530)
 #define SHOOTER_PITCH_MIDLOW				(.530)
 #define SHOOTER_PITCH_MIDHIGH				(.530)
 #define SHOOTER_PITCH_HIGH					(.530)
-
 
 /**
  * --COLLECTOR--
@@ -166,7 +164,7 @@
 #define COLLECTOR_PITCH_TOLERANCE				(5)
 #define COLLECTOR_PITCH_FLOOR					(0)
 #define COLLECTOR_PITCH_DOWN					(10) /* TODO */
-#define COLLECTOR_PITCH_MID						(50)
+#define COLLECTOR_PITCH_MID						(51)
 #define COLLECTOR_PITCH_UP						(90) 
 
 #define COLLECTOR_PITCH_POT_MIN					(0)
@@ -180,13 +178,14 @@
 #define COLLECTOR_FRISBEE_STOP_DOWN				(0)
 
 #define COLLECTOR_COLLECT_TIMEOUT				(1000) /* (millis) */
+#define COLLECTOR_COLLECT_STOP_DELAY			(200) /* millis between light sensor trigger and collector wheel stop */
 
 #define COLLECTOR_SHOOTER_INTERFERENCE_HIGH		(80)
 #define COLLECTOR_SHOOTER_INTERFERENCE_LOW		(50)
 #define SHOOTER_COLLECTOR_INTERFERENCE_LOW		(0.05) /* Those random shooter units!*/
 #define SHOOTER_COLLECTOR_INTERFERENCE_HIGH		(1.0)
 
-#define SHOOTER_PITCH_FRISBEE_SLIDE				(0.70)
+#define SHOOTER_PITCH_FRISBEE_SLIDE				(0.75)
 #define SHOOTER_PITCH_FRISBEE_SLIDE_SPEED		(1000)
 
 /**
