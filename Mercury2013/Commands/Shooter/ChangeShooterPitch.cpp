@@ -25,7 +25,7 @@ void ChangeShooterPitch::Execute() {
 		return;
 	}
 	float pitchOffset = shooterPitch->getCurrentPitch() - targetPitch;
-	if (fabs(pitchOffset) < SHOOTER_PITCH_THRESHOLD) {
+	if (pitchOffset > 0 && fabs(pitchOffset) < SHOOTER_PITCH_THRESHOLD) {
 		shooterPitch->setPitchMotorSpeed(0);
 		outOfBounds = true;
 	} else {
