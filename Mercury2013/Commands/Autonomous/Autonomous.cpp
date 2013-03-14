@@ -13,16 +13,24 @@
 
 Autonomous::Autonomous() :
 	CommandGroup("Autonomous") {
-	// Add the autonomous sequence
-	AddSequential(new DriveDistance(24));
-	//Magi-collect
-	AddSequential(new DriveDistance(-24));
-	//Magi-shoot
+	AddSequential(new MoveCollectorArm(0));
+	AddParallel(new DriveDistance(22));
+	AddSequential(new Collect(false));
+	AddSequential(new MoveCollectorArm(50));
+	AddSequential(new EjectDisks(Collector::kForward));
+	AddParallel(new MoveCollectorArm(10));
+	AddSequential(new ArmShooter(ArmShooter::kOn));
+	AddSequential(new ChangeShooterPitch(0.95));
+	AddSequential(new DriveDistance(-18));
+
+	for (int i = 0; i < 4; i++) {
+		AddSequential(new Shoot());
+		AddSequential(new WaitCommand(.65));
+	}
+	
+	AddSequential(new ArmShooter(ArmShooter::kOff));
+	AddParallel(new ChangeShooterPitch(0));
 	AddSequential(new DriveDistance(12));
-	AddSequential(new TurnDegree(-90));
-	AddSequential(new DriveDistance(84));
-	AddSequential(new TurnDegree(-90));
-	AddSequential(new DriveDistance(84));
 }
 
 Autonomous::Autonomous(int argc, char **argv) :
