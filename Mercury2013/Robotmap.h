@@ -128,7 +128,7 @@
 
 #define SHOOTER_PITCH_LOW					(.530)
 #define SHOOTER_PITCH_MIDLOW				(.530)
-#define SHOOTER_PITCH_MIDHIGH				(.530)
+#define SHOOTER_PITCH_MIDHIGH				(.95)
 #define SHOOTER_PITCH_HIGH					(.530)
 
 /**
@@ -158,6 +158,7 @@
 
 #define COLLECTOR_PITCH_TOLERANCE				(5)
 #define COLLECTOR_PITCH_FLOOR					(0)
+#define COLLECTOR_PITCH_LIGHT_LOW				(3)
 #define COLLECTOR_PITCH_DOWN					(10) /* TODO */
 #define COLLECTOR_PITCH_MID						(51)
 #define COLLECTOR_PITCH_UP						(90) 

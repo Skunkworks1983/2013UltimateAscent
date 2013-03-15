@@ -20,7 +20,8 @@ void Collect::Initialize() {
 
 void Collect::Execute() {
 	collector->setCollectorMotor(Collector::kForward);
-	if (collector->getFrisbeeSensorCount() != 0) {
+	if (collector->getFrisbeeSensorCount() != 0 && collectorArms->getAngle()
+			>= COLLECTOR_PITCH_LIGHT_LOW) {
 		if (gotOne < 0.0) {
 			gotOne = getCurrentMillis();
 		}
@@ -30,8 +31,9 @@ void Collect::Execute() {
 }
 
 bool Collect::IsFinished() {
-	return (collector->getFrisbeeSensorCount() != 0 && gotOne + COLLECTOR_COLLECT_STOP_DELAY
-			< getCurrentMillis()) || IsTimedOut();
+	return (collector->getFrisbeeSensorCount() != 0 && gotOne
+			+ COLLECTOR_COLLECT_STOP_DELAY < getCurrentMillis())
+			|| IsTimedOut();
 }
 
 void Collect::End() {
