@@ -28,6 +28,9 @@
 #define OI_SHOOTER_ANGLE_CONVERT(x)			((90 * x) - 55)
 #define OI_COLLECTOR_ANGLE_CONVERT(x)		((90 * x) - 50) /* TODO */
 
+#define OI_COLLECTOR_ANGLE_DELTA			(5)
+#define OI_SHOOTER_ANGLE_DELTA				(0.05)
+
 // Autonomous Settings
 #define AUTO_TURN_SPEED_MIN       		(.2)		/* Scalar Minimum Speed (0-1) */
 #define AUTO_TURN_SPEED_MAX       		(.5)		/* Scalar Maximum Speed */
@@ -131,10 +134,9 @@
 #define SHOOTER_PITCH_SLOT_COLLECT				(0.5) /*TODO*/
 #define SHOOTER_PITCH_STABILITY					(25)
 
-#define SHOOTER_PITCH_LOW					(.530)
-#define SHOOTER_PITCH_MIDLOW				(.530)
-#define SHOOTER_PITCH_MIDHIGH				(.95)
-#define SHOOTER_PITCH_HIGH					(.530)
+#define SHOOTER_PITCH_LOW					(.475)
+#define SHOOTER_PITCH_MIDDLE				(.95)
+#define SHOOTER_PITCH_HIGH					(1.0) /* .451 was the low end */
 
 /**
  * --COLLECTOR--

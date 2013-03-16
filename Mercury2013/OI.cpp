@@ -48,14 +48,14 @@ OI::OI() {
 	shooterLowButton = new AnalogRangeIOButton(OI_SHOOTER_ANGLE_ANALOG, 0.629,
 			0.829);//0.729
 	shooterAngleChangeTrigger = new ValueChangeTrigger(
-			OI::getShooterTargetPitch, 0.125);
+			OI::getShooterTargetPitch, OI_SHOOTER_ANGLE_DELTA);
 
 	armUpButton = new AnalogRangeIOButton(OI_COLLECTOR_ANGLE_ANALOG, 2.625,
 			2.825);//2.725
 	armDownButton = new AnalogRangeIOButton(OI_COLLECTOR_ANGLE_ANALOG, .625,
 			.825);//.725
 	collectorOverrideButton = new DigitalIOButton(12);
-	armChangeTrigger = new ValueChangeTrigger(OI::getCollectorTargetPitch, 5);
+	armChangeTrigger = new ValueChangeTrigger(OI::getCollectorTargetPitch, OI_COLLECTOR_ANGLE_DELTA);
 
 	collectorSlotButton = new AnalogRangeIOButton(OI_COLLECTOR_ANGLE_ANALOG,
 			2.045, 2.245);//2.145
@@ -137,7 +137,7 @@ double OI::getShooterTargetPitch() {
 		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_HIGH;
 		return FORCE_VALUE_CHANGE;
 	} else if (CommandBase::oi->shooterMidHighButton->Get()) {
-		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_MIDHIGH;
+		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_MIDDLE;
 		return FORCE_VALUE_CHANGE;
 	} else if (CommandBase::oi->shooterMidLowButton->Get()) {
 		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_LOW;
