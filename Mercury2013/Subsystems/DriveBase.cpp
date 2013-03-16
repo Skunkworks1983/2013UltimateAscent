@@ -29,8 +29,8 @@ DriveBase::DriveBase() :
 	LiveWindow::GetInstance()->AddSensor("DriveBase", "RightEncoder",
 			rightEncoder);
 
-	// gyro = new Gyro(DRIVE_GYRO);
-	// LiveWindow::GetInstance()->AddSensor("DriveBase", "Gyro", gyro);
+	gyro = new Gyro(DRIVE_GYRO);
+	LiveWindow::GetInstance()->AddSensor("DriveBase", "Gyro", gyro);
 
 	printf("Done\n");
 }
@@ -82,11 +82,20 @@ void DriveBase::shift(bool lowGear) {
 	rightEncoder->Reset();
 }
 
+void DriveBase::setMotorScalingFactor(float f) {
+	if (f < -1.0) {
+		f = -1.0;
+	} else if (f > 1.0) {
+		f = 1.0;
+	}
+	((TankDrive*)GetDefaultCommand())->setMotorScalingFactor(f);
+}
+
 void DriveBase::reset() {
 	leftEncoder->Reset();
 	rightEncoder->Reset();
 
-	//gyro->Reset();
+	gyro->Reset();
 }
 
 bool DriveBase::isLowGear() {

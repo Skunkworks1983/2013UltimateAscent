@@ -21,6 +21,7 @@ private:
 	Command *autoCollectCommand;
 
 	Button *shiftButton;
+	Button *driveDirectionButton;
 	
 	//Shooter Stuff
 	Button *shootButton;

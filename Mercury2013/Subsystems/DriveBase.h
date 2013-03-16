@@ -71,6 +71,8 @@ public:
 	 */
 	void reset();
 	
+	void setMotorScalingFactor(float f);
+	
 	virtual void InitDefaultCommand();
 };
 

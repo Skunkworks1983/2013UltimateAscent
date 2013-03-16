@@ -9,6 +9,7 @@
 #include "Commands/Shooter/ChangeShooterPitch.h"
 #include "Commands/Shooter/TunePitchEncoder.h"
 #include "Commands/Drivebase/Shift.h"
+#include "Commands/Drivebase/SetScalingFactor.h"
 #include "Commands/Collector/MoveCollectorArm.h"
 #include "Commands/CommandStarter.h"
 #include "Commands/CommandCanceler.h"
@@ -31,6 +32,7 @@ OI::OI() {
 	driverStationEIO = &(driverStation->GetEnhancedIO());
 
 	shiftButton = new JoystickButton(driveJoystickLeft, 1);
+	driveDirectionButton = new DigitalIOButton(4);
 
 	shootButton = new DigitalIOButton(16);
 	spinupButton = new DigitalIOButton(14);
@@ -78,7 +80,9 @@ Joystick *OI::getDriveJoystickRight() {
 
 void OI::registerButtonSchedulers() {
 	shiftButton->WhenReleased(new Shift(Shift::kToggle));
-
+	driveDirectionButton->WhenPressed(new SetScalingFactor(-1.0));
+	driveDirectionButton->WhenReleased(new SetScalingFactor(1.0));
+	
 	shootButton->WhenReleased(new Shoot());
 	spinupButton->WhenPressed(new ArmShooter(ArmShooter::kOn));
 	spinupButton->WhenReleased(new ArmShooter(ArmShooter::kOff));
