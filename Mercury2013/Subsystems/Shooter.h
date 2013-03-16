@@ -51,6 +51,9 @@ public:
 
 	bool readyToShoot();
 
+	double getFrontSpeed();
+	double getRearSpeed();
+	
 	virtual void InitDefaultCommand();
 };
 

@@ -16,6 +16,8 @@ ShooterPitch::ShooterPitch() :
 	pitchEncoder->Reset();
 	pitchEncoder->Start();
 
+	pitchPot = new AnalogChannel(SHOOTER_PITCH_POT);
+
 	pitchLimitSwitch = new DigitalInput(SHOOTER_PITCH_LIMIT_SWITCH);
 
 	LiveWindow::GetInstance()->AddSensor("ShooterPitch", "Pitch Encoder",
@@ -33,6 +35,7 @@ ShooterPitch::~ShooterPitch() {
 	delete pitchLimitSwitch;
 	delete pitchMotor;
 	delete pitchEncoder;
+	delete pitchPot;
 }
 
 bool ShooterPitch::setPitchMotorSpeed(float direction) {
@@ -66,9 +69,13 @@ float ShooterPitch::getCurrentPitch() {
 }
 
 float ShooterPitch::getRealPitch() {
+	return SHOOTER_PITCH_POT_CONVERT(pitchPot->GetAverageVoltage());
+}
+
+float ShooterPitch::getMathPitch() {
 	return (moreJankyAngle(
 			(pitchEncoder->GetDistance() / SHOOTER_PITCH_DEGREES_PER_PULSE
-					/ 360.0 / -8.0) + 3) * 180.0) / PI;
+					/ 360.0 / 8.0) + 2) * 180.0) / PI;
 }
 
 bool ShooterPitch::isPitchGrounded() {

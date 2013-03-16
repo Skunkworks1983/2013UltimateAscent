@@ -18,8 +18,8 @@ Shooter::Shooter() :
 	waitScheme = kTime;
 
 	// Speed Control
-	frontSpeed = new AnalogChannel(SHOOTER_ENCODER_FRONT);
-	rearSpeed = new AnalogChannel(SHOOTER_ENCODER_REAR);
+	frontSpeed = new AnalogChannel(SHOOTER_ASPEED_FRONT);
+	rearSpeed = new AnalogChannel(SHOOTER_ASPEED_REAR);
 
 	LiveWindow::GetInstance()->AddActuator("Shooter", "Shoot Solenoid",
 			shootSolenoid);
@@ -116,15 +116,24 @@ void Shooter::flush(bool flushing) {
 bool Shooter::readyToShoot() {
 	switch (waitScheme) {
 	case kSpeed:
-		return SHOOTER_ENCODER_CONVERT(frontSpeed->GetAverageValue())
+		return getFrontSpeed()
 				> SHOOTER_MOTOR_FRONT_RPM
-				&& SHOOTER_ENCODER_CONVERT(rearSpeed->GetAverageValue())
+				&& getRearSpeed()
 						> SHOOTER_MOTOR_REAR_RPM;
 	case kTime:
 		return getCurrentMillis() > timeTillShootReady;
 	case kNone:
+	default:
 		return true;
 	}
+}
+
+double Shooter::getFrontSpeed() {
+	return SHOOTER_ASPEED_CONVERT(frontSpeed->GetAverageVoltage());
+}
+
+double Shooter::getRearSpeed() {
+	return SHOOTER_ASPEED_CONVERT(rearSpeed->GetAverageVoltage());
 }
 
 void Shooter::InitDefaultCommand() {
