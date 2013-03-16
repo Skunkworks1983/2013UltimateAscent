@@ -18,6 +18,10 @@ void TankDrive::Execute() {
 					* speedMultiplier);
 }
 
+void TankDrive::setMotorScalingFactor(float f) {
+	this->speedMultiplier = f;
+}
+
 bool TankDrive::IsFinished() {
 	return false;
 }
