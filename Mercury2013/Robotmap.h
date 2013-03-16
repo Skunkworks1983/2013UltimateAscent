@@ -70,8 +70,9 @@
 #define DRIVE_ENCODER_INCH_PER_TICK_LOW			(DRIVE_WHEEL_DIAMETER * 3.14159 * DRIVE_GEAR_RATIO_LOW / 360.0)
 #define DRIVE_ENCODER_LEFT						4,5
 #define DRIVE_ENCODER_RIGHT						2,3
+#define DRIVE_SCALING_MINSPEED					3
 
-//#define DRIVE_GYRO								3
+#define DRIVE_GYRO								1
 
 /**
  * --SHOOTER--
@@ -81,8 +82,12 @@
 #define SHOOTER_MOTOR_MIDDLE					1,8
 #define SHOOTER_MOTOR_REAR						1,7
 
-#define SHOOTER_ENCODER_FRONT					1,4 /*TODO*/
-#define SHOOTER_ENCODER_REAR					1,6
+#define SHOOTER_ASPEED_FRONT					1,4 /*TODO*/
+#define SHOOTER_ASPEED_REAR						1,5
+#define SHOOTER_ASPEED_CONVERT(val)				((val/4.096) * 17920.0)
+
+#define SHOOTER_PITCH_POT						1,6
+#define SHOOTER_PITCH_POT_CONVERT(val)			((val/4.096) * 90.0)
 
 #define SHOOTER_ENCODER_CONVERT(val)			(val) /*TODO*/
 
@@ -147,8 +152,8 @@
 #define COLLECTOR_PITCH_MOTOR_SPEED_UP			(.6) /* TODO get value from design team */
 #define COLLECTOR_PITCH_MOTOR_SPEED_DOWN		(-.4) /* TODO get value from design team */
 #define COLLECTOR_MOTOR_SPEED					(0.5)
-#define COLLECTOR_PITCH_POT_LEFT				(2)
-#define COLLECTOR_PITCH_POT_RIGHT				(1)
+#define COLLECTOR_PITCH_POT_LEFT				(3)
+#define COLLECTOR_PITCH_POT_RIGHT				(2)
 #define COLLECTOR_PITCH_CONVERT(value)			(((value - 205) * 90) / 315)
 //#define COLLECTOR_PITCH_INVERTs(value)			(((value * 315) / 90) + 205)
 #define COLLECTOR_PITCH_P						(0.09)
