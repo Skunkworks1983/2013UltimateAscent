@@ -134,9 +134,13 @@
 #define SHOOTER_PITCH_SLOT_COLLECT				(0.5) /*TODO*/
 #define SHOOTER_PITCH_STABILITY					(25)
 
-#define SHOOTER_PITCH_LOW					(.475)
-#define SHOOTER_PITCH_MIDDLE				(.95)
-#define SHOOTER_PITCH_HIGH					(1.0) /* .451 was the low end */
+#define SHOOTER_PITCH_PYRAMID_BACK				(.463)
+#define SHOOTER_PITCH_MIDDLE					(.95)
+#define SHOOTER_PITCH_HIGH						(1.0) /* .451 was the low end */
+
+#define SHOOTER_LIGHT							(2) /* The shooter light relay */
+#define SHOOTER_DEFAULT_CONTROL					kPowerBang
+#define SHOOTER_DEFAULT_WAIT					kTime
 
 /**
  * --COLLECTOR--

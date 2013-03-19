@@ -24,8 +24,10 @@ private:
 	Button *driveDirectionButton;
 	
 	//Shooter Stuff
+	Button *lightButton;
 	Button *shootButton;
 	Button *spinupButton;
+	Button *shooterNoWait;
 	
 	//CollectorArms Arm Stuff
 	Button *armUpButton;

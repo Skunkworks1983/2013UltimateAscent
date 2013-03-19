@@ -14,8 +14,8 @@ Shooter::Shooter() :
 	shootSolenoid = new SolenoidPair(SHOOTER_PNEUMATIC);
 
 	timeTillShootReady = 0;
-	controlScheme = kPowerBang;
-	waitScheme = kTime;
+	controlScheme = SHOOTER_DEFAULT_CONTROL;
+	waitScheme = SHOOTER_DEFAULT_WAIT;
 
 	// Speed Control
 	frontSpeed = new AnalogChannel(SHOOTER_ASPEED_FRONT);
@@ -24,6 +24,7 @@ Shooter::Shooter() :
 	LiveWindow::GetInstance()->AddActuator("Shooter", "Shoot Solenoid",
 			shootSolenoid);
 
+	lightController = new Relay(SHOOTER_LIGHT);
 	printf("Done!\n");
 }
 
@@ -36,6 +37,15 @@ Shooter::~Shooter() {
 	delete rearSpeed;
 
 	delete shootSolenoid;
+	delete lightController;
+}
+
+void Shooter::setLight(bool state) {
+	lightController->Set(state ? Relay::kOn : Relay::kOff);
+}
+
+bool Shooter::isLightOn() {
+	return lightController->Get() == Relay::kOn;
 }
 
 void Shooter::setArmed(bool armed) {
@@ -116,10 +126,8 @@ void Shooter::flush(bool flushing) {
 bool Shooter::readyToShoot() {
 	switch (waitScheme) {
 	case kSpeed:
-		return getFrontSpeed()
-				> SHOOTER_MOTOR_FRONT_RPM
-				&& getRearSpeed()
-						> SHOOTER_MOTOR_REAR_RPM;
+		return getFrontSpeed() > SHOOTER_MOTOR_FRONT_RPM && getRearSpeed()
+				> SHOOTER_MOTOR_REAR_RPM;
 	case kTime:
 		return getCurrentMillis() > timeTillShootReady;
 	case kNone:

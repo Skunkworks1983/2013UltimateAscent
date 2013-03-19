@@ -27,6 +27,7 @@ private:
 
 	ControlType controlScheme;
 	WaitType waitScheme;
+	Relay *lightController;
 
 	// Power and PowerBang information
 	double timeTillShootReady;
@@ -53,6 +54,9 @@ public:
 
 	double getFrontSpeed();
 	double getRearSpeed();
+	
+	void setLight(bool state);
+	bool isLightOn();
 	
 	virtual void InitDefaultCommand();
 };
