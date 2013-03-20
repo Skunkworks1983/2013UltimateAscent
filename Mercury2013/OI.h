@@ -38,9 +38,9 @@ private:
 	
 	//Shooter Angle Stuff
 	Button *shooterHighButton;
-	Button *shooterMidHighButton;
-	Button *shooterMidLowButton;
+	Button *shooterMiddleButton;
 	Button *shooterLowButton;
+	Button *shooterZeroButton;
 	Button *shooterAngleOverrideButton;
 	Trigger *shooterAngleChangeTrigger;
 	double targetShooterPitch;

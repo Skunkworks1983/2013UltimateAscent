@@ -9,6 +9,9 @@ ChangeShooterPitch::ChangeShooterPitch(float targetPitch, bool waitForCollector)
 	if (this->targetPitch < 0.01){
 		this->targetPitch = -10.0;
 	}
+	if (this->targetPitch > 1.0) {
+		this->targetPitch = 1.0;
+	}
 	this->outOfBounds = false;
 	this->waitForCollector = waitForCollector;
 }

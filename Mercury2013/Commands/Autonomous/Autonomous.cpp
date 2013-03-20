@@ -20,7 +20,7 @@ Autonomous::Autonomous() :
 	AddSequential(new EjectDisks(Collector::kForward));
 	AddParallel(new MoveCollectorArm(10));
 	AddSequential(new ArmShooter(ArmShooter::kOn));
-	AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_MIDDLE));
+	AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT));
 	AddSequential(new DriveDistance(-18));
 
 	for (int i = 0; i < 4; i++) {

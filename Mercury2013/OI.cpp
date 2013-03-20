@@ -45,11 +45,11 @@ OI::OI() {
 
 	shooterHighButton = new AnalogRangeIOButton(OI_SHOOTER_ANGLE_ANALOG, 2.625,
 			2.825);//2.725
-	shooterMidHighButton = new AnalogRangeIOButton(OI_SHOOTER_ANGLE_ANALOG,
+	shooterMiddleButton = new AnalogRangeIOButton(OI_SHOOTER_ANGLE_ANALOG,
 			2.045, 2.245);// 2.145
-	shooterMidLowButton = new AnalogRangeIOButton(OI_SHOOTER_ANGLE_ANALOG,
+	shooterLowButton = new AnalogRangeIOButton(OI_SHOOTER_ANGLE_ANALOG,
 			1.406, 1.606);//1.506
-	shooterLowButton = new AnalogRangeIOButton(OI_SHOOTER_ANGLE_ANALOG, 0.629,
+	shooterZeroButton = new AnalogRangeIOButton(OI_SHOOTER_ANGLE_ANALOG, 0.629,
 			0.829);//0.729
 	shooterAngleChangeTrigger = new ValueChangeTrigger(
 			OI::getShooterTargetPitch, OI_SHOOTER_ANGLE_DELTA);
@@ -91,7 +91,7 @@ void OI::registerButtonSchedulers() {
 	lightButton->WhenPressed(new ShooterLight(ShooterLight::kOn));
 	lightButton->WhenReleased(new ShooterLight(ShooterLight::kOff));
 
-	shootButton->WhenReleased(new Shoot());
+	shootButton->WhileHeld(new Shoot());
 	spinupButton->WhenPressed(new ArmShooter(ArmShooter::kOn));
 	spinupButton->WhenReleased(new ArmShooter(ArmShooter::kOff));
 
@@ -102,10 +102,10 @@ void OI::registerButtonSchedulers() {
 			new ShooterControlModeSet(ShooterControlModeSet::CONTROL_NOCHANGE,
 					Shooter::SHOOTER_DEFAULT_WAIT));
 
-	collectButton->WhenPressed(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
-	collectButton->WhenPressed(autoCollectCommand);
-	collectButton->WhenReleased(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
-	collectButton->WhenReleased(new CommandCanceler(autoCollectCommand));
+	armDownButton->WhenPressed(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
+	armDownButton->WhenPressed(autoCollectCommand);
+	armDownButton->WhenReleased(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
+	armDownButton->WhenReleased(new CommandCanceler(autoCollectCommand));
 
 	ejectButton->WhenPressed(new EjectDisks(Collector::kReverse));
 	armChangeTrigger->WhenActive(
@@ -129,10 +129,10 @@ double OI::getCollectorTargetPitch() {
 	if (CommandBase::oi->armUpButton->Get()) {
 		CommandBase::oi->targetCollectorPitch = COLLECTOR_PITCH_UP;
 		return FORCE_VALUE_CHANGE;
-	} else if (CommandBase::oi->armDownButton->Get()) {
+	}/* else if (CommandBase::oi->armDownButton->Get()) {
 		CommandBase::oi->targetCollectorPitch = COLLECTOR_PITCH_DOWN;
 		return FORCE_VALUE_CHANGE;
-	} else if (!CommandBase::oi->collectorOverrideButton->Get()) {
+	}*/ else if (!CommandBase::oi->collectorOverrideButton->Get()) {
 		CommandBase::oi->targetCollectorPitch = OI_COLLECTOR_ANGLE_CONVERT(
 				DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(3));
 		if (CommandBase::oi->targetCollectorPitch < -1) {
@@ -149,21 +149,21 @@ double OI::getShooterTargetPitch() {
 		return 0.0;
 	}
 	if (CommandBase::oi->shooterHighButton->Get()) {
-		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_HIGH;
+		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_PYRAMID_SIDE;
 		return FORCE_VALUE_CHANGE;
-	} else if (CommandBase::oi->shooterMidHighButton->Get()) {
-		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_MIDDLE;
-		return FORCE_VALUE_CHANGE;
-	} else if (CommandBase::oi->shooterMidLowButton->Get()) {
-		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_PYRAMID_BACK;
+	} else if (CommandBase::oi->shooterMiddleButton->Get()) {
+		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_PYRAMID_FRONT;
 		return FORCE_VALUE_CHANGE;
 	} else if (CommandBase::oi->shooterLowButton->Get()) {
+		CommandBase::oi->targetShooterPitch = SHOOTER_PITCH_PYRAMID_BACK;
+		return FORCE_VALUE_CHANGE;
+	} else if (CommandBase::oi->shooterZeroButton->Get()) {
 		CommandBase::oi->targetShooterPitch = -25;//SHOOTER_PITCH_PYRAMID_BACK;
 		return FORCE_VALUE_CHANGE;
 	} else if (!CommandBase::oi->shooterAngleOverrideButton->Get()) {
 		CommandBase::oi->targetShooterPitch = OI_SHOOTER_ANGLE_CONVERT(
 				DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(1))
-				/ 270.0;
+				/ 180.0;
 	}
 	return CommandBase::oi->targetShooterPitch;
 }

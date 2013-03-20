@@ -11,11 +11,19 @@ void TankDrive::Initialize() {
 }
 
 void TankDrive::Execute() {
-	driveBase->setSpeed(
-			-oi->getDriveJoystickLeft()->GetAxis(Joystick::kYAxis)
-					* speedMultiplier,
-			-oi->getDriveJoystickRight()->GetAxis(Joystick::kYAxis)
-					* speedMultiplier);
+	if (speedMultiplier > 0.0) {
+		driveBase->setSpeed(
+				-oi->getDriveJoystickLeft()->GetAxis(Joystick::kYAxis)
+						* speedMultiplier,
+				-oi->getDriveJoystickRight()->GetAxis(Joystick::kYAxis)
+						* speedMultiplier);
+	} else {
+		driveBase->setSpeed(
+				-oi->getDriveJoystickRight()->GetAxis(Joystick::kYAxis)
+						* speedMultiplier,
+				-oi->getDriveJoystickLeft()->GetAxis(Joystick::kYAxis)
+						* speedMultiplier);
+	}
 }
 
 void TankDrive::setMotorScalingFactor(float f) {

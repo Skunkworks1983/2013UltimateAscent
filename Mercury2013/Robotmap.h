@@ -35,7 +35,7 @@
 #define AUTO_TURN_SPEED_MIN       		(.2)		/* Scalar Minimum Speed (0-1) */
 #define AUTO_TURN_SPEED_MAX       		(.5)		/* Scalar Maximum Speed */
 #define AUTO_TURN_GYRO_THRESHOLD  		(.25)	    /* Degrees, stopping tolerance */
-#define AUTO_TURN_SLOW_DOWN				(5)
+#define AUTO_TURN_SLOW_DOWN				(12)
 #define AUTO_TURN_SPEED_RANGE 			(AUTO_TURN_SPEED_MAX - AUTO_TURN_SPEED_MIN) /* Speed Range */
 #define AUTO_DRIVE_DIST_SLOW_DOWN		(6)
 #define AUTO_DRIVE_DIST_THRESHOLD		(1)		/* Inches, stopping tolerance */
@@ -110,10 +110,10 @@
 
 #define SHOOTER_MOTOR_FLUSH_SPEED				(-0.75) /* TODO */
 // Various times (millis)
-#define SHOOTER_ARM_TIME						(1000) /* TODO */
+#define SHOOTER_ARM_TIME						(1500) /* TODO */
 #define SHOOTER_SHOOT_TIME						(500) /* TODO */
-#define SHOOTER_WAIT_TIME						(1000) /* TODO */
-#define SHOOTER_FLUSH_TIME						(100) /* TODO */
+#define SHOOTER_WAIT_TIME						(1250) /* TODO */
+#define SHOOTER_FLUSH_TIME						(500) /* TODO */
 
 // Class name of the shooter and shooter pitch motor controllers
 #define SHOOTER_MOTOR_TYPE						Talon
@@ -127,16 +127,16 @@
 #define SHOOTER_PITCH_ENCODER					12,13
 #define SHOOTER_PITCH_LIMIT_SWITCH				(11)
 #define SHOOTER_PITCH_UPPER_LIMIT				(1.0)
-#define SHOOTER_PITCH_DEGREES_PER_PULSE			(1.0/23345.0)
+#define SHOOTER_PITCH_DEGREES_PER_PULSE			(1.0/27500.0)
 // Shooter pitch control info
 #define SHOOTER_PITCH_THRESHOLD					(0.0125) /* Random units; scalar of shooter angle */
 #define SHOOTER_PITCH_COLLECT					(0)
 #define SHOOTER_PITCH_SLOT_COLLECT				(0.5) /*TODO*/
 #define SHOOTER_PITCH_STABILITY					(25)
 
-#define SHOOTER_PITCH_PYRAMID_BACK				(.463)
-#define SHOOTER_PITCH_MIDDLE					(.95)
-#define SHOOTER_PITCH_HIGH						(1.0) /* .451 was the low end */
+#define SHOOTER_PITCH_PYRAMID_BACK				(.637)
+#define SHOOTER_PITCH_PYRAMID_SIDE				(.95)
+#define SHOOTER_PITCH_PYRAMID_FRONT				(1.0) /* .451 was the low end */
 
 #define SHOOTER_LIGHT							(2) /* The shooter light relay */
 #define SHOOTER_DEFAULT_CONTROL					kPowerBang
@@ -187,10 +187,10 @@
 #define COLLECTOR_COLLECT_TIMEOUT				(1000) /* (millis) */
 #define COLLECTOR_COLLECT_STOP_DELAY			(200) /* millis between light sensor trigger and collector wheel stop */
 
-#define COLLECTOR_SHOOTER_INTERFERENCE_HIGH		(80)
+#define COLLECTOR_SHOOTER_INTERFERENCE_HIGH		(90)
 #define COLLECTOR_SHOOTER_INTERFERENCE_LOW		(50)
 #define SHOOTER_COLLECTOR_INTERFERENCE_LOW		(0.05) /* Those random shooter units!*/
-#define SHOOTER_COLLECTOR_INTERFERENCE_HIGH		(1.0)
+#define SHOOTER_COLLECTOR_INTERFERENCE_HIGH		(5.0)
 
 #define SHOOTER_PITCH_FRISBEE_SLIDE				(0.75)
 #define SHOOTER_PITCH_FRISBEE_SLIDE_SPEED		(1000)
