@@ -7,12 +7,12 @@ class CollectorArms;
 class ArmController: public PIDOutput, public PIDSource {
 protected:
 	AnalogChannel *pot;
-	PIDController *pid;
-	COLLECTOR_PITCH_MOTOR_TYPE *motor;
+	PIDController *pid;COLLECTOR_PITCH_MOTOR_TYPE *motor;
 	CollectorArms *collect;
 	int pidStability;
 public:
-	ArmController(CollectorArms *collect, COLLECTOR_PITCH_MOTOR_TYPE *motor, AnalogChannel *pot);
+	ArmController(char *name, CollectorArms *collect,
+			COLLECTOR_PITCH_MOTOR_TYPE *motor, AnalogChannel *pot);
 	virtual ~ArmController();
 	double PIDGet();
 	virtual void PIDWrite(float f) = 0;

@@ -20,12 +20,13 @@ ShooterPitch::ShooterPitch() :
 
 	pitchLimitSwitch = new DigitalInput(SHOOTER_PITCH_LIMIT_SWITCH);
 
-	LiveWindow::GetInstance()->AddSensor("ShooterPitch", "Pitch Encoder",
+	LiveWindow::GetInstance()->AddSensor("Shooter Pitch", "Pitch Encoder",
 			pitchEncoder);
-	LiveWindow::GetInstance()->AddSensor("ShooterPitch", "Pitch Limit Switch",
+	LiveWindow::GetInstance()->AddSensor("Shooter Pitch", "Pitch Limit Switch",
 			pitchLimitSwitch);
-	LiveWindow::GetInstance()->AddActuator("ShooterPitch", "Pitch Motor",
+	LiveWindow::GetInstance()->AddActuator("Shooter Pitch", "Pitch Motor",
 			pitchMotor);
+	LiveWindow::GetInstance()->AddSensor("Shooter Pitch", "Analog Pitch",pitchPot);
 
 	tunedEncoder = isPitchGrounded();
 	printf("Done!\n");

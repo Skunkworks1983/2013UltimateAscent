@@ -6,30 +6,31 @@ DriveBase::DriveBase() :
 	printf("Creating drive base...\t");
 	motorLeft = new DualLiveSpeed(new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_LEFT),
 			new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_LEFT_2));
-	LiveWindow::GetInstance()->AddActuator("DriveBase", "Left Motor", motorLeft);
 
 	motorRight = new DualLiveSpeed(new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_RIGHT),
 			new DRIVE_MOTOR_TYPE(DRIVE_MOTOR_RIGHT_2));
-	LiveWindow::GetInstance()->AddActuator("DriveBase", "Right Motor",
-			motorRight);
 
 	shiftSolenoid = new SolenoidPair(DRIVE_SHIFT);
-	LiveWindow::GetInstance()->AddActuator("DriveBase", "Shifter",
-			shiftSolenoid);
 
 	leftEncoder = new Encoder(DRIVE_ENCODER_LEFT);
 	leftEncoder->SetDistancePerPulse(-DRIVE_ENCODER_INCH_PER_TICK_HIGH);
 	leftEncoder->Start();
-	LiveWindow::GetInstance()->AddSensor("DriveBase", "LeftEncoder",
-			leftEncoder);
 
 	rightEncoder = new Encoder(DRIVE_ENCODER_RIGHT);
 	rightEncoder->SetDistancePerPulse(DRIVE_ENCODER_INCH_PER_TICK_HIGH);
 	rightEncoder->Start();
-	LiveWindow::GetInstance()->AddSensor("DriveBase", "RightEncoder",
-			rightEncoder);
 
 	gyro = new Gyro(DRIVE_GYRO);
+
+	LiveWindow::GetInstance()->AddActuator("DriveBase", "Left Motor", motorLeft);
+	LiveWindow::GetInstance()->AddActuator("DriveBase", "Right Motor",
+			motorRight);
+	LiveWindow::GetInstance()->AddActuator("DriveBase", "Shifter",
+			shiftSolenoid);
+	LiveWindow::GetInstance()->AddSensor("DriveBase", "LeftEncoder",
+			leftEncoder);
+	LiveWindow::GetInstance()->AddSensor("DriveBase", "RightEncoder",
+			rightEncoder);
 	LiveWindow::GetInstance()->AddSensor("DriveBase", "Gyro", gyro);
 
 	printf("Done\n");
@@ -88,7 +89,7 @@ void DriveBase::setMotorScalingFactor(float f) {
 	} else if (f > 1.0) {
 		f = 1.0;
 	}
-	((TankDrive*)GetDefaultCommand())->setMotorScalingFactor(f);
+	((TankDrive*) GetDefaultCommand())->setMotorScalingFactor(f);
 }
 
 void DriveBase::reset() {

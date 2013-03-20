@@ -3,7 +3,7 @@
 #include "../Utils/Math.h"
 #include <math.h>
 
-ArmController::ArmController(CollectorArms *collect,
+ArmController::ArmController(char *name, CollectorArms *collect,
 		COLLECTOR_PITCH_MOTOR_TYPE *motor, AnalogChannel *pot) {
 	this->motor = motor;
 	this->pot = pot;
@@ -15,6 +15,10 @@ ArmController::ArmController(CollectorArms *collect,
 			COLLECTOR_PITCH_MOTOR_SPEED_UP);
 	pid->SetInputRange(COLLECTOR_PITCH_POT_MIN, COLLECTOR_PITCH_POT_MAX);
 	pidStability = 0;
+
+	LiveWindow::GetInstance()->AddActuator(name, "PID", pid);
+	LiveWindow::GetInstance()->AddActuator(name, "Motor", motor);
+	LiveWindow::GetInstance()->AddSensor(name, "Analog Angle", pot);
 }
 
 ArmController::~ArmController() {
@@ -60,10 +64,9 @@ bool ArmController::isPIDDone() {
 }
 
 LeftArmController::LeftArmController(CollectorArms *collect) :
-			ArmController(collect,
+			ArmController("LeftCollectorArm", collect,
 					new COLLECTOR_PITCH_MOTOR_TYPE(COLLECTOR_PITCH_MOTOR_LEFT),
 					new AnalogChannel(COLLECTOR_PITCH_POT_LEFT)) {
-	SmartDashboard::PutData("LeftArmPID", pid);
 }
 
 LeftArmController::~LeftArmController() {
@@ -79,10 +82,10 @@ void LeftArmController::PIDWrite(float f) {
 
 RightArmController::RightArmController(CollectorArms *collect) :
 			ArmController(
+					"RightCollectorArm",
 					collect,
 					new COLLECTOR_PITCH_MOTOR_TYPE(COLLECTOR_PITCH_MOTOR_RIGHT),
 					new AnalogChannel(COLLECTOR_PITCH_POT_RIGHT)) {
-	SmartDashboard::PutData("RightArmPID", pid);
 }
 
 RightArmController::~RightArmController() {

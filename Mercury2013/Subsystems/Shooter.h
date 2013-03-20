@@ -54,10 +54,10 @@ public:
 
 	double getFrontSpeed();
 	double getRearSpeed();
-	
+
 	void setLight(bool state);
 	bool isLightOn();
-	
+
 	virtual void InitDefaultCommand();
 };
 

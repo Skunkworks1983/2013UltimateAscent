@@ -21,10 +21,20 @@ Shooter::Shooter() :
 	frontSpeed = new AnalogChannel(SHOOTER_ASPEED_FRONT);
 	rearSpeed = new AnalogChannel(SHOOTER_ASPEED_REAR);
 
+	lightController = new Relay(SHOOTER_LIGHT);
+
 	LiveWindow::GetInstance()->AddActuator("Shooter", "Shoot Solenoid",
 			shootSolenoid);
+	LiveWindow::GetInstance()->AddActuator("Shooter", "Front Motor", frontMotor);
+	LiveWindow::GetInstance()->AddActuator("Shooter", "Middle Motor",
+			middleMotor);
+	LiveWindow::GetInstance()->AddActuator("Shooter", "Rear Motor", rearMotor);
+	LiveWindow::GetInstance()->AddActuator("Shooter", "Light", lightController);
+	LiveWindow::GetInstance()->AddSensor("Shooter", "Analog Rear Speed",
+			rearSpeed);
+	LiveWindow::GetInstance()->AddSensor("Shooter", "Analog Front Speed",
+			frontSpeed);
 
-	lightController = new Relay(SHOOTER_LIGHT);
 	printf("Done!\n");
 }
 

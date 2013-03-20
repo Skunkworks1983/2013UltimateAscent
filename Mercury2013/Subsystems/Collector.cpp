@@ -6,15 +6,7 @@ Collector::Collector() :
 	Subsystem("Collector") {
 	printf("Creating Collector...");
 	collectorMotor = new COLLECTOR_MOTOR_TYPE(COLLECTOR_MOTOR);
-	frisbeeStop = new Servo(COLLECTOR_FRISBEE_STOP);
-#ifdef COLLECTOR_FRISBEE_CHN_3
-	frisbeeSensors = new DigitalInput*[3];
-	frisbeeSensors[2] = new DigitalInput(COLLECTOR_FRISBEE_CHN_3);
-#define COLLECTOR_FRISBEE_CHN_CNT 3
-#else
 	frisbeeSensors = new DigitalInput*[2];
-#define COLLECTOR_FRISBEE_CHN_CNT 2
-#endif
 	frisbeeSensors[0] = new DigitalInput(COLLECTOR_FRISBEE_CHN_1);
 	frisbeeSensors[1] = new DigitalInput(COLLECTOR_FRISBEE_CHN_2);
 
@@ -24,13 +16,17 @@ Collector::Collector() :
 			collectorMotor);
 	LiveWindow::GetInstance()->AddActuator("Collector", "Servo Flag",
 			frisbeeStop);
+	LiveWindow::GetInstance()->AddSensor("Colletor", "Frisbee Sensor 1",
+			frisbeeSensors[0]);
+	LiveWindow::GetInstance()->AddSensor("Colletor", "Frisbee Sensor 2",
+			frisbeeSensors[1]);
 	printf("Done\n");
 }
 
 Collector::~Collector() {
 	delete collectorMotor;
 	delete frisbeeStop;
-	for (int i = 0; i < COLLECTOR_FRISBEE_CHN_CNT; i++) {
+	for (int i = 0; i < 2; i++) {
 		delete frisbeeSensors[i];
 	}
 	delete frisbeeSensors;
@@ -38,7 +34,7 @@ Collector::~Collector() {
 
 int Collector::getFrisbeeSensorCount() {
 	int count = 0;
-	for (int i = 0; i < COLLECTOR_FRISBEE_CHN_CNT; i++) {
+	for (int i = 0; i < 2; i++) {
 		count += (~(frisbeeSensors[i]->Get()) & 1);
 	}
 	return count;
