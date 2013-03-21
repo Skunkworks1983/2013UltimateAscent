@@ -3,6 +3,8 @@
 
 #include "Buttons/Trigger.h"
 
+#define FORCE_VALUE_CHANGE			-100.0
+
 typedef double (*GET_DOUBLE)();
 
 class ValueChangeTrigger: public Trigger {

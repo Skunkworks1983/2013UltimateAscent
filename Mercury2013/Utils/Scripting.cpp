@@ -16,8 +16,16 @@ void ScriptCommand::startCommand() {
 	Scheduler::GetInstance()->AddCommand(local);
 }
 
+ScriptCommand::~ScriptCommand() {
+	delete local;
+}
+
 ScriptLoader::ScriptLoader(char *fName) {
 	this->fileName = fName;
+}
+
+ScriptLoader::~ScriptLoader() {
+	delete fileName;
 }
 
 void ScriptLoader::startCommand() {
@@ -79,7 +87,6 @@ SendableChooser *Scripting::generateAutonomousModes(char *scriptLocations) {
 			printf("Adding Autonomous Mode: %s\n", fileName);
 
 			chooser->AddObject(ep->d_name, new ScriptLoader(fileName));
-			delete fileName;
 		}
 		closedir(dp);
 	} else {

@@ -9,17 +9,15 @@ ShooterSlotLoad::ShooterSlotLoad() :
 			new ChangeShooterPitch(SHOOTER_PITCH_SLOT_COLLECT));
 
 	loadWithCollectorDown.AddSequential(new ChangeShooterPitch(0.0));
-	loadWithCollectorDown.AddSequential(new PrintCommand("Pitch\n"));
 	loadWithCollectorDown.AddSequential(
 			new MoveCollectorArm(COLLECTOR_PITCH_UP));
-	loadWithCollectorDown.AddSequential(new PrintCommand("Collect\n"));
 	loadWithCollectorDown.AddSequential(
 			new ChangeShooterPitch(SHOOTER_PITCH_SLOT_COLLECT));
 }
 ShooterSlotLoad::~ShooterSlotLoad() {
 }
 void ShooterSlotLoad::Initialize() {
-	if (collector->getRawAngle() > COLLECTOR_SHOOTER_INTERFERENCE_HIGH) {
+	if (collectorArms->getAngle() > COLLECTOR_SHOOTER_INTERFERENCE_HIGH) {
 		loadWithCollectorUp.Start();
 	} else {
 		loadWithCollectorDown.Start();

@@ -4,9 +4,12 @@
 #include "WPILib.h"
 
 class CollectorShooterLoad: public CommandGroup {
+private:
+	CommandGroup *jiggleShooter;
+	Command *lowerCollector;
 public:
 	CollectorShooterLoad();
 	~CollectorShooterLoad();
+	virtual void End();
 };
-
 #endif

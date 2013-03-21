@@ -3,7 +3,6 @@
 
 #include "WPILib.h"
 
-
 /**
  * @brief Main robot class
  * 
@@ -14,7 +13,6 @@ class UFOBot: public IterativeRobot {
 private:
 	LiveWindow *lw;
 	SendableChooser *chooser;
-
 public:
 	virtual void RobotInit();
 
@@ -36,11 +34,11 @@ public:
 	virtual void TestInit();
 
 	virtual void TestPeriodic();
-	
+
 	virtual void DisabledInit();
-	
+
 	virtual void DisabledPeriodic();
-	
+
 	void motorSaftey();
 };
 

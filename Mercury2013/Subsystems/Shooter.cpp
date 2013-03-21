@@ -14,17 +14,26 @@ Shooter::Shooter() :
 	shootSolenoid = new SolenoidPair(SHOOTER_PNEUMATIC);
 
 	timeTillShootReady = 0;
-	controlScheme = kPowerBang;
+	controlScheme = SHOOTER_DEFAULT_CONTROL;
+	waitScheme = SHOOTER_DEFAULT_WAIT;
 
 	// Speed Control
-	frontSpeed = new AnalogChannel(SHOOTER_ENCODER_FRONT);
-	middleSpeed = new AnalogChannel(SHOOTER_ENCODER_MIDDLE);
-	rearSpeed = new AnalogChannel(SHOOTER_ENCODER_REAR);
-	controlLoop = new Notifier(Shooter::callUpdateMotors, this);
-	updateStability = 0;
+	frontSpeed = new AnalogChannel(SHOOTER_ASPEED_FRONT);
+	rearSpeed = new AnalogChannel(SHOOTER_ASPEED_REAR);
+
+	lightController = new Relay(SHOOTER_LIGHT);
 
 	LiveWindow::GetInstance()->AddActuator("Shooter", "Shoot Solenoid",
 			shootSolenoid);
+	LiveWindow::GetInstance()->AddActuator("Shooter", "Front Motor", frontMotor);
+	LiveWindow::GetInstance()->AddActuator("Shooter", "Middle Motor",
+			middleMotor);
+	LiveWindow::GetInstance()->AddActuator("Shooter", "Rear Motor", rearMotor);
+	LiveWindow::GetInstance()->AddActuator("Shooter", "Light", lightController);
+	LiveWindow::GetInstance()->AddSensor("Shooter", "Analog Rear Speed",
+			rearSpeed);
+	LiveWindow::GetInstance()->AddSensor("Shooter", "Analog Front Speed",
+			frontSpeed);
 
 	printf("Done!\n");
 }
@@ -35,19 +44,24 @@ Shooter::~Shooter() {
 	delete rearMotor;
 
 	delete frontSpeed;
-	delete middleSpeed;
 	delete rearSpeed;
-	delete controlLoop;
 
 	delete shootSolenoid;
+	delete lightController;
+}
+
+void Shooter::setLight(bool state) {
+	lightController->Set(state ? Relay::kOn : Relay::kOff);
+}
+
+bool Shooter::isLightOn() {
+	return lightController->Get() == Relay::kOn;
 }
 
 void Shooter::setArmed(bool armed) {
 	switch (controlScheme) {
 	case kPower:
 	case kPowerBang:
-	case kPowerBangNoWait:
-	case kPowerNoWait:
 		if (armed) {
 			frontMotor->Set(SHOOTER_MOTOR_FRONT_SPEED);
 			middleMotor->Set(SHOOTER_MOTOR_MIDDLE_SPEED);
@@ -55,13 +69,8 @@ void Shooter::setArmed(bool armed) {
 			timeTillShootReady = getCurrentMillis() + SHOOTER_ARM_TIME;
 		}
 		break;
-	case kSpeed:
-		if (armed) {
-			controlLoop->StartPeriodic(SHOOTER_MOTOR_UPDATE_SPEED);
-		} else {
-			controlLoop->Stop();
-		}
-		break;
+	default:
+		armed = false;
 	}
 	if (!armed) {
 		frontMotor->Set(0);
@@ -78,21 +87,28 @@ Shooter::ControlType Shooter::getControlScheme() {
 	return controlScheme;
 }
 
+void Shooter::setWaitScheme(WaitType type) {
+	waitScheme = type;
+}
+
+Shooter::WaitType Shooter::getWaitScheme() {
+	return waitScheme;
+}
+
 bool Shooter::isArmed() {
 	return fabs(frontMotor->Get()) > 0 || fabs(middleMotor->Get()) > 0 || fabs(
 			rearMotor->Get()) > 0;
 }
 
 void Shooter::shoot(bool shooting) {
-	if (!isArmed()){
+	if (!isArmed()) {
 		return; //TODO Better
 	}
 	if (shootSolenoid->Get() != shooting && (!shooting || readyToShoot())) {
 		shootSolenoid->Set(shooting);
 		if (isArmed()) {
 			timeTillShootReady = getCurrentMillis() + SHOOTER_WAIT_TIME;
-			if (controlScheme == kPowerBang || controlScheme
-					== kPowerBangNoWait) {
+			if (controlScheme == kPowerBang) {
 				if (shooting) {
 					frontMotor->Set(SHOOTER_MOTOR_FRONT_BANG_SPEED);
 					middleMotor->Set(SHOOTER_MOTOR_MIDDLE_BANG_SPEED);
@@ -118,39 +134,25 @@ void Shooter::flush(bool flushing) {
 }
 
 bool Shooter::readyToShoot() {
-	switch (controlScheme) {
+	switch (waitScheme) {
 	case kSpeed:
-		return updateStability > SHOOTER_MOTOR_RPM_STABILITY;
-	case kPowerNoWait:
-	case kPowerBangNoWait:
-		return true;
-	default:
+		return getFrontSpeed() > SHOOTER_MOTOR_FRONT_RPM && getRearSpeed()
+				> SHOOTER_MOTOR_REAR_RPM;
+	case kTime:
 		return getCurrentMillis() > timeTillShootReady;
+	case kNone:
+	default:
+		return true;
 	}
+}
+
+double Shooter::getFrontSpeed() {
+	return SHOOTER_ASPEED_CONVERT(frontSpeed->GetAverageVoltage());
+}
+
+double Shooter::getRearSpeed() {
+	return SHOOTER_ASPEED_CONVERT(rearSpeed->GetAverageVoltage());
 }
 
 void Shooter::InitDefaultCommand() {
-}
-
-void Shooter::callUpdateMotors(void *shooter) {
-	((Shooter*) shooter)->updateMotors();
-}
-
-void Shooter::updateMotor(AnalogChannel *src, SpeedController *dst,
-		float target) {
-	float offset = target - SHOOTER_ENCODER_CONVERT(src->GetAverageValue());
-	dst->Set(offset < 0 ? 1.0 : -1.0);
-	if (fabs(offset) < SHOOTER_MOTOR_RPM_THRESHOLD) {
-		updateStability++;
-	} else {
-		updateStability = 0;
-	}
-}
-
-void Shooter::updateMotors() {
-	if (controlScheme == kSpeed) {
-		updateMotor(frontSpeed, frontMotor, SHOOTER_MOTOR_FRONT_RPM);
-		updateMotor(frontSpeed, frontMotor, SHOOTER_MOTOR_MIDDLE_RPM);
-		updateMotor(frontSpeed, frontMotor, SHOOTER_MOTOR_REAR_RPM);
-	}
 }

@@ -254,7 +254,11 @@
         </buildtarget>
         <buildtarget buildtool="Partial Image Linker" name="Mercury2013_partialImage" passed="true" targetname="Mercury2013_partialImage">
             <contents>
-                <folder name="/Mercury2013" recursive="true"/>
+                <folder name="/Mercury2013" recursive="true">
+                    <excludes>
+                        <folder name="docs"/>
+                    </excludes>
+                </folder>
             </contents>
         </buildtarget>
     </buildtargets>

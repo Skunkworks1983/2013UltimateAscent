@@ -19,12 +19,15 @@ void UpdateOI::Execute() {
 	SmartDashboard::PutBoolean("Is Low Gear", driveBase->isLowGear());
 	SmartDashboard::PutBoolean("Is Below Pressure",
 			pneumatics->isBelowPressure());
-	SmartDashboard::PutNumber("Collector Avg. Angle", collector->getRawAngle());
+	SmartDashboard::PutNumber("Collector Avg. Angle", collectorArms->getAngle());
 	SmartDashboard::PutNumber("Collector Frisbee Trigger",
 			collector->getFrisbeeSensorCount());
 	SmartDashboard::PutNumber("Shooter Angle", shooterPitch->getRealPitch());
-	SmartDashboard::PutNumber("Shooter Absolute Angle",
+	SmartDashboard::PutNumber("Shooter Math Angle", shooterPitch->getMathPitch());
+	SmartDashboard::PutNumber("Shooter Screw Scalar",
 			shooterPitch->getCurrentPitch());
+	SmartDashboard::PutNumber("Shooter Front Speed", shooter->getFrontSpeed());
+	SmartDashboard::PutNumber("Shooter Rear Speed", shooter->getRearSpeed());
 }
 
 bool UpdateOI::IsFinished() {

@@ -11,14 +11,17 @@
  * @author Westin Miller
  */
 class ShooterControlModeSet: public CommandBase {
+public:
+	static const int CONTROL_NOCHANGE = 0xdeadbeef;
 private:
-	Shooter::ControlType controlType;
+	int controlType;
+	int waitType;
 public:
 	/**
 	 * Creates a shooter control mode changing command.
 	 * @param sControlType the control mode
 	 */
-	ShooterControlModeSet(Shooter::ControlType sControlType);
+	ShooterControlModeSet(int sControlType, int waitType);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();

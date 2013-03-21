@@ -18,23 +18,41 @@ private:
 	DriverStation *driverStation;
 	DriverStationLCD *driverStationLCD;
 	DriverStationEnhancedIO *driverStationEIO;
+	Command *autoCollectCommand;
 
 	Button *shiftButton;
+	Button *driveDirectionButton;
 	
 	//Shooter Stuff
+	Button *lightButton;
 	Button *shootButton;
 	Button *spinupButton;
-	Button *tuneShooterButton;
-	Button *shooterToThing;
+	Button *shooterNoWait;
 	
-	//Collector Arm Stuff
+	//CollectorArms Arm Stuff
 	Button *armUpButton;
-	Button *armMidButton;
 	Button *armDownButton;
+	Button *collectorOverrideButton;
 	double targetCollectorPitch;
 	Trigger *armChangeTrigger;
 	
+	//Shooter Angle Stuff
+	Button *shooterHighButton;
+	Button *shooterMiddleButton;
+	Button *shooterLowButton;
+	Button *shooterZeroButton;
+	Button *shooterAngleOverrideButton;
+	Trigger *shooterAngleChangeTrigger;
+	double targetShooterPitch;
+	Button *shooterPowerOverrideButton;
+	
+	//Pre-configured collector shooter unisons
 	Button *collectorSlotButton;
+	Button *shooterCollectorButton;
+	
+	//Climber
+	Button *pokeyStickButton;
+	Button *climberRackButton;
 	
 	Button *collectButton;
 	Button *ejectButton;
@@ -44,6 +62,7 @@ public:
 	static Command* createChangePitchFromOI();
 	static Command* createChangeCollectorPitch();
 	static double getCollectorTargetPitch();
+	static double getShooterTargetPitch();
 	
 	Joystick *getDriveJoystickLeft();
 	Joystick *getDriveJoystickRight();

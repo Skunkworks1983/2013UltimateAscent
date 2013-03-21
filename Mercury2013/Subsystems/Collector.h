@@ -18,7 +18,8 @@ class ArmController;
  * @author Ross Bajocich, Westin Miller
  */
 class Collector: public Subsystem {
-
+private:
+	int cachedFrisbees;
 public:
 	enum MotorDirection {
 			/**
@@ -28,7 +29,7 @@ public:
 			/**
 			 * Motors push frisbees backwards
 			 */
-			kBackward,
+			kReverse,
 			/**
 			 * Motors aren't running
 			 */
@@ -41,21 +42,13 @@ public:
 	Collector();
 	~Collector();
 
-	void setSetpoint(float angle);
-	void setPIDState(bool enabled);
-	bool isPIDDone();
-
-	double getRawAngle();
-
 	int getFrisbeeSensorCount();
+	int getCachedFrisbeeSensorCount();
+	void updateFrisbeeCache(int v);
 	void setCollectorMotor(Collector::MotorDirection state);
-	void killPitchMotors();
-	double getLeftAngle();
-	double getRightAngle();
-	
 	void setFrisbeeStop(bool enabled);
-
-	bool isSpinnerOn();
+	bool getFrisbeeStop();
+	MotorDirection getSpinnerDirection();
 
 	/**
 	 * Sets the default command for this subsystem
@@ -64,13 +57,8 @@ public:
 	
 private:
 	COLLECTOR_MOTOR_TYPE *collectorMotor;
-	ArmController *leftArmController;
-	ArmController *rightArmController;
-	
 	Servo *frisbeeStop;
-
 	DigitalInput **frisbeeSensors;
-	MotorDirection myMotorDirection;
 };
 
 #endif

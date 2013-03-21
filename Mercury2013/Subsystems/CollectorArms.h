@@ -1,36 +1,52 @@
-#ifndef __COLLECTOR_ARMS_H_
-#define __COLLECTOR_ARMS_H_
+#ifndef __SYS_COLLECTORARMS_H
+#define __SYS_COLLECTORARMS_H
+
 #include "WPILib.h"
-#include "../Robotmap.h"
+#include "../Utils/DualLiveSpeed.h"
+#include "../RobotMap.h"
 
-class Collector;
-class ArmController: public PIDOutput, public PIDSource {
-protected:
-	AnalogChannel *pot;
-	PIDController *pid;
-	COLLECTOR_PITCH_MOTOR_TYPE *motor;
-	Collector *collect;
-	int pidStability;
+class ArmController;
+
+/**
+ * @brief CollectorArms subsystem, provides functions to get and set speed for the 
+ * Collecting commands 
+ * 
+ * CollectorArms includes interfaces to opperate the external end effector, along 
+ * with functions to opperate the interior, with things like getters for IR 
+ * sensor states, and othe logic to opperate the collectors management
+ * 
+ * @author Ross Bajocich, Westin Miller
+ */
+class CollectorArms: public Subsystem {
 public:
-	ArmController(Collector *collect, COLLECTOR_PITCH_MOTOR_TYPE *motor, AnalogChannel *pot);
-	virtual ~ArmController();
-	double PIDGet();
-	virtual void PIDWrite(float f) = 0;
-	void setPIDState(bool b);
+	/**
+	 * Initializes all objects, and deletes them in the destructor, using ports
+	 * from robot map to initialize the devices 
+	 */
+	CollectorArms();
+	~CollectorArms();
+
+	void setSetpoint(float angle);
+	void setPIDState(bool enabled);
 	bool isPIDDone();
-	void setSetpoint(float f);
+
+	double getAngle();
+	
+	void killPitchMotors();
+	double getLeftAngle();
+	double getRightAngle();
+	
+	float getLeftOutput();
+	float getRightOutput();
+
+	/**
+	 * Sets the default command for this subsystem
+	 */
+	virtual void InitDefaultCommand();
+	
+private:
+	ArmController *leftArmController;
+	ArmController *rightArmController;
 };
 
-class LeftArmController: public ArmController {
-public:
-	LeftArmController(Collector *collect);
-	~LeftArmController();
-	virtual void PIDWrite(float f);
-};
-class RightArmController: public ArmController {
-public:
-	RightArmController(Collector *collect);
-	~RightArmController();
-	virtual void PIDWrite(float f);
-};
 #endif

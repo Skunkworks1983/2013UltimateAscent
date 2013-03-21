@@ -16,6 +16,7 @@ private:
 	SHOOTER_PITCH_MOTOR_TYPE *pitchMotor;
 	Encoder *pitchEncoder;
 	DigitalInput *pitchLimitSwitch;
+	AnalogChannel *pitchPot;
 	
 	bool tunedEncoder;
 public:
@@ -24,6 +25,7 @@ public:
 
 	float getCurrentPitch();
 	float getRealPitch();
+	float getMathPitch();
 	bool setPitchMotorSpeed(float f);
 	bool isPitchGrounded();
 	bool isPitchTuned();
