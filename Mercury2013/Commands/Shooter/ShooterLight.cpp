@@ -1,7 +1,7 @@
 #include "ShooterLight.h"
 
 ShooterLight::ShooterLight(LightType controlType) :
-	CommandBase("ShooterLight") {
+	CommandBase(CommandBase::createNameFor("ShooterLight", controlType)) {
 	// It requires the shooter, but we don't need a lock on it.
 	this->controlType = controlType;
 	SetInterruptible(true);

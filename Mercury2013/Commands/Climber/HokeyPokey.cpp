@@ -1,7 +1,7 @@
 #include "HokeyPokey.h" 
 
 HokeyPokey::HokeyPokey(bool position) :
-	CommandBase("ClimberPokey") {
+	CommandBase(CommandBase::createNameFor("ClimberPokey", position & 1)) {
 	Requires(climber);
 	this->position = position;
 	SetTimeout(((double) HOKEY_POKEY_TIME) / 1000.0);

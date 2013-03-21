@@ -1,7 +1,7 @@
 #include "ExtendClimber.h" 
 
 ExtendClimber::ExtendClimber(bool position) :
-	CommandBase("ClimberPokey") {
+	CommandBase(CommandBase::createNameFor("ExtendClimber", position & 1)) {
 	Requires(climber);
 	this->position = position;
 	SetTimeout(((double) CLIMBER_PNEUMATIC_TIME) / 1000.0);
@@ -9,7 +9,7 @@ ExtendClimber::ExtendClimber(bool position) :
 }
 
 void ExtendClimber::Initialize() {
-	
+
 }
 
 void ExtendClimber::Execute() {

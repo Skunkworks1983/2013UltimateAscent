@@ -4,7 +4,7 @@
 #include "FlagControl.h"
 
 EjectDisks::EjectDisks(Collector::MotorDirection dir) :
-	CommandBase("EjectDisks") {
+	CommandBase(CommandBase::createNameFor("EjectDisks", dir)) {
 	Requires(collector);
 	//SetTimeout(((double) EJECTDISKS_SERVO_TIMEOUT) / 1000.0);
 	SetTimeout(((double) EJECTDISKS_EJECT_TIMEOUT) / 1000.0);

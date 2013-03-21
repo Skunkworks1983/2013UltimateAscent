@@ -2,7 +2,7 @@
 #include "../../Utils/Time.h"
 
 FlagControl::FlagControl(FlagControlType type) :
-	CommandBase("FlagControl") {
+	CommandBase(CommandBase::createNameFor("FlagControl", type)) {
 	this->controlType = type;
 }
 

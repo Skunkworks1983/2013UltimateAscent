@@ -4,7 +4,7 @@
 #include "../../Robotmap.h"
 
 TurnDegree::TurnDegree(float targetAngle) :
-	CommandBase("TurnDegree") {
+	CommandBase(CommandBase::createNameFor("TurnDegree", targetAngle)) {
 	Requires(driveBase);
 	this->targetAngle = targetAngle;
 }

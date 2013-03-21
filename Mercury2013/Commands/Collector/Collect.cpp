@@ -2,7 +2,7 @@
 #include "../../Utils/Time.h"
 
 Collect::Collect(bool timesOut) :
-	CommandBase("Collect") {
+	CommandBase(CommandBase::createNameFor("Collect", timesOut & 1)) {
 	Requires(collector);
 	SetTimeout(
 			timesOut ? ((double) COLLECTOR_COLLECT_TIMEOUT) / 1000.0
