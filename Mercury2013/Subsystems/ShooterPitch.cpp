@@ -70,6 +70,7 @@ float ShooterPitch::getCurrentPitch() {
 }
 
 float ShooterPitch::getRealPitch() {
+
 	return SHOOTER_PITCH_POT_CONVERT(pitchPot->GetAverageVoltage());
 }
 
@@ -84,8 +85,11 @@ bool ShooterPitch::isPitchGrounded() {
 }
 
 void ShooterPitch::motorSafety() {
-	if (isPitchGrounded() && pitchMotor->Get() > 0.0) {
-		pitchMotor->Set(0);
+	if (isPitchGrounded()) {
+		pitchEncoder->Reset();
+		if (pitchMotor->Get() > 0.0) {
+			pitchMotor->Set(0);
+		}
 	}
 }
 

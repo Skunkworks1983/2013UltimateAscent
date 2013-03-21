@@ -12,25 +12,34 @@
 #include "../Drivebase/Shift.h"
 
 Autonomous::Autonomous() :
-	CommandGroup("Autonomous") {
-	AddSequential(new MoveCollectorArm(0));
-	AddParallel(new DriveDistance(22));
-	AddSequential(new Collect(false));
-	AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_MID));
-	AddSequential(new EjectDisks(Collector::kForward));
-	AddParallel(new MoveCollectorArm(10));
-	AddSequential(new ArmShooter(ArmShooter::kOn));
-	AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT));
-	AddSequential(new DriveDistance(-18));
+	CommandGroup("Autonomous-Blank") {
+}
+
+Autonomous::Autonomous(char *style) :
+		CommandGroup(style) {
+}
+
+Autonomous *Autonomous::createDefault() {
+	Autonomous *cmd = new Autonomous("Autonomous-PyraFront");
+	cmd->AddSequential(new MoveCollectorArm(0));
+	cmd->AddParallel(new DriveDistance(22));
+	cmd->AddSequential(new Collect(false));
+	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_MID));
+	cmd->AddSequential(new EjectDisks(Collector::kForward));
+	cmd->AddParallel(new MoveCollectorArm(10));
+	cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
+	cmd->AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT));
+	cmd->AddSequential(new DriveDistance(-18));
 
 	for (int i = 0; i < 4; i++) {
-		AddSequential(new Shoot());
-		AddSequential(new WaitCommand(.65));
+		cmd->AddSequential(new Shoot());
+		cmd->AddSequential(new WaitCommand(.65));
 	}
 	
-	AddSequential(new ArmShooter(ArmShooter::kOff));
-	AddParallel(new ChangeShooterPitch(0));
-	AddSequential(new DriveDistance(12));
+	cmd->AddSequential(new ArmShooter(ArmShooter::kOff));
+	cmd->AddParallel(new ChangeShooterPitch(0));
+	cmd->AddSequential(new DriveDistance(12));
+	return cmd;
 }
 
 Autonomous::Autonomous(int argc, char **argv) :

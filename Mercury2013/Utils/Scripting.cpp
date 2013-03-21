@@ -75,7 +75,9 @@ Autonomous *Scripting::createCommand(int size, char *rawData) {
 SendableChooser *Scripting::generateAutonomousModes(char *scriptLocations) {
 	SendableChooser * chooser = new SendableChooser();
 
-	chooser->AddDefault("Default", new ScriptCommand(new Autonomous()));
+	chooser->AddDefault("Default",
+			new ScriptCommand(Autonomous::createDefault()));
+	chooser->AddObject("Blank", new Autonomous());
 
 	DIR * dp;
 	struct dirent * ep;

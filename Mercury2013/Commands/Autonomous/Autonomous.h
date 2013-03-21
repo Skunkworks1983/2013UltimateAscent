@@ -5,7 +5,10 @@
 
 class Autonomous: public CommandGroup {
 public:
+	static Autonomous *createDefault();
+public:
 	Autonomous();
+	Autonomous(char *style);
 	Autonomous(int argc, char **argv);
 	~Autonomous();
 };
