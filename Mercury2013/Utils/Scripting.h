@@ -11,6 +11,8 @@ class Command;
 class ScriptRunner {
 public:
 	virtual void startCommand() = 0;
+	virtual ~ScriptRunner() {
+	}
 };
 /**
  * Starts an arbitrary command with the command parameter.
@@ -20,6 +22,7 @@ private:
 	Command *local;
 public:
 	ScriptCommand(Command *start);
+	virtual ~ScriptCommand();
 	virtual void startCommand();
 };
 /**
@@ -30,6 +33,7 @@ private:
 	char *fileName;
 public:
 	ScriptLoader(char *fName);
+	virtual ~ScriptLoader();
 	virtual void startCommand();
 };
 

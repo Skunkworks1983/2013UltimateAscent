@@ -11,13 +11,16 @@
  * @author Westin Miller
  */
 class TankDrive: public CommandBase {
+private:
+	float speedMultiplier;
 public:
-	TankDrive();
+	TankDrive(float speedMulti = 1.0);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
 	virtual void End();
 	virtual void Interrupted();
+	void setMotorScalingFactor(float f);
 };
 
 #endif

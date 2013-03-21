@@ -14,13 +14,14 @@ class ChangeShooterPitch: public CommandBase {
 private:
 	bool outOfBounds;
 	float targetPitch;
+	bool waitForCollector;
 public:
-	ChangeShooterPitch(float targetPitch);
+	ChangeShooterPitch(float targetPitch, bool waitForCollector = true);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
 	virtual void End();
-	virtual void Interrupted();  
+	virtual void Interrupted();
 };
 
 #endif

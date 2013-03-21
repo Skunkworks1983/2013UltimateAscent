@@ -23,14 +23,19 @@
 #define OI_JOYSTICK_LEFT					(1)
 #define OI_JOYSTICK_RIGHT					(2)
 #define OI_SHOOTER_ANGLE_PROVIDER_CHANNEL	(3)
-// SEE AnalogChangeTrigger #define OI_POT_GENERIC_CONVERT(val)
-#define OI_SHOOTER_ANGLE_CONVERT(x)		(((0.0817 * x * x * x) - (0.4982 * x * x) + (1.0196 * x)) * (1 / (0.970 - 0.0861)))
+//#define OI_SHOOTER_ANGLE_CONVERT(x)			(((0.0817 * x * x * x) - (0.4982 * x * x) + (1.0196 * x)) * (1 / (0.970 - 0.0861)))
+#define OI_SHOOTER_SPEED_CONVERT(x)			((0.888 * x * x * x) - (0.5351 * x * x) + (1.0657 * x) + (0.1008))
+#define OI_SHOOTER_ANGLE_CONVERT(x)			((90 * x) - 55)
+#define OI_COLLECTOR_ANGLE_CONVERT(x)		((90 * x) - 50) /* TODO */
+
+#define OI_COLLECTOR_ANGLE_DELTA			(5)
+#define OI_SHOOTER_ANGLE_DELTA				(0.05)
 
 // Autonomous Settings
 #define AUTO_TURN_SPEED_MIN       		(.2)		/* Scalar Minimum Speed (0-1) */
 #define AUTO_TURN_SPEED_MAX       		(.5)		/* Scalar Maximum Speed */
 #define AUTO_TURN_GYRO_THRESHOLD  		(.25)	    /* Degrees, stopping tolerance */
-#define AUTO_TURN_SLOW_DOWN				(5)
+#define AUTO_TURN_SLOW_DOWN				(12)
 #define AUTO_TURN_SPEED_RANGE 			(AUTO_TURN_SPEED_MAX - AUTO_TURN_SPEED_MIN) /* Speed Range */
 #define AUTO_DRIVE_DIST_SLOW_DOWN		(6)
 #define AUTO_DRIVE_DIST_THRESHOLD		(1)		/* Inches, stopping tolerance */
@@ -59,15 +64,18 @@
 // Class name of the drive motor controller
 #define DRIVE_MOTOR_TYPE						CANJaguar
 
-#define DRIVE_SHIFT								1,2
+#define DRIVE_SHIFT								2,1
 
-#define DRIVE_ENCODER_TICKS_PER_REV				(250.0)
+#define DRIVE_GEAR_RATIO_HIGH					((16.0/32.0) * (35.0/28.0))
+#define DRIVE_GEAR_RATIO_LOW					((16.0/32.0) * (15.0/48.0))
 #define DRIVE_WHEEL_DIAMETER					(4.0)
-#define DRIVE_ENCODER_INCH_PER_TICK				((DRIVE_WHEEL_DIAMETER * 3.14159)/DRIVE_ENCODER_TICKS_PER_REV)
+#define DRIVE_ENCODER_INCH_PER_TICK_HIGH		(DRIVE_WHEEL_DIAMETER * 3.14159 * DRIVE_GEAR_RATIO_HIGH / 360.0)
+#define DRIVE_ENCODER_INCH_PER_TICK_LOW			(DRIVE_WHEEL_DIAMETER * 3.14159 * DRIVE_GEAR_RATIO_LOW / 360.0)
 #define DRIVE_ENCODER_LEFT						4,5
 #define DRIVE_ENCODER_RIGHT						2,3
+#define DRIVE_SCALING_MINSPEED					3
 
-//TODO #define DRIVE_GYRO								3
+#define DRIVE_GYRO								1
 
 /**
  * --SHOOTER--
@@ -77,36 +85,35 @@
 #define SHOOTER_MOTOR_MIDDLE					1,8
 #define SHOOTER_MOTOR_REAR						1,7
 
-#define SHOOTER_ENCODER_FRONT					1,4 /*TODO*/
-#define SHOOTER_ENCODER_MIDDLE					1,5
-#define SHOOTER_ENCODER_REAR					1,6
+#define SHOOTER_ASPEED_FRONT					1,4 /*TODO*/
+#define SHOOTER_ASPEED_REAR						1,5
+#define SHOOTER_ASPEED_CONVERT(val)				((val/4.096) * 17920.0)
+
+#define SHOOTER_PITCH_POT						1,6
+#define SHOOTER_PITCH_POT_CONVERT(val)			((val/4.096) * 90.0)
 
 #define SHOOTER_ENCODER_CONVERT(val)			(val) /*TODO*/
 
 #define SHOOTER_PITCH_MOTOR						1,6
 
 #define SHOOTER_MOTOR_FRONT_RPM					600 /*TODO*/
-#define SHOOTER_MOTOR_MIDDLE_RPM				600
 #define SHOOTER_MOTOR_REAR_RPM					600
-#define SHOOTER_MOTOR_RPM_THRESHOLD				50
-#define SHOOTER_MOTOR_RPM_STABILITY				50
-#define SHOOTER_MOTOR_UPDATE_SPEED				0.02 /*TODO seconds*/
 
 // Shooter motor speeds
-#define SHOOTER_MOTOR_FRONT_SPEED				Preferences::GetInstance()->GetFloat("SHOOTER_MOTOR_FRONT_SPEED",-1.0) /* TODO */
-#define SHOOTER_MOTOR_MIDDLE_SPEED				Preferences::GetInstance()->GetFloat("SHOOTER_MOTOR_MIDDLE_SPEED",-0.8) /* TODO */
-#define SHOOTER_MOTOR_REAR_SPEED				Preferences::GetInstance()->GetFloat("SHOOTER_MOTOR_REAR_SPEED",-1.0) /* TODO */
+#define SHOOTER_MOTOR_FRONT_SPEED				(-1.0) /* TODO */
+#define SHOOTER_MOTOR_MIDDLE_SPEED				(-0.8) /* TODO */
+#define SHOOTER_MOTOR_REAR_SPEED				(-1.0) /* TODO */
 
-#define SHOOTER_MOTOR_FRONT_BANG_SPEED			Preferences::GetInstance()->GetFloat("SHOOTER_MOTOR_FRONT_BANG_SPEED",-1.0) /* TODO */
-#define SHOOTER_MOTOR_MIDDLE_BANG_SPEED			Preferences::GetInstance()->GetFloat("SHOOTER_MOTOR_MIDDLE_BANG_SPEED",-1.0) /* TODO */
-#define SHOOTER_MOTOR_REAR_BANG_SPEED			Preferences::GetInstance()->GetFloat("SHOOTER_MOTOR_REAR_BANG_SPEED",-1.0) /* TODO */
+#define SHOOTER_MOTOR_FRONT_BANG_SPEED			(-1.0) /* TODO */
+#define SHOOTER_MOTOR_MIDDLE_BANG_SPEED			(-1.0) /* TODO */
+#define SHOOTER_MOTOR_REAR_BANG_SPEED			(-1.0) /* TODO */
 
 #define SHOOTER_MOTOR_FLUSH_SPEED				(-0.75) /* TODO */
 // Various times (millis)
-#define SHOOTER_ARM_TIME						(1000) /* TODO */
+#define SHOOTER_ARM_TIME						(1500) /* TODO */
 #define SHOOTER_SHOOT_TIME						(500) /* TODO */
-#define SHOOTER_WAIT_TIME						(1000) /* TODO */
-#define SHOOTER_FLUSH_TIME						(100) /* TODO */
+#define SHOOTER_WAIT_TIME						(1250) /* TODO */
+#define SHOOTER_FLUSH_TIME						(500) /* TODO */
 
 // Class name of the shooter and shooter pitch motor controllers
 #define SHOOTER_MOTOR_TYPE						Talon
@@ -120,17 +127,24 @@
 #define SHOOTER_PITCH_ENCODER					12,13
 #define SHOOTER_PITCH_LIMIT_SWITCH				(11)
 #define SHOOTER_PITCH_UPPER_LIMIT				(1.0)
-#define SHOOTER_PITCH_DEGREES_PER_PULSE			(1.0/23345.0)
+#define SHOOTER_PITCH_DEGREES_PER_PULSE			(1.0/27500.0)
 // Shooter pitch control info
 #define SHOOTER_PITCH_THRESHOLD					(0.0125) /* Random units; scalar of shooter angle */
 #define SHOOTER_PITCH_COLLECT					(0)
 #define SHOOTER_PITCH_SLOT_COLLECT				(0.5) /*TODO*/
-#define SHOOTER_PITCH_PYRAMID_BACK				(.526)
 #define SHOOTER_PITCH_STABILITY					(25)
+
+#define SHOOTER_PITCH_PYRAMID_BACK				(.637)
+#define SHOOTER_PITCH_PYRAMID_SIDE				(.95)
+#define SHOOTER_PITCH_PYRAMID_FRONT				(1.0) /* .451 was the low end */
+
+#define SHOOTER_LIGHT							(2) /* The shooter light relay */
+#define SHOOTER_DEFAULT_CONTROL					kPowerBang
+#define SHOOTER_DEFAULT_WAIT					kTime
 
 /**
  * --COLLECTOR--
- * 	Collector motor channels
+ * 	CollectorArms motor channels
  */
 #define COLLECTOR_MOTOR							(3)
 #define COLLECTOR_PITCH_MOTOR_LEFT				(1)
@@ -139,23 +153,25 @@
 // Class name of the shooter and collector pitch motor controllers
 #define COLLECTOR_MOTOR_TYPE					Talon
 #define COLLECTOR_PITCH_MOTOR_TYPE				Talon
-#define COLLECTOR_PITCH_STABILITY				20
-// Collector constant speed
+#define COLLECTOR_PITCH_STABILITY				5
+// CollectorArms constant speed
 #define COLLECTOR_PITCH_MOTOR_SPEED_UP			(.6) /* TODO get value from design team */
 #define COLLECTOR_PITCH_MOTOR_SPEED_DOWN		(-.4) /* TODO get value from design team */
 #define COLLECTOR_MOTOR_SPEED					(0.5)
-#define COLLECTOR_PITCH_POT_LEFT				(2)
-#define COLLECTOR_PITCH_POT_RIGHT				(1)
+#define COLLECTOR_PITCH_POT_LEFT				(3)
+#define COLLECTOR_PITCH_POT_RIGHT				(2)
 #define COLLECTOR_PITCH_CONVERT(value)			(((value - 205) * 90) / 315)
 //#define COLLECTOR_PITCH_INVERTs(value)			(((value * 315) / 90) + 205)
-#define COLLECTOR_PITCH_P						(0.1)
-#define COLLECTOR_PITCH_I						(0.002)
-#define COLLECTOR_PITCH_D						(0)
+#define COLLECTOR_PITCH_P						(0.09)
+#define COLLECTOR_PITCH_I						(0.001)
+#define COLLECTOR_PITCH_D						(0.05)
 #define COLLECTOR_PITCH_CATCHUP					(10.0)
 
 #define COLLECTOR_PITCH_TOLERANCE				(5)
-#define COLLECTOR_PITCH_DOWN					(0)
-#define COLLECTOR_PITCH_MID						(52.5)
+#define COLLECTOR_PITCH_FLOOR					(0)
+#define COLLECTOR_PITCH_LIGHT_LOW				(3)
+#define COLLECTOR_PITCH_DOWN					(10) /* TODO */
+#define COLLECTOR_PITCH_MID						(51)
 #define COLLECTOR_PITCH_UP						(90) 
 
 #define COLLECTOR_PITCH_POT_MIN					(0)
@@ -169,11 +185,15 @@
 #define COLLECTOR_FRISBEE_STOP_DOWN				(0)
 
 #define COLLECTOR_COLLECT_TIMEOUT				(1000) /* (millis) */
+#define COLLECTOR_COLLECT_STOP_DELAY			(200) /* millis between light sensor trigger and collector wheel stop */
 
-#define COLLECTOR_SHOOTER_INTERFERENCE_HIGH		(80)
+#define COLLECTOR_SHOOTER_INTERFERENCE_HIGH		(90)
 #define COLLECTOR_SHOOTER_INTERFERENCE_LOW		(50)
 #define SHOOTER_COLLECTOR_INTERFERENCE_LOW		(0.05) /* Those random shooter units!*/
-#define SHOOTER_COLLECTOR_INTERFERENCE_HIGH		(1.0)
+#define SHOOTER_COLLECTOR_INTERFERENCE_HIGH		(5.0)
+
+#define SHOOTER_PITCH_FRISBEE_SLIDE				(0.75)
+#define SHOOTER_PITCH_FRISBEE_SLIDE_SPEED		(1000)
 
 /**
  * --COMPRESSOR--
@@ -197,7 +217,7 @@
  * --EJECTOR--
  */
 
-#define EJECTDISKS_EJECT_TIMEOUT				(500) /* (millis)	*/
+#define EJECTDISKS_EJECT_TIMEOUT				(1000) /* (millis)	*/
 #define EJECTDISKS_SERVO_TIMEOUT				(10000) /* (millis)	*/			
 
 #endif

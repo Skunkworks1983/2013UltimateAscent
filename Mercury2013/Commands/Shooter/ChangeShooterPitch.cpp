@@ -1,36 +1,34 @@
 #include "ChangeShooterPitch.h"
 #include <math.h>
 
-ChangeShooterPitch::ChangeShooterPitch(float targetPitch) :
+ChangeShooterPitch::ChangeShooterPitch(float targetPitch, bool waitForCollector) :
 	CommandBase("ChangeShooterPitch") {
 	Requires(shooterPitch);
 	SetInterruptible(true);
 	this->targetPitch = targetPitch;
+	if (this->targetPitch < 0.01){
+		this->targetPitch = -10.0;
+	}
+	if (this->targetPitch > 1.0) {
+		this->targetPitch = 1.0;
+	}
 	this->outOfBounds = false;
+	this->waitForCollector = waitForCollector;
 }
 
 void ChangeShooterPitch::Initialize() {
 }
 
 void ChangeShooterPitch::Execute() {
-	double tmpTarget = targetPitch;
-	if (targetPitch < 0) {
-		if (DriverStation::GetInstance()->GetEnhancedIO().GetDigital(15)) {
-			return;
-		}
-		double val = DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(
-				OI_SHOOTER_ANGLE_PROVIDER_CHANNEL);
-		tmpTarget = OI_SHOOTER_ANGLE_CONVERT(val);
-	}
-	if (collector->getRawAngle() > COLLECTOR_SHOOTER_INTERFERENCE_LOW
-			&& collector->getRawAngle() < COLLECTOR_SHOOTER_INTERFERENCE_HIGH
-			&& tmpTarget > SHOOTER_COLLECTOR_INTERFERENCE_LOW && tmpTarget
+	if (collectorArms->getAngle() > COLLECTOR_SHOOTER_INTERFERENCE_LOW
+			&& collectorArms->getAngle() < COLLECTOR_SHOOTER_INTERFERENCE_HIGH
+			&& targetPitch > SHOOTER_COLLECTOR_INTERFERENCE_LOW && targetPitch
 			< SHOOTER_COLLECTOR_INTERFERENCE_HIGH) {
-		outOfBounds = true;
+		outOfBounds = !waitForCollector;
 		return;
 	}
-	float pitchOffset = shooterPitch->getCurrentPitch() - tmpTarget;
-	if (fabs(pitchOffset) < SHOOTER_PITCH_THRESHOLD) {
+	float pitchOffset = shooterPitch->getCurrentPitch() - targetPitch;
+	if (pitchOffset > 0 && fabs(pitchOffset) < SHOOTER_PITCH_THRESHOLD) {
 		shooterPitch->setPitchMotorSpeed(0);
 		outOfBounds = true;
 	} else {
@@ -40,7 +38,7 @@ void ChangeShooterPitch::Execute() {
 }
 
 bool ChangeShooterPitch::IsFinished() {
-	return !shooterPitch->isPitchTuned() || (outOfBounds && targetPitch >= 0.0);
+	return !shooterPitch->isPitchTuned() || outOfBounds;
 }
 
 void ChangeShooterPitch::End() {

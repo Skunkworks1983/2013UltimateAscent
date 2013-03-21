@@ -6,12 +6,15 @@
 #include "Commands/Automatic/TurnDegree.h"
 #include "Commands/Shooter/TunePitchEncoder.h"
 #include "Utils/Scripting.h"
+#include "Utils/Time.h"
+#include "Subsystems/CollectorArmController.h"
+#include "Subsystems/CollectorArms.h"
+#include "Subsystems/Collector.h"
 
 void UFOBot::RobotInit() {
 	CommandBase::init();
 	lw = LiveWindow::GetInstance();
 	GetWatchdog().SetEnabled(true);
-
 	chooser = Scripting::generateAutonomousModes(AUTO_SCRIPT_LOCATIONS);
 	SmartDashboard::PutData("Autonomous modes", chooser);
 	SmartDashboard::PutData(Scheduler::GetInstance());
@@ -46,6 +49,7 @@ void UFOBot::TeleopPeriodic() {
 	GetWatchdog().Feed();
 	Scheduler::GetInstance()->Run();
 	motorSaftey();
+	SmartDashboard::PutNumber("Loops Per Second", GetLoopsPerSec());
 }
 
 void UFOBot::DisabledInit() {
@@ -55,7 +59,6 @@ void UFOBot::DisabledPeriodic() {
 }
 
 void UFOBot::TestInit() {
-	lw->SetEnabled(true);
 }
 
 void UFOBot::TestPeriodic() {

@@ -1,20 +1,29 @@
 #include "ShooterControlModeSet.h"
 
-ShooterControlModeSet::ShooterControlModeSet(Shooter::ControlType sControl) :
+ShooterControlModeSet::ShooterControlModeSet(int sControl, int waitType) :
 	CommandBase("ShooterBang") {
 	this->controlType = sControl;
+	this->waitType = waitType;
 	SetInterruptible(true);
 }
 
 void ShooterControlModeSet::Initialize() {
+	if (waitType == CONTROL_NOCHANGE) {
+		waitType = shooter->getWaitScheme();
+	}
+	if (controlType == CONTROL_NOCHANGE) {
+		controlType = shooter->getControlScheme();
+	}
 }
 
 void ShooterControlModeSet::Execute() {
-	shooter->setControlScheme(controlType);
+	shooter->setControlScheme((Shooter::ControlType) controlType);
+	shooter->setWaitScheme((Shooter::WaitType) waitType);
 }
 
 bool ShooterControlModeSet::IsFinished() {
-	return shooter->getControlScheme() == controlType;
+	return shooter->getControlScheme() == controlType
+			&& shooter->getWaitScheme() == waitType;
 }
 
 void ShooterControlModeSet::End() {

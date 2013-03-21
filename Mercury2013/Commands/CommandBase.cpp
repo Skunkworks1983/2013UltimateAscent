@@ -9,10 +9,16 @@ CommandBase::CommandBase() :
 	Command() {
 }
 
+CommandBase *CommandBase::makeInterruptible(bool state){
+	SetInterruptible(state);
+	return this;
+}
+
 // Initialize a single static instance of all of your subsystems to NULL
 Shooter *CommandBase::shooter = NULL;
 DriveBase *CommandBase::driveBase = NULL;
 Collector *CommandBase::collector = NULL;
+CollectorArms *CommandBase::collectorArms = NULL;
 OI *CommandBase::oi = NULL;
 Pneumatics *CommandBase::pneumatics = NULL;
 Climber *CommandBase::climber = NULL;
@@ -30,6 +36,7 @@ void CommandBase::init() {
 	shooter = new Shooter();
 	driveBase = new DriveBase();
 	collector = new Collector();
+	collectorArms = new CollectorArms();
 	climber = new Climber();
 	shooterPitch = new ShooterPitch();
 	

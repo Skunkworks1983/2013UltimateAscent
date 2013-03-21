@@ -6,6 +6,7 @@
 #include "../Subsystems/Shooter.h"
 #include "../Subsystems/DriveBase.h"
 #include "../Subsystems/Collector.h"
+#include "../Subsystems/CollectorArms.h"
 #include "../Subsystems/Pneumatics.h"
 #include "../Subsystems/Climber.h"
 #include "../Subsystems/ShooterPitch.h"
@@ -22,11 +23,14 @@ class CommandBase: public Command {
 public:
 	CommandBase(const char *name);
 	CommandBase();
+	CommandBase *makeInterruptible(bool state);
+	
 	static void init();
 
 	static Shooter *shooter;
 	static DriveBase *driveBase;
 	static Collector *collector;
+	static CollectorArms *collectorArms;
 	static OI *oi;
 	static Pneumatics *pneumatics;
 	static Climber *climber;
