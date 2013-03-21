@@ -21,6 +21,7 @@
  */
 class CommandBase: public Command {
 public:
+	static char* createNameFor(char* base, float target);
 	CommandBase(const char *name);
 	CommandBase();
 	CommandBase *makeInterruptible(bool state);

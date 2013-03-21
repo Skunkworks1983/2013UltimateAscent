@@ -18,6 +18,8 @@ void UFOBot::RobotInit() {
 	chooser = Scripting::generateAutonomousModes(AUTO_SCRIPT_LOCATIONS);
 	SmartDashboard::PutData("Autonomous modes", chooser);
 	SmartDashboard::PutData(Scheduler::GetInstance());
+
+	printVersion();
 }
 
 void UFOBot::AutonomousInit() {
@@ -56,6 +58,13 @@ void UFOBot::DisabledInit() {
 }
 void UFOBot::DisabledPeriodic() {
 	motorSaftey();
+	printVersion();
+}
+
+void UFOBot::printVersion() {
+	DriverStationLCD::GetInstance()->Printf(DriverStationLCD::kUser_Line1, 1,
+			"Version 1.11 Pre-Ellensburg LW Updates");
+	DriverStationLCD::GetInstance()->UpdateLCD();
 }
 
 void UFOBot::TestInit() {

@@ -14,6 +14,12 @@ CommandBase *CommandBase::makeInterruptible(bool state){
 	return this;
 }
 
+char *CommandBase::createNameFor(char *base, float target) {
+	char *buf = new char[32];
+	snprintf(buf, 32, "%s_%f", base, target);
+	return buf;
+}
+
 // Initialize a single static instance of all of your subsystems to NULL
 Shooter *CommandBase::shooter = NULL;
 DriveBase *CommandBase::driveBase = NULL;

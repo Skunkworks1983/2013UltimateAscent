@@ -23,7 +23,8 @@ void UpdateOI::Execute() {
 	SmartDashboard::PutNumber("Collector Frisbee Trigger",
 			collector->getFrisbeeSensorCount());
 	SmartDashboard::PutNumber("Shooter Angle", shooterPitch->getRealPitch());
-	SmartDashboard::PutNumber("Shooter Math Angle", shooterPitch->getMathPitch());
+	SmartDashboard::PutNumber("Shooter Math Angle",
+			shooterPitch->getMathPitch());
 	SmartDashboard::PutNumber("Shooter Screw Scalar",
 			shooterPitch->getCurrentPitch());
 	SmartDashboard::PutNumber("Shooter Front Speed", shooter->getFrontSpeed());

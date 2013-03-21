@@ -9,6 +9,8 @@ Collector::Collector() :
 	frisbeeSensors = new DigitalInput*[2];
 	frisbeeSensors[0] = new DigitalInput(COLLECTOR_FRISBEE_CHN_1);
 	frisbeeSensors[1] = new DigitalInput(COLLECTOR_FRISBEE_CHN_2);
+	
+	frisbeeStop = new Servo(COLLECTOR_FRISBEE_STOP);
 
 	cachedFrisbees = 0;
 

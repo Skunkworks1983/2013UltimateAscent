@@ -13,6 +13,7 @@ class UFOBot: public IterativeRobot {
 private:
 	LiveWindow *lw;
 	SendableChooser *chooser;
+	void printVersion();
 public:
 	virtual void RobotInit();
 

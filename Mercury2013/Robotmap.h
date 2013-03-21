@@ -187,7 +187,7 @@
 #define COLLECTOR_COLLECT_TIMEOUT				(1000) /* (millis) */
 #define COLLECTOR_COLLECT_STOP_DELAY			(200) /* millis between light sensor trigger and collector wheel stop */
 
-#define COLLECTOR_SHOOTER_INTERFERENCE_HIGH		(90)
+#define COLLECTOR_SHOOTER_INTERFERENCE_HIGH		(85)
 #define COLLECTOR_SHOOTER_INTERFERENCE_LOW		(50)
 #define SHOOTER_COLLECTOR_INTERFERENCE_LOW		(0.05) /* Those random shooter units!*/
 #define SHOOTER_COLLECTOR_INTERFERENCE_HIGH		(5.0)
