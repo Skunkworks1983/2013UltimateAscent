@@ -19,6 +19,8 @@ public:
 	enum WaitType {
 		kSpeed, kTime, kNone
 	};
+	static char* getControlTypeName(ControlType type);
+	static char* getWaitTypeName(WaitType type);
 private:
 	SHOOTER_MOTOR_TYPE *frontMotor;SHOOTER_MOTOR_TYPE *middleMotor;SHOOTER_MOTOR_TYPE
 			*rearMotor;

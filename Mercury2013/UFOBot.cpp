@@ -36,6 +36,8 @@ void UFOBot::AutonomousPeriodic() {
 void UFOBot::DefaultInit() {
 	Scheduler::GetInstance()->RemoveAll();
 	CommandBase::driveBase->reset();
+	CommandBase::driveBase->shift(false);
+	CommandBase::driveBase->setMotorScalingFactor(1.0);
 	if (!CommandBase::shooterPitch->isPitchTuned()) {
 		Scheduler::GetInstance()->AddCommand(new TunePitchEncoder());
 	}
@@ -63,7 +65,9 @@ void UFOBot::DisabledPeriodic() {
 
 void UFOBot::printVersion() {
 	DriverStationLCD::GetInstance()->Printf(DriverStationLCD::kUser_Line1, 1,
-			"Version 1.11 Pre-Ellensburg LW Updates");
+			"Version 1.12");
+	DriverStationLCD::GetInstance()->Printf(DriverStationLCD::kUser_Line2, 1,
+			"Thurs-Ellensburg");
 	DriverStationLCD::GetInstance()->UpdateLCD();
 }
 

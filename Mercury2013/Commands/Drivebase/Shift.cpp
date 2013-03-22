@@ -1,7 +1,11 @@
 #include "Shift.h"
 
 Shift::Shift(ShiftType shiftingType) :
-	CommandBase("Shift") {
+			CommandBase(
+					CommandBase::createNameFromString(
+							"Shift",
+							shiftingType == kLow ? "Low" : (shiftingType
+									== kHigh ? "High" : "Toggle"))) {
 	// It requires the drive base, but we don't need a lock on it.
 	this->toGear = shiftingType;
 	SetInterruptible(true);

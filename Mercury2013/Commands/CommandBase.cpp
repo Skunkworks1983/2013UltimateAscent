@@ -9,14 +9,19 @@ CommandBase::CommandBase() :
 	Command() {
 }
 
-CommandBase *CommandBase::makeInterruptible(bool state){
+CommandBase *CommandBase::makeInterruptible(bool state) {
 	SetInterruptible(state);
 	return this;
 }
 
-char *CommandBase::createNameFor(char *base, float target) {
+char *CommandBase::createNameFromFloat(char *base, float target) {
 	char *buf = new char[32];
 	snprintf(buf, 32, "%s_%f", base, target);
+	return buf;
+}
+char *CommandBase::createNameFromString(char *base, const char *arg) {
+	char *buf = new char[32];
+	snprintf(buf, 32, "%s_%s", base, arg);
 	return buf;
 }
 
@@ -45,6 +50,6 @@ void CommandBase::init() {
 	collectorArms = new CollectorArms();
 	climber = new Climber();
 	shooterPitch = new ShooterPitch();
-	
+
 	oi = new OI();
 }

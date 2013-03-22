@@ -1,7 +1,7 @@
 #include "MoveCollectorArm.h"
 
 MoveCollectorArm::MoveCollectorArm(float goal) :
-	CommandBase(CommandBase::createNameFor("MoveCollectorArm", goal)) {
+	CommandBase(CommandBase::createNameFromFloat("MoveCollectorArm", goal)) {
 	Requires(collectorArms);
 	this->goal = goal;
 }

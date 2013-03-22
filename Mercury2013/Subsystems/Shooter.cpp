@@ -4,6 +4,29 @@
 #include "../Utils/Time.h"
 #include "../Utils/SolenoidPair.h"
 
+char* Shooter::getControlTypeName(ControlType type) {
+	switch (type) {
+	case kPower:
+		return "Power";
+	case kPowerBang:
+		return "PowerBang";
+	default:
+		return "Unknown";
+	}
+}
+char* Shooter::getWaitTypeName(WaitType type) {
+	switch (type) {
+	case kSpeed:
+		return "Speed";
+	case kTime:
+		return "Time";
+	case kNone:
+		return "None";
+	default:
+		return "Unknown";
+	}
+}
+
 Shooter::Shooter() :
 	Subsystem("Shooter") {
 	printf("Creating Shooter...\t");
@@ -51,11 +74,11 @@ Shooter::~Shooter() {
 }
 
 void Shooter::setLight(bool state) {
-	lightController->Set(state ? Relay::kOn : Relay::kOff);
+	lightController->Set(state ? Relay::kForward : Relay::kOff);
 }
 
 bool Shooter::isLightOn() {
-	return lightController->Get() == Relay::kOn;
+	return lightController->Get() == Relay::kForward;
 }
 
 void Shooter::setArmed(bool armed) {

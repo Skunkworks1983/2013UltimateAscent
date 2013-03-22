@@ -2,7 +2,7 @@
 #include <math.h>
 
 ChangeShooterPitch::ChangeShooterPitch(float targetPitch, bool waitForCollector) :
-	CommandBase(CommandBase::createNameFor("ChangeShooterPitch", targetPitch)) {
+	CommandBase(CommandBase::createNameFromFloat("ChangeShooterPitch", targetPitch)) {
 	Requires(shooterPitch);
 	SetInterruptible(true);
 	this->targetPitch = targetPitch;

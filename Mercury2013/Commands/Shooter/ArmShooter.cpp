@@ -2,7 +2,11 @@
 #include "../../Utils/Time.h"
 
 ArmShooter::ArmShooter(ArmType armType) :
-	CommandBase("ArmShooter") {
+			CommandBase(
+					CommandBase::createNameFromString(
+							"ArmShooter",
+							armType == kOn ? "On" : (armType == kOff ? "Off"
+									: "Toggle"))) {
 	this->armType = armType;
 }
 

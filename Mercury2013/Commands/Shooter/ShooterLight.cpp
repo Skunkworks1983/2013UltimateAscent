@@ -1,7 +1,11 @@
 #include "ShooterLight.h"
 
 ShooterLight::ShooterLight(LightType controlType) :
-	CommandBase(CommandBase::createNameFor("ShooterLight", controlType)) {
+			CommandBase(
+					CommandBase::createNameFromString(
+							"ShooterLight",
+							controlType == kOn ? "On"
+									: (controlType == kOff ? "Off" : "Toggle"))) {
 	// It requires the shooter, but we don't need a lock on it.
 	this->controlType = controlType;
 	SetInterruptible(true);
@@ -10,10 +14,10 @@ ShooterLight::ShooterLight(LightType controlType) :
 void ShooterLight::Initialize() {
 	switch (controlType) {
 	case kOff:
-		toLightState = true;
+		toLightState = false;
 		break;
 	case kOn:
-		toLightState = false;
+		toLightState = true;
 		break;
 	case kToggle:
 		toLightState = !shooter->isLightOn();

@@ -4,7 +4,7 @@
 #include "../../Robotmap.h"
 
 DriveDistance::DriveDistance(float targetDistance) :
-	CommandBase(CommandBase::createNameFor("DriveDistance", targetDistance)) {
+	CommandBase(CommandBase::createNameFromFloat("DriveDistance", targetDistance)) {
 	Requires(driveBase);
 	this->targetDistance = targetDistance;
 }

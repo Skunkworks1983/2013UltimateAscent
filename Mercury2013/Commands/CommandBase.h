@@ -21,11 +21,12 @@
  */
 class CommandBase: public Command {
 public:
-	static char* createNameFor(char* base, float target);
+	static char* createNameFromFloat(char* base, float target);
+	static char* createNameFromString(char* base, const char *arg);
 	CommandBase(const char *name);
 	CommandBase();
 	CommandBase *makeInterruptible(bool state);
-	
+
 	static void init();
 
 	static Shooter *shooter;

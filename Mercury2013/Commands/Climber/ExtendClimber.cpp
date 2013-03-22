@@ -1,7 +1,7 @@
 #include "ExtendClimber.h" 
 
 ExtendClimber::ExtendClimber(bool position) :
-	CommandBase(CommandBase::createNameFor("ExtendClimber", position & 1)) {
+	CommandBase(CommandBase::createNameFromFloat("ExtendClimber", position & 1)) {
 	Requires(climber);
 	this->position = position;
 	SetTimeout(((double) CLIMBER_PNEUMATIC_TIME) / 1000.0);
