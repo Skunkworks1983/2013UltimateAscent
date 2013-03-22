@@ -11,7 +11,8 @@
  */
 class DriveDistance: public CommandBase {
 private:
-	float targetDistance;
+	float leftTargetDistance;
+	float rightTargetDistance;
 	float leftDistanceRemaining;
 	float rightDistanceRemaining;
 	int stability;
@@ -36,5 +37,6 @@ public:
 	virtual bool IsFinished();
 	virtual void End();
 	virtual void Interrupted();
+	static Command* invertDriveCommand(void *arg);
 };
 #endif

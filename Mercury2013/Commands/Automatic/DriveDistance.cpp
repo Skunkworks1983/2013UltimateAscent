@@ -4,9 +4,12 @@
 #include "../../Robotmap.h"
 
 DriveDistance::DriveDistance(float targetDistance) :
-	CommandBase(CommandBase::createNameFromFloat("DriveDistance", targetDistance)) {
+			CommandBase(
+					CommandBase::createNameFromFloat("DriveDistance",
+							targetDistance)) {
 	Requires(driveBase);
-	this->targetDistance = targetDistance;
+	this->leftTargetDistance = targetDistance;
+	this->rightTargetDistance = targetDistance;
 }
 
 void DriveDistance::Initialize() {
@@ -16,9 +19,9 @@ void DriveDistance::Initialize() {
 }
 
 void DriveDistance::Execute() {
-	leftDistanceRemaining = targetDistance
+	leftDistanceRemaining = leftTargetDistance
 			- driveBase->getLeftEncoder()->GetDistance();
-	rightDistanceRemaining = targetDistance
+	rightDistanceRemaining = rightTargetDistance
 			- driveBase->getRightEncoder()->GetDistance();
 
 	driveBase->setSpeed(getSpeedFor(leftDistanceRemaining),
@@ -55,4 +58,14 @@ void DriveDistance::End() {
 
 void DriveDistance::Interrupted() {
 	driveBase->setSpeed(0.0, 0.0);
+}
+
+Command *DriveDistance::invertDriveCommand(void *arg) {
+	DriveDistance *orig = (DriveDistance*) arg;
+	DriveDistance *created = new DriveDistance(0.0);
+	created->leftTargetDistance = -(orig->leftTargetDistance
+			- orig->leftDistanceRemaining);
+	created->rightTargetDistance = -(orig->rightTargetDistance
+			- orig->rightDistanceRemaining);
+	return created;
 }
