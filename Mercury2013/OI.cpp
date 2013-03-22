@@ -47,8 +47,8 @@ OI::OI() {
 			2.825);//2.725
 	shooterMiddleButton = new AnalogRangeIOButton(OI_SHOOTER_ANGLE_ANALOG,
 			2.045, 2.245);// 2.145
-	shooterLowButton = new AnalogRangeIOButton(OI_SHOOTER_ANGLE_ANALOG,
-			1.406, 1.606);//1.506
+	shooterLowButton = new AnalogRangeIOButton(OI_SHOOTER_ANGLE_ANALOG, 1.406,
+			1.606);//1.506
 	shooterZeroButton = new AnalogRangeIOButton(OI_SHOOTER_ANGLE_ANALOG, 0.629,
 			0.829);//0.729
 	shooterAngleChangeTrigger = new ValueChangeTrigger(
@@ -95,10 +95,10 @@ void OI::registerButtonSchedulers() {
 	spinupButton->WhenPressed(new ArmShooter(ArmShooter::kOn));
 	spinupButton->WhenReleased(new ArmShooter(ArmShooter::kOff));
 
-	shooterNoWait->WhenPressed(
+	shooterNoWait->WhenReleased(
 			new ShooterControlModeSet(ShooterControlModeSet::CONTROL_NOCHANGE,
 					Shooter::kNone));
-	shooterNoWait->WhenReleased(
+	shooterNoWait->WhenPressed(
 			new ShooterControlModeSet(ShooterControlModeSet::CONTROL_NOCHANGE,
 					Shooter::SHOOTER_DEFAULT_WAIT));
 
@@ -130,9 +130,9 @@ double OI::getCollectorTargetPitch() {
 		CommandBase::oi->targetCollectorPitch = COLLECTOR_PITCH_UP;
 		return FORCE_VALUE_CHANGE;
 	}/* else if (CommandBase::oi->armDownButton->Get()) {
-		CommandBase::oi->targetCollectorPitch = COLLECTOR_PITCH_DOWN;
-		return FORCE_VALUE_CHANGE;
-	}*/ else if (!CommandBase::oi->collectorOverrideButton->Get()) {
+	 CommandBase::oi->targetCollectorPitch = COLLECTOR_PITCH_DOWN;
+	 return FORCE_VALUE_CHANGE;
+	 }*/else if (!CommandBase::oi->collectorOverrideButton->Get()) {
 		CommandBase::oi->targetCollectorPitch = OI_COLLECTOR_ANGLE_CONVERT(
 				DriverStation::GetInstance()->GetEnhancedIO().GetAnalogIn(3));
 		if (CommandBase::oi->targetCollectorPitch < -1) {
