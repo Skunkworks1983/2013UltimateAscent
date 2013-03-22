@@ -15,6 +15,7 @@ ShooterPitch::ShooterPitch() :
 	pitchEncoder->SetDistancePerPulse(SHOOTER_PITCH_DEGREES_PER_PULSE);
 	pitchEncoder->Reset();
 	pitchEncoder->Start();
+	motorSpeedCache = 0.0;
 
 	pitchPot = new AnalogChannel(SHOOTER_PITCH_POT);
 
@@ -51,13 +52,16 @@ bool ShooterPitch::setPitchMotorSpeed(float direction) {
 		pitchMotor->Set(0);
 		pitchEncoder->Reset();
 		tunedEncoder = true;
+		motorSpeedCache = 0.0;
 		return false;
 	} else if (speed > 0.0 && pitchEncoder->GetDistance()
 			> SHOOTER_PITCH_UPPER_LIMIT) {
 		pitchMotor->Set(0);
+		motorSpeedCache = 0.0;
 		return false;
 	} else if (tunedEncoder || speed < 0.0) {
 		pitchMotor->Set(-speed);
+		motorSpeedCache = -speed;
 	}
 	return true;
 }
@@ -87,7 +91,7 @@ bool ShooterPitch::isPitchGrounded() {
 void ShooterPitch::motorSafety() {
 	if (isPitchGrounded()) {
 		pitchEncoder->Reset();
-		if (pitchMotor->Get() > 0.0) {
+		if (motorSpeedCache) {//pitchMotor->Get() > 0.0) {
 			pitchMotor->Set(0);
 		}
 	}

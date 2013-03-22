@@ -18,6 +18,7 @@ private:
 	DigitalInput *pitchLimitSwitch;
 	AnalogChannel *pitchPot;
 	
+	float motorSpeedCache;
 	bool tunedEncoder;
 public:
 	ShooterPitch();

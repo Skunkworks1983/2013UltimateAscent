@@ -136,7 +136,7 @@
 #define SHOOTER_PITCH_SLOT_COLLECT				(0.5) /*TODO*/
 #define SHOOTER_PITCH_STABILITY					(25)
 
-#define SHOOTER_PITCH_PYRAMID_BACK				(.637)
+#define SHOOTER_PITCH_PYRAMID_BACK				(.600)//(.637)
 #define SHOOTER_PITCH_PYRAMID_SIDE				(.95)
 #define SHOOTER_PITCH_PYRAMID_FRONT				(1.0) /* .451 was the low end */
 
@@ -151,7 +151,7 @@
 #define COLLECTOR_MOTOR							(3)
 #define COLLECTOR_PITCH_MOTOR_LEFT				(1)
 #define COLLECTOR_PITCH_MOTOR_RIGHT				(2)
-#define COLLECTOR_FRISBEE_STOP					(10) /* TODO */
+//#define COLLECTOR_FRISBEE_STOP					(10) /* TODO */
 // Class name of the shooter and collector pitch motor controllers
 #define COLLECTOR_MOTOR_TYPE					Talon
 #define COLLECTOR_PITCH_MOTOR_TYPE				Talon

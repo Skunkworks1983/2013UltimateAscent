@@ -53,7 +53,6 @@ void UFOBot::TeleopPeriodic() {
 	GetWatchdog().Feed();
 	Scheduler::GetInstance()->Run();
 	motorSaftey();
-	SmartDashboard::PutNumber("Loops Per Second", GetLoopsPerSec());
 }
 
 void UFOBot::DisabledInit() {

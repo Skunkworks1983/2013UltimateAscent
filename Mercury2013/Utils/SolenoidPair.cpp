@@ -3,6 +3,7 @@
 SolenoidPair::SolenoidPair(UINT32 a, UINT32 b) {
 	this->a = new Solenoid(a);
 	this->b = new Solenoid(b);
+	cachedState = false;
 	LiveWindow::GetInstance()->AddActuator("DoubleSolenoid",
 			SensorBase::GetDefaultSolenoidModule(), a, this);
 }
@@ -28,10 +29,11 @@ void SolenoidPair::ValueChanged(ITable* source, const std::string& key,
 }
 
 bool SolenoidPair::Get() {
-	return a->Get();
+	return cachedState;//a->Get();
 }
 
 void SolenoidPair::Set(bool v) {
+	cachedState = v;
 	a->Set(v);
 	b->Set(!v);
 }

@@ -28,7 +28,7 @@ ArmController::~ArmController() {
 }
 
 float ArmController::getOutput() {
-	return motor->Get();
+	return pid->Get();
 }
 
 double ArmController::PIDGet() {

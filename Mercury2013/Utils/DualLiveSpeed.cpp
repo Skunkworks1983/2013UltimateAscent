@@ -5,6 +5,7 @@ DualLiveSpeed::DualLiveSpeed(SpeedController *aA, SpeedController *bB,
 		float bScaling) {
 	this->a = aA;
 	this->b = bB;
+	speedCache = 0.0;
 
 	if (fabs(bScaling) > 1.0) {
 		this->aScalingPos = fabs(1.0 / bScaling);
@@ -35,7 +36,7 @@ DualLiveSpeed::DualLiveSpeed(SpeedController *aA, SpeedController *bB,
 			this->bScalingPos = -1.0;
 		}
 	} else {
-	this->aScalingPos = 1.0;
+		this->aScalingPos = 1.0;
 		this->bScalingPos = bScalingPos;
 	}
 
@@ -67,7 +68,7 @@ void DualLiveSpeed::ValueChanged(ITable* source, const std::string& key,
 }
 
 float DualLiveSpeed::Get() {
-	return a->Get();
+	return speedCache;//a->Get();
 }
 
 void DualLiveSpeed::Set(float f, UINT8 syncGroup) {
@@ -82,6 +83,7 @@ void DualLiveSpeed::Set(float f, UINT8 syncGroup) {
 			b->Set(f * bScalingNeg, syncGroup);
 		}
 	}
+	speedCache = f;
 }
 
 void DualLiveSpeed::UpdateTable() {

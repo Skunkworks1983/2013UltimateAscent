@@ -33,6 +33,7 @@ private:
 
 	// Power and PowerBang information
 	double timeTillShootReady;
+	bool armState;
 
 	// Speed Information
 	AnalogChannel *frontSpeed;

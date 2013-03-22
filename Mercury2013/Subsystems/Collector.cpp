@@ -9,15 +9,18 @@ Collector::Collector() :
 	frisbeeSensors = new DigitalInput*[2];
 	frisbeeSensors[0] = new DigitalInput(COLLECTOR_FRISBEE_CHN_1);
 	frisbeeSensors[1] = new DigitalInput(COLLECTOR_FRISBEE_CHN_2);
-	
-	frisbeeStop = new Servo(COLLECTOR_FRISBEE_STOP);
-
 	cachedFrisbees = 0;
+	cachedDirection = kStop;
 
 	LiveWindow::GetInstance()->AddActuator("Collector", "Collect Motor",
 			collectorMotor);
+
+#ifdef COLLECTOR_FRISBEE_STOP
+	frisbeeStop = new Servo(COLLECTOR_FRISBEE_STOP);
 	LiveWindow::GetInstance()->AddActuator("Collector", "Servo Flag",
 			frisbeeStop);
+#endif
+
 	LiveWindow::GetInstance()->AddSensor("Colletor", "Frisbee Sensor 1",
 			frisbeeSensors[0]);
 	LiveWindow::GetInstance()->AddSensor("Colletor", "Frisbee Sensor 2",
@@ -27,7 +30,9 @@ Collector::Collector() :
 
 Collector::~Collector() {
 	delete collectorMotor;
+#ifdef COLLECTOR_FRISBEE_STOP
 	delete frisbeeStop;
+#endif
 	for (int i = 0; i < 2; i++) {
 		delete frisbeeSensors[i];
 	}
@@ -62,30 +67,30 @@ void Collector::setCollectorMotor(Collector::MotorDirection state) {
 	default:
 		collectorMotor->Set(0);
 	}
+	cachedDirection = state;
 }
 
 void Collector::setFrisbeeStop(bool enabled) {
+#ifdef COLLECTOR_FRISBEE_STOP
 	if (enabled) {
 		frisbeeStop->SetAngle(COLLECTOR_FRISBEE_STOP_UP);
 	} else {
 		frisbeeStop->SetAngle(COLLECTOR_FRISBEE_STOP_DOWN);
 	}
+#endif
 }
 
 bool Collector::getFrisbeeStop() {
+#ifdef COLLECTOR_FRISBEE_STOP
 	return fabs(frisbeeStop->GetAngle() - COLLECTOR_FRISBEE_STOP_UP) < fabs(
 			frisbeeStop->GetAngle() - COLLECTOR_FRISBEE_STOP_DOWN);
+#else
+	return false;
+#endif
 }
 
 Collector::MotorDirection Collector::getSpinnerDirection() {
-	float clampSpeed = collectorMotor->Get() / COLLECTOR_MOTOR_SPEED;
-	if (clampSpeed < 0.0) {
-		return kReverse;
-	} else if (clampSpeed > 0.0) {
-		return kForward;
-	} else {
-		return kStop;
-	}
+	return cachedDirection;
 }
 
 void Collector::InitDefaultCommand() {

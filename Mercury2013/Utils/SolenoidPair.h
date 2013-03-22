@@ -10,6 +10,7 @@ class SolenoidPair: public ITableListener, public LiveWindowSendable {
 private:
 	Solenoid *a;
 	Solenoid *b;
+	bool cachedState;
 protected:
 	void ValueChanged(ITable* source, const std::string& key, EntryValue value,
 			bool isNew);

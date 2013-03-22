@@ -12,6 +12,7 @@ class DualLiveSpeed: public ITableListener,
 private:
 	SpeedController *a;
 	SpeedController *b;
+	float speedCache;
 	float bScalingPos;
 	float bScalingNeg;
 	float aScalingPos;

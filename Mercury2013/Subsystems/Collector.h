@@ -18,23 +18,25 @@ class ArmController;
  * @author Ross Bajocich, Westin Miller
  */
 class Collector: public Subsystem {
-private:
-	int cachedFrisbees;
 public:
 	enum MotorDirection {
-			/**
-			 * Motors push frisbees forward
-			 */
-			kForward,
-			/**
-			 * Motors push frisbees backwards
-			 */
-			kReverse,
-			/**
-			 * Motors aren't running
-			 */
-			kStop
-		};
+		/**
+		 * Motors push frisbees forward
+		 */
+		kForward,
+		/**
+		 * Motors push frisbees backwards
+		 */
+		kReverse,
+		/**
+		 * Motors aren't running
+		 */
+		kStop
+	};
+private:
+	int cachedFrisbees;
+	MotorDirection cachedDirection;
+public:
 	/**
 	 * Initializes all objects, and deletes them in the destructor, using ports
 	 * from robot map to initialize the devices 
@@ -54,11 +56,13 @@ public:
 	 * Sets the default command for this subsystem
 	 */
 	virtual void InitDefaultCommand();
-	
+
 private:
 	COLLECTOR_MOTOR_TYPE *collectorMotor;
-	Servo *frisbeeStop;
 	DigitalInput **frisbeeSensors;
+#ifdef COLLECTOR_FRISBEE_STOP
+	Servo *frisbeeStop;
+#endif
 };
 
 #endif

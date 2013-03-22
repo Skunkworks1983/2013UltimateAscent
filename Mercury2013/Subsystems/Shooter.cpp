@@ -57,6 +57,8 @@ Shooter::Shooter() :
 			rearSpeed);
 	LiveWindow::GetInstance()->AddSensor("Shooter", "Analog Front Speed",
 			frontSpeed);
+	
+	armState = false;
 
 	printf("Done!\n");
 }
@@ -100,6 +102,7 @@ void Shooter::setArmed(bool armed) {
 		middleMotor->Set(0);
 		rearMotor->Set(0);
 	}
+	armState = armed;
 }
 
 void Shooter::setControlScheme(ControlType type) {
@@ -119,8 +122,9 @@ Shooter::WaitType Shooter::getWaitScheme() {
 }
 
 bool Shooter::isArmed() {
-	return fabs(frontMotor->Get()) > 0 || fabs(middleMotor->Get()) > 0 || fabs(
-			rearMotor->Get()) > 0;
+	/*return fabs(frontMotor->Get()) > 0 || fabs(middleMotor->Get()) > 0 || fabs(
+			rearMotor->Get()) > 0;*/
+	return armState;
 }
 
 void Shooter::shoot(bool shooting) {
