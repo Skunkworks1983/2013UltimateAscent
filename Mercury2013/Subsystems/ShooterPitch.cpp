@@ -91,7 +91,7 @@ bool ShooterPitch::isPitchGrounded() {
 void ShooterPitch::motorSafety() {
 	if (isPitchGrounded()) {
 		pitchEncoder->Reset();
-		if (motorSpeedCache) {//pitchMotor->Get() > 0.0) {
+		if (motorSpeedCache > 0.0) {//pitchMotor->Get() > 0.0) {
 			pitchMotor->Set(0);
 		}
 	}

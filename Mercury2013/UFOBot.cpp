@@ -14,11 +14,12 @@
 void UFOBot::RobotInit() {
 	CommandBase::init();
 	lw = LiveWindow::GetInstance();
-	GetWatchdog().SetEnabled(true);
 	chooser = Scripting::generateAutonomousModes(AUTO_SCRIPT_LOCATIONS);
 	SmartDashboard::PutData("Autonomous modes", chooser);
 	SmartDashboard::PutData(Scheduler::GetInstance());
 
+	GetWatchdog().SetEnabled(true);
+	GetWatchdog().SetExpiration(1);
 	printVersion();
 }
 
@@ -58,7 +59,6 @@ void UFOBot::TeleopPeriodic() {
 void UFOBot::DisabledInit() {
 }
 void UFOBot::DisabledPeriodic() {
-	motorSaftey();
 	printVersion();
 }
 
