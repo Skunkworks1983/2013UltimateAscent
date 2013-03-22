@@ -68,6 +68,8 @@ void UFOBot::printVersion() {
 			"Version 1.12");
 	DriverStationLCD::GetInstance()->Printf(DriverStationLCD::kUser_Line2, 1,
 			"Thurs-Ellensburg");
+	DriverStationLCD::GetInstance()->Printf(DriverStationLCD::kUser_Line3, 1,
+			"%s %s", __TIME__, __DATE__);
 	DriverStationLCD::GetInstance()->UpdateLCD();
 }
 

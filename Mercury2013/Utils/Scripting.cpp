@@ -78,6 +78,7 @@ SendableChooser *Scripting::generateAutonomousModes(char *scriptLocations) {
 	chooser->AddDefault("Default",
 			new ScriptCommand(Autonomous::createDefault()));
 	chooser->AddObject("Blank", new Autonomous());
+	chooser->AddObject("JustShoot", Autonomous::createJustShoot());
 
 	DIR * dp;
 	struct dirent * ep;

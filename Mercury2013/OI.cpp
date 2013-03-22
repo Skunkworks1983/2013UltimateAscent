@@ -67,7 +67,7 @@ OI::OI() {
 	shooterCollectorButton = new AnalogRangeIOButton(OI_COLLECTOR_ANGLE_ANALOG,
 			1.402, 1.602);//1.502
 
-	autoCollectCommand = new Collect(false);
+	autoCollectCommand = new Collect(9999999.0);
 	collectButton = new JoystickButton(driveJoystickRight, 1);
 	ejectButton = new JoystickButton(driveJoystickRight, 3);
 

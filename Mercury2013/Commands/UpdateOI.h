@@ -9,6 +9,8 @@
  * @author Westin Miller
  */
 class UpdateOI: public CommandBase {
+private:
+	int countsSinceUpdate;
 public:
 	UpdateOI();
 	~UpdateOI();

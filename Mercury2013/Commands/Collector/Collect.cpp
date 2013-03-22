@@ -1,12 +1,14 @@
 #include "Collect.h"
 #include "../../Utils/Time.h"
 
-Collect::Collect(bool timesOut) :
-	CommandBase(CommandBase::createNameFromFloat("Collect", timesOut & 1)) {
+Collect::Collect(double timeout) :
+	CommandBase(CommandBase::createNameFromFloat("Collect", timeout)) {
 	Requires(collector);
-	SetTimeout(
-			timesOut ? ((double) COLLECTOR_COLLECT_TIMEOUT) / 1000.0
-					: 999999999.0);
+	if (timeout < 0.0) {
+		//Default timeout
+		timeout = COLLECTOR_COLLECT_TIMEOUT;
+	}
+	SetTimeout(timeout / 1000.0);
 	SetInterruptible(true);
 }
 

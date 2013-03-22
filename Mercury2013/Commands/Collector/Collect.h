@@ -11,7 +11,7 @@ class Collect: public CommandBase {
 private:
 	double gotOne;
 public:
-	Collect(bool timesOut);
+	Collect(double timeout);
 	~Collect();
 	virtual void Initialize();
 	/**

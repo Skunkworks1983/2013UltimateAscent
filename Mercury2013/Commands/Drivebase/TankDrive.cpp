@@ -1,4 +1,5 @@
 #include "TankDrive.h"
+#include <math.h>
 
 TankDrive::TankDrive(float speedMultiplier) :
 	CommandBase("TankDrive") {
@@ -11,18 +12,18 @@ void TankDrive::Initialize() {
 }
 
 void TankDrive::Execute() {
+	float leftY = -oi->getDriveJoystickLeft()->GetAxis(Joystick::kYAxis);
+	float rightY = -oi->getDriveJoystickRight()->GetAxis(Joystick::kYAxis);
+	if (fabs(leftY) <= OI_JOYSTICK_DEADBAND) {
+		leftY = 0.0;
+	}
+	if (fabs(rightY) <= OI_JOYSTICK_DEADBAND) {
+		rightY = 0.0;
+	}
 	if (speedMultiplier > 0.0) {
-		driveBase->setSpeed(
-				-oi->getDriveJoystickLeft()->GetAxis(Joystick::kYAxis)
-						* speedMultiplier,
-				-oi->getDriveJoystickRight()->GetAxis(Joystick::kYAxis)
-						* speedMultiplier);
+		driveBase->setSpeed(leftY * speedMultiplier, rightY * speedMultiplier);
 	} else {
-		driveBase->setSpeed(
-				-oi->getDriveJoystickRight()->GetAxis(Joystick::kYAxis)
-						* speedMultiplier,
-				-oi->getDriveJoystickLeft()->GetAxis(Joystick::kYAxis)
-						* speedMultiplier);
+		driveBase->setSpeed(rightY * speedMultiplier, leftY * speedMultiplier);
 	}
 }
 

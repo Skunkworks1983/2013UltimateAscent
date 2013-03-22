@@ -16,29 +16,42 @@ Autonomous::Autonomous() :
 }
 
 Autonomous::Autonomous(char *style) :
-		CommandGroup(style) {
+	CommandGroup(style) {
 }
 
 Autonomous *Autonomous::createDefault() {
 	Autonomous *cmd = new Autonomous("Autonomous-PyraFront");
 	cmd->AddSequential(new MoveCollectorArm(0));
-	cmd->AddParallel(new DriveDistance(22));
-	cmd->AddSequential(new Collect(false));
+	cmd->AddParallel(new DriveDistance(11));//22
+	cmd->AddSequential(new Collect(7500.0));
 	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_MID));
 	cmd->AddSequential(new EjectDisks(Collector::kForward));
 	cmd->AddParallel(new MoveCollectorArm(10));
 	cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
 	cmd->AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT));
-	cmd->AddSequential(new DriveDistance(-18));
+	cmd->AddSequential(new DriveDistance(-11));
 
 	for (int i = 0; i < 4; i++) {
 		cmd->AddSequential(new Shoot());
 		cmd->AddSequential(new WaitCommand(.65));
 	}
-	
+
 	cmd->AddSequential(new ArmShooter(ArmShooter::kOff));
 	cmd->AddParallel(new ChangeShooterPitch(0));
 	cmd->AddSequential(new DriveDistance(12));
+	return cmd;
+}
+
+Autonomous *Autonomous::createJustShoot() {
+	Autonomous *cmd = new Autonomous("Autonomous-JustShoot");
+	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
+	cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
+	cmd->AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT));
+	for (int i = 0; i < 4; i++) {
+		cmd->AddSequential(new Shoot());
+		cmd->AddSequential(new WaitCommand(.65));
+	}
+	cmd->AddSequential(new ArmShooter(ArmShooter::kOff));
 	return cmd;
 }
 
@@ -70,7 +83,7 @@ Autonomous::Autonomous(int argc, char **argv) :
 			use = new WaitUntilCommand(arg);
 			break;
 		case AUTO_SCRIPT_CHARMASK('c','n'):
-			use = new Collect(arg >= 1.0);
+			use = new Collect(arg);
 			break;
 		case AUTO_SCRIPT_CHARMASK('c','p'):
 			use = new MoveCollectorArm(arg);

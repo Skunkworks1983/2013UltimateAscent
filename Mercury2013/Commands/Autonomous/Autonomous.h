@@ -6,6 +6,7 @@
 class Autonomous: public CommandGroup {
 public:
 	static Autonomous *createDefault();
+	static Autonomous *createJustShoot();
 public:
 	Autonomous();
 	Autonomous(char *style);

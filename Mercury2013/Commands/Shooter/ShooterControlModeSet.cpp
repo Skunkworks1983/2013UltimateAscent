@@ -27,6 +27,10 @@ bool ShooterControlModeSet::IsFinished() {
 }
 
 void ShooterControlModeSet::End() {
+	SmartDashboard::PutString("Shooter Control Mode",
+			Shooter::getControlTypeName(shooter->getControlScheme()));
+	SmartDashboard::PutString("Shooter Wait Mode",
+			Shooter::getWaitTypeName(shooter->getWaitScheme()));
 }
 
 void ShooterControlModeSet::Interrupted() {

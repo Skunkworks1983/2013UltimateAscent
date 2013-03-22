@@ -37,6 +37,7 @@ bool Shift::IsFinished() {
 }
 
 void Shift::End() {
+	SmartDashboard::PutBoolean("Is Low Gear", driveBase->isLowGear());
 }
 
 void Shift::Interrupted() {
