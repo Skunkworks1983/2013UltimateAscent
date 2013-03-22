@@ -6,6 +6,8 @@
 #include "../Collector/EjectDisks.h"
 #include "../Collector/MoveCollectorArm.h"
 
+#include "../CommandStarter.h"
+#include "../CommandCanceler.h"
 #include "../Shooter/Shoot.h"
 #include "../Shooter/ChangeShooterPitch.h"
 #include "../Shooter/ArmShooter.h"
@@ -21,15 +23,18 @@ Autonomous::Autonomous(char *style) :
 
 Autonomous *Autonomous::createDefault() {
 	Autonomous *cmd = new Autonomous("Autonomous-PyraFront");
+	DriveDistance *origDrive = new DriveDistance(11);
 	cmd->AddSequential(new MoveCollectorArm(0));
-	cmd->AddParallel(new DriveDistance(11));//22
+	cmd->AddParallel(origDrive);//22
 	cmd->AddSequential(new Collect(7500.0));
+	cmd->AddSequential(new CommandCanceler(origDrive));
 	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_MID));
 	cmd->AddSequential(new EjectDisks(Collector::kForward));
 	cmd->AddParallel(new MoveCollectorArm(10));
 	cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
 	cmd->AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT));
-	cmd->AddSequential(new DriveDistance(-11));
+	cmd->AddSequential(
+			new CommandStarter(DriveDistance::invertDriveCommand, origDrive));
 
 	for (int i = 0; i < 4; i++) {
 		cmd->AddSequential(new Shoot());
