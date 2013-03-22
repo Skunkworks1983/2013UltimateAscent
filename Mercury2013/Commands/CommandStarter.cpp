@@ -1,17 +1,19 @@
 #include "CommandStarter.h"
 #include "WPILib.h"
 
-CommandStarter::CommandStarter(CreateCommand create, bool waitForRequirements) :
+CommandStarter::CommandStarter(CreateCommand create, void *arg,
+		bool waitForRequirements) :
 	CommandBase("CommandStarter") {
 	this->create = create;
 	this->waitForRequirements = waitForRequirements;
+	this->arg = arg;
 }
 
 CommandStarter::~CommandStarter() {
 }
 
 void CommandStarter::Initialize() {
-	this->orders = create();
+	this->orders = create(arg);
 }
 
 void CommandStarter::Execute() {

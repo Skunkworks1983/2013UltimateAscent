@@ -59,8 +59,8 @@ private:
 public:
 	OI();
 
-	static Command* createChangePitchFromOI();
-	static Command* createChangeCollectorPitch();
+	static Command* createChangePitchFromOI(void *arg);
+	static Command* createChangeCollectorPitch(void *arg);
 	static double getCollectorTargetPitch();
 	static double getShooterTargetPitch();
 	

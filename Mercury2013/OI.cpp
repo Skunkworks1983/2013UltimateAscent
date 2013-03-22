@@ -168,10 +168,10 @@ double OI::getShooterTargetPitch() {
 	return CommandBase::oi->targetShooterPitch;
 }
 
-Command *OI::createChangeCollectorPitch() {
+Command *OI::createChangeCollectorPitch(void *arg) {
 	return new MoveCollectorArm(getCollectorTargetPitch());
 }
 
-Command* OI::createChangePitchFromOI() {
+Command* OI::createChangePitchFromOI(void *arg) {
 	return new ChangeShooterPitch(OI::getShooterTargetPitch());
 }
