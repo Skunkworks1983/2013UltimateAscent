@@ -17,6 +17,7 @@ void UFOBot::RobotInit() {
 	chooser = Scripting::generateAutonomousModes(AUTO_SCRIPT_LOCATIONS);
 	SmartDashboard::PutData("Autonomous modes", chooser);
 	SmartDashboard::PutData(Scheduler::GetInstance());
+	SetPeriod(50.0 / 1000.0);
 
 	GetWatchdog().SetEnabled(true);
 	GetWatchdog().SetExpiration(1);
@@ -29,12 +30,14 @@ void UFOBot::AutonomousInit() {
 	((ScriptRunner*) chooser->GetSelected())->startCommand();
 }
 void UFOBot::AutonomousPeriodic() {
+	CommandBase::loopsPerSecond = GetLoopsPerSec();
 	GetWatchdog().Feed();
 	Scheduler::GetInstance()->Run();
 	motorSaftey();
 }
 
 void UFOBot::DefaultInit() {
+	printVersion();
 	Scheduler::GetInstance()->RemoveAll();
 	CommandBase::driveBase->reset();
 	CommandBase::driveBase->shift(false);
@@ -51,6 +54,7 @@ void UFOBot::TeleopInit() {
 }
 
 void UFOBot::TeleopPeriodic() {
+	CommandBase::loopsPerSecond = GetLoopsPerSec();
 	GetWatchdog().Feed();
 	Scheduler::GetInstance()->Run();
 	motorSaftey();
@@ -59,6 +63,7 @@ void UFOBot::TeleopPeriodic() {
 void UFOBot::DisabledInit() {
 }
 void UFOBot::DisabledPeriodic() {
+	CommandBase::loopsPerSecond = GetLoopsPerSec();
 	printVersion();
 }
 
@@ -76,6 +81,7 @@ void UFOBot::TestInit() {
 }
 
 void UFOBot::TestPeriodic() {
+	CommandBase::loopsPerSecond = GetLoopsPerSec();
 	GetWatchdog().Feed();
 	lw->Run();
 	motorSaftey();

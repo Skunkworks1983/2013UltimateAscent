@@ -2,7 +2,9 @@
 #include <math.h>
 
 ChangeShooterPitch::ChangeShooterPitch(float targetPitch, bool waitForCollector) :
-	CommandBase(CommandBase::createNameFromFloat("ChangeShooterPitch", targetPitch)) {
+			CommandBase(
+					CommandBase::createNameFromFloat("ChangeShooterPitch",
+							targetPitch)) {
 	Requires(shooterPitch);
 	SetInterruptible(true);
 	this->targetPitch = targetPitch;
@@ -28,9 +30,8 @@ void ChangeShooterPitch::Execute() {
 		return;
 	}
 	float pitchOffset = shooterPitch->getCurrentPitch() - targetPitch;
-	if (pitchOffset > 0 && ((targetPitch < 0.0
-			&& shooterPitch->isPitchGrounded()) || fabs(pitchOffset)
-			< SHOOTER_PITCH_THRESHOLD)) {
+	if ((targetPitch < 0.0 && shooterPitch->isPitchGrounded()) || fabs(
+			pitchOffset) < SHOOTER_PITCH_THRESHOLD) {
 		shooterPitch->setPitchMotorSpeed(0);
 		outOfBounds = true;
 	} else {

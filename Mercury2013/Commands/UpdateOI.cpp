@@ -29,6 +29,7 @@ void UpdateOI::Execute() {
 		SmartDashboard::PutNumber("Shooter Front Speed",
 				shooter->getFrontSpeed());
 		SmartDashboard::PutNumber("Shooter Rear Speed", shooter->getRearSpeed());
+		SmartDashboard::PutNumber("Loops per Second", CommandBase::loopsPerSecond);
 	}
 }
 

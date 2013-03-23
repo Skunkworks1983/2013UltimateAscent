@@ -38,6 +38,7 @@ public:
 	static Climber *climber;
 	static ShooterPitch *shooterPitch;
 	static bool subsystems;
+	static double loopsPerSecond;
 };
 
 #endif
