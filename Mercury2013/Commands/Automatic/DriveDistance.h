@@ -11,8 +11,7 @@
  */
 class DriveDistance: public CommandBase {
 private:
-	float leftTargetDistance;
-	float rightTargetDistance;
+	float targetDistance;
 	float leftDistanceRemaining;
 	float rightDistanceRemaining;
 	int stability;
@@ -22,7 +21,7 @@ private:
 	 * @param remainingDistance the remaining distance, in inches
 	 * @return the motor speed
 	 */
-	float getSpeedFor(float remainingDistance);
+	static float getSpeedFor(float remainingDistance);
 public:
 	/**
 	 * @brief Creates a command to drive a certain distance.

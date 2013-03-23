@@ -33,9 +33,9 @@ Autonomous *Autonomous::createDefault() {
 	cmd->AddParallel(new MoveCollectorArm(10));
 	cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
 	cmd->AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT));
-	cmd->AddSequential(
-			new CommandStarter(DriveDistance::invertDriveCommand, origDrive));
-
+	/*cmd->AddSequential(
+			new CommandStarter(DriveDistance::invertDriveCommand, origDrive));*/
+	cmd->AddSequential(new DriveDistance(-11));
 	for (int i = 0; i < 4; i++) {
 		cmd->AddSequential(new Shoot());
 		cmd->AddSequential(new WaitCommand(.65));

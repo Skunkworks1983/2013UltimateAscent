@@ -131,12 +131,12 @@
 #define SHOOTER_PITCH_UPPER_LIMIT				(1.0)
 #define SHOOTER_PITCH_DEGREES_PER_PULSE			(1.0/27500.0)
 // Shooter pitch control info
-#define SHOOTER_PITCH_THRESHOLD					(0.0125) /* Random units; scalar of shooter angle */
+#define SHOOTER_PITCH_THRESHOLD					(0.0125)  /*Random units; scalar of shooter angle */
 #define SHOOTER_PITCH_COLLECT					(0)
 #define SHOOTER_PITCH_SLOT_COLLECT				(0.5) /*TODO*/
 #define SHOOTER_PITCH_STABILITY					(25)
 
-#define SHOOTER_PITCH_PYRAMID_BACK				(.600)//(.637)
+#define SHOOTER_PITCH_PYRAMID_BACK				(.575)/*(.600)(.637)*/
 #define SHOOTER_PITCH_PYRAMID_SIDE				(.95)
 #define SHOOTER_PITCH_PYRAMID_FRONT				(1.0) /* .451 was the low end */
 

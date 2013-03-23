@@ -8,8 +8,7 @@ DriveDistance::DriveDistance(float targetDistance) :
 					CommandBase::createNameFromFloat("DriveDistance",
 							targetDistance)) {
 	Requires(driveBase);
-	this->leftTargetDistance = targetDistance;
-	this->rightTargetDistance = targetDistance;
+	this->targetDistance = targetDistance;
 }
 
 void DriveDistance::Initialize() {
@@ -19,9 +18,9 @@ void DriveDistance::Initialize() {
 }
 
 void DriveDistance::Execute() {
-	leftDistanceRemaining = leftTargetDistance
+	leftDistanceRemaining = targetDistance
 			- driveBase->getLeftEncoder()->GetDistance();
-	rightDistanceRemaining = rightTargetDistance
+	rightDistanceRemaining = targetDistance
 			- driveBase->getRightEncoder()->GetDistance();
 
 	driveBase->setSpeed(getSpeedFor(leftDistanceRemaining),
@@ -62,10 +61,7 @@ void DriveDistance::Interrupted() {
 
 Command *DriveDistance::invertDriveCommand(void *arg) {
 	DriveDistance *orig = (DriveDistance*) arg;
-	DriveDistance *created = new DriveDistance(0.0);
-	created->leftTargetDistance = -(orig->leftTargetDistance
-			- orig->leftDistanceRemaining);
-	created->rightTargetDistance = -(orig->rightTargetDistance
-			- orig->rightDistanceRemaining);
-	return created;
+	float leftD = -(orig->targetDistance - orig->leftDistanceRemaining);
+	float rightD = -(orig->targetDistance - orig->rightDistanceRemaining);
+	return new DriveDistance((leftD + rightD) / 2.0);
 }
