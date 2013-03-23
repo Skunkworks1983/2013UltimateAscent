@@ -50,6 +50,5 @@ void CommandBase::init() {
 	collectorArms = new CollectorArms();
 	climber = new Climber();
 	shooterPitch = new ShooterPitch();
-
 	oi = new OI();
 }

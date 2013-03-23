@@ -12,13 +12,15 @@
 class UFOBot: public IterativeRobot {
 private:
 	double lastLoopCall;
+	double sumRate;
 	LiveWindow *lw;
 	SendableChooser *chooser;
 	void printVersion();
+	int cache;
 public:
 	virtual void RobotInit();
-	double getRealLoopsPerSecond();
-	
+	void updateRealLoopsPerSecond();
+
 	/**
 	 * @brief Common initialization code.
 	 * 

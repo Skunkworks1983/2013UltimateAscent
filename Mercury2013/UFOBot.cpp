@@ -22,15 +22,22 @@ void UFOBot::RobotInit() {
 	GetWatchdog().SetEnabled(true);
 	GetWatchdog().SetExpiration(1);
 	printVersion();
+	cache = 0;
+	sumRate = 0.0;
 }
 
-double UFOBot::getRealLoopsPerSecond() {
+void UFOBot::updateRealLoopsPerSecond() {
 	double passed = getCurrentMillis() - lastLoopCall;
 	lastLoopCall = getCurrentMillis();
+	double rate = 999999.0;
 	if (passed > 0.0) {
-		return 1000.0 / passed;
-	} else {
-		return 9999999.0;
+		rate = 1000.0 / passed;
+	}
+	sumRate *= 0.75;
+	sumRate += rate * 0.25;
+	if (++cache > OI_DASH_UPDATE_SPEED) {
+		cache = 0;
+		SmartDashboard::PutNumber("Loops per Second", sumRate);
 	}
 }
 void UFOBot::AutonomousInit() {
@@ -39,13 +46,14 @@ void UFOBot::AutonomousInit() {
 	((ScriptRunner*) chooser->GetSelected())->startCommand();
 }
 void UFOBot::AutonomousPeriodic() {
-	CommandBase::loopsPerSecond = getRealLoopsPerSecond();
+	updateRealLoopsPerSecond();
 	GetWatchdog().Feed();
 	Scheduler::GetInstance()->Run();
 	motorSaftey();
 }
 
 void UFOBot::DefaultInit() {
+	sumRate = 0.0;
 	printVersion();
 	Scheduler::GetInstance()->RemoveAll();
 	CommandBase::driveBase->reset();
@@ -63,7 +71,7 @@ void UFOBot::TeleopInit() {
 }
 
 void UFOBot::TeleopPeriodic() {
-	CommandBase::loopsPerSecond = getRealLoopsPerSecond();
+	updateRealLoopsPerSecond();
 	GetWatchdog().Feed();
 	Scheduler::GetInstance()->Run();
 	motorSaftey();
@@ -72,7 +80,7 @@ void UFOBot::TeleopPeriodic() {
 void UFOBot::DisabledInit() {
 }
 void UFOBot::DisabledPeriodic() {
-	CommandBase::loopsPerSecond = getRealLoopsPerSecond();
+	updateRealLoopsPerSecond();
 	printVersion();
 }
 
@@ -90,7 +98,7 @@ void UFOBot::TestInit() {
 }
 
 void UFOBot::TestPeriodic() {
-	CommandBase::loopsPerSecond = getRealLoopsPerSecond();
+	updateRealLoopsPerSecond();
 	GetWatchdog().Feed();
 	lw->Run();
 	motorSaftey();
