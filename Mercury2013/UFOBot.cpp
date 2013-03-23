@@ -24,13 +24,22 @@ void UFOBot::RobotInit() {
 	printVersion();
 }
 
+double UFOBot::getRealLoopsPerSecond() {
+	double passed = getCurrentMillis() - lastLoopCall;
+	lastLoopCall = getCurrentMillis();
+	if (passed > 0.0) {
+		return 1000.0 / passed;
+	} else {
+		return 9999999.0;
+	}
+}
 void UFOBot::AutonomousInit() {
 	DefaultInit();
 	Scheduler::GetInstance()->RemoveAll();
 	((ScriptRunner*) chooser->GetSelected())->startCommand();
 }
 void UFOBot::AutonomousPeriodic() {
-	CommandBase::loopsPerSecond = GetLoopsPerSec();
+	CommandBase::loopsPerSecond = getRealLoopsPerSecond();
 	GetWatchdog().Feed();
 	Scheduler::GetInstance()->Run();
 	motorSaftey();
@@ -54,7 +63,7 @@ void UFOBot::TeleopInit() {
 }
 
 void UFOBot::TeleopPeriodic() {
-	CommandBase::loopsPerSecond = GetLoopsPerSec();
+	CommandBase::loopsPerSecond = getRealLoopsPerSecond();
 	GetWatchdog().Feed();
 	Scheduler::GetInstance()->Run();
 	motorSaftey();
@@ -63,7 +72,7 @@ void UFOBot::TeleopPeriodic() {
 void UFOBot::DisabledInit() {
 }
 void UFOBot::DisabledPeriodic() {
-	CommandBase::loopsPerSecond = GetLoopsPerSec();
+	CommandBase::loopsPerSecond = getRealLoopsPerSecond();
 	printVersion();
 }
 
@@ -81,7 +90,7 @@ void UFOBot::TestInit() {
 }
 
 void UFOBot::TestPeriodic() {
-	CommandBase::loopsPerSecond = GetLoopsPerSec();
+	CommandBase::loopsPerSecond = getRealLoopsPerSecond();
 	GetWatchdog().Feed();
 	lw->Run();
 	motorSaftey();
