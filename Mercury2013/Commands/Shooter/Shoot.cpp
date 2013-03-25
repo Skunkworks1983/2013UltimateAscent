@@ -5,10 +5,10 @@ Shoot::Shoot() :
 	CommandBase("Shoot") {
 	Requires(shooter);
 	SetInterruptible(false);
-	shotTime = -1.0;
 }
 
 void Shoot::Initialize() {
+	shotTime = -1.0;
 }
 
 void Shoot::Execute() {

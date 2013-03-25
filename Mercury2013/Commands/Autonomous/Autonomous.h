@@ -5,12 +5,13 @@
 
 class Autonomous: public CommandGroup {
 public:
-	static Autonomous *createDefault();
-	static Autonomous *createJustShoot();
+	static Autonomous *createCollectPyraFront();
+	static Autonomous *createJustShootFront();
 public:
 	Autonomous();
 	Autonomous(char *style);
 	Autonomous(int argc, char **argv);
+	virtual void Initialize();
 	~Autonomous();
 };
 

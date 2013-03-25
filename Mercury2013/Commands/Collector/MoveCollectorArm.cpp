@@ -12,10 +12,16 @@ MoveCollectorArm::~MoveCollectorArm() {
 void MoveCollectorArm::Initialize() {
 	collectorArms->setPIDState(true);
 	collectorArms->setSetpoint(goal);
+	stability = 0;
 }
 
 void MoveCollectorArm::Execute() {
 	//Wait for the PID controller...
+	if (collectorArms->isPIDDone()) {
+		stability++;
+	} else {
+		stability = 0;
+	}
 }
 
 bool MoveCollectorArm::IsFinished() {
@@ -29,7 +35,7 @@ bool MoveCollectorArm::IsFinished() {
 			> COLLECTOR_SHOOTER_INTERFERENCE_LOW))) {
 		return true;
 	} else {
-		return collectorArms->isPIDDone();
+		return stability >= COLLECTOR_PITCH_STABILITY;
 	}
 }
 

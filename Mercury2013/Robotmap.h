@@ -50,7 +50,7 @@
 #define AUTO_SCRIPT_MAXLENGTH			(256)
 #define AUTO_SCRIPT_MAXLINES			(64)
 #define AUTO_SCRIPT_COMMAND_MAXLENGTH	(20)
-#define AUTO_SCRIPT_LOCATIONS			"/c/ni-rt/automagic/"
+#define AUTO_SCRIPT_LOCATIONS			"/c/automagic/"
 #define AUTO_SCRIPT_CHARMASK(a,b)		((((int)a) << 8) | ((int)b))
 
 /**
@@ -112,9 +112,9 @@
 
 #define SHOOTER_MOTOR_FLUSH_SPEED				(-0.75) /* TODO */
 // Various times (millis)
-#define SHOOTER_ARM_TIME						(1500) /* TODO */
-#define SHOOTER_SHOOT_TIME						(500) /* TODO */
-#define SHOOTER_WAIT_TIME						(1250) /* TODO */
+#define SHOOTER_ARM_TIME						(1000) /* TODO */
+#define SHOOTER_SHOOT_TIME						(150) /* TODO */
+#define SHOOTER_WAIT_TIME						(300) /* (1250) */
 #define SHOOTER_FLUSH_TIME						(500) /* TODO */
 
 // Class name of the shooter and shooter pitch motor controllers
@@ -136,13 +136,13 @@
 #define SHOOTER_PITCH_SLOT_COLLECT				(0.5) /*TODO*/
 #define SHOOTER_PITCH_STABILITY					(25)
 
-#define SHOOTER_PITCH_PYRAMID_BACK				(.575)/*(.600)(.637)*/
+#define SHOOTER_PITCH_PYRAMID_BACK				(.545)/*(.575)(.600)(.637)*/
 #define SHOOTER_PITCH_PYRAMID_SIDE				(.95)
-#define SHOOTER_PITCH_PYRAMID_FRONT				(1.0) /* .451 was the low end */
+#define SHOOTER_PITCH_PYRAMID_FRONT				(.95) /* .451 was the low end TODO double check */
 
 #define SHOOTER_LIGHT							(2) /* The shooter light relay */
-#define SHOOTER_DEFAULT_CONTROL					kPowerBang
-#define SHOOTER_DEFAULT_WAIT					kTime
+#define SHOOTER_DEFAULT_CONTROL					Shooter::kPowerBang
+#define SHOOTER_DEFAULT_WAIT					Shooter::kTime
 
 /**
  * --COLLECTOR--
@@ -165,15 +165,15 @@
 #define COLLECTOR_PITCH_CONVERT(value)			(((value - 205) * 90) / 315)
 //#define COLLECTOR_PITCH_INVERTs(value)			(((value * 315) / 90) + 205)
 #define COLLECTOR_PITCH_P						(0.09)
-#define COLLECTOR_PITCH_I						(0.001)
+#define COLLECTOR_PITCH_I						(0.00125) /* .001 */
 #define COLLECTOR_PITCH_D						(0.05)
 #define COLLECTOR_PITCH_CATCHUP					(10.0)
 
-#define COLLECTOR_PITCH_TOLERANCE				(5)
+#define COLLECTOR_PITCH_TOLERANCE				(6) /*5.0*/
 #define COLLECTOR_PITCH_FLOOR					(0)
 #define COLLECTOR_PITCH_LIGHT_LOW				(3)
-#define COLLECTOR_PITCH_DOWN					(10) /* TODO */
-#define COLLECTOR_PITCH_MID						(51)
+#define COLLECTOR_PITCH_DOWN					(17.5) /* TODO */
+#define COLLECTOR_PITCH_MID						(52) /* 51 */
 #define COLLECTOR_PITCH_UP						(90) 
 
 #define COLLECTOR_PITCH_POT_MIN					(0)

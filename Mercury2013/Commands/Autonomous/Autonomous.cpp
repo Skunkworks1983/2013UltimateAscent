@@ -21,41 +21,42 @@ Autonomous::Autonomous(char *style) :
 	CommandGroup(style) {
 }
 
-Autonomous *Autonomous::createDefault() {
-	Autonomous *cmd = new Autonomous("Autonomous-PyraFront");
-	DriveDistance *origDrive = new DriveDistance(11);
+Autonomous *Autonomous::createCollectPyraFront() {
+	Autonomous *cmd = new Autonomous("Autonomous-CollectPyraFront");
 	cmd->AddSequential(new MoveCollectorArm(0));
-	cmd->AddParallel(origDrive);//22
+	cmd->AddParallel(new DriveDistance(11));
 	cmd->AddSequential(new Collect(7500.0));
-	cmd->AddSequential(new CommandCanceler(origDrive));
+	// TODO cancel the drive command and cache the distances to reverse it
+	// @see CommandCanceler and DriveDistance::invertDriveCommand
 	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_MID));
 	cmd->AddSequential(new EjectDisks(Collector::kForward));
 	cmd->AddParallel(new MoveCollectorArm(10));
 	cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
 	cmd->AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT));
-	/*cmd->AddSequential(
-			new CommandStarter(DriveDistance::invertDriveCommand, origDrive));*/
 	cmd->AddSequential(new DriveDistance(-11));
-	for (int i = 0; i < 4; i++) {
-		cmd->AddSequential(new Shoot());
-		cmd->AddSequential(new WaitCommand(.65));
-	}
+
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
 
 	cmd->AddSequential(new ArmShooter(ArmShooter::kOff));
-	cmd->AddParallel(new ChangeShooterPitch(0));
 	cmd->AddSequential(new DriveDistance(12));
+	cmd->AddSequential(new ChangeShooterPitch(0));
 	return cmd;
 }
 
-Autonomous *Autonomous::createJustShoot() {
-	Autonomous *cmd = new Autonomous("Autonomous-JustShoot");
-	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
+Autonomous *Autonomous::createJustShootFront() {
+	Autonomous *cmd = new Autonomous("Autonomous-JustShootPyraFront");
 	cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
+	cmd->AddSequential(new MoveCollectorArm(10));
 	cmd->AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT));
-	for (int i = 0; i < 4; i++) {
-		cmd->AddSequential(new Shoot());
-		cmd->AddSequential(new WaitCommand(.65));
-	}
+
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
+
 	cmd->AddSequential(new ArmShooter(ArmShooter::kOff));
 	return cmd;
 }
@@ -128,4 +129,9 @@ Autonomous::Autonomous(int argc, char **argv) :
 
 Autonomous::~Autonomous() {
 
+}
+
+void Autonomous::Initialize() {
+	CommandBase::shooter->setControlScheme(SHOOTER_DEFAULT_CONTROL);
+	CommandBase::shooter->setWaitScheme(SHOOTER_DEFAULT_WAIT);
 }

@@ -86,9 +86,9 @@ void UFOBot::DisabledPeriodic() {
 
 void UFOBot::printVersion() {
 	DriverStationLCD::GetInstance()->Printf(DriverStationLCD::kUser_Line1, 1,
-			"Version 1.2.0");
+			"Version 1.3.0");
 	DriverStationLCD::GetInstance()->Printf(DriverStationLCD::kUser_Line2, 1,
-			"Sat-Begin-Ellensburg");
+			"Ellensburg-Final");
 	DriverStationLCD::GetInstance()->Printf(DriverStationLCD::kUser_Line3, 1,
 			"%s %s", __TIME__, __DATE__);
 	DriverStationLCD::GetInstance()->UpdateLCD();

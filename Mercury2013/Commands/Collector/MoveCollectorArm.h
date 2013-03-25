@@ -19,6 +19,7 @@ class MoveCollectorArm: public CommandBase {
 private:
 	PIDController *controller;
 	float goal;
+	int stability;
 public:
 	MoveCollectorArm(float goal);
 	~MoveCollectorArm();
