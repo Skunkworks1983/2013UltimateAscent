@@ -136,8 +136,8 @@
 #define SHOOTER_PITCH_SLOT_COLLECT				(0.5) /*TODO*/
 #define SHOOTER_PITCH_STABILITY					(25)
 
-#define SHOOTER_PITCH_PYRAMID_BACK				(.515)/*(.575)(.600)(.637)*/
-#define SHOOTER_PITCH_PYRAMID_SIDE				(.9)
+#define SHOOTER_PITCH_PYRAMID_BACK				(.53)/*(.575)(.600)(.637)*/
+#define SHOOTER_PITCH_PYRAMID_SIDE				(.65)
 #define SHOOTER_PITCH_PYRAMID_FRONT				(.94) /* .95 */
 
 #define SHOOTER_LIGHT							(2) /* The shooter light relay */

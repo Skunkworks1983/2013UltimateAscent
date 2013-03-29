@@ -101,6 +101,7 @@ void Shooter::setArmed(bool armed) {
 		frontMotor->Set(0);
 		middleMotor->Set(0);
 		rearMotor->Set(0);
+		shootSolenoid->Set(false);
 	}
 	armState = armed;
 }
