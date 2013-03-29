@@ -21,6 +21,36 @@ Autonomous::Autonomous(char *style) :
 	CommandGroup(style) {
 }
 
+Autonomous *Autonomous::createCollect6PyraInner() {
+	Autonomous *cmd = new Autonomous("Autonomous-Collect6PyraInner");
+
+	// Drive and collect block
+	cmd->AddSequential(new Shift(Shift::kHigh));
+	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
+	cmd->AddParallel(new DriveDistance(6));
+	cmd->AddSequential(new Collect(7500.0));
+
+	//Put into shooter block
+	cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
+	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_MID));
+	cmd->AddSequential(new EjectDisks(Collector::kForward));
+	cmd->AddParallel(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
+	cmd->AddSequential(
+			new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT, true));
+	
+	//Now shoot the 4
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
+
+	//Now we need to collect moar
+	//Get to the start of the other autonomous program...
+	cmd->AddSequential(new DriveDistance(74 - 6)); //UGH
+	
+	cmd->AddSequential(createCollectPyraFront());
+	return cmd;
+}
 Autonomous *Autonomous::createCollectPyraFront() {
 	Autonomous *cmd = new Autonomous("Autonomous-CollectPyraFront");
 	cmd->AddSequential(new Shift(Shift::kHigh));
