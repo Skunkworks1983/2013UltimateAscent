@@ -9,9 +9,20 @@ DriveDistance::DriveDistance(float targetDistance) :
 							targetDistance)) {
 	Requires(driveBase);
 	this->targetDistance = targetDistance;
+	this->reset = true;
+}
+
+DriveDistance *DriveDistance::setResetEncoder(bool r) {
+	this->reset = r;
+	return this;
 }
 
 void DriveDistance::Initialize() {
+	if ((~reset) & 1) {
+		targetDistance = ((targetDistance
+				- driveBase->getLeftEncoder()->GetDistance()) + (targetDistance
+				- driveBase->getRightEncoder()->GetDistance())) / 2.0;
+	}
 	driveBase->getLeftEncoder()->Reset();
 	driveBase->getRightEncoder()->Reset();
 	stability = 0;
@@ -22,7 +33,6 @@ void DriveDistance::Execute() {
 			- driveBase->getLeftEncoder()->GetDistance();
 	rightDistanceRemaining = targetDistance
 			- driveBase->getRightEncoder()->GetDistance();
-
 	driveBase->setSpeed(getSpeedFor(leftDistanceRemaining),
 			getSpeedFor(rightDistanceRemaining));
 

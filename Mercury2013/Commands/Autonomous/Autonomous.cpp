@@ -23,6 +23,7 @@ Autonomous::Autonomous(char *style) :
 
 Autonomous *Autonomous::createCollectPyraFront() {
 	Autonomous *cmd = new Autonomous("Autonomous-CollectPyraFront");
+	cmd->AddSequential(new Shift(Shift::kHigh));
 	cmd->AddSequential(new MoveCollectorArm(0));
 	cmd->AddParallel(new DriveDistance(11));
 	cmd->AddSequential(new Collect(7500.0));
@@ -39,9 +40,10 @@ Autonomous *Autonomous::createCollectPyraFront() {
 	cmd->AddSequential(new Shoot());
 	cmd->AddSequential(new Shoot());
 	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
 
 	cmd->AddSequential(new ArmShooter(ArmShooter::kOff));
-	cmd->AddSequential(new DriveDistance(12));
 	cmd->AddSequential(new ChangeShooterPitch(0));
 	return cmd;
 }

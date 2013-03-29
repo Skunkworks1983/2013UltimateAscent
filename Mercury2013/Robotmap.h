@@ -39,7 +39,7 @@
 #define AUTO_TURN_GYRO_THRESHOLD  		(.25)	    /* Degrees, stopping tolerance */
 #define AUTO_TURN_SLOW_DOWN				(12)
 #define AUTO_TURN_SPEED_RANGE 			(AUTO_TURN_SPEED_MAX - AUTO_TURN_SPEED_MIN) /* Speed Range */
-#define AUTO_DRIVE_DIST_SLOW_DOWN		(6)
+#define AUTO_DRIVE_DIST_SLOW_DOWN		(12)
 #define AUTO_DRIVE_DIST_THRESHOLD		(1)		/* Inches, stopping tolerance */
 #define AUTO_DRIVE_DIST_SPEED_MAX 		(0.5)   	/* Maximum speed allowed by DriveDistance */
 #define AUTO_DRIVE_DIST_SPEED_MIN		(.25)   	/* Minimum speed of robot.*/  
@@ -129,16 +129,16 @@
 #define SHOOTER_PITCH_ENCODER					12,13
 #define SHOOTER_PITCH_LIMIT_SWITCH				(11)
 #define SHOOTER_PITCH_UPPER_LIMIT				(1.0)
-#define SHOOTER_PITCH_DEGREES_PER_PULSE			(1.0/27500.0)
+#define SHOOTER_PITCH_DEGREES_PER_PULSE			(1.0/27500.0*360.0/-256.0)
 // Shooter pitch control info
 #define SHOOTER_PITCH_THRESHOLD					(0.0125)  /*Random units; scalar of shooter angle */
 #define SHOOTER_PITCH_COLLECT					(0)
 #define SHOOTER_PITCH_SLOT_COLLECT				(0.5) /*TODO*/
 #define SHOOTER_PITCH_STABILITY					(25)
 
-#define SHOOTER_PITCH_PYRAMID_BACK				(.545)/*(.575)(.600)(.637)*/
-#define SHOOTER_PITCH_PYRAMID_SIDE				(.95)
-#define SHOOTER_PITCH_PYRAMID_FRONT				(.95) /* .451 was the low end TODO double check */
+#define SHOOTER_PITCH_PYRAMID_BACK				(.515)/*(.575)(.600)(.637)*/
+#define SHOOTER_PITCH_PYRAMID_SIDE				(.9)
+#define SHOOTER_PITCH_PYRAMID_FRONT				(.94) /* .95 */
 
 #define SHOOTER_LIGHT							(2) /* The shooter light relay */
 #define SHOOTER_DEFAULT_CONTROL					Shooter::kPowerBang

@@ -24,6 +24,7 @@ void UFOBot::RobotInit() {
 	printVersion();
 	cache = 0;
 	sumRate = 0.0;
+	CommandBase::oi->registerButtonSchedulers();
 }
 
 void UFOBot::updateRealLoopsPerSecond() {
@@ -67,7 +68,6 @@ void UFOBot::DefaultInit() {
 
 void UFOBot::TeleopInit() {
 	DefaultInit();
-	CommandBase::oi->registerButtonSchedulers();
 }
 
 void UFOBot::TeleopPeriodic() {
@@ -86,9 +86,9 @@ void UFOBot::DisabledPeriodic() {
 
 void UFOBot::printVersion() {
 	DriverStationLCD::GetInstance()->Printf(DriverStationLCD::kUser_Line1, 1,
-			"Version 1.3.0");
+			"Version 1.3.1");
 	DriverStationLCD::GetInstance()->Printf(DriverStationLCD::kUser_Line2, 1,
-			"Ellensburg-Final");
+			"Seattle-Thurs-Finals");
 	DriverStationLCD::GetInstance()->Printf(DriverStationLCD::kUser_Line3, 1,
 			"%s %s", __TIME__, __DATE__);
 	DriverStationLCD::GetInstance()->UpdateLCD();

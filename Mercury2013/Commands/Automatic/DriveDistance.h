@@ -15,6 +15,7 @@ private:
 	float leftDistanceRemaining;
 	float rightDistanceRemaining;
 	int stability;
+	bool reset;
 	/**
 	 * @brief Calculates the motor speed for the given remaining distance.
 	 * 
@@ -31,6 +32,7 @@ public:
 	 * @param targetDistance the target distance, in inches
 	 */
 	DriveDistance(float targetDistance);
+	DriveDistance *setResetEncoder(bool reset);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
