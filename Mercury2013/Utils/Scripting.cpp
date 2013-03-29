@@ -75,12 +75,14 @@ Autonomous *Scripting::createCommand(int size, char *rawData) {
 SendableChooser *Scripting::generateAutonomousModes(char *scriptLocations) {
 	SendableChooser * chooser = new SendableChooser();
 
-	chooser->AddDefault("Collect Pyra Front",
-			new ScriptCommand(Autonomous::createCollectPyraFront()));
+	chooser->AddDefault("Collect 4 Pyra Front",
+			new ScriptCommand(Autonomous::createCollect4PyraFront()));
 	chooser->AddObject("Just Shoot Pyra Front",
 			new ScriptCommand(Autonomous::createJustShootFront()));
 	chooser->AddObject("Collect 6 Pyra Inner",
 			new ScriptCommand(Autonomous::createCollect6PyraInner()));
+	chooser->AddObject("Collect 5 Pyra Outer",
+			new ScriptCommand(Autonomous::createCollect5PyraOuter()));
 	chooser->AddObject("Blank", new Autonomous());
 
 	DIR * dp;

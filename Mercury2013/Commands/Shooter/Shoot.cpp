@@ -4,6 +4,7 @@
 Shoot::Shoot() :
 	CommandBase("Shoot") {
 	Requires(shooter);
+	Requires(pneumatics);
 	SetInterruptible(false);
 }
 
