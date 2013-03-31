@@ -37,10 +37,11 @@
 #define AUTO_TURN_SPEED_MIN       		(.2)		/* Scalar Minimum Speed (0-1) */
 #define AUTO_TURN_SPEED_MAX       		(.5)		/* Scalar Maximum Speed */
 #define AUTO_TURN_GYRO_THRESHOLD  		(.25)	    /* Degrees, stopping tolerance */
-#define AUTO_TURN_SLOW_DOWN				(12)
+#define AUTO_TURN_SLOW_DOWN				(12.0)
 #define AUTO_TURN_SPEED_RANGE 			(AUTO_TURN_SPEED_MAX - AUTO_TURN_SPEED_MIN) /* Speed Range */
-#define AUTO_DRIVE_DIST_SLOW_DOWN		(12)
-#define AUTO_DRIVE_DIST_THRESHOLD		(1)		/* Inches, stopping tolerance */
+#define AUTO_DRIVE_DIST_SLOW_DOWN		(12.0)
+#define AUTO_DRIVE_DIST_THRESHOLD		(1.0)		/* Inches, stopping tolerance */
+#define AUTO_DRIVE_DIST_CATCHUP			(2.0)		/* Inches, catchup distance */
 #define AUTO_DRIVE_DIST_SPEED_MAX 		(0.5)   	/* Maximum speed allowed by DriveDistance */
 #define AUTO_DRIVE_DIST_SPEED_MIN		(.25)   	/* Minimum speed of robot.*/  
 // TODO reduce A_D_D_S_MIN to let robot crawl the last few feet.
@@ -136,7 +137,7 @@
 #define SHOOTER_PITCH_SLOT_COLLECT				(0.5) /*TODO*/
 #define SHOOTER_PITCH_STABILITY					(25)
 
-#define SHOOTER_PITCH_PYRAMID_BACK				(.53)/*(.575)(.600)(.637)*/
+#define SHOOTER_PITCH_PYRAMID_BACK				(.5325)/*.53*//*(.575)(.600)(.637)*/
 #define SHOOTER_PITCH_PYRAMID_SIDE				(.65)
 #define SHOOTER_PITCH_PYRAMID_FRONT				(.94) /* .95 */
 

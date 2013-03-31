@@ -72,7 +72,10 @@ Autonomous *Autonomous::createCollect6PyraInner() {
 	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_MID));
 	cmd->AddSequential(new EjectDisks(Collector::kForward));
 	cmd->AddParallel(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
-	cmd->AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_SIDE, true));
+	cmd->AddSequential(
+			new ChangeShooterPitch(
+					(SHOOTER_PITCH_PYRAMID_FRONT + SHOOTER_PITCH_PYRAMID_BACK)
+							/ 2.0, true));
 
 	//Now shoot the 4
 	cmd->AddSequential(new Shoot());
@@ -84,7 +87,7 @@ Autonomous *Autonomous::createCollect6PyraInner() {
 	//Get to the start of the other autonomous program...
 	cmd->AddSequential(new ChangeShooterPitch(0));
 	cmd->AddParallel(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
-	cmd->AddSequential(new DriveDistance(74 - 6)); //UGH
+	cmd->AddSequential(new DriveDistance(48 - 6)); //UGH
 
 	cmd->AddSequential(createCollect4PyraFront());
 	return cmd;

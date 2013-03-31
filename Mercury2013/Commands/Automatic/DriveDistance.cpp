@@ -33,8 +33,16 @@ void DriveDistance::Execute() {
 			- driveBase->getLeftEncoder()->GetDistance();
 	rightDistanceRemaining = targetDistance
 			- driveBase->getRightEncoder()->GetDistance();
-	driveBase->setSpeed(getSpeedFor(leftDistanceRemaining),
-			getSpeedFor(rightDistanceRemaining));
+	float lDiff = min(
+			(AUTO_DRIVE_DIST_CATCHUP - fabs(
+					leftDistanceRemaining - rightDistanceRemaining))
+					/ AUTO_DRIVE_DIST_CATCHUP, 1.0);
+	float rDiff = min(
+			(AUTO_DRIVE_DIST_CATCHUP - fabs(
+					rightDistanceRemaining - leftDistanceRemaining))
+					/ AUTO_DRIVE_DIST_CATCHUP, 1.0);
+	driveBase->setSpeed(getSpeedFor(leftDistanceRemaining) * lDiff,
+			getSpeedFor(rightDistanceRemaining) * rDiff);
 
 	if ((fabs(leftDistanceRemaining) <= AUTO_DRIVE_DIST_THRESHOLD) && (fabs(
 			rightDistanceRemaining) <= AUTO_DRIVE_DIST_THRESHOLD)) {
