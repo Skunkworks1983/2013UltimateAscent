@@ -10,14 +10,17 @@ CommandCanceler::~CommandCanceler() {
 }
 
 void CommandCanceler::Initialize() {
+	this->canceled = false;
 	Scheduler::GetInstance()->Remove(cancel);
+	this->canceled = true;
+	cancel->Cancel();
 }
 
 void CommandCanceler::Execute() {
 }
 
 bool CommandCanceler::IsFinished() {
-	return true;
+	return canceled;
 }
 
 void CommandCanceler::End() {

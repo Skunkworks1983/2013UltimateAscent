@@ -7,6 +7,7 @@ class Subsystem;
 class CommandCanceler: public CommandBase {
 private:
 	Command *cancel;
+	bool canceled;
 public:
 	CommandCanceler(Command *cancel);
 	~CommandCanceler();

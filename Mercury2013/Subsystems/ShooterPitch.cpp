@@ -4,16 +4,18 @@
 #include "../Commands/Shooter/ChangeShooterPitch.h"
 #include "../Commands/Shooter/TunePitchEncoder.h"
 #include "../Utils/JankyAngle.h"
+#include "../Utils/StallableMotor.h"
 
 ShooterPitch::ShooterPitch() :
 	Subsystem("ShooterPitch") {
 	printf("Creating ShooterPitch...\t");
 
-	pitchMotor = new SHOOTER_PITCH_MOTOR_TYPE(SHOOTER_PITCH_MOTOR);
+	pitchMotorBackend = new SHOOTER_PITCH_MOTOR_TYPE(SHOOTER_PITCH_MOTOR);
 
 	pitchEncoder = new Encoder(SHOOTER_PITCH_ENCODER, false, Encoder::k4X);
 	pitchEncoder->SetDistancePerPulse(SHOOTER_PITCH_DEGREES_PER_PULSE);
 	pitchEncoder->Reset();
+	pitchEncoder->SetMinRate(SHOOTER_PITCH_DEGREES_PER_PULSE * 256);
 	pitchEncoder->Start();
 	motorSpeedCache = 0.0;
 
@@ -21,12 +23,14 @@ ShooterPitch::ShooterPitch() :
 
 	pitchLimitSwitch = new DigitalInput(SHOOTER_PITCH_LIMIT_SWITCH);
 
+	pitchMotor = new StallableMotor(pitchMotorBackend, pitchEncoder);
+
 	LiveWindow::GetInstance()->AddSensor("Shooter Pitch", "Pitch Encoder",
 			pitchEncoder);
 	LiveWindow::GetInstance()->AddSensor("Shooter Pitch", "Pitch Limit Switch",
 			pitchLimitSwitch);
-	LiveWindow::GetInstance()->AddActuator("Shooter Pitch", "Pitch Motor",
-			pitchMotor);
+	/*LiveWindow::GetInstance()->AddActuator("Shooter Pitch", "Pitch Motor",
+			pitchMotorBackend);*/
 	LiveWindow::GetInstance()->AddSensor("Shooter Pitch", "Analog Pitch",pitchPot);
 
 	tunedEncoder = isPitchGrounded();
@@ -38,6 +42,7 @@ ShooterPitch::~ShooterPitch() {
 	delete pitchMotor;
 	delete pitchEncoder;
 	delete pitchPot;
+	delete pitchMotorBackend;
 }
 
 bool ShooterPitch::setPitchMotorSpeed(float direction) {
@@ -95,6 +100,7 @@ void ShooterPitch::motorSafety() {
 			pitchMotor->Set(0);
 		}
 	}
+	pitchMotor->updateController();
 }
 
 void ShooterPitch::InitDefaultCommand() {

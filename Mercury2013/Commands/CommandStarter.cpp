@@ -7,13 +7,24 @@ CommandStarter::CommandStarter(CreateCommand create, void *arg,
 	this->create = create;
 	this->waitForRequirements = waitForRequirements;
 	this->arg = arg;
+	this->orders = NULL;
+}
+
+CommandStarter::CommandStarter(Command *orders, bool waitForRequirements) :
+	CommandBase("CommandStarter") {
+	this->orders = orders;
+	this->waitForRequirements = waitForRequirements;
+	this->arg = NULL;
+	this->create = NULL;
 }
 
 CommandStarter::~CommandStarter() {
 }
 
 void CommandStarter::Initialize() {
-	this->orders = create(arg);
+	if (this->create != NULL && this->orders == NULL) {
+		this->orders = create(arg);
+	}
 }
 
 void CommandStarter::Execute() {

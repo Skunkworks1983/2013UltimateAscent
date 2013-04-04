@@ -9,11 +9,13 @@
  * 
  * The subsystem that controls the shooter pitch.
  * Contains a single motor, encoder, and limit switch.
- * @author Mark Old
+ * @author Mark Old, Westin Miller
  */
+class StallableMotor;
 class ShooterPitch: public Subsystem {
 private:
-	SHOOTER_PITCH_MOTOR_TYPE *pitchMotor;
+	SHOOTER_PITCH_MOTOR_TYPE *pitchMotorBackend;
+	StallableMotor *pitchMotor;
 	Encoder *pitchEncoder;
 	DigitalInput *pitchLimitSwitch;
 	AnalogChannel *pitchPot;

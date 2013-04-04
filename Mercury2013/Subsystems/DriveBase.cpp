@@ -22,6 +22,11 @@ DriveBase::DriveBase() :
 
 	gyro = new Gyro(DRIVE_GYRO);
 
+	leftWhisker = new OnboardDigitalTrigger(
+			new DigitalInput(DRIVE_LEFT_WHISKER), false);
+	rightWhisker = new OnboardDigitalTrigger(
+			new DigitalInput(DRIVE_RIGHT_WHISKER), false);
+
 	LiveWindow::GetInstance()->AddActuator("DriveBase", "Left Motor", motorLeft);
 	LiveWindow::GetInstance()->AddActuator("DriveBase", "Right Motor",
 			motorRight);
@@ -101,4 +106,12 @@ void DriveBase::reset() {
 
 bool DriveBase::isLowGear() {
 	return shiftSolenoid->Get();
+}
+
+Trigger *DriveBase::getLeftWhisker() {
+	return leftWhisker;
+}
+
+Trigger *DriveBase::getRightWhisker() {
+	return rightWhisker;
 }

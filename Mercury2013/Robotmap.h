@@ -71,7 +71,7 @@
 
 #define DRIVE_GEAR_RATIO_HIGH					((16.0/32.0) * (35.0/28.0))
 #define DRIVE_GEAR_RATIO_LOW					((16.0/32.0) * (15.0/48.0))
-#define DRIVE_WHEEL_DIAMETER					(4.0 * (4.0/9.0))
+#define DRIVE_WHEEL_DIAMETER					(4.0 * (4.0/9.0))/* * 3.141592) TODO real values */
 #define DRIVE_ENCODER_INCH_PER_TICK_HIGH		(DRIVE_WHEEL_DIAMETER * 3.14159 * DRIVE_GEAR_RATIO_HIGH / 360.0)
 #define DRIVE_ENCODER_INCH_PER_TICK_LOW			(DRIVE_WHEEL_DIAMETER * 3.14159 * DRIVE_GEAR_RATIO_LOW / 360.0)
 #define DRIVE_ENCODER_LEFT						4,5
@@ -79,6 +79,9 @@
 #define DRIVE_SCALING_MINSPEED					3
 
 #define DRIVE_GYRO								1
+
+#define DRIVE_LEFT_WHISKER						8
+#define DRIVE_RIGHT_WHISKER						9
 
 /**
  * --SHOOTER--
@@ -158,8 +161,11 @@
 #define COLLECTOR_PITCH_MOTOR_TYPE				Talon
 #define COLLECTOR_PITCH_STABILITY				5
 // CollectorArms constant speed
-#define COLLECTOR_PITCH_MOTOR_SPEED_UP			(.6) /* TODO get value from design team */
-#define COLLECTOR_PITCH_MOTOR_SPEED_DOWN		(-.6) /* TODO get value from design team */
+#define COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR		(.6) /* TODO get value from design team */
+#define COLLECTOR_PITCH_MOTOR_SPEED_DOWN_NEAR	(-.4) /* TODO get value from design team */
+#define COLLECTOR_PITCH_MOTOR_SPEED_UP_FAR		(1) /* TODO get value from design team */
+#define COLLECTOR_PITCH_MOTOR_SPEED_DOWN_FAR	(-1) /* TODO get value from design team */
+#define COLLECTOR_PITCH_ERROR_NEAR				(15)
 #define COLLECTOR_MOTOR_SPEED					(0.5)
 #define COLLECTOR_PITCH_POT_LEFT				(3)
 #define COLLECTOR_PITCH_POT_RIGHT				(2)

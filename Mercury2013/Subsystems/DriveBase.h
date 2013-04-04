@@ -5,6 +5,7 @@
 #include "../Robotmap.h"
 #include "../Utils/SolenoidPair.h"
 #include "../Utils/DualLiveSpeed.h"
+#include "../Utils/OnboardDigitalTrigger.h"
 
 /**
  * @brief Drive base subsystem for a parallel wheel configuration, with a shifter.
@@ -23,6 +24,9 @@ private:
 	Gyro *gyro;
 
 	SolenoidPair *shiftSolenoid;
+	
+	Trigger *leftWhisker;
+	Trigger *rightWhisker;
 public:
 	/**
 	 * Creates the drive base motors, encoders, and any other components.
@@ -72,6 +76,9 @@ public:
 	void reset();
 	
 	void setMotorScalingFactor(float f);
+	
+	Trigger *getLeftWhisker();
+	Trigger *getRightWhisker();
 	
 	virtual void InitDefaultCommand();
 };

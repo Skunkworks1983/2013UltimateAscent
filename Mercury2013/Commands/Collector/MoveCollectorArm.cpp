@@ -1,9 +1,11 @@
 #include "MoveCollectorArm.h"
 
-MoveCollectorArm::MoveCollectorArm(float goal) :
+MoveCollectorArm::MoveCollectorArm(float goal, int goalStable) :
 	CommandBase(CommandBase::createNameFromFloat("MoveCollectorArm", goal)) {
 	Requires(collectorArms);
 	this->goal = goal;
+	this->stability = 0;
+	this->goalStability = goalStable;
 }
 
 MoveCollectorArm::~MoveCollectorArm() {
@@ -35,7 +37,7 @@ bool MoveCollectorArm::IsFinished() {
 			> COLLECTOR_SHOOTER_INTERFERENCE_LOW))) {
 		return true;
 	} else {
-		return stability >= COLLECTOR_PITCH_STABILITY;
+		return stability >= goalStability;
 	}
 }
 

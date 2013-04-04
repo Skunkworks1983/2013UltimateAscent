@@ -11,8 +11,8 @@ ArmController::ArmController(char *name, CollectorArms *collect,
 	pid = new PIDController(COLLECTOR_PITCH_P, COLLECTOR_PITCH_I,
 			COLLECTOR_PITCH_D, this, this);
 	pid->SetAbsoluteTolerance(COLLECTOR_PITCH_TOLERANCE);
-	pid->SetOutputRange(COLLECTOR_PITCH_MOTOR_SPEED_DOWN,
-			COLLECTOR_PITCH_MOTOR_SPEED_UP);
+	pid->SetOutputRange(COLLECTOR_PITCH_MOTOR_SPEED_DOWN_NEAR,
+			COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR);
 	pid->SetInputRange(COLLECTOR_PITCH_POT_MIN, COLLECTOR_PITCH_POT_MAX);
 	pidStability = 0;
 
@@ -77,6 +77,13 @@ void LeftArmController::PIDWrite(float f) {
 			(COLLECTOR_PITCH_CATCHUP - fabs(
 					collect->getLeftAngle() - collect->getRightAngle()))
 					/ COLLECTOR_PITCH_CATCHUP, 1.0);
+	if (fabs(pid->GetError()) > COLLECTOR_PITCH_ERROR_NEAR) {
+		pid->SetOutputRange(COLLECTOR_PITCH_MOTOR_SPEED_DOWN_FAR,
+				COLLECTOR_PITCH_MOTOR_SPEED_UP_FAR);
+	} else {
+		pid->SetOutputRange(COLLECTOR_PITCH_MOTOR_SPEED_DOWN_NEAR,
+				COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR);
+	}
 	motor->Set(-f * diff);
 }
 
@@ -96,5 +103,12 @@ void RightArmController::PIDWrite(float f) {
 			(COLLECTOR_PITCH_CATCHUP - fabs(
 					collect->getRightAngle() - collect->getLeftAngle()))
 					/ COLLECTOR_PITCH_CATCHUP, 1.0);
+	if (fabs(pid->GetError()) > COLLECTOR_PITCH_ERROR_NEAR) {
+		pid->SetOutputRange(COLLECTOR_PITCH_MOTOR_SPEED_DOWN_FAR,
+				COLLECTOR_PITCH_MOTOR_SPEED_UP_FAR);
+	} else {
+		pid->SetOutputRange(COLLECTOR_PITCH_MOTOR_SPEED_DOWN_NEAR,
+				COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR);
+	}
 	motor->Set(f * diff);
 }

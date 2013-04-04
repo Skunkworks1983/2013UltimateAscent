@@ -20,8 +20,9 @@ private:
 	PIDController *controller;
 	float goal;
 	int stability;
+	int goalStability;
 public:
-	MoveCollectorArm(float goal);
+	MoveCollectorArm(float goal, int goalStability = COLLECTOR_PITCH_STABILITY);
 	~MoveCollectorArm();
 	virtual void Initialize();
 	virtual void Execute();

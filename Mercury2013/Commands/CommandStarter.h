@@ -13,6 +13,7 @@ private:
 public:
 	CommandStarter(CreateCommand createFunc, void *arg = NULL,
 			bool waitForRequirements = false);
+	CommandStarter(Command *orders, bool waitForRequirements = false);
 	~CommandStarter();
 	virtual void Initialize();
 	virtual void Execute();
