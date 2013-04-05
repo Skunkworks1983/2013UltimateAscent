@@ -13,6 +13,9 @@
 class DiddlerDrive: public CommandBase {
 private:
 	float speed;
+	bool leftSide, rightSide;
+	int lStable, rStable;
+	int stability;
 public:
 	DiddlerDrive(float speed);
 	virtual void Initialize();
