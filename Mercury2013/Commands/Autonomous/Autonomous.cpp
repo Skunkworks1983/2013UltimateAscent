@@ -12,6 +12,7 @@
 #include "../Shooter/ChangeShooterPitch.h"
 #include "../Shooter/ArmShooter.h"
 #include "../Drivebase/Shift.h"
+#include "../WaitForTrigger.h"
 
 Autonomous::Autonomous() :
 	CommandGroup("Autonomous-Blank") {
@@ -64,18 +65,21 @@ Autonomous *Autonomous::createCollect6PyraInner() {
 	// Drive and collect block
 	cmd->AddSequential(new Shift(Shift::kHigh));
 	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
-	cmd->AddParallel(new DriveDistance(6));
-	cmd->AddSequential(new Collect(7500.0));
+	CommandBase *driveLong = new DriveDistance(84);
+	cmd->AddParallel(driveLong);
+	cmd->AddParallel(new Collect(7500.0));
+	cmd->AddSequential(
+			new WaitForTrigger(CommandBase::driveBase->getLeftWhisker(),
+					CommandBase::driveBase->getRightWhisker()));
+	cmd->AddSequential(new CommandCanceler(driveLong));
 
 	//Put into shooter block
 	cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
 	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_MID));
 	cmd->AddSequential(new EjectDisks(Collector::kForward));
-	cmd->AddParallel(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
+	cmd->AddParallel(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
 	cmd->AddSequential(
-			new ChangeShooterPitch(
-					(SHOOTER_PITCH_PYRAMID_FRONT + SHOOTER_PITCH_PYRAMID_BACK)
-							/ 2.0, true));
+			new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT, true));
 
 	//Now shoot the 4
 	cmd->AddSequential(new Shoot());
@@ -83,19 +87,13 @@ Autonomous *Autonomous::createCollect6PyraInner() {
 	cmd->AddSequential(new Shoot());
 	cmd->AddSequential(new Shoot());
 
-	//Now we need to collect moar
-	//Get to the start of the other autonomous program...
-	cmd->AddSequential(new ChangeShooterPitch(0));
-	cmd->AddParallel(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
-	cmd->AddSequential(new DriveDistance(48 - 6)); //UGH
-
 	cmd->AddSequential(createCollect4PyraFront());
 	return cmd;
 }
 Autonomous *Autonomous::createCollect4PyraFront() {
 	Autonomous *cmd = new Autonomous("Autonomous-Collect4PyraFront");
 	cmd->AddSequential(new Shift(Shift::kHigh));
-	cmd->AddSequential(new MoveCollectorArm(0));
+	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
 	cmd->AddParallel(new DriveDistance(11));
 	cmd->AddSequential(new Collect(7500.0));
 	// TODO cancel the drive command and cache the distances to reverse it

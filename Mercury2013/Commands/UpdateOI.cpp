@@ -1,9 +1,10 @@
 #include "UpdateOI.h"
 #include "WPILib.h"
+#include "../Utils/Time.h"
 
 UpdateOI::UpdateOI() :
 	CommandBase("UpdateOI") {
-	countsSinceUpdate = 0;
+	lastUpdate = 0.0;
 	// Depends on any subsystems with visible output, but doesn't need a lock.
 }
 
@@ -15,10 +16,12 @@ void UpdateOI::Initialize() {
 }
 
 void UpdateOI::Execute() {
-	if (++countsSinceUpdate > OI_DASH_UPDATE_SPEED) {
-		countsSinceUpdate = 0;
-		DriverStation::GetInstance()->GetEnhancedIO().SetDigitalOutput(6, driveBase->getLeftWhisker()->Get());
-		DriverStation::GetInstance()->GetEnhancedIO().SetDigitalOutput(8, driveBase->getRightWhisker()->Get());
+	if (lastUpdate + OI_DASH_UPDATE_SPEED < getCurrentMillis()) {
+		lastUpdate = getCurrentMillis();
+		DriverStation::GetInstance()->GetEnhancedIO().SetDigitalOutput(6,
+				driveBase->getLeftWhisker()->Get());
+		DriverStation::GetInstance()->GetEnhancedIO().SetDigitalOutput(8,
+				driveBase->getRightWhisker()->Get());
 #if (DEBUG_LEVEL>=DEBUG_INFO)
 		SmartDashboard::PutBoolean("Is Below Pressure",
 				pneumatics->isBelowPressure());

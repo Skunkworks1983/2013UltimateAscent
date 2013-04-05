@@ -23,7 +23,7 @@
 #define OI_JOYSTICK_LEFT					(1)
 #define OI_JOYSTICK_RIGHT					(2)
 #define OI_JOYSTICK_DEADBAND				(0.05)
-#define OI_DASH_UPDATE_SPEED				(5)
+#define OI_DASH_UPDATE_SPEED				(200)
 #define OI_SHOOTER_ANGLE_PROVIDER_CHANNEL	(3)
 //#define OI_SHOOTER_ANGLE_CONVERT(x)			(((0.0817 * x * x * x) - (0.4982 * x * x) + (1.0196 * x)) * (1 / (0.970 - 0.0861)))
 #define OI_SHOOTER_SPEED_CONVERT(x)			((0.888 * x * x * x) - (0.5351 * x * x) + (1.0657 * x) + (0.1008))

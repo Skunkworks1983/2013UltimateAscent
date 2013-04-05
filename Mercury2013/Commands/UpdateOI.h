@@ -10,7 +10,7 @@
  */
 class UpdateOI: public CommandBase {
 private:
-	int countsSinceUpdate;
+	double lastUpdate;
 public:
 	UpdateOI();
 	~UpdateOI();
