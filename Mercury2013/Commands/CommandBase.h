@@ -26,6 +26,7 @@ public:
 	CommandBase(const char *name);
 	CommandBase();
 	CommandBase *makeInterruptible(bool state);
+	void forceKillCommand();
 
 	static void init();
 

@@ -10,6 +10,7 @@
  * Turning LEDs on/off.
  * Getting button/joystick/etc states.
  */
+class CommandBase;
 class OI {
 private:
 	Joystick *driveJoystickLeft;
@@ -18,7 +19,7 @@ private:
 	DriverStation *driverStation;
 	DriverStationLCD *driverStationLCD;
 	DriverStationEnhancedIO *driverStationEIO;
-	Command *autoCollectCommand;
+	CommandBase *autoCollectCommand;
 
 	Button *shiftButton;
 	Button *driveDirectionButton;

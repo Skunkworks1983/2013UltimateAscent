@@ -14,6 +14,14 @@ CommandBase *CommandBase::makeInterruptible(bool state) {
 	return this;
 }
 
+void CommandBase::forceKillCommand() {
+	if (GetGroup() == NULL) {
+		_Cancel();
+	} else {
+		SetTimeout(0.0);
+	}
+}
+
 char *CommandBase::createNameFromFloat(char *base, float target) {
 	char *buf = new char[32];
 	snprintf(buf, 32, "%s_%f", base, target);
