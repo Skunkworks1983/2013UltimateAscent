@@ -140,7 +140,7 @@
 #define SHOOTER_PITCH_SLOT_COLLECT				(0.5) /*TODO*/
 #define SHOOTER_PITCH_STABILITY					(25)
 
-#define SHOOTER_PITCH_PYRAMID_BACK				(.55)/*.5325*//*.53*//*(.575)(.600)(.637)*/
+#define SHOOTER_PITCH_PYRAMID_BACK				(.575)/*.5325*//*.53*//*(.575)(.600)(.637)*/
 #define SHOOTER_PITCH_PYRAMID_SIDE				(.65)
 #define SHOOTER_PITCH_PYRAMID_FRONT				(.94) /* .95 */
 
@@ -161,7 +161,8 @@
 #define COLLECTOR_PITCH_MOTOR_TYPE				Talon
 #define COLLECTOR_PITCH_STABILITY				5
 // CollectorArms constant speed
-#define COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR		(.6) /* TODO get value from design team */
+#define COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR		(.5) /* TODO get value from design team */
+#define COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR_90	(.1) /* TODO get value from design team */
 #define COLLECTOR_PITCH_MOTOR_SPEED_DOWN_NEAR	(-.4) /* TODO get value from design team */
 #define COLLECTOR_PITCH_MOTOR_SPEED_UP_FAR		(1) /* TODO get value from design team */
 #define COLLECTOR_PITCH_MOTOR_SPEED_DOWN_FAR	(-1) /* TODO get value from design team */
@@ -194,7 +195,7 @@
 #define COLLECTOR_FRISBEE_STOP_DOWN				(0)
 
 #define COLLECTOR_COLLECT_TIMEOUT				(1000) /* (millis) */
-#define COLLECTOR_COLLECT_STOP_DELAY			(200) /* millis between light sensor trigger and collector wheel stop */
+#define COLLECTOR_COLLECT_STOP_DELAY			(150) /* millis between light sensor trigger and collector wheel stop */
 
 #define COLLECTOR_SHOOTER_INTERFERENCE_HIGH		(85)
 #define COLLECTOR_SHOOTER_INTERFERENCE_LOW		(50)

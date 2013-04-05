@@ -21,8 +21,12 @@ private:
 	DriverStationEnhancedIO *driverStationEIO;
 	CommandBase *autoCollectCommand;
 
+	CommandBase *diddlerDriveForward;
+	CommandBase *diddlerDriveReverse;
 	Button *shiftButton;
 	Button *driveDirectionButton;
+	Button *diddlerDriveForwardButton;
+	Button *diddlerDriveReverseButton;
 	
 	//Shooter Stuff
 	Button *lightButton;
@@ -55,7 +59,6 @@ private:
 	Button *pokeyStickButton;
 	Button *climberRackButton;
 	
-	Button *collectButton;
 	Button *ejectButton;
 public:
 	OI();

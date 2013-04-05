@@ -5,6 +5,7 @@
 #include "../Collector/Collect.h"
 #include "../Collector/EjectDisks.h"
 #include "../Collector/MoveCollectorArm.h"
+#include "../Drivebase/DiddlerDrive.h"
 
 #include "../CommandStarter.h"
 #include "../CommandCanceler.h"
@@ -28,18 +29,21 @@ Autonomous *Autonomous::createCollect5PyraOuter() {
 	// Drive and collect block
 	cmd->AddSequential(new Shift(Shift::kHigh));
 	cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
+	cmd->AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_BACK));
 
 	//Now shoot the 3
 	cmd->AddSequential(new Shoot());
 	cmd->AddSequential(new Shoot());
 	cmd->AddSequential(new Shoot());
-
-	cmd->AddSequential(new DriveDistance(-48));
+	
+	cmd->AddSequential(new ChangeShooterPitch(0));
+	cmd->AddSequential(new DriveDistance(-12));
 	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
-	cmd->AddSequential(new DriveDistance(60));
+	cmd->AddParallel(new DriveDistance(15));
 	cmd->AddSequential(new Collect(7500.0));
 
 	//Put into shooter block
+	cmd->AddSequential(new DiddlerDrive(-0.5));
 	cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
 	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_MID));
 	cmd->AddSequential(new EjectDisks(Collector::kForward));

@@ -12,6 +12,7 @@
 #include "Commands/Shooter/ShooterLight.h"
 #include "Commands/Drivebase/Shift.h"
 #include "Commands/Drivebase/SetScalingFactor.h"
+#include "Commands/Drivebase/DiddlerDrive.h"
 #include "Commands/Collector/MoveCollectorArm.h"
 #include "Commands/CommandStarter.h"
 #include "Commands/CommandCanceler.h"
@@ -35,6 +36,11 @@ OI::OI() {
 
 	shiftButton = new JoystickButton(driveJoystickLeft, 1);
 	driveDirectionButton = new DigitalIOButton(4);
+
+	diddlerDriveForward = new DiddlerDrive(0.5);
+	diddlerDriveReverse = new DiddlerDrive(-0.5);
+	diddlerDriveForwardButton = new JoystickButton(driveJoystickRight, 3);
+	diddlerDriveReverseButton = new JoystickButton(driveJoystickRight, 2);
 
 	shooterNoWait = new DigitalIOButton(5);
 	lightButton = new DigitalIOButton(2);
@@ -68,8 +74,7 @@ OI::OI() {
 			1.402, 1.602);//1.502
 
 	autoCollectCommand = new Collect(9999999.0);
-	collectButton = new JoystickButton(driveJoystickRight, 1);
-	ejectButton = new JoystickButton(driveJoystickRight, 3);
+	ejectButton = new JoystickButton(driveJoystickLeft, 3);
 
 	pokeyStickButton = new DigitalIOButton(7);
 	climberRackButton = new DigitalIOButton(3);
@@ -87,6 +92,13 @@ void OI::registerButtonSchedulers() {
 	shiftButton->WhenReleased(new Shift(Shift::kToggle));
 	driveDirectionButton->WhenPressed(new SetScalingFactor(-1.0));
 	driveDirectionButton->WhenReleased(new SetScalingFactor(1.0));
+
+	diddlerDriveForwardButton->WhenPressed(diddlerDriveForward);
+	diddlerDriveReverseButton->WhenPressed(diddlerDriveReverse);
+	diddlerDriveForwardButton->WhenReleased(
+			new CommandCanceler(diddlerDriveForward));
+	diddlerDriveReverseButton->WhenReleased(
+			new CommandCanceler(diddlerDriveReverse));
 
 	lightButton->WhenPressed(new ShooterLight(ShooterLight::kOn));
 	lightButton->WhenReleased(new ShooterLight(ShooterLight::kOff));
