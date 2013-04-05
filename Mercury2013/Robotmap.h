@@ -80,8 +80,8 @@
 
 #define DRIVE_GYRO								1
 
-#define DRIVE_LEFT_WHISKER						8
-#define DRIVE_RIGHT_WHISKER						9
+#define DRIVE_LEFT_DIDDLER						8
+#define DRIVE_RIGHT_DIDDLER						9
 
 /**
  * --SHOOTER--
@@ -140,7 +140,7 @@
 #define SHOOTER_PITCH_SLOT_COLLECT				(0.5) /*TODO*/
 #define SHOOTER_PITCH_STABILITY					(25)
 
-#define SHOOTER_PITCH_PYRAMID_BACK				(.5325)/*.53*//*(.575)(.600)(.637)*/
+#define SHOOTER_PITCH_PYRAMID_BACK				(.55)/*.5325*//*.53*//*(.575)(.600)(.637)*/
 #define SHOOTER_PITCH_PYRAMID_SIDE				(.65)
 #define SHOOTER_PITCH_PYRAMID_FRONT				(.94) /* .95 */
 

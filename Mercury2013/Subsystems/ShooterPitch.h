@@ -14,8 +14,8 @@
 class StallableMotor;
 class ShooterPitch: public Subsystem {
 private:
-	SHOOTER_PITCH_MOTOR_TYPE *pitchMotorBackend;
-	StallableMotor *pitchMotor;
+	SHOOTER_PITCH_MOTOR_TYPE *pitchMotor;
+	//StallableMotor *pitchMotor;
 	Encoder *pitchEncoder;
 	DigitalInput *pitchLimitSwitch;
 	AnalogChannel *pitchPot;

@@ -19,9 +19,9 @@ void UpdateOI::Execute() {
 	if (lastUpdate + OI_DASH_UPDATE_SPEED < getCurrentMillis()) {
 		lastUpdate = getCurrentMillis();
 		DriverStation::GetInstance()->GetEnhancedIO().SetDigitalOutput(6,
-				driveBase->getLeftWhisker()->Get());
+				driveBase->getLeftDiddler()->Get());
 		DriverStation::GetInstance()->GetEnhancedIO().SetDigitalOutput(8,
-				driveBase->getRightWhisker()->Get());
+				driveBase->getRightDiddler()->Get());
 #if (DEBUG_LEVEL>=DEBUG_INFO)
 		SmartDashboard::PutBoolean("Is Below Pressure",
 				pneumatics->isBelowPressure());

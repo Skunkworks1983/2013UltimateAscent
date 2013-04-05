@@ -25,8 +25,8 @@ private:
 
 	SolenoidPair *shiftSolenoid;
 	
-	Trigger *leftWhisker;
-	Trigger *rightWhisker;
+	Trigger *leftDiddler;
+	Trigger *rightDiddler;
 public:
 	/**
 	 * Creates the drive base motors, encoders, and any other components.
@@ -77,8 +77,8 @@ public:
 	
 	void setMotorScalingFactor(float f);
 	
-	Trigger *getLeftWhisker();
-	Trigger *getRightWhisker();
+	Trigger *getLeftDiddler();
+	Trigger *getRightDiddler();
 	
 	virtual void InitDefaultCommand();
 };

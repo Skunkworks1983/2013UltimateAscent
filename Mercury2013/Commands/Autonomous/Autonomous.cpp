@@ -69,8 +69,8 @@ Autonomous *Autonomous::createCollect6PyraInner() {
 	cmd->AddParallel(driveLong);
 	cmd->AddParallel(new Collect(7500.0));
 	cmd->AddSequential(
-			new WaitForTrigger(CommandBase::driveBase->getLeftWhisker(),
-					CommandBase::driveBase->getRightWhisker()));
+			new WaitForTrigger(CommandBase::driveBase->getLeftDiddler(),
+					CommandBase::driveBase->getRightDiddler()));
 	cmd->AddSequential(new CommandCanceler(driveLong));
 
 	//Put into shooter block
@@ -105,6 +105,8 @@ Autonomous *Autonomous::createCollect4PyraFront() {
 	cmd->AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT));
 	cmd->AddSequential(new DriveDistance(-11));
 
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
 	cmd->AddSequential(new Shoot());
 	cmd->AddSequential(new Shoot());
 	cmd->AddSequential(new Shoot());

@@ -17,18 +17,18 @@ CollectorShooterLoad::CollectorShooterLoad() :
 	AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_MID));
 	AddSequential(new EjectDisks(Collector::kForward));
 	lowerCollector = new MoveCollectorArm(COLLECTOR_PITCH_DOWN);
-	jiggleShooter = new CommandGroup("CollectorShooterJiggle");
-	jiggleShooter->AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_FRISBEE_SLIDE, true));
+	//jiggleShooter = new CommandGroup("CollectorShooterJiggle");
+	//jiggleShooter->AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_FRISBEE_SLIDE, true));
 //	jiggleShooter->AddSequential(new WaitCommand(0.5));
 //	jiggleShooter->AddSequential(new ChangeShooterPitch(0.0, true));
 }
 
 CollectorShooterLoad::~CollectorShooterLoad() {
-	delete jiggleShooter;
+	//delete jiggleShooter;
 	delete lowerCollector;
 }
 
 void CollectorShooterLoad::End() {
-	jiggleShooter->Start();
+	//jiggleShooter->Start();
 	lowerCollector->Start();
 }
