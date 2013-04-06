@@ -142,7 +142,7 @@
 
 #define SHOOTER_PITCH_PYRAMID_BACK				(.55)/*.5325*//*.53*//*(.575)(.600)(.637)*/
 #define SHOOTER_PITCH_PYRAMID_SIDE				(.65)
-#define SHOOTER_PITCH_PYRAMID_FRONT				(.93) /* .95 */
+#define SHOOTER_PITCH_PYRAMID_FRONT				(.92) /* .95 */
 
 #define SHOOTER_LIGHT							(2) /* The shooter light relay */
 #define SHOOTER_DEFAULT_CONTROL					Shooter::kPowerBang
