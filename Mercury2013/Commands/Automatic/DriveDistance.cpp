@@ -3,17 +3,28 @@
 #include "DriveDistance.h"
 #include "../../Robotmap.h"
 
-DriveDistance::DriveDistance(float targetDistance) :
+// TODO Fix the side-to-side drift.  Gyro?
+DriveDistance::DriveDistance(float targetDistance, float tStable, float tThresh) :
 			CommandBase(
 					CommandBase::createNameFromFloat("DriveDistance",
 							targetDistance)) {
 	Requires(driveBase);
 	this->targetDistance = targetDistance;
+	this->tStable = tStable;
+	this->threshold = tThresh;
 	this->reset = true;
+	this->minSpeed = AUTO_DRIVE_DIST_SPEED_MIN;
+	this->maxSpeed = AUTO_DRIVE_DIST_SPEED_MAX;
 }
 
 DriveDistance *DriveDistance::setResetEncoder(bool r) {
 	this->reset = r;
+	return this;
+}
+
+DriveDistance *DriveDistance::setOutputRange(float min, float max) {
+	this->minSpeed = min;
+	this->maxSpeed = max;
 	return this;
 }
 
@@ -34,18 +45,16 @@ void DriveDistance::Execute() {
 	rightDistanceRemaining = targetDistance
 			- driveBase->getRightEncoder()->GetDistance();
 	float lDiff = min(
-			(AUTO_DRIVE_DIST_CATCHUP - fabs(
-					leftDistanceRemaining - rightDistanceRemaining))
-					/ AUTO_DRIVE_DIST_CATCHUP, 1.0);
+			(AUTO_DRIVE_DIST_CATCHUP - (rightDistanceRemaining
+					- leftDistanceRemaining)) / AUTO_DRIVE_DIST_CATCHUP, 1.0);
 	float rDiff = min(
-			(AUTO_DRIVE_DIST_CATCHUP - fabs(
-					rightDistanceRemaining - leftDistanceRemaining))
-					/ AUTO_DRIVE_DIST_CATCHUP, 1.0);
+			(AUTO_DRIVE_DIST_CATCHUP - (leftDistanceRemaining
+					- rightDistanceRemaining)) / AUTO_DRIVE_DIST_CATCHUP, 1.0);
 	driveBase->setSpeed(getSpeedFor(leftDistanceRemaining) * lDiff,
 			getSpeedFor(rightDistanceRemaining) * rDiff);
 
-	if ((fabs(leftDistanceRemaining) <= AUTO_DRIVE_DIST_THRESHOLD) || (fabs(
-			rightDistanceRemaining) <= AUTO_DRIVE_DIST_THRESHOLD)) {
+	if ((fabs(leftDistanceRemaining) <= threshold) || (fabs(
+			rightDistanceRemaining) <= threshold)) {
 		stability++;
 	} else {
 		stability = 0;
@@ -53,20 +62,18 @@ void DriveDistance::Execute() {
 }
 
 float DriveDistance::getSpeedFor(float distanceRemaining) {
-	if (fabs(distanceRemaining) <= AUTO_DRIVE_DIST_THRESHOLD) {
+	if (fabs(distanceRemaining) <= threshold) {
 		return 0.0;
 	}
 
 	float speedScaleFactor = fabs(distanceRemaining)
 			/ AUTO_DRIVE_DIST_SLOW_DOWN;
-	return fmin(
-			AUTO_DRIVE_DIST_SPEED_MAX,
-			(AUTO_DRIVE_DIST_SPEED_RANGE * speedScaleFactor)
-					+ AUTO_DRIVE_DIST_SPEED_MIN) * fsign(distanceRemaining);
+	return fmin(maxSpeed, ((maxSpeed - minSpeed) * speedScaleFactor) + minSpeed)
+			* fsign(distanceRemaining);
 }
 
 bool DriveDistance::IsFinished() {
-	return stability >= AUTO_DRIVE_DIST_STABILITY;
+	return stability >= tStable;
 }
 
 void DriveDistance::End() {

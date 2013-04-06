@@ -41,7 +41,7 @@
 #define AUTO_TURN_SPEED_RANGE 			(AUTO_TURN_SPEED_MAX - AUTO_TURN_SPEED_MIN) /* Speed Range */
 #define AUTO_DRIVE_DIST_SLOW_DOWN		(12.0)
 #define AUTO_DRIVE_DIST_THRESHOLD		(1.0)		/* Inches, stopping tolerance */
-#define AUTO_DRIVE_DIST_CATCHUP			(2.0)		/* Inches, catchup distance */
+#define AUTO_DRIVE_DIST_CATCHUP			(1.5)		/* Inches, catchup distance */
 #define AUTO_DRIVE_DIST_SPEED_MAX 		(0.5)   	/* Maximum speed allowed by DriveDistance */
 #define AUTO_DRIVE_DIST_SPEED_MIN		(.25)   	/* Minimum speed of robot.*/  
 // TODO reduce A_D_D_S_MIN to let robot crawl the last few feet.
@@ -140,9 +140,9 @@
 #define SHOOTER_PITCH_SLOT_COLLECT				(0.5) /*TODO*/
 #define SHOOTER_PITCH_STABILITY					(25)
 
-#define SHOOTER_PITCH_PYRAMID_BACK				(.55)/*.5325*//*.53*//*(.575)(.600)(.637)*/
+#define SHOOTER_PITCH_PYRAMID_BACK				(.5375)/*.55*//*.5325*//*.53*//*(.575)(.600)(.637)*/
 #define SHOOTER_PITCH_PYRAMID_SIDE				(.65)
-#define SHOOTER_PITCH_PYRAMID_FRONT				(.92) /* .95 */
+#define SHOOTER_PITCH_PYRAMID_FRONT				(.92) /*.9225*//* .95 */
 
 #define SHOOTER_LIGHT							(2) /* The shooter light relay */
 #define SHOOTER_DEFAULT_CONTROL					Shooter::kPowerBang
@@ -234,6 +234,6 @@
 #define DEBUG_SEVERE							(0)
 #define DEBUG_INFO								(1)
 #define DEBUG_WARNING							(2)
-#define DEBUG_LEVEL								DEBUG_SEVERE
+#define DEBUG_LEVEL								DEBUG_INFO
 #endif
 

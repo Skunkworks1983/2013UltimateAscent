@@ -35,7 +35,7 @@ Autonomous *Autonomous::createCollect5PyraOuter() {
 	cmd->AddSequential(new Shoot());
 	cmd->AddSequential(new Shoot());
 	cmd->AddSequential(new Shoot());
-	
+
 	cmd->AddSequential(new ChangeShooterPitch(0));
 	cmd->AddSequential(new DriveDistance(-12));
 	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
@@ -68,18 +68,26 @@ Autonomous *Autonomous::createCollect6PyraInner() {
 
 	// Drive and collect block
 	cmd->AddSequential(new Shift(Shift::kHigh));
-	cmd->AddParallel(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
-	cmd->AddSequential(new DriveDistance(-5.0/3.14));
-	
-	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
-	CommandBase *driveLong = new DriveDistance(96.0/3.14);
-	cmd->AddParallel(driveLong);
-	cmd->AddParallel(new Collect(7500.0));
-	cmd->AddSequential(new WaitCommand(1.5));
+	cmd->AddParallel(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
 	cmd->AddSequential(
-			new WaitForTrigger(CommandBase::driveBase->getLeftDiddler(),
-					CommandBase::driveBase->getRightDiddler()));
-	cmd->AddSequential(new CommandCanceler(driveLong));
+			new DriveDistance(-3.0, AUTO_DRIVE_DIST_STABILITY / 2.0,
+					AUTO_DRIVE_DIST_THRESHOLD * 1.5));
+	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
+	/*CommandBase *driveLong = new DriveDistance(96.0/3.14);
+	 cmd->AddParallel(driveLong);
+	 cmd->AddParallel(new Collect(7500.0));
+	 cmd->AddSequential(new WaitCommand(1.5));
+	 cmd->AddSequential(
+	 new WaitForTrigger(CommandBase::driveBase->getLeftDiddler(),
+	 CommandBase::driveBase->getRightDiddler()));*/
+	CommandGroup *bgCollect = new CommandGroup();
+	bgCollect->AddSequential(new Collect(7500.0));
+	bgCollect->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
+	cmd->AddParallel(bgCollect);
+	cmd->AddSequential(
+			(new DriveDistance((75.5 / 3.14) + 3.0))->setOutputRange(
+					AUTO_DRIVE_DIST_SPEED_MIN, .75));
+	//cmd->AddSequential(new CommandCanceler(driveLong));
 
 	//Put into shooter block
 	cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
@@ -95,7 +103,38 @@ Autonomous *Autonomous::createCollect6PyraInner() {
 	cmd->AddSequential(new Shoot());
 	cmd->AddSequential(new Shoot());
 
-	cmd->AddSequential(createCollect4PyraFront());
+	//cmd->AddSequential(createCollect4PyraFront());
+
+	cmd->AddParallel(
+			(new DriveDistance(5))->setOutputRange(AUTO_DRIVE_DIST_SPEED_MIN,
+					.65));
+	cmd->AddParallel(new ChangeShooterPitch(0.0, true));
+	cmd->AddSequential(new Collect(7500.0));
+	cmd->AddSequential(new ChangeShooterPitch(0.0));
+
+	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_MID));
+	cmd->AddSequential(new EjectDisks(Collector::kForward));
+	cmd->AddParallel(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
+	cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
+	cmd->AddParallel(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT));
+	cmd->AddSequential(new WaitCommand(0.25));
+	cmd->AddSequential(
+			(new DriveDistance(-5))->setOutputRange(AUTO_DRIVE_DIST_SPEED_MIN,
+					.65));
+	cmd->AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT));
+
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
+
+	cmd->AddSequential(new ArmShooter(ArmShooter::kOff));
+	cmd->AddSequential(new ChangeShooterPitch(0));
+
 	return cmd;
 }
 Autonomous *Autonomous::createCollect4PyraFront() {
@@ -108,7 +147,7 @@ Autonomous *Autonomous::createCollect4PyraFront() {
 	// @see CommandCanceler and DriveDistance::invertDriveCommand
 	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_MID));
 	cmd->AddSequential(new EjectDisks(Collector::kForward));
-	cmd->AddParallel(new MoveCollectorArm(10));
+	cmd->AddParallel(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
 	cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
 	cmd->AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT));
 	cmd->AddSequential(new DriveDistance(-11));

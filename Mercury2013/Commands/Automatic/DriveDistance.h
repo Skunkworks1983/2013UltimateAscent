@@ -11,6 +11,10 @@
  */
 class DriveDistance: public CommandBase {
 private:
+	float minSpeed;
+	float maxSpeed;
+	float threshold;
+	float tStable;
 	float targetDistance;
 	float leftDistanceRemaining;
 	float rightDistanceRemaining;
@@ -22,7 +26,7 @@ private:
 	 * @param remainingDistance the remaining distance, in inches
 	 * @return the motor speed
 	 */
-	static float getSpeedFor(float remainingDistance);
+	float getSpeedFor(float remainingDistance);
 public:
 	/**
 	 * @brief Creates a command to drive a certain distance.
@@ -31,8 +35,11 @@ public:
 	 * then stop, in a direction specified by the sign.
 	 * @param targetDistance the target distance, in inches
 	 */
-	DriveDistance(float targetDistance);
+	DriveDistance(float targetDistance,
+			float tStable = AUTO_DRIVE_DIST_STABILITY,
+			float tThreshold = AUTO_DRIVE_DIST_THRESHOLD);
 	DriveDistance *setResetEncoder(bool reset);
+	DriveDistance *DriveDistance::setOutputRange(float min, float max);
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
