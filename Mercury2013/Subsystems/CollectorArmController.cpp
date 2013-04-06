@@ -27,11 +27,27 @@ ArmController::~ArmController() {
 	delete pid;
 }
 
+void ArmController::updatePIDOutput() {
+	if (fabs(pid->GetError()) < COLLECTOR_PITCH_ERROR_90 && pid->GetSetpoint()
+			== COLLECTOR_PITCH_UP) {
+		pid->SetOutputRange(COLLECTOR_PITCH_MOTOR_SPEED_DOWN_NEAR,
+				COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR_90);
+	} else if (fabs(pid->GetError()) > COLLECTOR_PITCH_ERROR_NEAR) {
+		pid->SetOutputRange(COLLECTOR_PITCH_MOTOR_SPEED_DOWN_FAR,
+				COLLECTOR_PITCH_MOTOR_SPEED_UP_FAR);
+	} else {
+		pid->SetOutputRange(
+				COLLECTOR_PITCH_MOTOR_SPEED_DOWN_NEAR,
+				PIDGet() > (COLLECTOR_PITCH_UP - (COLLECTOR_PITCH_ERROR_NEAR)) ? COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR_90
+						: COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR);
+	}
+}
 float ArmController::getOutput() {
 	return pid->Get();
 }
 
 double ArmController::PIDGet() {
+	updatePIDOutput();
 	return COLLECTOR_PITCH_CONVERT(pot->GetAverageValue());
 }
 
@@ -52,15 +68,7 @@ void ArmController::setPIDState(bool enabled) {
 
 void ArmController::setSetpoint(float f) {
 	pid->SetSetpoint(f);
-	if (fabs(pid->GetError()) > COLLECTOR_PITCH_ERROR_NEAR) {
-		pid->SetOutputRange(COLLECTOR_PITCH_MOTOR_SPEED_DOWN_FAR,
-				COLLECTOR_PITCH_MOTOR_SPEED_UP_FAR);
-	} else {
-		pid->SetOutputRange(
-				COLLECTOR_PITCH_MOTOR_SPEED_DOWN_NEAR,
-				PIDGet() > (COLLECTOR_PITCH_UP - (COLLECTOR_PITCH_ERROR_NEAR)) ? COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR_90
-						: COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR);
-	}
+	updatePIDOutput();
 }
 
 bool ArmController::isPIDDone() {
@@ -90,10 +98,8 @@ void LeftArmController::PIDWrite(float f) {
 		pid->SetOutputRange(COLLECTOR_PITCH_MOTOR_SPEED_DOWN_FAR,
 				COLLECTOR_PITCH_MOTOR_SPEED_UP_FAR);
 	} else {
-		pid->SetOutputRange(
-				COLLECTOR_PITCH_MOTOR_SPEED_DOWN_NEAR,
-				PIDGet() > (COLLECTOR_PITCH_UP - (COLLECTOR_PITCH_ERROR_NEAR)) ? COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR_90
-						: COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR);
+		pid->SetOutputRange(COLLECTOR_PITCH_MOTOR_SPEED_DOWN_NEAR,
+				COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR);
 	}
 	motor->Set(-f * diff);
 }
@@ -114,14 +120,5 @@ void RightArmController::PIDWrite(float f) {
 			(COLLECTOR_PITCH_CATCHUP - fabs(
 					collect->getRightAngle() - collect->getLeftAngle()))
 					/ COLLECTOR_PITCH_CATCHUP, 1.0);
-	if (fabs(pid->GetError()) > COLLECTOR_PITCH_ERROR_NEAR) {
-		pid->SetOutputRange(COLLECTOR_PITCH_MOTOR_SPEED_DOWN_FAR,
-				COLLECTOR_PITCH_MOTOR_SPEED_UP_FAR);
-	} else {
-		pid->SetOutputRange(
-				COLLECTOR_PITCH_MOTOR_SPEED_DOWN_NEAR,
-				PIDGet() > (COLLECTOR_PITCH_UP - (COLLECTOR_PITCH_ERROR_NEAR)) ? COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR_90
-						: COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR);
-	}
 	motor->Set(f * diff);
 }

@@ -116,7 +116,7 @@
 
 #define SHOOTER_MOTOR_FLUSH_SPEED				(-0.75) /* TODO */
 // Various times (millis)
-#define SHOOTER_ARM_TIME						(1000) /* TODO */
+#define SHOOTER_ARM_TIME						(1500) /* TODO */
 #define SHOOTER_SHOOT_TIME						(150) /* TODO */
 #define SHOOTER_WAIT_TIME						(300) /* (1250) */
 #define SHOOTER_FLUSH_TIME						(500) /* TODO */
@@ -140,9 +140,9 @@
 #define SHOOTER_PITCH_SLOT_COLLECT				(0.5) /*TODO*/
 #define SHOOTER_PITCH_STABILITY					(25)
 
-#define SHOOTER_PITCH_PYRAMID_BACK				(.575)/*.5325*//*.53*//*(.575)(.600)(.637)*/
+#define SHOOTER_PITCH_PYRAMID_BACK				(.55)/*.5325*//*.53*//*(.575)(.600)(.637)*/
 #define SHOOTER_PITCH_PYRAMID_SIDE				(.65)
-#define SHOOTER_PITCH_PYRAMID_FRONT				(.94) /* .95 */
+#define SHOOTER_PITCH_PYRAMID_FRONT				(.93) /* .95 */
 
 #define SHOOTER_LIGHT							(2) /* The shooter light relay */
 #define SHOOTER_DEFAULT_CONTROL					Shooter::kPowerBang
@@ -167,6 +167,7 @@
 #define COLLECTOR_PITCH_MOTOR_SPEED_UP_FAR		(1) /* TODO get value from design team */
 #define COLLECTOR_PITCH_MOTOR_SPEED_DOWN_FAR	(-1) /* TODO get value from design team */
 #define COLLECTOR_PITCH_ERROR_NEAR				(15)
+#define COLLECTOR_PITCH_ERROR_90				(15)
 #define COLLECTOR_MOTOR_SPEED					(0.5)
 #define COLLECTOR_PITCH_POT_LEFT				(3)
 #define COLLECTOR_PITCH_POT_RIGHT				(2)
