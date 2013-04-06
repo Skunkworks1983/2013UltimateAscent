@@ -44,7 +44,7 @@ void DriveDistance::Execute() {
 	driveBase->setSpeed(getSpeedFor(leftDistanceRemaining) * lDiff,
 			getSpeedFor(rightDistanceRemaining) * rDiff);
 
-	if ((fabs(leftDistanceRemaining) <= AUTO_DRIVE_DIST_THRESHOLD) && (fabs(
+	if ((fabs(leftDistanceRemaining) <= AUTO_DRIVE_DIST_THRESHOLD) || (fabs(
 			rightDistanceRemaining) <= AUTO_DRIVE_DIST_THRESHOLD)) {
 		stability++;
 	} else {

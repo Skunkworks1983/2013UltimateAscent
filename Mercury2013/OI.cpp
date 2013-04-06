@@ -12,7 +12,7 @@
 #include "Commands/Shooter/ShooterLight.h"
 #include "Commands/Drivebase/Shift.h"
 #include "Commands/Drivebase/SetScalingFactor.h"
-#include "Commands/Drivebase/DiddlerDrive.h"
+#include "Commands/Automatic/DiddlerDrive.h"
 #include "Commands/Collector/MoveCollectorArm.h"
 #include "Commands/CommandStarter.h"
 #include "Commands/CommandCanceler.h"

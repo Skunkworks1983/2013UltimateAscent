@@ -5,7 +5,7 @@
 #include "../Collector/Collect.h"
 #include "../Collector/EjectDisks.h"
 #include "../Collector/MoveCollectorArm.h"
-#include "../Drivebase/DiddlerDrive.h"
+#include "../Automatic/DiddlerDrive.h"
 
 #include "../CommandStarter.h"
 #include "../CommandCanceler.h"
@@ -39,7 +39,7 @@ Autonomous *Autonomous::createCollect5PyraOuter() {
 	cmd->AddSequential(new ChangeShooterPitch(0));
 	cmd->AddSequential(new DriveDistance(-12));
 	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
-	cmd->AddParallel(new DriveDistance(15));
+	cmd->AddParallel(new DriveDistance(18));
 	cmd->AddSequential(new Collect(7500.0));
 
 	//Put into shooter block
@@ -68,10 +68,14 @@ Autonomous *Autonomous::createCollect6PyraInner() {
 
 	// Drive and collect block
 	cmd->AddSequential(new Shift(Shift::kHigh));
+	cmd->AddParallel(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
+	cmd->AddSequential(new DriveDistance(-5.0/3.14));
+	
 	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
-	CommandBase *driveLong = new DriveDistance(84);
+	CommandBase *driveLong = new DriveDistance(96.0/3.14);
 	cmd->AddParallel(driveLong);
 	cmd->AddParallel(new Collect(7500.0));
+	cmd->AddSequential(new WaitCommand(1.5));
 	cmd->AddSequential(
 			new WaitForTrigger(CommandBase::driveBase->getLeftDiddler(),
 					CommandBase::driveBase->getRightDiddler()));

@@ -98,10 +98,8 @@ void UFOBot::TestInit() {
 }
 
 void UFOBot::TestPeriodic() {
-	updateRealLoopsPerSecond();
 	GetWatchdog().Feed();
 	lw->Run();
-	motorSaftey();
 }
 
 void UFOBot::motorSaftey() {

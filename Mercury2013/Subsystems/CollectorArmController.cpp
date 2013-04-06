@@ -18,7 +18,7 @@ ArmController::ArmController(char *name, CollectorArms *collect,
 
 	LiveWindow::GetInstance()->AddActuator(name, "PID", pid);
 	LiveWindow::GetInstance()->AddActuator(name, "Motor", motor);
-	LiveWindow::GetInstance()->AddSensor(name, "Analog Angle", pot);
+	LiveWindow::GetInstance()->AddSensor(name, "Analog Input", pot);
 }
 
 ArmController::~ArmController() {
@@ -47,7 +47,6 @@ float ArmController::getOutput() {
 }
 
 double ArmController::PIDGet() {
-	updatePIDOutput();
 	return COLLECTOR_PITCH_CONVERT(pot->GetAverageValue());
 }
 
@@ -67,8 +66,8 @@ void ArmController::setPIDState(bool enabled) {
 }
 
 void ArmController::setSetpoint(float f) {
-	pid->SetSetpoint(f);
 	updatePIDOutput();
+	pid->SetSetpoint(f);
 }
 
 bool ArmController::isPIDDone() {
@@ -90,17 +89,11 @@ LeftArmController::~LeftArmController() {
 }
 
 void LeftArmController::PIDWrite(float f) {
+	updatePIDOutput();
 	float diff = min(
 			(COLLECTOR_PITCH_CATCHUP - fabs(
 					collect->getLeftAngle() - collect->getRightAngle()))
 					/ COLLECTOR_PITCH_CATCHUP, 1.0);
-	if (fabs(pid->GetError()) > COLLECTOR_PITCH_ERROR_NEAR) {
-		pid->SetOutputRange(COLLECTOR_PITCH_MOTOR_SPEED_DOWN_FAR,
-				COLLECTOR_PITCH_MOTOR_SPEED_UP_FAR);
-	} else {
-		pid->SetOutputRange(COLLECTOR_PITCH_MOTOR_SPEED_DOWN_NEAR,
-				COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR);
-	}
 	motor->Set(-f * diff);
 }
 
@@ -116,6 +109,7 @@ RightArmController::~RightArmController() {
 }
 
 void RightArmController::PIDWrite(float f) {
+	updatePIDOutput();
 	float diff = min(
 			(COLLECTOR_PITCH_CATCHUP - fabs(
 					collect->getRightAngle() - collect->getLeftAngle()))

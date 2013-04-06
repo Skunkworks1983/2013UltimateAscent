@@ -162,12 +162,12 @@
 #define COLLECTOR_PITCH_STABILITY				5
 // CollectorArms constant speed
 #define COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR		(.5) /* TODO get value from design team */
-#define COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR_90	(.1) /* TODO get value from design team */
+#define COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR_90	(.5) /* TODO get value from design team */
 #define COLLECTOR_PITCH_MOTOR_SPEED_DOWN_NEAR	(-.4) /* TODO get value from design team */
 #define COLLECTOR_PITCH_MOTOR_SPEED_UP_FAR		(1) /* TODO get value from design team */
 #define COLLECTOR_PITCH_MOTOR_SPEED_DOWN_FAR	(-1) /* TODO get value from design team */
 #define COLLECTOR_PITCH_ERROR_NEAR				(15)
-#define COLLECTOR_PITCH_ERROR_90				(15)
+#define COLLECTOR_PITCH_ERROR_90				(20)
 #define COLLECTOR_MOTOR_SPEED					(0.5)
 #define COLLECTOR_PITCH_POT_LEFT				(3)
 #define COLLECTOR_PITCH_POT_RIGHT				(2)

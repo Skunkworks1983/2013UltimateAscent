@@ -19,6 +19,9 @@ void DiddlerDrive::Initialize() {
 void DiddlerDrive::Execute() {
 	if (driveBase->getLeftDiddler()->Get()) {
 		if (lStable++ == 5) {
+			if (fabs(speed) > (1.5 * AUTO_DRIVE_DIST_SPEED_MIN)) {
+				speed /= 1.5;
+			}
 			leftSide = !leftSide;
 		}
 	} else {
