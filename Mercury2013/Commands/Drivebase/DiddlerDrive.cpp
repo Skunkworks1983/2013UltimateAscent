@@ -32,8 +32,6 @@ void DiddlerDrive::Execute() {
 		rStable = 0;
 	}
 
-	lastLeft = driveBase->getLeftDiddler()->Get();
-	lastRight = driveBase->getRightDiddler()->Get();
 	float lSpeed = leftSide ? -speed : speed;
 	float rSpeed = rightSide ? -speed : speed;
 	driveBase->setSpeed(driveBase->getLeftDiddler()->Get() ? 0.0 : lSpeed,
