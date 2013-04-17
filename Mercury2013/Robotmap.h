@@ -39,9 +39,9 @@
 #define AUTO_TURN_GYRO_THRESHOLD  		(.25)	    /* Degrees, stopping tolerance */
 #define AUTO_TURN_SLOW_DOWN				(12.0)
 #define AUTO_TURN_SPEED_RANGE 			(AUTO_TURN_SPEED_MAX - AUTO_TURN_SPEED_MIN) /* Speed Range */
-#define AUTO_DRIVE_DIST_SLOW_DOWN		(12.0)
+#define AUTO_DRIVE_DIST_SLOW_DOWN		(24.0)
 #define AUTO_DRIVE_DIST_THRESHOLD		(1.0)		/* Inches, stopping tolerance */
-#define AUTO_DRIVE_DIST_CATCHUP			(1.5)		/* Inches, catchup distance */
+#define AUTO_DRIVE_DIST_CATCHUP			(6.0)		/* Inches, catchup distance */
 #define AUTO_DRIVE_DIST_SPEED_MAX 		(0.5)   	/* Maximum speed allowed by DriveDistance */
 #define AUTO_DRIVE_DIST_SPEED_MIN		(.25)   	/* Minimum speed of robot.*/  
 // TODO reduce A_D_D_S_MIN to let robot crawl the last few feet.
@@ -71,9 +71,9 @@
 
 #define DRIVE_GEAR_RATIO_HIGH					((16.0/32.0) * (35.0/28.0))
 #define DRIVE_GEAR_RATIO_LOW					((16.0/32.0) * (15.0/48.0))
-#define DRIVE_WHEEL_DIAMETER					(4.0 * (4.0/9.0))/* * 3.141592) TODO real values */
-#define DRIVE_ENCODER_INCH_PER_TICK_HIGH		(DRIVE_WHEEL_DIAMETER * 3.14159 * DRIVE_GEAR_RATIO_HIGH / 360.0)
-#define DRIVE_ENCODER_INCH_PER_TICK_LOW			(DRIVE_WHEEL_DIAMETER * 3.14159 * DRIVE_GEAR_RATIO_LOW / 360.0)
+#define DRIVE_WHEEL_DIAMETER					(4.0)
+#define DRIVE_ENCODER_INCH_PER_TICK_HIGH		(DRIVE_WHEEL_DIAMETER * (4.0/9.0) * 3.141592 * 3.14159 * DRIVE_GEAR_RATIO_HIGH / 360.0)
+#define DRIVE_ENCODER_INCH_PER_TICK_LOW			(DRIVE_WHEEL_DIAMETER * (4.0/9.0) * 3.141592 * 3.14159 * DRIVE_GEAR_RATIO_LOW / 360.0)
 #define DRIVE_ENCODER_LEFT						4,5
 #define DRIVE_ENCODER_RIGHT						2,3
 #define DRIVE_SCALING_MINSPEED					3

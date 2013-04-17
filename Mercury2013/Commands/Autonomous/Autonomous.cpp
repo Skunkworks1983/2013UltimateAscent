@@ -70,7 +70,7 @@ Autonomous *Autonomous::createCollect6PyraInner() {
 	cmd->AddSequential(new Shift(Shift::kHigh));
 	cmd->AddParallel(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
 	cmd->AddSequential(
-			new DriveDistance(-3.0, AUTO_DRIVE_DIST_STABILITY / 2.0,
+			new DriveDistance(-9.42, AUTO_DRIVE_DIST_STABILITY / 2.0,
 					AUTO_DRIVE_DIST_THRESHOLD * 1.5));
 	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
 	/*CommandBase *driveLong = new DriveDistance(96.0/3.14);
@@ -85,7 +85,7 @@ Autonomous *Autonomous::createCollect6PyraInner() {
 	bgCollect->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
 	cmd->AddParallel(bgCollect);
 	cmd->AddSequential(
-			(new DriveDistance((75.5 / 3.14) + 3.0))->setOutputRange(
+			(new DriveDistance(76.25))->setOutputRange(
 					AUTO_DRIVE_DIST_SPEED_MIN, .75));
 	//cmd->AddSequential(new CommandCanceler(driveLong));
 
@@ -106,7 +106,7 @@ Autonomous *Autonomous::createCollect6PyraInner() {
 	//cmd->AddSequential(createCollect4PyraFront());
 
 	cmd->AddParallel(
-			(new DriveDistance(5))->setOutputRange(AUTO_DRIVE_DIST_SPEED_MIN,
+			(new DriveDistance(15.7))->setOutputRange(AUTO_DRIVE_DIST_SPEED_MIN,
 					.65));
 	cmd->AddParallel(new ChangeShooterPitch(0.0, true));
 	cmd->AddSequential(new Collect(7500.0));
@@ -119,7 +119,7 @@ Autonomous *Autonomous::createCollect6PyraInner() {
 	cmd->AddParallel(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT));
 	cmd->AddSequential(new WaitCommand(0.25));
 	cmd->AddSequential(
-			(new DriveDistance(-5))->setOutputRange(AUTO_DRIVE_DIST_SPEED_MIN,
+			(new DriveDistance(-15.7))->setOutputRange(AUTO_DRIVE_DIST_SPEED_MIN,
 					.65));
 	cmd->AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT));
 
@@ -141,7 +141,7 @@ Autonomous *Autonomous::createCollect4PyraFront() {
 	Autonomous *cmd = new Autonomous("Autonomous-Collect4PyraFront");
 	cmd->AddSequential(new Shift(Shift::kHigh));
 	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
-	cmd->AddParallel(new DriveDistance(11));
+	cmd->AddParallel(new DriveDistance(11*3.14));
 	cmd->AddSequential(new Collect(7500.0));
 	// TODO cancel the drive command and cache the distances to reverse it
 	// @see CommandCanceler and DriveDistance::invertDriveCommand
@@ -150,7 +150,7 @@ Autonomous *Autonomous::createCollect4PyraFront() {
 	cmd->AddParallel(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
 	cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
 	cmd->AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT));
-	cmd->AddSequential(new DriveDistance(-11));
+	cmd->AddSequential(new DriveDistance(-11*3.14));
 
 	cmd->AddSequential(new Shoot());
 	cmd->AddSequential(new Shoot());
@@ -169,9 +169,26 @@ Autonomous *Autonomous::createCollect4PyraFront() {
 Autonomous *Autonomous::createJustShootFront() {
 	Autonomous *cmd = new Autonomous("Autonomous-JustShootPyraFront");
 	cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
-	cmd->AddSequential(new MoveCollectorArm(10));
 	cmd->AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT));
 
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
+
+	cmd->AddSequential(new ArmShooter(ArmShooter::kOff));
+	return cmd;
+}
+
+Autonomous *Autonomous::createJustShootBack() {
+	Autonomous *cmd = new Autonomous("Autonomous-JustShootPyraBack");
+	cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
+	cmd->AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_BACK));
+
+	cmd->AddSequential(new Shoot());
+	cmd->AddSequential(new Shoot());
 	cmd->AddSequential(new Shoot());
 	cmd->AddSequential(new Shoot());
 	cmd->AddSequential(new Shoot());

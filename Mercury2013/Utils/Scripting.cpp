@@ -79,6 +79,8 @@ SendableChooser *Scripting::generateAutonomousModes(char *scriptLocations) {
 			new ScriptCommand(Autonomous::createCollect4PyraFront()));
 	chooser->AddObject("Just Shoot Pyra Front",
 			new ScriptCommand(Autonomous::createJustShootFront()));
+	chooser->AddObject("Just Shoot Pyra Back",
+			new ScriptCommand(Autonomous::createJustShootBack()));
 	chooser->AddObject("Collect 6 Pyra Inner",
 			new ScriptCommand(Autonomous::createCollect6PyraInner()));
 	chooser->AddObject("Collect 5 Pyra Outer",

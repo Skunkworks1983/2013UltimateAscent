@@ -7,6 +7,7 @@ class Autonomous: public CommandGroup {
 public:
 	static Autonomous *createCollect4PyraFront();
 	static Autonomous *createJustShootFront();
+	static Autonomous *createJustShootBack();
 	static Autonomous *createCollect6PyraInner();
 	static Autonomous *createCollect5PyraOuter();
 public:
