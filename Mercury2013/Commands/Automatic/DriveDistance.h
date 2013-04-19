@@ -26,7 +26,7 @@ private:
 	 * @param remainingDistance the remaining distance, in inches
 	 * @return the motor speed
 	 */
-	float getSpeedFor(float remainingDistance);
+	float getSpeedFor(float remainingDistance, float speed);
 public:
 	/**
 	 * @brief Creates a command to drive a certain distance.

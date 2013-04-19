@@ -28,7 +28,7 @@
 //#define OI_SHOOTER_ANGLE_CONVERT(x)			(((0.0817 * x * x * x) - (0.4982 * x * x) + (1.0196 * x)) * (1 / (0.970 - 0.0861)))
 #define OI_SHOOTER_SPEED_CONVERT(x)			((0.888 * x * x * x) - (0.5351 * x * x) + (1.0657 * x) + (0.1008))
 #define OI_SHOOTER_ANGLE_CONVERT(x)			((90 * x) - 55)
-#define OI_COLLECTOR_ANGLE_CONVERT(x)		((90 * x) - 50) /* TODO */
+#define OI_COLLECTOR_ANGLE_CONVERT(x)		((90 * x) - 50)
 
 #define OI_COLLECTOR_ANGLE_DELTA			(5)
 #define OI_SHOOTER_ANGLE_DELTA				(0.05)
@@ -40,8 +40,8 @@
 #define AUTO_TURN_SLOW_DOWN				(12.0)
 #define AUTO_TURN_SPEED_RANGE 			(AUTO_TURN_SPEED_MAX - AUTO_TURN_SPEED_MIN) /* Speed Range */
 #define AUTO_DRIVE_DIST_SLOW_DOWN		(24.0)
-#define AUTO_DRIVE_DIST_THRESHOLD		(1.0)		/* Inches, stopping tolerance */
-#define AUTO_DRIVE_DIST_CATCHUP			(6.0)		/* Inches, catchup distance */
+#define AUTO_DRIVE_DIST_THRESHOLD		(3)		/* Inches, stopping tolerance */
+#define AUTO_DRIVE_DIST_CATCHUP			(1.5)		/* Inches, catchup distance */
 #define AUTO_DRIVE_DIST_SPEED_MAX 		(0.5)   	/* Maximum speed allowed by DriveDistance */
 #define AUTO_DRIVE_DIST_SPEED_MIN		(.25)   	/* Minimum speed of robot.*/  
 // TODO reduce A_D_D_S_MIN to let robot crawl the last few feet.
@@ -91,35 +91,35 @@
 #define SHOOTER_MOTOR_MIDDLE					1,8
 #define SHOOTER_MOTOR_REAR						1,7
 
-#define SHOOTER_ASPEED_FRONT					1,4 /*TODO*/
+#define SHOOTER_ASPEED_FRONT					1,4
 #define SHOOTER_ASPEED_REAR						1,5
 #define SHOOTER_ASPEED_CONVERT(val)				((val/4.096) * 17920.0)
 
 #define SHOOTER_PITCH_POT						1,6
 #define SHOOTER_PITCH_POT_CONVERT(val)			((val/4.096) * 90.0)
 
-#define SHOOTER_ENCODER_CONVERT(val)			(val) /*TODO*/
+#define SHOOTER_ENCODER_CONVERT(val)			(val)
 
 #define SHOOTER_PITCH_MOTOR						1,6
 
-#define SHOOTER_MOTOR_FRONT_RPM					600 /*TODO*/
+#define SHOOTER_MOTOR_FRONT_RPM					600
 #define SHOOTER_MOTOR_REAR_RPM					600
 
 // Shooter motor speeds
-#define SHOOTER_MOTOR_FRONT_SPEED				(-1.0) /* TODO */
-#define SHOOTER_MOTOR_MIDDLE_SPEED				(-0.8) /* TODO */
-#define SHOOTER_MOTOR_REAR_SPEED				(-1.0) /* TODO */
+#define SHOOTER_MOTOR_FRONT_SPEED				(-1.0)
+#define SHOOTER_MOTOR_MIDDLE_SPEED				(-1.0)
+#define SHOOTER_MOTOR_REAR_SPEED				(-1.0)
 
-#define SHOOTER_MOTOR_FRONT_BANG_SPEED			(-1.0) /* TODO */
-#define SHOOTER_MOTOR_MIDDLE_BANG_SPEED			(-1.0) /* TODO */
-#define SHOOTER_MOTOR_REAR_BANG_SPEED			(-1.0) /* TODO */
+#define SHOOTER_MOTOR_FRONT_BANG_SPEED			(-1.0)
+#define SHOOTER_MOTOR_MIDDLE_BANG_SPEED			(-1.0)
+#define SHOOTER_MOTOR_REAR_BANG_SPEED			(-1.0)
 
-#define SHOOTER_MOTOR_FLUSH_SPEED				(-0.75) /* TODO */
+#define SHOOTER_MOTOR_FLUSH_SPEED				(-0.75)
 // Various times (millis)
-#define SHOOTER_ARM_TIME						(1500) /* TODO */
-#define SHOOTER_SHOOT_TIME						(150) /* TODO */
-#define SHOOTER_WAIT_TIME						(300) /* (1250) */
-#define SHOOTER_FLUSH_TIME						(500) /* TODO */
+#define SHOOTER_ARM_TIME						(1500)
+#define SHOOTER_SHOOT_TIME						(200)
+#define SHOOTER_WAIT_TIME						(300)
+#define SHOOTER_FLUSH_TIME						(500)
 
 // Class name of the shooter and shooter pitch motor controllers
 #define SHOOTER_MOTOR_TYPE						Talon
@@ -133,11 +133,11 @@
 #define SHOOTER_PITCH_ENCODER					12,13
 #define SHOOTER_PITCH_LIMIT_SWITCH				(11)
 #define SHOOTER_PITCH_UPPER_LIMIT				(1.0)
-#define SHOOTER_PITCH_DEGREES_PER_PULSE			(1.0/27500.0*360.0/-256.0)
+#define SHOOTER_PITCH_DEGREES_PER_PULSE			(1.0/27500.0)/**360.0/-256.0)*/
 // Shooter pitch control info
 #define SHOOTER_PITCH_THRESHOLD					(0.0125)  /*Random units; scalar of shooter angle */
 #define SHOOTER_PITCH_COLLECT					(0)
-#define SHOOTER_PITCH_SLOT_COLLECT				(0.5) /*TODO*/
+#define SHOOTER_PITCH_SLOT_COLLECT				(0.5)
 #define SHOOTER_PITCH_STABILITY					(25)
 
 #define SHOOTER_PITCH_PYRAMID_BACK				(.5375)/*.55*//*.5325*//*.53*//*(.575)(.600)(.637)*/
@@ -161,14 +161,14 @@
 #define COLLECTOR_PITCH_MOTOR_TYPE				Talon
 #define COLLECTOR_PITCH_STABILITY				5
 // CollectorArms constant speed
-#define COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR		(.5) /* TODO get value from design team */
-#define COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR_90	(.5) /* TODO get value from design team */
-#define COLLECTOR_PITCH_MOTOR_SPEED_DOWN_NEAR	(-.4) /* TODO get value from design team */
-#define COLLECTOR_PITCH_MOTOR_SPEED_UP_FAR		(1) /* TODO get value from design team */
-#define COLLECTOR_PITCH_MOTOR_SPEED_DOWN_FAR	(-1) /* TODO get value from design team */
+#define COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR		(.5)
+#define COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR_90	(.5)
+#define COLLECTOR_PITCH_MOTOR_SPEED_DOWN_NEAR	(-.4)
+#define COLLECTOR_PITCH_MOTOR_SPEED_UP_FAR		(1)
+#define COLLECTOR_PITCH_MOTOR_SPEED_DOWN_FAR	(-1)
 #define COLLECTOR_PITCH_ERROR_NEAR				(15)
 #define COLLECTOR_PITCH_ERROR_90				(20)
-#define COLLECTOR_MOTOR_SPEED					(0.5)
+#define COLLECTOR_MOTOR_SPEED					(.5)
 #define COLLECTOR_PITCH_POT_LEFT				(3)
 #define COLLECTOR_PITCH_POT_RIGHT				(2)
 #define COLLECTOR_PITCH_CONVERT(value)			(((value - 205) * 90) / 315)

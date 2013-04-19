@@ -44,15 +44,19 @@ void DriveDistance::Execute() {
 			- driveBase->getLeftEncoder()->GetDistance();
 	rightDistanceRemaining = targetDistance
 			- driveBase->getRightEncoder()->GetDistance();
-	float lDiff = min(
-			(AUTO_DRIVE_DIST_CATCHUP - (rightDistanceRemaining
-					- leftDistanceRemaining)) / AUTO_DRIVE_DIST_CATCHUP, 1.0);
-	float rDiff = min(
-			(AUTO_DRIVE_DIST_CATCHUP - (leftDistanceRemaining
-					- rightDistanceRemaining)) / AUTO_DRIVE_DIST_CATCHUP, 1.0);
-	driveBase->setSpeed(getSpeedFor(leftDistanceRemaining) * lDiff,
-			getSpeedFor(rightDistanceRemaining) * rDiff);
-
+	float lSpeed = getSpeedFor(leftDistanceRemaining, driveBase->getLeftEncoder()->GetRate());
+	float rSpeed = getSpeedFor(rightDistanceRemaining, driveBase->getRightEncoder()->GetRate());
+	float errorM = fmin(
+			fmax(
+					(AUTO_DRIVE_DIST_CATCHUP - fabs(
+							rightDistanceRemaining - leftDistanceRemaining))
+							/ AUTO_DRIVE_DIST_CATCHUP, 0.0), 1.0);
+	if (fabs(rightDistanceRemaining) > fabs(leftDistanceRemaining)) {
+		lSpeed *= errorM;
+	} else {
+		rSpeed *= errorM;
+	}
+	driveBase->setSpeed(lSpeed, rSpeed);
 	if ((fabs(leftDistanceRemaining) <= threshold) || (fabs(
 			rightDistanceRemaining) <= threshold)) {
 		stability++;
@@ -61,9 +65,9 @@ void DriveDistance::Execute() {
 	}
 }
 
-float DriveDistance::getSpeedFor(float distanceRemaining) {
+float DriveDistance::getSpeedFor(float distanceRemaining, float speed) {
 	if (fabs(distanceRemaining) <= threshold) {
-		return 0.0;
+		return 0.0;//-speed / AUTO_DRIVE_DIST_SLOW_DOWN;
 	}
 
 	float speedScaleFactor = fabs(distanceRemaining)

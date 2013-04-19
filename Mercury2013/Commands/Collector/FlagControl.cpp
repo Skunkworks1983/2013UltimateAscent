@@ -49,7 +49,7 @@ void FlagControl::Execute() {
 }
 
 bool FlagControl::IsFinished() {
-	return complete;
+	return true;//complete;
 }
 
 void FlagControl::End() {

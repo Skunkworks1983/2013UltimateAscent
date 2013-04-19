@@ -9,7 +9,6 @@ protected:
 	AnalogChannel *pot;
 	PIDController *pid;COLLECTOR_PITCH_MOTOR_TYPE *motor;
 	CollectorArms *collect;
-	int pidStability;
 	void updatePIDOutput();
 public:
 	ArmController(char *name, CollectorArms *collect,

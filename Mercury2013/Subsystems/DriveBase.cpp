@@ -54,8 +54,13 @@ DriveBase::~DriveBase() {
 }
 
 void DriveBase::setSpeed(float leftSpeed, float rightSpeed) {
-	//TODO Check on Competition Bot
 	motorLeft->Set(leftSpeed);
+	motorRight->Set(-rightSpeed);
+}
+void DriveBase::setLeftSpeed(float leftSpeed) {
+	motorLeft->Set(leftSpeed);
+}
+void DriveBase::setRightSpeed(float rightSpeed) {
 	motorRight->Set(-rightSpeed);
 }
 

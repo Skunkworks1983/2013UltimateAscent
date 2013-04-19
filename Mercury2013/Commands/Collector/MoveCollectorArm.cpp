@@ -14,7 +14,7 @@ MoveCollectorArm::~MoveCollectorArm() {
 void MoveCollectorArm::Initialize() {
 	collectorArms->setPIDState(true);
 	collectorArms->setSetpoint(goal);
-	stability = 0;
+	stability = collectorArms->isPIDDone() ? goalStability : 0;
 }
 
 void MoveCollectorArm::Execute() {

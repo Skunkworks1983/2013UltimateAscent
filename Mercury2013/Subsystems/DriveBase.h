@@ -42,6 +42,8 @@ public:
 	 * @param rightSpeed the scalar right speed.  [-1,1]
 	 */
 	void setSpeed(float leftSpeed, float rightSpeed);
+	void setLeftSpeed(float leftSpeed);
+	void setRightSpeed(float rightSpeed);
 
 	/**
 	 * Gets a pointer to this drive base's gyroscope, or NULL if one doesn't exist.

@@ -14,7 +14,6 @@ ArmController::ArmController(char *name, CollectorArms *collect,
 	pid->SetOutputRange(COLLECTOR_PITCH_MOTOR_SPEED_DOWN_NEAR,
 			COLLECTOR_PITCH_MOTOR_SPEED_UP_NEAR);
 	pid->SetInputRange(COLLECTOR_PITCH_POT_MIN, COLLECTOR_PITCH_POT_MAX);
-	pidStability = 0;
 
 	LiveWindow::GetInstance()->AddActuator(name, "PID", pid);
 	LiveWindow::GetInstance()->AddActuator(name, "Motor", motor);
@@ -71,12 +70,7 @@ void ArmController::setSetpoint(float f) {
 }
 
 bool ArmController::isPIDDone() {
-	if (pid->OnTarget()) {
-		pidStability++;
-	} else {
-		pidStability = 0;
-	}
-	return pidStability > COLLECTOR_PITCH_STABILITY;
+	return pid->OnTarget();
 }
 
 LeftArmController::LeftArmController(CollectorArms *collect) :
