@@ -49,9 +49,7 @@ DualLiveSpeed::DualLiveSpeed(SpeedController *aA, SpeedController *bB,
 		this->aScalingNeg = 1.0;
 		this->bScalingNeg = bScalingNeg;
 	}
-
-	printf("Scaling:\t%f,%f\t%f,%f\n", aScalingPos, aScalingNeg,
-			this->bScalingPos, this->bScalingNeg);
+	
 	LiveWindow::GetInstance()->AddActuator("DualSpeedController", (int) aA,
 			(int) bB, this);
 }

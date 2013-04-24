@@ -19,17 +19,14 @@ void WaitForTrigger::Execute() {
 
 bool WaitForTrigger::IsFinished() {
 	if (secondLol == NULL) {
-		printf("State %d\n", waitFor->Get());
 		return waitFor->Get() == waitForState;
 	} else {
-		printf("State %d\t%d\n", secondLol->Get(), waitFor->Get());
 		return secondLol->Get() == waitForState && waitFor->Get()
 				== waitForState;
 	}
 }
 
 void WaitForTrigger::End() {
-	printf("Finished\n");
 }
 
 void WaitForTrigger::Interrupted() {

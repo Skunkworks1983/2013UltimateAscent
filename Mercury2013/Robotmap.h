@@ -133,7 +133,7 @@
 #define SHOOTER_PITCH_ENCODER					12,13
 #define SHOOTER_PITCH_LIMIT_SWITCH				(11)
 #define SHOOTER_PITCH_UPPER_LIMIT				(1.0)
-#define SHOOTER_PITCH_DEGREES_PER_PULSE			(1.0/27500.0)/**360.0/-256.0)*/
+#define SHOOTER_PITCH_DEGREES_PER_PULSE			(1.0/27500.0*360.0/-256.0)
 // Shooter pitch control info
 #define SHOOTER_PITCH_THRESHOLD					(0.0125)  /*Random units; scalar of shooter angle */
 #define SHOOTER_PITCH_COLLECT					(0)
