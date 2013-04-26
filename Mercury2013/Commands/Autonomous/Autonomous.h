@@ -10,6 +10,7 @@ public:
 	static Autonomous *createJustShootBack();
 	static Autonomous *createCollect6PyraInner();
 	static Autonomous *createCollect5PyraOuter();
+	static Autonomous *createCollect6PyraInner4Chunk();
 public:
 	Autonomous();
 	Autonomous(char *style);

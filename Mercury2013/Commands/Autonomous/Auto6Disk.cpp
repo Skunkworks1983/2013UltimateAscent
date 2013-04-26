@@ -26,7 +26,7 @@ Autonomous *Autonomous::createCollect6PyraInner() {
 	cmd->AddParallel(bgCollect);
 	cmd->AddSequential(
 			(new DriveDistance(76.25))->setOutputRange(
-					AUTO_DRIVE_DIST_SPEED_MIN, .75));
+					0.0, .75));
 
 	//Put into shooter block
 	cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
@@ -42,13 +42,17 @@ Autonomous *Autonomous::createCollect6PyraInner() {
 	cmd->AddSequential(new Shoot());
 	cmd->AddSequential(new Shoot());
 
-	//cmd->AddSequential(createCollect4PyraFront());
+	cmd->AddSequential(createCollect6PyraInner4Chunk());
+	return cmd;
+}
 
+Autonomous *Autonomous::createCollect6PyraInner4Chunk() {
+	Autonomous *cmd = new Autonomous("Collect6PyraInner4Chunk");
+	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
 	cmd->AddParallel(
 			(new DriveDistance(24.0))->setOutputRange(
 					AUTO_DRIVE_DIST_SPEED_MIN, .65));
 	cmd->AddParallel(new ChangeShooterPitch(0.0, true));
-	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
 	cmd->AddSequential(new Collect(7500.0));
 	cmd->AddSequential(new ChangeShooterPitch(0.0, true));
 
@@ -79,6 +83,5 @@ Autonomous *Autonomous::createCollect6PyraInner() {
 
 	cmd->AddSequential(new ArmShooter(ArmShooter::kOff));
 	cmd->AddSequential(new ChangeShooterPitch(0));
-
 	return cmd;
 }
