@@ -5,7 +5,6 @@ ExtendClimber::ExtendClimber(bool position) :
 	Requires(climber);
 	this->position = position;
 	SetTimeout(((double) CLIMBER_PNEUMATIC_TIME) / 1000.0);
-	SetInterruptible(false);
 }
 
 void ExtendClimber::Initialize() {

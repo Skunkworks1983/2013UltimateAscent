@@ -20,19 +20,19 @@ Climber::~Climber() {
 }
 
 void Climber::setPokey(bool position) {
-	pokeySolenoid->Set(position);
+	pokeySolenoid->Set(!position);
 }
 
 bool Climber::getPokey() {
-	return pokeySolenoid->Get();
+	return !pokeySolenoid->Get();
 }
 
 void Climber::setClimberPneumatic(bool position) {
-	climberSolenoid->Set(position);
+	climberSolenoid->Set(!position);
 }
 
 bool Climber::getClimberPneumatic() {
-	return climberSolenoid->Get();
+	return !climberSolenoid->Get();
 }
 
 void Climber::InitDefaultCommand() {

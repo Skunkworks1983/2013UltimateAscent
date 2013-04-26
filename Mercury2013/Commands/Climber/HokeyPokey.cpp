@@ -5,7 +5,6 @@ HokeyPokey::HokeyPokey(bool position) :
 	Requires(climber);
 	this->position = position;
 	SetTimeout(((double) HOKEY_POKEY_TIME) / 1000.0);
-	SetInterruptible(false);
 }
 
 void HokeyPokey::Initialize() {

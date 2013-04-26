@@ -125,10 +125,10 @@ void OI::registerButtonSchedulers() {
 	shooterAngleChangeTrigger->WhenActive(
 			new CommandStarter(OI::createChangePitchFromOI));
 
-	pokeyStickButton->WhenPressed(new HokeyPokey(true));
-	pokeyStickButton->WhenReleased(new HokeyPokey(false));
-	climberRackButton->WhenPressed(new ExtendClimber(true));
-	climberRackButton->WhenReleased(new ExtendClimber(false));
+	pokeyStickButton->WhenPressed(new HokeyPokey(false));
+	pokeyStickButton->WhenReleased(new HokeyPokey(true));
+	climberRackButton->WhenPressed(new ExtendClimber(false));
+	climberRackButton->WhenReleased(new ExtendClimber(true));
 
 	collectorSlotButton->WhenPressed(new ShooterSlotLoad());
 	shooterCollectorButton->WhenPressed(new CollectorShooterLoad());
