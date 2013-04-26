@@ -138,9 +138,9 @@
 #define SHOOTER_PITCH_SLOT_COLLECT				(0.5)
 #define SHOOTER_PITCH_STABILITY					(7)
 
-#define SHOOTER_PITCH_PYRAMID_BACK				(.55)/*.55*//*.5325*//*.53*//*(.575)(.600)(.637)*/
+#define SHOOTER_PITCH_PYRAMID_BACK				(.61)/*.55*//*.5325*//*.53*//*(.575)(.600)(.637)*/
 #define SHOOTER_PITCH_PYRAMID_SIDE				(.65)
-#define SHOOTER_PITCH_PYRAMID_FRONT				(.93)/*.92*/ /*.9225*//* .95 */
+#define SHOOTER_PITCH_PYRAMID_FRONT				(.95)/*.92*/ /*.9225*//* .95 */
 
 #define SHOOTER_LIGHT							(2) /* The shooter light relay */
 #define SHOOTER_DEFAULT_CONTROL					Shooter::kPowerBang

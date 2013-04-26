@@ -2,6 +2,8 @@
 
 #include "../WaitForCommand.h"
 #include "../Shooter/Shoot.h"
+#include "../../Utils/DistanceTrigger.h"
+#include "../WaitForTrigger.h"
 #include "../Shooter/ArmShooter.h"
 #include "../Shooter/ChangeShooterPitch.h"
 #include "../Collector/MoveCollectorArm.h"
@@ -20,21 +22,33 @@ Autonomous *Autonomous::createCollect6PyraInner() {
 			new DriveDistance(-9.42, AUTO_DRIVE_DIST_STABILITY / 3.0,
 					AUTO_DRIVE_DIST_THRESHOLD * 1.5));
 	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
+
 	CommandGroup *bgCollect = new CommandGroup();
 	bgCollect->AddSequential(new Collect(7500.0));
 	bgCollect->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
+	bgCollect->AddSequential(
+			new WaitForTrigger(
+					new DistanceTrigger(76.25 - AUTO_DRIVE_DIST_THRESHOLD,
+							CommandBase::driveBase->getLeftEncoder(),
+							CommandBase::driveBase->getRightEncoder())));
+	bgCollect->AddSequential(new ArmShooter(ArmShooter::kOn));
+	bgCollect->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_MID));
+	bgCollect->AddSequential(new EjectDisks(Collector::kForward));
+	bgCollect->AddParallel(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
+	bgCollect->AddSequential(
+			new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT, true));
+	
 	cmd->AddParallel(bgCollect);
-	cmd->AddSequential(
-			(new DriveDistance(76.25))->setOutputRange(
-					0.0, .75));
-
+	cmd->AddSequential((new DriveDistance(76.25))->setOutputRange(0.0, .75));
+	
 	//Put into shooter block
-	cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
+	cmd->AddSequential(new WaitForCommand(bgCollect));
+	/*cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
 	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_MID));
 	cmd->AddSequential(new EjectDisks(Collector::kForward));
 	cmd->AddParallel(new MoveCollectorArm(COLLECTOR_PITCH_FLOOR));
 	cmd->AddSequential(
-			new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT, true));
+			new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT, true));*/
 
 	//Now shoot the 4
 	cmd->AddSequential(new Shoot());
