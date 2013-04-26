@@ -41,11 +41,9 @@
 #define AUTO_TURN_SPEED_RANGE 			(AUTO_TURN_SPEED_MAX - AUTO_TURN_SPEED_MIN) /* Speed Range */
 #define AUTO_DRIVE_DIST_SLOW_DOWN		(24.0)
 #define AUTO_DRIVE_DIST_THRESHOLD		(3)		/* Inches, stopping tolerance */
-#define AUTO_DRIVE_DIST_CATCHUP			(1.5)		/* Inches, catchup distance */
+#define AUTO_DRIVE_DIST_CATCHUP			(5)		/* Inches, catchup distance */
 #define AUTO_DRIVE_DIST_SPEED_MAX 		(0.5)   	/* Maximum speed allowed by DriveDistance */
-#define AUTO_DRIVE_DIST_SPEED_MIN		(.25)   	/* Minimum speed of robot.*/  
-// TODO reduce A_D_D_S_MIN to let robot crawl the last few feet.
-#define AUTO_DRIVE_DIST_SPEED_RANGE		(AUTO_DRIVE_DIST_SPEED_MAX - AUTO_DRIVE_DIST_SPEED_MIN)
+#define AUTO_DRIVE_DIST_SPEED_MIN		(.25)   	/* Minimum speed of robot.*/
 #define AUTO_DRIVE_DIST_STABILITY		(10) /* TODO: See what this is in order to reset the amound of ticks the encoders do. */
 // Autonomous Configuration Settings
 #define AUTO_SCRIPT_MAXLENGTH			(256)
@@ -128,19 +126,19 @@
 #define SHOOTER_PNEUMATIC						7,8
 // Shooter speed and pitch sensors
 #define SHOOTER_PITCH_SPEED						(1.0)
-#define SHOOTER_PITCH_SLOWDOWN_RANGE			(0.05)
-#define SHOOTER_PITCH_SLOWDOWN_SPEED			(1.0)
+#define SHOOTER_PITCH_SLOWDOWN_RANGE			(0.075)
+#define SHOOTER_PITCH_SLOWDOWN_SPEED			(0.65)
 #define SHOOTER_PITCH_ENCODER					12,13
 #define SHOOTER_PITCH_LIMIT_SWITCH				(11)
 #define SHOOTER_PITCH_UPPER_LIMIT				(1.0)
 #define SHOOTER_PITCH_DEGREES_PER_PULSE			(1.0/27500.0*360.0/-256.0)
 // Shooter pitch control info
-#define SHOOTER_PITCH_THRESHOLD					(0.0125)  /*Random units; scalar of shooter angle */
+#define SHOOTER_PITCH_THRESHOLD					(0.0115)  /*Random units; scalar of shooter angle */
 #define SHOOTER_PITCH_COLLECT					(0)
 #define SHOOTER_PITCH_SLOT_COLLECT				(0.5)
-#define SHOOTER_PITCH_STABILITY					(25)
+#define SHOOTER_PITCH_STABILITY					(7)
 
-#define SHOOTER_PITCH_PYRAMID_BACK				(.5375)/*.55*//*.5325*//*.53*//*(.575)(.600)(.637)*/
+#define SHOOTER_PITCH_PYRAMID_BACK				(.55)/*.55*//*.5325*//*.53*//*(.575)(.600)(.637)*/
 #define SHOOTER_PITCH_PYRAMID_SIDE				(.65)
 #define SHOOTER_PITCH_PYRAMID_FRONT				(.92) /*.9225*//* .95 */
 
@@ -196,7 +194,7 @@
 #define COLLECTOR_FRISBEE_STOP_DOWN				(0)
 
 #define COLLECTOR_COLLECT_TIMEOUT				(1000) /* (millis) */
-#define COLLECTOR_COLLECT_STOP_DELAY			(150) /* millis between light sensor trigger and collector wheel stop */
+#define COLLECTOR_COLLECT_STOP_DELAY			(20) /* millis between light sensor trigger and collector wheel stop */
 
 #define COLLECTOR_SHOOTER_INTERFERENCE_HIGH		(85)
 #define COLLECTOR_SHOOTER_INTERFERENCE_LOW		(50)

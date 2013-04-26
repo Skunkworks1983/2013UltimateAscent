@@ -29,6 +29,7 @@ void UpdateOI::Execute() {
 				collectorArms->getAngle());
 		SmartDashboard::PutNumber("Collector L Angle",
 				collectorArms->getLeftAngle());
+		SmartDashboard::PutNumber("Gyro", driveBase->getGyro()->GetAngle());
 		SmartDashboard::PutNumber("Collector R Angle",
 				collectorArms->getRightAngle());
 		SmartDashboard::PutNumber("Collector Frisbee Count",

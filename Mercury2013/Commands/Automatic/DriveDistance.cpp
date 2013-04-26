@@ -29,13 +29,14 @@ DriveDistance *DriveDistance::setOutputRange(float min, float max) {
 }
 
 void DriveDistance::Initialize() {
-	if ((~reset) & 1) {
+	if (!reset) {
 		targetDistance = ((targetDistance
 				- driveBase->getLeftEncoder()->GetDistance()) + (targetDistance
 				- driveBase->getRightEncoder()->GetDistance())) / 2.0;
 	}
 	driveBase->getLeftEncoder()->Reset();
 	driveBase->getRightEncoder()->Reset();
+	driveBase->getGyro()->Reset();
 	stability = 0;
 }
 
@@ -44,18 +45,31 @@ void DriveDistance::Execute() {
 			- driveBase->getLeftEncoder()->GetDistance();
 	rightDistanceRemaining = targetDistance
 			- driveBase->getRightEncoder()->GetDistance();
-	float lSpeed = getSpeedFor(leftDistanceRemaining, driveBase->getLeftEncoder()->GetRate());
-	float rSpeed = getSpeedFor(rightDistanceRemaining, driveBase->getRightEncoder()->GetRate());
-	float errorM = fmin(
-			fmax(
-					(AUTO_DRIVE_DIST_CATCHUP - fabs(
-							rightDistanceRemaining - leftDistanceRemaining))
-							/ AUTO_DRIVE_DIST_CATCHUP, 0.0), 1.0);
-	if (fabs(rightDistanceRemaining) > fabs(leftDistanceRemaining)) {
-		lSpeed *= errorM;
-	} else {
-		rSpeed *= errorM;
+	float lSpeed = getSpeedFor(leftDistanceRemaining,
+			driveBase->getLeftEncoder()->GetRate());
+	float rSpeed = getSpeedFor(rightDistanceRemaining,
+			driveBase->getRightEncoder()->GetRate());
+#if 1 /* USE GYRO STRAIGHT*/
+	float curve = driveBase->getGyro()->GetAngle() * fsign(
+			(rSpeed + lSpeed) / 2.0);
+	float ratio = 1.0 - (fabs(curve) / 2.0);
+	if (curve < 0.0) {
+		rSpeed *= ratio;
+	} else if (curve > 0.0) {
+		lSpeed *= ratio;
 	}
+#else
+	lSpeed *= fmax(
+			fmin(
+					(AUTO_DRIVE_DIST_CATCHUP - (rightDistanceRemaining
+									- leftDistanceRemaining))
+					/ AUTO_DRIVE_DIST_CATCHUP, 1.0), 0.0);
+	rSpeed *= fmax(
+			fmin(
+					(AUTO_DRIVE_DIST_CATCHUP - (leftDistanceRemaining
+									- rightDistanceRemaining))
+					/ AUTO_DRIVE_DIST_CATCHUP, 1.0), 0.0);
+#endif
 	driveBase->setSpeed(lSpeed, rSpeed);
 	if ((fabs(leftDistanceRemaining) <= threshold) || (fabs(
 			rightDistanceRemaining) <= threshold)) {
@@ -86,11 +100,4 @@ void DriveDistance::End() {
 
 void DriveDistance::Interrupted() {
 	driveBase->setSpeed(0.0, 0.0);
-}
-
-Command *DriveDistance::invertDriveCommand(void *arg) {
-	DriveDistance *orig = (DriveDistance*) arg;
-	float leftD = -(orig->targetDistance - orig->leftDistanceRemaining);
-	float rightD = -(orig->targetDistance - orig->rightDistanceRemaining);
-	return new DriveDistance((leftD + rightD) / 2.0);
 }

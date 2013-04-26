@@ -12,9 +12,9 @@
  */
 class ChangeShooterPitch: public CommandBase {
 private:
-	bool outOfBounds;
 	float targetPitch;
 	bool waitForCollector;
+	int stability;
 public:
 	ChangeShooterPitch(float targetPitch, bool waitForCollector = true);
 	virtual void Initialize();

@@ -17,6 +17,7 @@ private:
 	SendableChooser *chooser;
 	void printVersion();
 	int cache;
+	bool registeredButtons;
 public:
 	virtual void RobotInit();
 	void updateRealLoopsPerSecond();

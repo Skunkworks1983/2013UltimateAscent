@@ -5,6 +5,7 @@
 #include "Commands/Automatic/DriveDistance.h"
 #include "Commands/Automatic/TurnDegree.h"
 #include "Commands/Shooter/TunePitchEncoder.h"
+#include "Commands/Shooter/ArmShooter.h"
 #include "Utils/Scripting.h"
 #include "Utils/Time.h"
 #include "Subsystems/CollectorArmController.h"
@@ -24,7 +25,7 @@ void UFOBot::RobotInit() {
 	printVersion();
 	cache = 0;
 	sumRate = 0.0;
-	CommandBase::oi->registerButtonSchedulers();
+	registeredButtons = false;
 }
 
 void UFOBot::updateRealLoopsPerSecond() {
@@ -60,6 +61,9 @@ void UFOBot::DefaultInit() {
 	CommandBase::driveBase->reset();
 	CommandBase::driveBase->shift(false);
 	CommandBase::driveBase->setMotorScalingFactor(1.0);
+	CommandBase::shooter->setArmed(false);
+	CommandBase::climber->setPokey(false);
+	CommandBase::climber->setClimberPneumatic(false);
 	if (!CommandBase::shooterPitch->isPitchTuned()) {
 		Scheduler::GetInstance()->AddCommand(new TunePitchEncoder());
 	}
@@ -68,6 +72,10 @@ void UFOBot::DefaultInit() {
 
 void UFOBot::TeleopInit() {
 	DefaultInit();
+	if (!registeredButtons) {
+		CommandBase::oi->registerButtonSchedulers();
+		registeredButtons = true;
+	}
 }
 
 void UFOBot::TeleopPeriodic() {
@@ -86,9 +94,9 @@ void UFOBot::DisabledPeriodic() {
 
 void UFOBot::printVersion() {
 	DriverStationLCD::GetInstance()->Printf(DriverStationLCD::kUser_Line1, 1,
-			"Version 1.7.0");
+			"Version 1.7.1");
 	DriverStationLCD::GetInstance()->Printf(DriverStationLCD::kUser_Line2, 1,
-			"Curie Initial");
+			"Thursday's Curry");
 	DriverStationLCD::GetInstance()->Printf(DriverStationLCD::kUser_Line3, 1,
 			"%s %s", __TIME__, __DATE__);
 	DriverStationLCD::GetInstance()->UpdateLCD();

@@ -23,9 +23,9 @@ ShooterPitch::ShooterPitch() :
 
 	pitchLimitSwitch = new DigitalInput(SHOOTER_PITCH_LIMIT_SWITCH);
 
-//	pitchMotor = new StallableMotor(pitchMotorBackend, pitchEncoder);
+	//	pitchMotor = new StallableMotor(pitchMotorBackend, pitchEncoder);
 
-	LiveWindow::GetInstance()->AddSensor("Shooter Pitch", "Pitch Encoder",
+			LiveWindow::GetInstance()->AddSensor("Shooter Pitch","Pitch Encoder",
 			pitchEncoder);
 	LiveWindow::GetInstance()->AddSensor("Shooter Pitch", "Pitch Limit Switch",
 			pitchLimitSwitch);
@@ -45,10 +45,10 @@ ShooterPitch::~ShooterPitch() {
 	//delete pitchMotorBackend;
 }
 
-bool ShooterPitch::setPitchMotorSpeed(float direction) {
+bool ShooterPitch::setPitchMotorSpeed(float direction, float error) {
 	float speed = fsign(direction);
-	if (pitchEncoder->GetDistance() < SHOOTER_PITCH_SLOWDOWN_RANGE && speed
-			< 0.0) {
+	if ((pitchEncoder->GetDistance() < SHOOTER_PITCH_SLOWDOWN_RANGE && speed
+			< 0.0) || (error > 0.0 && error < SHOOTER_PITCH_SLOWDOWN_RANGE)) {
 		speed *= SHOOTER_PITCH_SLOWDOWN_SPEED;
 	} else {
 		speed *= SHOOTER_PITCH_SPEED;

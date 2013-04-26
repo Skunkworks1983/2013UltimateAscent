@@ -12,7 +12,7 @@ void TunePitchEncoder::Initialize() {
 }
 
 void TunePitchEncoder::Execute() {
-	shooterPitch->setPitchMotorSpeed(-1.0);
+	shooterPitch->setPitchMotorSpeed(-1.0, -1.0);
 }
 
 bool TunePitchEncoder::IsFinished() {
@@ -21,11 +21,11 @@ bool TunePitchEncoder::IsFinished() {
 
 void TunePitchEncoder::End() {
 	//Forces the shooter to reset it
-	shooterPitch->setPitchMotorSpeed(-1.0);
-	shooterPitch->setPitchMotorSpeed(0);
+	shooterPitch->setPitchMotorSpeed(-1.0, -1.0);
+	shooterPitch->setPitchMotorSpeed(0, -1.0);
 }
 
 void TunePitchEncoder::Interrupted() {
-	shooterPitch->setPitchMotorSpeed(-1.0);
-	shooterPitch->setPitchMotorSpeed(0);
+	shooterPitch->setPitchMotorSpeed(-1.0, -1.0);
+	shooterPitch->setPitchMotorSpeed(0, -1.0);
 }

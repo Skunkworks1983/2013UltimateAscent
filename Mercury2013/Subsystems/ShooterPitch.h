@@ -29,7 +29,7 @@ public:
 	float getCurrentPitch();
 	float getRealPitch();
 	float getMathPitch();
-	bool setPitchMotorSpeed(float f);
+	bool setPitchMotorSpeed(float f, float error);
 	bool isPitchGrounded();
 	bool isPitchTuned();
 	

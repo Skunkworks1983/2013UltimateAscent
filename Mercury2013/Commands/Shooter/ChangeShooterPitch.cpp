@@ -14,11 +14,11 @@ ChangeShooterPitch::ChangeShooterPitch(float targetPitch, bool waitForCollector)
 	if (this->targetPitch > 1.0) {
 		this->targetPitch = 1.0;
 	}
-	this->outOfBounds = false;
 	this->waitForCollector = waitForCollector;
 }
 
 void ChangeShooterPitch::Initialize() {
+	this->stability = 0;
 }
 
 void ChangeShooterPitch::Execute() {
@@ -26,28 +26,38 @@ void ChangeShooterPitch::Execute() {
 			&& collectorArms->getAngle() < COLLECTOR_SHOOTER_INTERFERENCE_HIGH
 			&& targetPitch > SHOOTER_COLLECTOR_INTERFERENCE_LOW && targetPitch
 			< SHOOTER_COLLECTOR_INTERFERENCE_HIGH) {
-		outOfBounds = !waitForCollector;
+		stability = waitForCollector ? 0 : SHOOTER_PITCH_STABILITY;
 		return;
 	}
 	float pitchOffset = shooterPitch->getCurrentPitch() - targetPitch;
-	if ((targetPitch < 0.0 && shooterPitch->isPitchGrounded()) || fabs(
-			pitchOffset) < SHOOTER_PITCH_THRESHOLD) {
-		shooterPitch->setPitchMotorSpeed(0);
-		outOfBounds = true;
+	if (fabs(pitchOffset) <= SHOOTER_PITCH_THRESHOLD) {
+		if (fabs(pitchOffset) <= SHOOTER_PITCH_THRESHOLD / 1.25) {
+			shooterPitch->setPitchMotorSpeed(0, -1.0);
+		} else {
+			shooterPitch ->setPitchMotorSpeed(pitchOffset < 0 ? 1 : -1,
+					fabs(pitchOffset));
+		}
+		stability++;
+	} else if (targetPitch <= 0.0 && shooterPitch->isPitchGrounded()) {
+		shooterPitch->setPitchMotorSpeed(0, -1.0);
+		stability = SHOOTER_PITCH_STABILITY;
 	} else {
-		outOfBounds = !shooterPitch->setPitchMotorSpeed(
-				pitchOffset < 0 ? 1 : -1);
+		stability = shooterPitch->setPitchMotorSpeed(pitchOffset < 0 ? 1 : -1,
+				fabs(pitchOffset)) ? 0 : SHOOTER_PITCH_STABILITY;
 	}
 }
 
 bool ChangeShooterPitch::IsFinished() {
-	return !shooterPitch->isPitchTuned() || outOfBounds;
+	return !shooterPitch->isPitchTuned() || stability
+			>= SHOOTER_PITCH_STABILITY;
 }
 
 void ChangeShooterPitch::End() {
-	shooterPitch->setPitchMotorSpeed(0);
+	printf("End of shooter pitch..\n");
+	shooterPitch->setPitchMotorSpeed(0, 0);
 }
 
 void ChangeShooterPitch::Interrupted() {
-	shooterPitch->setPitchMotorSpeed(0);
+	printf("End of shooter pitch..\n");
+	shooterPitch->setPitchMotorSpeed(0, 0);
 }

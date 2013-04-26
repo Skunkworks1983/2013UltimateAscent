@@ -45,6 +45,5 @@ public:
 	virtual bool IsFinished();
 	virtual void End();
 	virtual void Interrupted();
-	static Command* invertDriveCommand(void *arg);
 };
 #endif
