@@ -14,6 +14,7 @@
 #include "../Shooter/ArmShooter.h"
 #include "../Drivebase/Shift.h"
 #include "../WaitForTrigger.h"
+#include "../WaitForCommand.h"
 
 Autonomous::Autonomous() :
 	CommandGroup("Autonomous-Blank") {
@@ -105,16 +106,19 @@ Autonomous *Autonomous::createCollect6PyraInner() {
 	cmd->AddSequential(new Collect(7500.0));
 	cmd->AddSequential(new ChangeShooterPitch(0.0, true));
 
-	cmd->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_MID));
-	cmd->AddSequential(new EjectDisks(Collector::kForward));
+	CommandGroup *putIntoShooter = new CommandGroup();
+	putIntoShooter->AddSequential(new MoveCollectorArm(COLLECTOR_PITCH_MID));
+	putIntoShooter->AddSequential(new EjectDisks(Collector::kForward));
 
-	cmd->AddParallel(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
-	cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
-	cmd->AddParallel(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT, true));
+	putIntoShooter->AddParallel(new MoveCollectorArm(COLLECTOR_PITCH_DOWN));
+	putIntoShooter->AddSequential(new ArmShooter(ArmShooter::kOn));
+	putIntoShooter->AddParallel(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT, true));
+	putIntoShooter->AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT));
+	cmd->AddParallel(putIntoShooter);
 	cmd->AddSequential(
 			(new DriveDistance(-24.0))->setOutputRange(
 					AUTO_DRIVE_DIST_SPEED_MIN, .65));
-	cmd->AddSequential(new ChangeShooterPitch(SHOOTER_PITCH_PYRAMID_FRONT));
+	cmd->AddSequential(new WaitForCommand(putIntoShooter));
 
 	cmd->AddSequential(new Shoot());
 	cmd->AddSequential(new Shoot());
