@@ -27,10 +27,6 @@ DrivePIDDistance::DrivePIDDistance(float targetDistance, float tStable,
 			AUTO_DRIVE_DIST_SPEED_MAX);
 	pidRight->SetAbsoluteTolerance(tThresh);
 	pidRight->SetSetpoint(targetDistance);
-
-	SmartDashboard::PutNumber("P", pidRight->GetP());
-	SmartDashboard::PutNumber("I", pidRight->GetI());
-	SmartDashboard::PutNumber("D", pidRight->GetD());
 }
 
 DrivePIDDistance::~DrivePIDDistance() {
@@ -56,19 +52,7 @@ void DrivePIDDistance::Initialize() {
 	stability = 0;
 }
 
-int i = 0;
 void DrivePIDDistance::Execute() {
-	if (i++ > 10) {
-		i = 0;
-		SmartDashboard::PutNumber("Left",
-				driveBase->getLeftEncoder()->GetDistance());
-		SmartDashboard::PutNumber("Right",
-				driveBase->getRightEncoder()->GetDistance());
-		pidRight->SetPID(SmartDashboard::GetNumber("P"),
-				SmartDashboard::GetNumber("I"), SmartDashboard::GetNumber("D"));
-		pidLeft->SetPID(SmartDashboard::GetNumber("P"),
-				SmartDashboard::GetNumber("I"), SmartDashboard::GetNumber("D"));
-	}
 }
 
 double DrivePIDDistance::getLeft() {
@@ -85,7 +69,6 @@ void DrivePIDDistance::writeLeft(float f) {
 	driveBase->setLeftSpeed(f);
 	if (li++ > 10) {
 		li = 0;
-		SmartDashboard::PutNumber("LSP", f);
 	}
 }
 void DrivePIDDistance::writeRight(float f) {

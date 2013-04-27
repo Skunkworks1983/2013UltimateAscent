@@ -232,6 +232,6 @@
 #define DEBUG_SEVERE							(0)
 #define DEBUG_INFO								(1)
 #define DEBUG_WARNING							(2)
-#define DEBUG_LEVEL								DEBUG_INFO
+#define DEBUG_LEVEL								DEBUG_SEVERE
 #endif
 

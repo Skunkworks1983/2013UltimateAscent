@@ -24,6 +24,7 @@ Autonomous *Autonomous::createJustShootBack() {
 	Autonomous *cmd = new Autonomous("Autonomous-JustShootPyraBack");
 	cmd->AddSequential(new ArmShooter(ArmShooter::kOn));
 	cmd->AddSequential(new ChangeShooterPitch(.520)); //.55 = Natural back
+	cmd->AddSequential(new WaitUntilCommand(9.0));
 
 	cmd->AddSequential(new Shoot());
 	cmd->AddSequential(new Shoot());

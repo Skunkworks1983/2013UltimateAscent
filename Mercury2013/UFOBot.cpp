@@ -37,10 +37,12 @@ void UFOBot::updateRealLoopsPerSecond() {
 	}
 	sumRate *= 0.75;
 	sumRate += rate * 0.25;
+#if (DEBUG_LEVEL>=DEBUG_INFO)
 	if (++cache > OI_DASH_UPDATE_SPEED) {
 		cache = 0;
 		SmartDashboard::PutNumber("Loops per Second", sumRate);
 	}
+#endif
 }
 void UFOBot::AutonomousInit() {
 	DefaultInit();
